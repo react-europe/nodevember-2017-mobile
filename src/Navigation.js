@@ -61,6 +61,7 @@ _.each(FullSchedule, (day, i) => {
 });
 
 const ScheduleNavigation = TabNavigator(navSchedule, {
+  initialRouteName: moment().format('dddd'),
   lazy: true,
   swipeEnabled: false,
   animationEnabled: false,
