@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { ScrollView, RectButton } from 'react-native-gesture-handler';
-import { Entypo, MaterialIcons, MaterialCommunityIcons, Foundation } from '@expo/vector-icons';
+import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Colors } from '../constants'
 import { BoldText, SemiBoldText, RegularText } from './StyledText';
