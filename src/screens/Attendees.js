@@ -209,7 +209,7 @@ class DeferredAttendeesContent extends React.Component {
               <React.Fragment>
                 <TextInput
                   onChangeText={text => this.setState({ query: text })}
-                  placeholder="Search a conference attendee here"
+                  placeholder="Search for conference attendees"
                   autoCapitalize="none"
                   autoCorrect={false}
                   clearButtonMode="while-editing"
