@@ -8,6 +8,8 @@ export default class CachedImage extends React.Component {
     source: null,
   };
 
+  unmounting: false
+
   async componentDidMount() {
     let source = this.props.source;
 
@@ -28,8 +30,14 @@ export default class CachedImage extends React.Component {
     } catch (e) {
       console.log(e);
     } finally {
-      this.setState({ source });
+      if (!this.unmounting) {
+        this.setState({ source });
+      }
     }
+  }
+
+  componentWillUnmount() {
+    this.unmounting = true
   }
 
   render() {
