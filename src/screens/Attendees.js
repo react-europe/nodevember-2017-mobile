@@ -163,47 +163,46 @@ class DeferredAttendeesContent extends React.Component {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
-
             const attendees = data && data.events && data.events[0] ? data.events[0].attendees : [];
-            const filteredAttendees = attendees.filter(attendee => {
+            const filteredAttendees = [];
+            const attendeesSearchRankingScore = {};
+            attendees.forEach(attendee => {
               const fullName = `${attendee.firstName} ${attendee.lastName}`;
-              return fullName
+              const matchesName = fullName
                 .toLowerCase()
                 .trim()
                 .includes(cleanedQuery);
-            });
-            const filteredNameAttendees = attendees.filter(attendee => {
-              const fullName = `${attendee.firstName} ${attendee.lastName}`;
-              return fullName
+              const matchesEmail = attendee.email
                 .toLowerCase()
                 .trim()
                 .includes(cleanedQuery);
+              const matchesTwitter = this.getContactTwitter(attendee)
+                .toLowerCase()
+                .trim()
+                .includes(cleanedQuery);
+
+              attendeesSearchRankingScore[`${attendee.id}`] = 0;
+              if (matchesName || matchesEmail || matchesTwitter) {
+                filteredAttendees.push(attendee);
+              }
+              if (matchesName) {
+                attendeesSearchRankingScore[`${attendee.id}`] += 1;
+              }
+              if (matchesEmail) {
+                attendeesSearchRankingScore[`${attendee.id}`] += 1;
+              }
+              if (matchesTwitter) {
+                attendeesSearchRankingScore[`${attendee.id}`] += 1;
+              }
             });
-            const filteredEmailAttendees = attendees.filter(attendee =>
-              attendee.email
-                .toLowerCase()
-                .trim()
-                .includes(cleanedQuery)
-            );
-            const filteredTwitterAttendees = attendees.filter(attendee =>
-              this.getContactTwitter(attendee)
-                .toLowerCase()
-                .trim()
-                .includes(cleanedQuery)
-            );
-
-            const sections = [];
-            if (filteredNameAttendees.length > 0) {
-              sections.push({ title: 'Name', data: filteredNameAttendees });
-            }
-            if (filteredEmailAttendees.length > 0) {
-              sections.push({ title: 'Email', data: filteredEmailAttendees });
-            }
-            if (filteredTwitterAttendees.length > 0) {
-              sections.push({ title: 'Twitter', data: filteredTwitterAttendees });
-            }
-
-            console.log('Attendees: ', filteredNameAttendees);
+            const sortedFilteredAttendees = filteredAttendees.sort((attendee1, attendee2) => {
+              return (
+                attendeesSearchRankingScore[`${attendee2.id}`] -
+                attendeesSearchRankingScore[`${attendee1.id}`]
+              );
+            });
+            console.log('Attendees: ', sortedFilteredAttendees);
+            console.log('Rankings: ', attendeesSearchRankingScore);
 
             return (
               <React.Fragment>
@@ -220,7 +219,7 @@ class DeferredAttendeesContent extends React.Component {
                   renderScrollComponent={props => <ScrollView {...props} />}
                   renderItem={this._renderItem}
                   renderHeader={this._renderHeader}
-                  data={filteredAttendees}
+                  data={sortedFilteredAttendees}
                   keyExtractor={item => `${item.id}`}
                   initialNumToRender={10}
                   keyboardDismissMode="on-drag"
