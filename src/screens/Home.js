@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Animated,
   Linking,
@@ -10,7 +10,7 @@ import {
   StyleSheet,
   AsyncStorage,
   View
-} from "react-native";
+} from 'react-native'
 import {
   Asset,
   LinearGradient,
@@ -18,42 +18,42 @@ import {
   Video,
   Permissions,
   Notifications
-} from "expo";
-import { BorderlessButton, RectButton } from "react-native-gesture-handler";
-import { NavigationActions } from "react-navigation";
-import FadeIn from "react-native-fade-in-image";
-import { View as AnimatableView } from "react-native-animatable";
-import { Ionicons } from "@expo/vector-icons";
-import { withNavigation } from "react-navigation";
+} from 'expo'
+import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
+import { NavigationActions } from 'react-navigation'
+import FadeIn from 'react-native-fade-in-image'
+import { View as AnimatableView } from 'react-native-animatable'
+import { Ionicons } from '@expo/vector-icons'
+import { withNavigation } from 'react-navigation'
 
-import AnimatedScrollView from "../components/AnimatedScrollView";
-import NavigationBar from "../components/NavigationBar";
-import TalksUpNext from "../components/TalksUpNext";
-import MenuButton from "../components/MenuButton";
-import VideoBackground from "../components/VideoBackground";
-import { BoldText, SemiBoldText } from "../components/StyledText";
-import { connectDrawerButton } from "../Navigation";
-import { Colors, FontSizes, Layout, GQL } from "../constants";
-import { Speakers, Talks } from "../data";
+import AnimatedScrollView from '../components/AnimatedScrollView'
+import NavigationBar from '../components/NavigationBar'
+import TalksUpNext from '../components/TalksUpNext'
+import MenuButton from '../components/MenuButton'
+import VideoBackground from '../components/VideoBackground'
+import { BoldText, SemiBoldText } from '../components/StyledText'
+import { connectDrawerButton } from '../Navigation'
+import { Colors, FontSizes, Layout, GQL } from '../constants'
+import { Speakers, Talks } from '../data'
 import {
   HideWhenConferenceHasStarted,
   HideWhenConferenceHasEnded,
   ShowWhenConferenceHasEnded
-} from "../utils";
-export const Schedule = require("../data/schedule.json");
-const Event = Schedule.events[0];
+} from '../utils'
+export const Schedule = require('../data/schedule.json')
+const Event = Schedule.events[0]
 
 class Home extends React.Component {
   state = {
     scrollY: new Animated.Value(0)
-  };
+  }
   render() {
-    const { scrollY } = this.state;
+    const { scrollY } = this.state
     const headerOpacity = scrollY.interpolate({
       inputRange: [0, 150],
       outputRange: [0, 1],
-      extrapolate: "clamp"
-    });
+      extrapolate: 'clamp'
+    })
 
     return (
       <View style={{ flex: 1 }}>
@@ -72,16 +72,16 @@ class Home extends React.Component {
         >
           <View
             style={{
-              backgroundColor: "#4d5fab",
+              backgroundColor: '#4d5fab',
               padding: 10,
               paddingTop: Layout.headerHeight - 10,
-              justifyContent: "center",
-              alignItems: "center"
+              justifyContent: 'center',
+              alignItems: 'center'
             }}
           >
             <Image
-              source={require("../assets/logo.png")}
-              style={{ width: 220, height: 60, resizeMode: "contain" }}
+              source={require('../assets/logo.png')}
+              style={{ width: 220, height: 60, resizeMode: 'contain' }}
               tintColor="#fff"
             />
             <View style={styles.headerContent}>
@@ -112,75 +112,72 @@ class Home extends React.Component {
           <OverscrollView />
         </AnimatedScrollView>
 
-        <NavigationBar
-          renderLeftButton={() => <MenuButton />}
-          animatedBackgroundOpacity={headerOpacity}
-        />
+        <NavigationBar animatedBackgroundOpacity={headerOpacity} />
       </View>
-    );
+    )
   }
 
   _openTickets = () => {
-    Linking.openURL(Event.websiteUrl + "#tickets");
-  };
+    Linking.openURL(Event.websiteUrl + '#tickets')
+  }
 }
 
 @withNavigation
 class DeferredHomeContent extends React.Component {
   state = {
-    ready: Platform.OS === "android" ? false : true,
+    ready: Platform.OS === 'android' ? false : true,
     hasCameraPermission: null,
     Notification: {},
     tickets: []
-  };
+  }
 
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem("@MySuperStore:tickets");
+      const value = await AsyncStorage.getItem('@MySuperStore:tickets')
       // console.log("tickets", value);
-      this.setState({ tickets: JSON.parse(value) });
-      this.tickets = JSON.parse(value);
+      this.setState({ tickets: JSON.parse(value) })
+      this.tickets = JSON.parse(value)
     } catch (err) {
-      console.log(err);
-      return [];
+      console.log(err)
+      return []
     }
   }
 
   constructor(props) {
-    super(props);
-    this.getTickets();
+    super(props)
+    this.getTickets()
   }
 
   componentDidMount() {
     this._notificationSubscription = Notifications.addListener(
       this._handleNotification
-    );
+    )
 
     if (this.state.ready) {
-      return;
+      return
     }
     setTimeout(() => {
-      this.setState({ ready: true });
-    }, 200);
+      this.setState({ ready: true })
+    }, 200)
   }
   _handleNotification = notification => {
-    this.setState({ notification: notification });
+    this.setState({ notification: notification })
     if (notification && notification.data && notification.data.url) {
-      WebBrowser.openBrowserAsync(notification.data.url);
+      WebBrowser.openBrowserAsync(notification.data.url)
     }
-  };
+  }
   render() {
     if (!this.state.ready) {
-      return null;
+      return null
     }
-    const tix = this.state.tickets || [];
-    let staffCheckinLists = [];
-    let isStaff = false;
+    const tix = this.state.tickets || []
+    let staffCheckinLists = []
+    let isStaff = false
     tix.map(ticket => {
       if (ticket && ticket.type === 4) {
-        isStaff = true;
+        isStaff = true
       }
-    });
+    })
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         {isStaff ? (
@@ -213,7 +210,7 @@ class DeferredHomeContent extends React.Component {
           <ClipBorderRadius>
             <RectButton
               style={styles.bigButton}
-              onPress={() => this.props.navigation.navigate("Profile")}
+              onPress={() => this.props.navigation.navigate('Profile')}
               underlayColor="#fff"
             >
               <SemiBoldText style={styles.bigButtonText}>
@@ -237,7 +234,7 @@ class DeferredHomeContent extends React.Component {
           <ClipBorderRadius>
             <RectButton
               style={styles.bigButton}
-              onPress={() => this.props.navigation.navigate("Profile")}
+              onPress={() => this.props.navigation.navigate('Profile')}
               underlayColor="#fff"
             >
               <SemiBoldText style={styles.bigButtonText}>
@@ -291,7 +288,7 @@ class DeferredHomeContent extends React.Component {
             underlayColor="#fff"
           >
             <SemiBoldText style={styles.bigButtonText}>
-              {Platform.OS === "android" ? "Download" : "Open"} the conference
+              {Platform.OS === 'android' ? 'Download' : 'Open'} the conference
               map
             </SemiBoldText>
           </RectButton>
@@ -307,9 +304,9 @@ class DeferredHomeContent extends React.Component {
               name="logo-twitter"
               size={23}
               style={{
-                color: "#fff",
+                color: '#fff',
                 marginTop: 3,
-                backgroundColor: "transparent",
+                backgroundColor: 'transparent',
                 marginRight: 5
               }}
             />
@@ -319,55 +316,53 @@ class DeferredHomeContent extends React.Component {
           </RectButton>
         </ClipBorderRadius>
       </AnimatableView>
-    );
+    )
   }
 
   _handlePressAllTalks = () => {
     this.props.navigation.dispatch(
       NavigationActions.navigate({
-        routeName: "Schedule"
+        routeName: 'Schedule'
       })
-    );
-  };
+    )
+  }
 
   _handlePressCOCButton = () => {
-    WebBrowser.openBrowserAsync(Event.cocUrl);
-  };
+    WebBrowser.openBrowserAsync(Event.cocUrl)
+  }
 
   _handlePressQRButton = () => {
     this.props.navigation.navigate({
-      routeName: "QRScanner",
-      key: "QRScanner"
-    });
-  };
+      routeName: 'QRScanner',
+      key: 'QRScanner'
+    })
+  }
 
   _handlePressStaffCheckinListsButton = () => {
     // console.log("handle press checkinlists");
-    this.props.navigation.navigate("StaffCheckinLists");
-  };
+    this.props.navigation.navigate('StaffCheckinLists')
+  }
 
   _handlePressTwitterButton = async () => {
     try {
-      await Linking.openURL(
-        `twitter://user?screen_name=` + Event.twitterHandle
-      );
+      await Linking.openURL(`twitter://user?screen_name=` + Event.twitterHandle)
     } catch (e) {
-      WebBrowser.openBrowserAsync("https://twitter.com/" + Event.twitterHandle);
+      WebBrowser.openBrowserAsync('https://twitter.com/' + Event.twitterHandle)
     }
-  };
+  }
 
   _handlePressMapButton = () => {
     const params = encodeURIComponent(
-      Event.venueName + Event.venueCity + "," + Event.venueCountry
-    );
-    WebBrowser.openBrowserAsync("https://www.google.com/maps/search/" + params);
-  };
+      Event.venueName + Event.venueCity + ',' + Event.venueCountry
+    )
+    WebBrowser.openBrowserAsync('https://www.google.com/maps/search/' + params)
+  }
 }
 
 const OverscrollView = () => (
   <View
     style={{
-      position: "absolute",
+      position: 'absolute',
       top: -400,
       height: 400,
       left: 0,
@@ -375,26 +370,26 @@ const OverscrollView = () => (
       backgroundColor: Colors.blue
     }}
   />
-);
+)
 
 const ClipBorderRadius = ({ children, style }) => {
   return (
     <View
       style={[
-        { borderRadius: BORDER_RADIUS, overflow: "hidden", marginTop: 10 },
+        { borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10 },
         style
       ]}
     >
       {children}
     </View>
-  );
-};
+  )
+}
 
-const BORDER_RADIUS = 3;
+const BORDER_RADIUS = 3
 
 const styles = StyleSheet.create({
   headerContent: {
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 5,
     paddingVertical: 10
   },
@@ -407,14 +402,14 @@ const styles = StyleSheet.create({
     opacity: 0.8
   },
   headerText: {
-    color: "#fff",
-    textAlign: "center",
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 17,
     lineHeight: 17 * 1.5
   },
   headerSmallText: {
-    color: "#fff",
-    textAlign: "center",
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 7,
     lineHeight: 7 * 1.5
   },
@@ -423,21 +418,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     height: 50,
     marginHorizontal: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: BORDER_RADIUS,
-    overflow: "hidden",
-    flexDirection: "row"
+    overflow: 'hidden',
+    flexDirection: 'row'
   },
   bigButtonText: {
     fontSize: FontSizes.normalButton,
-    color: "#fff",
-    textAlign: "center"
+    color: '#fff',
+    textAlign: 'center'
   },
   seeAllTalks: {
     fontSize: FontSizes.normalButton,
     color: Colors.blue
   }
-});
+})
 
-export default Home;
+export default Home

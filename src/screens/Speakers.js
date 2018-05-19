@@ -1,31 +1,32 @@
-import React from 'react';
-import { Image, SectionList, StyleSheet, View, Text } from 'react-native';
-import FadeIn from 'react-native-fade-in-image';
-import { ScrollView, RectButton } from 'react-native-gesture-handler';
-import { getSpeakerTalk } from '../utils';
+import React from 'react'
+import { Image, SectionList, StyleSheet, View, Text } from 'react-native'
+import FadeIn from 'react-native-fade-in-image'
+import { ScrollView, RectButton } from 'react-native-gesture-handler'
+import { getSpeakerTalk } from '../utils'
 
-import { Colors } from '../constants';
-import MenuButton from '../components/MenuButton';
-import CachedImage from '../components/CachedImage';
-import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
-import LoadingPlaceholder from '../components/LoadingPlaceholder';
-import { getSpeakerAvatarURL } from '../utils';
+import { Colors } from '../constants'
+import MenuButton from '../components/MenuButton'
+import CachedImage from '../components/CachedImage'
+import { BoldText, SemiBoldText, RegularText } from '../components/StyledText'
+import LoadingPlaceholder from '../components/LoadingPlaceholder'
+import { getSpeakerAvatarURL } from '../utils'
 
-export const Schedule = require('../data/schedule.json');
-const FullSchedule = Schedule.events[0].groupedSchedule;
+export const Schedule = require('../data/schedule.json')
+const FullSchedule = Schedule.events[0].groupedSchedule
 
-const SpeakersAndTalks = Schedule.events[0].speakers;
-const SpeakersData = [{ data: SpeakersAndTalks, title: 'Speakers' }];
+const SpeakersAndTalks = Schedule.events[0].speakers
+const SpeakersData = [{ data: SpeakersAndTalks, title: 'Speakers' }]
 
 class SpeakerRow extends React.Component {
   render() {
-    const { item: speaker } = this.props;
+    const { item: speaker } = this.props
 
     return (
       <RectButton
         onPress={this._handlePress}
         activeOpacity={0.05}
-        style={{ flex: 1, backgroundColor: '#fff' }}>
+        style={{ flex: 1, backgroundColor: '#fff' }}
+      >
         <View style={styles.row}>
           <View style={styles.rowAvatarContainer}>
             <FadeIn>
@@ -46,12 +47,12 @@ class SpeakerRow extends React.Component {
           </View>
         </View>
       </RectButton>
-    );
+    )
   }
 
   _handlePress = () => {
-    this.props.onPress(this.props.item);
-  };
+    this.props.onPress(this.props.item)
+  }
 }
 
 export default class Speakers extends React.Component {
@@ -59,11 +60,10 @@ export default class Speakers extends React.Component {
     title: 'Speakers',
     headerStyle: { backgroundColor: Colors.blue },
     headerTintColor: 'white',
-    headerLeft: <MenuButton />,
     headerTitleStyle: {
-      fontFamily: 'open-sans-bold',
-    },
-  };
+      fontFamily: 'open-sans-bold'
+    }
+  }
 
   render() {
     return (
@@ -77,7 +77,7 @@ export default class Speakers extends React.Component {
           keyExtractor={(item, index) => index.toString()}
         />
       </LoadingPlaceholder>
-    );
+    )
   }
 
   _renderSectionHeader = ({ section }) => {
@@ -85,16 +85,16 @@ export default class Speakers extends React.Component {
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
       </View>
-    );
-  };
+    )
+  }
 
   _renderItem = ({ item }) => {
-    return <SpeakerRow item={item} onPress={this._handlePressRow} />;
-  };
+    return <SpeakerRow item={item} onPress={this._handlePressRow} />
+  }
 
   _handlePressRow = speaker => {
-    this.props.navigation.navigate('Details', { speaker });
-  };
+    this.props.navigation.navigate('Details', { speaker })
+  }
 }
 
 const styles = StyleSheet.create({
@@ -103,15 +103,15 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#eee',
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   rowAvatarContainer: {
     paddingVertical: 5,
     paddingRight: 10,
-    paddingLeft: 0,
+    paddingLeft: 0
   },
   rowData: {
-    flex: 1,
+    flex: 1
   },
   sectionHeader: {
     paddingHorizontal: 10,
@@ -119,6 +119,6 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     backgroundColor: '#eee',
     borderWidth: 1,
-    borderColor: '#eee',
-  },
-});
+    borderColor: '#eee'
+  }
+})

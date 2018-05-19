@@ -1,23 +1,23 @@
-import React from "react";
-import { SectionList, StyleSheet, View } from "react-native";
-import { StackNavigator } from "react-navigation";
-import { ScrollView, RectButton } from "react-native-gesture-handler";
-import _ from "lodash";
+import React from 'react'
+import { SectionList, StyleSheet, View } from 'react-native'
+import { StackNavigator } from 'react-navigation'
+import { ScrollView, RectButton } from 'react-native-gesture-handler'
+import _ from 'lodash'
 
-import { RegularText, SemiBoldText, BoldText } from "../components/StyledText";
-import LoadingPlaceholder from "../components/LoadingPlaceholder";
-import { Colors, Layout } from "../constants";
-import MenuButton from "../components/MenuButton";
-import SaveIconWhenSaved from "../components/SaveIconWhenSaved";
-import moment from "moment";
-import { convertUtcDateToEventTimezoneHour } from "../utils";
+import { RegularText, SemiBoldText, BoldText } from '../components/StyledText'
+import LoadingPlaceholder from '../components/LoadingPlaceholder'
+import { Colors, Layout } from '../constants'
+import MenuButton from '../components/MenuButton'
+import SaveIconWhenSaved from '../components/SaveIconWhenSaved'
+import moment from 'moment'
+import { convertUtcDateToEventTimezoneHour } from '../utils'
 
-import Schedule from "../data/schedule.json";
-const FullSchedule = Schedule.events[0].groupedSchedule;
+import Schedule from '../data/schedule.json'
+const FullSchedule = Schedule.events[0].groupedSchedule
 
 class ScheduleRow extends React.Component {
   render() {
-    const { item } = this.props;
+    const { item } = this.props
 
     const content = (
       <View style={[styles.row, item.talk && styles.rowStatic]}>
@@ -35,22 +35,22 @@ class ScheduleRow extends React.Component {
           : null}
         <RegularText>{item.room}</RegularText>
       </View>
-    );
+    )
 
     return (
       <RectButton
         activeOpacity={0.05}
         onPress={this._handlePress}
-        style={{ flex: 1, backgroundColor: "#fff" }}
+        style={{ flex: 1, backgroundColor: '#fff' }}
       >
         {content}
       </RectButton>
-    );
+    )
   }
 
   _handlePress = () => {
-    this.props.onPress && this.props.onPress(this.props.item);
-  };
+    this.props.onPress && this.props.onPress(this.props.item)
+  }
 }
 
 export default function ScheduleDay(options) {
@@ -58,27 +58,14 @@ export default function ScheduleDay(options) {
   const schedule = _.find(
     FullSchedule,
     schedule => schedule.title === options.day
-  );
+  )
 
-  const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
+  const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate)
   const slotsData = _.map(slotsByTime, (data, time) => {
-    return { data, title: convertUtcDateToEventTimezoneHour(time) };
-  });
+    return { data, title: convertUtcDateToEventTimezoneHour(time) }
+  })
 
   class ScheduleDayComponent extends React.Component {
-    static navigationOptions = {
-      title: Layout.isSmallDevice ? options.day : `${options.day} Schedule`,
-      headerStyle: { backgroundColor: Colors.blue },
-      headerTintColor: "white",
-      headerLeft: <MenuButton />,
-      tabBarLabel: options.day,
-      tabBarIcon: ({ tintColor }) => (
-        <BoldText style={{ fontSize: 20, color: tintColor }}>
-          {options.date}
-        </BoldText>
-      )
-    };
-
     render() {
       return (
         <LoadingPlaceholder>
@@ -92,7 +79,7 @@ export default function ScheduleDay(options) {
             initialNumToRender={10}
           />
         </LoadingPlaceholder>
-      );
+      )
     }
 
     _renderSectionHeader = ({ section }) => {
@@ -100,17 +87,19 @@ export default function ScheduleDay(options) {
         <View style={styles.sectionHeader}>
           <RegularText>{section.title}</RegularText>
         </View>
-      );
-    };
+      )
+    }
 
     _renderItem = ({ item }) => {
-      return <ScheduleRow item={item} onPress={this._handlePressRow} />;
-    };
+      return <ScheduleRow item={item} onPress={this._handlePressRow} />
+    }
 
     _handlePressRow = item => {
-      this.props.navigation.navigate("Details", { scheduleSlot: item });
-    };
+      this.props.navigation.navigate('Details', { scheduleSlot: item })
+    }
   }
+
+  // return ScheduleDayComponent
 
   return StackNavigator(
     {
@@ -120,15 +109,15 @@ export default function ScheduleDay(options) {
     },
     {
       cardStyle: {
-        backgroundColor: "#fafafa"
+        backgroundColor: '#fafafa'
       },
       navigationOptions: {
         headerTitleStyle: {
-          fontFamily: "open-sans-bold"
+          fontFamily: 'open-sans-bold'
         }
       }
     }
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -136,18 +125,18 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#eee"
+    borderColor: '#eee'
   },
   rowStatic: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: '#f5f5f5',
     opacity: 0.5
   },
   sectionHeader: {
     paddingHorizontal: 10,
     paddingTop: 7,
     paddingBottom: 5,
-    backgroundColor: "#eee",
+    backgroundColor: '#eee',
     borderWidth: 1,
-    borderColor: "#eee"
+    borderColor: '#eee'
   }
-});
+})

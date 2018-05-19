@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Animated,
   TouchableWithoutFeedback,
@@ -6,30 +6,30 @@ import {
   View,
   Platform,
   Keyboard
-} from "react-native";
-import SafeAreaView from "react-native-safe-area-view";
-import { BorderlessButton } from "react-native-gesture-handler";
+} from 'react-native'
+import SafeAreaView from 'react-native-safe-area-view'
+import { BorderlessButton } from 'react-native-gesture-handler'
 
-import TabBarIcon from "react-navigation/src/views/TabView/TabBarIcon";
-import withOrientation from "react-navigation/src/views/withOrientation";
+import TabBarIcon from 'react-navigation/src/views/TabView/TabBarIcon'
+import withOrientation from 'react-navigation/src/views/withOrientation'
 
-const majorVersion = parseInt(Platform.Version, 10);
-const isIos = Platform.OS === "ios";
-const isIOS11 = majorVersion >= 11 && isIos;
-const defaultMaxTabBarItemWidth = 125;
+const majorVersion = parseInt(Platform.Version, 10)
+const isIos = Platform.OS === 'ios'
+const isIOS11 = majorVersion >= 11 && isIos
+const defaultMaxTabBarItemWidth = 125
 
 class TabBarBottom extends React.PureComponent {
   // See https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/UIKitUICatalog/UITabBar.html
   static defaultProps = {
-    activeTintColor: "#3478f6", // Default active tint color in iOS 10
-    activeBackgroundColor: "transparent",
-    inactiveTintColor: "#929292", // Default inactive tint color in iOS 10
-    inactiveBackgroundColor: "transparent",
+    activeTintColor: '#3478f6', // Default active tint color in iOS 10
+    activeBackgroundColor: 'transparent',
+    inactiveTintColor: '#929292', // Default inactive tint color in iOS 10
+    inactiveBackgroundColor: 'transparent',
     showLabel: true,
     showIcon: true,
     allowFontScaling: true,
     adaptive: isIOS11
-  };
+  }
 
   _renderLabel = scene => {
     const {
@@ -42,26 +42,26 @@ class TabBarBottom extends React.PureComponent {
       showIcon,
       isLandscape,
       allowFontScaling
-    } = this.props;
+    } = this.props
     if (showLabel === false) {
-      return null;
+      return null
     }
-    const { index } = scene;
-    const { routes } = navigation.state;
+    const { index } = scene
+    const { routes } = navigation.state
     // Prepend '-1', so there are always at least 2 items in inputRange
-    const inputRange = [-1, ...routes.map((x, i) => i)];
+    const inputRange = [-1, ...routes.map((x, i) => i)]
     const outputRange = inputRange.map(
       inputIndex => (inputIndex === index ? activeTintColor : inactiveTintColor)
-    );
+    )
     const color = position.interpolate({
       inputRange,
       outputRange: outputRange
-    });
+    })
 
-    const tintColor = scene.focused ? activeTintColor : inactiveTintColor;
-    const label = this.props.getLabel({ ...scene, tintColor });
+    const tintColor = scene.focused ? activeTintColor : inactiveTintColor
+    const label = this.props.getLabel({ ...scene, tintColor })
 
-    if (typeof label === "string") {
+    if (typeof label === 'string') {
       return (
         <Animated.Text
           numberOfLines={1}
@@ -77,15 +77,15 @@ class TabBarBottom extends React.PureComponent {
         >
           {label}
         </Animated.Text>
-      );
+      )
     }
 
-    if (typeof label === "function") {
-      return label({ ...scene, tintColor });
+    if (typeof label === 'function') {
+      return label({ ...scene, tintColor })
     }
 
-    return label;
-  };
+    return label
+  }
 
   _renderIcon = scene => {
     const {
@@ -96,9 +96,9 @@ class TabBarBottom extends React.PureComponent {
       renderIcon,
       showIcon,
       showLabel
-    } = this.props;
+    } = this.props
     if (showIcon === false) {
-      return null;
+      return null
     }
     return (
       <TabBarIcon
@@ -110,70 +110,70 @@ class TabBarBottom extends React.PureComponent {
         scene={scene}
         style={showLabel && this._shouldUseHorizontalTabs() ? {} : styles.icon}
       />
-    );
-  };
+    )
+  }
 
   _renderTestIDProps = scene => {
     const testIDProps =
-      this.props.getTestIDProps && this.props.getTestIDProps(scene);
-    return testIDProps;
-  };
+      this.props.getTestIDProps && this.props.getTestIDProps(scene)
+    return testIDProps
+  }
 
   _tabItemMaxWidth() {
-    const { tabStyle, layout } = this.props;
-    let maxTabBarItemWidth;
+    const { tabStyle, layout } = this.props
+    let maxTabBarItemWidth
 
-    const flattenedTabStyle = StyleSheet.flatten(tabStyle);
+    const flattenedTabStyle = StyleSheet.flatten(tabStyle)
 
     if (flattenedTabStyle) {
-      if (typeof flattenedTabStyle.width === "number") {
-        maxTabBarItemWidth = flattenedTabStyle.width;
+      if (typeof flattenedTabStyle.width === 'number') {
+        maxTabBarItemWidth = flattenedTabStyle.width
       } else if (
-        typeof flattenedTabStyle.width === "string" &&
-        flattenedTabStyle.endsWith("%")
+        typeof flattenedTabStyle.width === 'string' &&
+        flattenedTabStyle.endsWith('%')
       ) {
-        const width = parseFloat(flattenedTabStyle.width);
+        const width = parseFloat(flattenedTabStyle.width)
         if (Number.isFinite(width)) {
-          maxTabBarItemWidth = layout.width * (width / 100);
+          maxTabBarItemWidth = layout.width * (width / 100)
         }
-      } else if (typeof flattenedTabStyle.maxWidth === "number") {
-        maxTabBarItemWidth = flattenedTabStyle.maxWidth;
+      } else if (typeof flattenedTabStyle.maxWidth === 'number') {
+        maxTabBarItemWidth = flattenedTabStyle.maxWidth
       } else if (
-        typeof flattenedTabStyle.maxWidth === "string" &&
-        flattenedTabStyle.endsWith("%")
+        typeof flattenedTabStyle.maxWidth === 'string' &&
+        flattenedTabStyle.endsWith('%')
       ) {
-        const width = parseFloat(flattenedTabStyle.maxWidth);
+        const width = parseFloat(flattenedTabStyle.maxWidth)
         if (Number.isFinite(width)) {
-          maxTabBarItemWidth = layout.width * (width / 100);
+          maxTabBarItemWidth = layout.width * (width / 100)
         }
       }
     }
 
     if (!maxTabBarItemWidth) {
-      maxTabBarItemWidth = defaultMaxTabBarItemWidth;
+      maxTabBarItemWidth = defaultMaxTabBarItemWidth
     }
 
-    return maxTabBarItemWidth;
+    return maxTabBarItemWidth
   }
 
   _shouldUseHorizontalTabs() {
-    const { routes } = this.props.navigation.state;
-    const { isLandscape, layout, adaptive, tabStyle } = this.props;
+    const { routes } = this.props.navigation.state
+    const { isLandscape, layout, adaptive, tabStyle } = this.props
 
     if (!adaptive) {
-      return false;
+      return false
     }
 
-    let tabBarWidth = layout.width;
+    let tabBarWidth = layout.width
     if (tabBarWidth === 0) {
-      return Platform.isPad;
+      return Platform.isPad
     }
 
     if (!Platform.isPad) {
-      return isLandscape;
+      return isLandscape
     } else {
-      const maxTabBarItemWidth = this._tabItemMaxWidth();
-      return routes.length * maxTabBarItemWidth <= tabBarWidth;
+      const maxTabBarItemWidth = this._tabItemMaxWidth()
+      return routes.length * maxTabBarItemWidth <= tabBarWidth
     }
   }
 
@@ -190,11 +190,11 @@ class TabBarBottom extends React.PureComponent {
       animateStyle,
       tabStyle,
       isLandscape
-    } = this.props;
-    const { routes } = navigation.state;
-    const previousScene = routes[navigation.state.index];
+    } = this.props
+    const { routes } = navigation.state
+    const previousScene = routes[navigation.state.index]
     // Prepend '-1', so there are always at least 2 items in inputRange
-    const inputRange = [-1, ...routes.map((x, i) => i)];
+    const inputRange = [-1, ...routes.map((x, i) => i)]
 
     const tabBarStyle = [
       styles.tabBar,
@@ -202,32 +202,32 @@ class TabBarBottom extends React.PureComponent {
         ? styles.tabBarCompact
         : styles.tabBarRegular,
       style
-    ];
+    ]
 
     return (
       <Animated.View style={animateStyle}>
         <SafeAreaView
           style={tabBarStyle}
-          forceInset={{ bottom: "always", top: "never" }}
+          forceInset={{ bottom: 'always', top: 'never' }}
         >
           {routes.map((route, index) => {
-            const focused = index === navigation.state.index;
-            const scene = { route, index, focused };
-            const onPress = getOnPress(previousScene, scene);
+            const focused = index === navigation.state.index
+            const scene = { route, index, focused }
+            const onPress = getOnPress(previousScene, scene)
             const outputRange = inputRange.map(
               inputIndex =>
                 inputIndex === index
                   ? activeBackgroundColor
                   : inactiveBackgroundColor
-            );
+            )
             const backgroundColor = position.interpolate({
               inputRange,
               outputRange: outputRange
-            });
+            })
 
-            const justifyContent = this.props.showIcon ? "flex-end" : "center";
-            const extraProps = this._renderTestIDProps(scene) || {};
-            const { testID, accessibilityLabel } = extraProps;
+            const justifyContent = this.props.showIcon ? 'flex-end' : 'center'
+            const extraProps = this._renderTestIDProps(scene) || {}
+            const { testID, accessibilityLabel } = extraProps
 
             return (
               <TouchableWithoutFeedback
@@ -255,20 +255,20 @@ class TabBarBottom extends React.PureComponent {
                   </View>
                 </Animated.View>
               </TouchableWithoutFeedback>
-            );
+            )
           })}
         </SafeAreaView>
       </Animated.View>
-    );
+    )
   }
 }
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: "#F7F7F7", // Default background color in iOS 10
+    backgroundColor: '#F7F7F7', // Default background color in iOS 10
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: "rgba(0, 0, 0, .3)",
-    flexDirection: "row"
+    borderTopColor: 'rgba(0, 0, 0, .3)',
+    flexDirection: 'row'
   },
   tabBarCompact: {
     height: 29
@@ -278,23 +278,23 @@ const styles = StyleSheet.create({
   },
   tab: {
     flex: 1,
-    alignItems: isIos ? "center" : "stretch"
+    alignItems: isIos ? 'center' : 'stretch'
   },
   tabPortrait: {
-    justifyContent: "flex-end",
-    flexDirection: "column"
+    justifyContent: 'flex-end',
+    flexDirection: 'column'
   },
   tabLandscape: {
-    justifyContent: "center",
-    flexDirection: "row"
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
   icon: {
     flex: 1,
-    minWidth: 30,
+    minWidth: 30
   },
   label: {
-    textAlign: "center",
-    backgroundColor: "transparent"
+    textAlign: 'center',
+    backgroundColor: 'transparent'
   },
   labelBeneath: {
     fontSize: 10,
@@ -304,6 +304,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginLeft: 20
   }
-});
+})
 
-export default withOrientation(TabBarBottom);
+export default withOrientation(TabBarBottom)

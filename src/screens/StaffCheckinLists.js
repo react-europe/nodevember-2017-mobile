@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   TouchableOpacity,
   AsyncStorage,
@@ -7,54 +7,54 @@ import {
   StyleSheet,
   View,
   Text
-} from "react-native";
-import FadeIn from "react-native-fade-in-image";
-import { WebBrowser } from "expo";
-import { ScrollView, RectButton } from "react-native-gesture-handler";
+} from 'react-native'
+import FadeIn from 'react-native-fade-in-image'
+import { WebBrowser } from 'expo'
+import { ScrollView, RectButton } from 'react-native-gesture-handler'
 
-import { Layout, FontSizes, Colors } from "../constants";
-import MenuButton from "../components/MenuButton";
-import { BoldText, SemiBoldText, RegularText } from "../components/StyledText";
-import LoadingPlaceholder from "../components/LoadingPlaceholder";
-import { ListItem, ListSection } from "react-native-paper";
+import { Layout, FontSizes, Colors } from '../constants'
+import MenuButton from '../components/MenuButton'
+import { BoldText, SemiBoldText, RegularText } from '../components/StyledText'
+import LoadingPlaceholder from '../components/LoadingPlaceholder'
+import { ListItem, ListSection } from 'react-native-paper'
 
-import _ from "lodash";
+import _ from 'lodash'
 
-export const Schedule = require("../data/schedule.json");
+export const Schedule = require('../data/schedule.json')
 
 const ClipBorderRadius = ({ children, style }) => {
   return (
     <View
       style={[
-        { borderRadius: BORDER_RADIUS, overflow: "hidden", marginTop: 10 },
+        { borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10 },
         style
       ]}
     >
       {children}
     </View>
-  );
-};
+  )
+}
 
-const BORDER_RADIUS = 3;
+const BORDER_RADIUS = 3
 export class StaffCheckinListRow extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
-    const { item: item } = this.props;
+    const { item: item } = this.props
     const MyComponent = () => (
       <ListItem
         title="First Item"
         description="Item description"
         icon="folder"
       />
-    );
+    )
     return (
       <TouchableOpacity onPress={this._handleCheckinListPress}>
         <RectButton
           activeOpacity={0.05}
-          style={{ flex: 1, backgroundColor: "#fff" }}
+          style={{ flex: 1, backgroundColor: '#fff' }}
         >
           <View style={styles.row}>
             {item.name ? (
@@ -65,66 +65,60 @@ export class StaffCheckinListRow extends React.Component {
           </View>
         </RectButton>
       </TouchableOpacity>
-    );
+    )
   }
   _handleCheckinListPress = () => {
-    console.log("checkinlist pressed", this.props.item);
-    console.log("checkinlist pressed uuid", this.props.item, this.props.uuid);
-    this.props.navigation.navigate("QRCheckinScanner", {
+    console.log('checkinlist pressed', this.props.item)
+    console.log('checkinlist pressed uuid', this.props.item, this.props.uuid)
+    this.props.navigation.navigate('QRCheckinScanner', {
       checkinList: this.props.item,
       uuid: this.props.uuid
-    });
-  };
+    })
+  }
 }
 
 export default class StaffCheckinLists extends React.Component {
   static navigationOptions = {
-    title: "Staff Checkin Lists",
-    headerStyle: { backgroundColor: Colors.blue },
-    headerTintColor: "white",
-    headerLeft: <MenuButton />,
-    headerTitleStyle: {
-      fontFamily: "open-sans-bold"
-    }
-  };
+    title: 'Staff Checkin Lists'
+  }
   state = {
     staffCheckinLists: [],
-    uuid: ""
-  };
+    uuid: ''
+  }
 
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem("@MySuperStore:tickets");
-      console.log("tickets", value);
-      const json = JSON.parse(value) || [];
-      let staffCheckinListsArray = [];
-      let uuid = "";
+      const value = await AsyncStorage.getItem('@MySuperStore:tickets')
+      console.log('tickets', value)
+      const json = JSON.parse(value) || []
+      let staffCheckinListsArray = []
+      let uuid = ''
       json.map(ticket => {
         if (
           ticket &&
           ticket.staffCheckinLists &&
           ticket.staffCheckinLists.length > 0
         ) {
-          staffCheckinListsArray = ticket.staffCheckinLists;
-          uuid = ticket.uuid;
+          staffCheckinListsArray = ticket.staffCheckinLists
+          uuid = ticket.uuid
         }
-      });
-      this.setState({ staffCheckinLists: staffCheckinListsArray, uuid: uuid });
-      this.staffCheckinLists = staffCheckinListsArray;
+      })
+      this.setState({ staffCheckinLists: staffCheckinListsArray, uuid: uuid })
+      this.staffCheckinLists = staffCheckinListsArray
     } catch (err) {
-      console.log(err);
-      return [];
+      console.log(err)
+      return []
     }
   }
 
   constructor(props) {
-    super(props);
-    this.getTickets();
+    super(props)
+    this.getTickets()
   }
 
   render() {
-    const checkinLists = this.state.staffCheckinLists || [];
-    console.log("tickets", checkinLists);
+    const checkinLists = this.state.staffCheckinLists || []
+    console.log('tickets', checkinLists)
     return (
       <LoadingPlaceholder>
         <FlatList
@@ -139,7 +133,7 @@ export default class StaffCheckinLists extends React.Component {
           keyExtractor={(item, index) => item.id && item.id.toString()}
         />
       </LoadingPlaceholder>
-    );
+    )
   }
 
   _renderSectionHeader = ({ section }) => {
@@ -147,8 +141,8 @@ export default class StaffCheckinLists extends React.Component {
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
       </View>
-    );
-  };
+    )
+  }
   _renderItem = ({ item }) => {
     return (
       <StaffCheckinListRow
@@ -157,8 +151,8 @@ export default class StaffCheckinLists extends React.Component {
         uuid={this.state.uuid}
         navigation={this.props.navigation}
       />
-    );
-  };
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -167,22 +161,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     height: 50,
     marginHorizontal: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: BORDER_RADIUS,
-    overflow: "hidden",
-    flexDirection: "row"
+    overflow: 'hidden',
+    flexDirection: 'row'
   },
   bigButtonText: {
     fontSize: FontSizes.normalButton,
-    color: "#fff",
-    textAlign: "center"
+    color: '#fff',
+    textAlign: 'center'
   },
   row: {
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#eee"
+    borderColor: '#eee'
   },
   rowAvatarContainer: {
     paddingVertical: 5,
@@ -196,8 +190,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 7,
     paddingBottom: 5,
-    backgroundColor: "#eee",
+    backgroundColor: '#eee',
     borderWidth: 1,
-    borderColor: "#eee"
+    borderColor: '#eee'
   }
-});
+})

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Animated,
   Linking,
@@ -10,45 +10,41 @@ import {
   StyleSheet,
   View,
   AsyncStorage
-} from "react-native";
-import { Asset, LinearGradient, WebBrowser, Video, Permissions } from "expo";
-import { BorderlessButton, RectButton } from "react-native-gesture-handler";
-import { NavigationActions } from "react-navigation";
-import FadeIn from "react-native-fade-in-image";
-import { View as AnimatableView } from "react-native-animatable";
-import { Ionicons } from "@expo/vector-icons";
-import { withNavigation } from "react-navigation";
+} from 'react-native'
+import { Asset, LinearGradient, WebBrowser, Video, Permissions } from 'expo'
+import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
+import FadeIn from 'react-native-fade-in-image'
+import { View as AnimatableView } from 'react-native-animatable'
+import { Ionicons } from '@expo/vector-icons'
 
-import AnimatedScrollView from "../components/AnimatedScrollView";
-import NavigationBar from "../components/NavigationBar";
-import Tickets from "../components/Tickets";
-import MenuButton from "../components/MenuButton";
-import VideoBackground from "../components/VideoBackground";
-import { BoldText, SemiBoldText } from "../components/StyledText";
-import { connectDrawerButton } from "../Navigation";
-import { Colors, FontSizes, Layout } from "../constants";
-import { Speakers, Talks } from "../data";
+import AnimatedScrollView from '../components/AnimatedScrollView'
+import Tickets from '../components/Tickets'
+import MenuButton from '../components/MenuButton'
+import VideoBackground from '../components/VideoBackground'
+import { BoldText, SemiBoldText } from '../components/StyledText'
+import { Colors, FontSizes, Layout } from '../constants'
+import { Speakers, Talks } from '../data'
 import {
   HideWhenConferenceHasStarted,
   HideWhenConferenceHasEnded,
   ShowWhenConferenceHasEnded
-} from "../utils";
-export const Schedule = require("../data/schedule.json");
-const Event = Schedule.events[0];
+} from '../utils'
+export const Schedule = require('../data/schedule.json')
+const Event = Schedule.events[0]
 
 class Profile extends React.Component {
   state = {
     scrollY: new Animated.Value(0),
     hasCameraPermission: null
-  };
+  }
 
   render() {
-    const { scrollY } = this.state;
+    const { scrollY } = this.state
     const headerOpacity = scrollY.interpolate({
       inputRange: [0, 150],
       outputRange: [0, 1],
-      extrapolate: "clamp"
-    });
+      extrapolate: 'clamp'
+    })
 
     return (
       <View style={{ flex: 1 }}>
@@ -67,66 +63,60 @@ class Profile extends React.Component {
         >
           <View
             style={{
-              backgroundColor: "#4d5fab",
+              backgroundColor: '#4d5fab',
               padding: 10,
-              paddingTop: Layout.headerHeight - 10,
-              justifyContent: "center",
-              alignItems: "center"
+              paddingTop: -10,
+              justifyContent: 'center',
+              alignItems: 'center'
             }}
           />
 
           <DeferredProfileContent />
           <OverscrollView />
         </AnimatedScrollView>
-
-        <NavigationBar
-          renderLeftButton={() => <MenuButton />}
-          animatedBackgroundOpacity={headerOpacity}
-        />
       </View>
-    );
+    )
   }
 
   _openTickets = () => {
-    Linking.openURL(Event.websiteUrl + "#tickets");
-  };
+    Linking.openURL(Event.websiteUrl + '#tickets')
+  }
 }
 
-@withNavigation
 class DeferredProfileContent extends React.Component {
   state = {
     tickets: [],
-    ready: Platform.OS === "android" ? false : true
-  };
+    ready: Platform.OS === 'android' ? false : true
+  }
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem("@MySuperStore:tickets");
-      this.setState({ tickets: JSON.parse(value) });
+      const value = await AsyncStorage.getItem('@MySuperStore:tickets')
+      this.setState({ tickets: JSON.parse(value) })
     } catch (err) {
-      console.log(err);
-      return [];
+      console.log(err)
+      return []
     }
   }
 
   constructor(props) {
-    super(props);
-    this.getTickets();
+    super(props)
+    this.getTickets()
   }
 
   componentDidMount() {
     if (this.state.ready) {
-      return;
+      return
     }
 
     setTimeout(() => {
-      this.setState({ ready: true });
-    }, 200);
+      this.setState({ ready: true })
+    }, 200)
   }
 
   render() {
-    let tickets = this.state.tickets || [];
+    let tickets = this.state.tickets || []
     if (!this.state.ready) {
-      return null;
+      return null
     }
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
@@ -142,40 +132,40 @@ class DeferredProfileContent extends React.Component {
           >
             <SemiBoldText style={styles.bigButtonText}>
               {tickets.length > 0
-                ? "Scan another ticket QR code"
-                : "Scan your ticket QR code"}
+                ? 'Scan another ticket QR code'
+                : 'Scan your ticket QR code'}
             </SemiBoldText>
           </RectButton>
         </ClipBorderRadius>
       </AnimatableView>
-    );
+    )
   }
   _requestCameraPermission = async () => {
-    console.log(1);
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    console.log(2);
+    console.log(1)
+    const { status } = await Permissions.askAsync(Permissions.CAMERA)
+    console.log(2)
     this.setState({
-      hasCameraPermission: status === "granted"
-    });
-  };
+      hasCameraPermission: status === 'granted'
+    })
+  }
 
   _handlePressQRButton = () => {
-    console.log(0);
-    this._requestCameraPermission();
-    console.log(3);
+    console.log(0)
+    this._requestCameraPermission()
+    console.log(3)
     Permissions.askAsync(Permissions.CAMERA).then(() => {
-      console.log(4);
-      this.props.navigation.navigate("QRScanner");
-      console.log(5);
-      return;
-    });
-  };
+      console.log(4)
+      this.props.navigation.navigate('QRScanner')
+      console.log(5)
+      return
+    })
+  }
 }
 
 const OverscrollView = () => (
   <View
     style={{
-      position: "absolute",
+      position: 'absolute',
       top: -400,
       height: 400,
       left: 0,
@@ -183,26 +173,26 @@ const OverscrollView = () => (
       backgroundColor: Colors.blue
     }}
   />
-);
+)
 
 const ClipBorderRadius = ({ children, style }) => {
   return (
     <View
       style={[
-        { borderRadius: BORDER_RADIUS, overflow: "hidden", marginTop: 10 },
+        { borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10 },
         style
       ]}
     >
       {children}
     </View>
-  );
-};
+  )
+}
 
-const BORDER_RADIUS = 3;
+const BORDER_RADIUS = 3
 
 const styles = StyleSheet.create({
   headerContent: {
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 5,
     paddingVertical: 10
   },
@@ -215,14 +205,14 @@ const styles = StyleSheet.create({
     opacity: 0.8
   },
   headerText: {
-    color: "#fff",
-    textAlign: "center",
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 17,
     lineHeight: 17 * 1.5
   },
   headerSmallText: {
-    color: "#fff",
-    textAlign: "center",
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 7,
     lineHeight: 7 * 1.5
   },
@@ -231,21 +221,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     height: 50,
     marginHorizontal: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: BORDER_RADIUS,
-    overflow: "hidden",
-    flexDirection: "row"
+    overflow: 'hidden',
+    flexDirection: 'row'
   },
   bigButtonText: {
     fontSize: FontSizes.normalButton,
-    color: "#fff",
-    textAlign: "center"
+    color: '#fff',
+    textAlign: 'center'
   },
   seeAllTalks: {
     fontSize: FontSizes.normalButton,
     color: Colors.blue
   }
-});
+})
 
-export default Profile;
+export default Profile
