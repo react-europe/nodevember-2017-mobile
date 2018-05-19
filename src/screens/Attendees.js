@@ -111,6 +111,13 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
+  throttleDelayMs = 50
+  throttleTimeout = null
+  queryThrottle = text => {
+    clearTimeout(this.throttleTimeout);
+    this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
+  }
+
   getContactTwitter = contact => {
     let twitter = '';
     if (contact) {
