@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   headerContainer: {
-    backgroundColor: Colors.rose,
+    backgroundColor: Colors.blue,
     paddingTop: Constants.statusBarHeight + Layout.notchHeight + 20,
     paddingBottom: 20,
     paddingHorizontal: 20,

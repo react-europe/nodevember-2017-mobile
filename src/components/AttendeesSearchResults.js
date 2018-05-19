@@ -96,6 +96,5 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingTop: 80,
-    // marginTop: 80,
   }
 });
