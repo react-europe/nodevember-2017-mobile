@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, SectionList, StyleSheet, View, Text } from 'react-native';
+import { SectionList, StyleSheet, View} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import { ScrollView, RectButton } from 'react-native-gesture-handler';
 import { getSpeakerTalk } from '../utils';
@@ -9,10 +9,8 @@ import MenuButton from '../components/MenuButton';
 import CachedImage from '../components/CachedImage';
 import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
-import { getSpeakerAvatarURL } from '../utils';
 
 export const Schedule = require('../data/schedule.json');
-const FullSchedule = Schedule.events[0].groupedSchedule;
 
 const SpeakersAndTalks = Schedule.events[0].speakers;
 const SpeakersData = [{ data: SpeakersAndTalks, title: 'Speakers' }];

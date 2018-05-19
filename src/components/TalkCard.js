@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Platform, StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import FadeIn from "react-native-fade-in-image";
 import { withNavigation } from "react-navigation";
@@ -7,7 +7,7 @@ import { withNavigation } from "react-navigation";
 import SaveIconWhenSaved from "./SaveIconWhenSaved";
 import CachedImage from './CachedImage';
 import { BoldText, RegularText, SemiBoldText } from "./StyledText";
-import { conferenceHasEnded, getSpeakerAvatarURL } from "../utils";
+import { conferenceHasEnded } from "../utils";
 import { Colors, FontSizes } from "../constants";
 
 @withNavigation

@@ -3,36 +3,21 @@ import {
   Animated,
   Linking,
   Platform,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
   StyleSheet,
   AsyncStorage,
   View,
 } from 'react-native';
-import { Asset, LinearGradient, WebBrowser, Video } from 'expo';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
-import { NavigationActions } from 'react-navigation';
-import FadeIn from 'react-native-fade-in-image';
+import { WebBrowser } from 'expo';
+import { RectButton } from 'react-native-gesture-handler';
 import { View as AnimatableView } from 'react-native-animatable';
-import { Ionicons } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import MyContacts from '../components/MyContacts';
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
-import VideoBackground from '../components/VideoBackground';
-import { BoldText, SemiBoldText } from '../components/StyledText';
-import { connectDrawerButton } from '../Navigation';
+import { SemiBoldText } from '../components/StyledText';
 import { Colors, FontSizes, Layout } from '../constants';
-import { Speakers, Talks } from '../data';
-import {
-  HideWhenConferenceHasStarted,
-  HideWhenConferenceHasEnded,
-  ShowWhenConferenceHasEnded,
-} from '../utils';
 export const Schedule = require('../data/schedule.json');
 const Event = Schedule.events[0];
 
@@ -140,7 +125,7 @@ class DeferredContactsContent extends React.Component {
               onPress={this._handlePressQRButton}
               underlayColor="#fff">
               <SemiBoldText style={styles.bigButtonText}>
-                Scan a contact badge's QR code
+                {"Scan a contact badge's QR code"}
               </SemiBoldText>
             </RectButton>
           </ClipBorderRadius>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
-import { BarCodeScanner, Permissions } from 'expo';
 import { query } from 'urql';
 
 import { GQL } from '../../constants';
@@ -69,7 +68,7 @@ export default class QRContactScannerModalNavigation extends React.Component {
                     'how many existing contacts',
                     existingContacts.length
                   );
-                  existingContacts.map((existingContact, i) => {
+                  existingContacts.map((existingContact) => {
                     console.log('existing contact', existingContact);
                     if (
                       existingContact &&
@@ -98,7 +97,7 @@ export default class QRContactScannerModalNavigation extends React.Component {
                   stringifiedContacts
                 )
                   //AsyncStorage.removeItem('@MySuperStore:tickets')
-                  .then(value => {
+                  .then(() => {
                     navigation.navigate('Contacts');
                   });
               }
