@@ -12,7 +12,7 @@ import {
   AsyncStorage,
   View,
   TextInput,
-  SectionList,
+  FlatList,
 } from 'react-native';
 import { Asset, LinearGradient, WebBrowser, Video } from 'expo';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
@@ -142,14 +142,6 @@ class DeferredAttendeesContent extends React.Component {
       .replace('twitter.com/', '');
   };
 
-  _renderSectionHeader = ({ section }) => {
-    return (
-      <View style={styles.sectionHeader}>
-        <RegularText>{section.title}</RegularText>
-      </View>
-    );
-  };
-
   _renderItem = ({ item: attendee }) => (
     <ContactCard key={attendee.id} contact={attendee} tickets={this.state.tickets} />
   );
@@ -173,6 +165,13 @@ class DeferredAttendeesContent extends React.Component {
             }
 
             const attendees = data && data.events && data.events[0] ? data.events[0].attendees : [];
+            const filteredAttendees = attendees.filter(attendee => {
+              const fullName = `${attendee.firstName} ${attendee.lastName}`;
+              return fullName
+                .toLowerCase()
+                .trim()
+                .includes(cleanedQuery);
+            });
             const filteredNameAttendees = attendees.filter(attendee => {
               const fullName = `${attendee.firstName} ${attendee.lastName}`;
               return fullName
@@ -204,9 +203,7 @@ class DeferredAttendeesContent extends React.Component {
               sections.push({ title: 'Twitter', data: filteredTwitterAttendees });
             }
 
-            console.log('Attendees (filtered by name): ', filteredNameAttendees);
-            console.log('Attendees (filtered by email): ', filteredEmailAttendees);
-            console.log('Attendees (filtered by twitter): ', filteredTwitterAttendees);
+            console.log('Attendees: ', filteredNameAttendees);
 
             return (
               <React.Fragment>
@@ -219,13 +216,12 @@ class DeferredAttendeesContent extends React.Component {
                   returnKeyLabel="Search"
                   style={styles.textInput}
                 />
-                <SectionList
+                <FlatList
                   renderScrollComponent={props => <ScrollView {...props} />}
-                  stickySectionHeadersEnabled={true}
                   renderItem={this._renderItem}
-                  renderSectionHeader={this._renderSectionHeader}
-                  sections={sections}
-                  keyExtractor={item => item.id}
+                  renderHeader={this._renderHeader}
+                  data={filteredAttendees}
+                  keyExtractor={item => `${item.id}`}
                   initialNumToRender={10}
                   keyboardDismissMode="on-drag"
                 />
