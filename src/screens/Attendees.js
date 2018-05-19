@@ -127,6 +127,21 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
+  getContactTwitter = contact => {
+    let twitter = '';
+    if (contact) {
+      contact.answers.map(answer => {
+        if (answer.question && answer.question.title === 'Twitter') {
+          twitter = answer.value;
+        }
+      });
+    }
+    return twitter
+      .replace('@', '')
+      .replace('https://twitter.com/', '')
+      .replace('twitter.com/', '');
+  };
+
   _renderHeader = () => (
     <TextInput
       onChangeText={text => this.setState({ query: text })}
@@ -157,35 +172,7 @@ class DeferredAttendeesContent extends React.Component {
     }
     const { query } = this.state;
     const cleanedQuery = query.toLowerCase().trim();
-
-    // <MyContacts
-    //   tickets={this.state.tickets}
-    //   style={{ marginTop: 20, marginHorizontal: 15, marginBottom: 2 }}
-    // />
-    // {tix && tix.length > 0 ? (
-    //   <ClipBorderRadius>
-    //     <RectButton
-    //       style={styles.bigButton}
-    //       onPress={this._handlePressQRButton}
-    //       underlayColor="#fff">
-    //       <SemiBoldText style={styles.bigButtonText}>
-    //         Scan a contact badge's QR code
-    //       </SemiBoldText>
-    //     </RectButton>
-    //   </ClipBorderRadius>
-    // ) : (
-    //   <ClipBorderRadius>
-    //     <RectButton
-    //       style={styles.bigButton}
-    //       onPress={this._handlePressProfileQRButton}
-    //       underlayColor="#fff">
-    //       <SemiBoldText style={styles.bigButtonText}>
-    //         You need to scan your ticket first
-    //       </SemiBoldText>
-    //     </RectButton>
-    //   </ClipBorderRadius>
-    // )}
-
+    console.log('State:', this.state);
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
@@ -196,14 +183,43 @@ class DeferredAttendeesContent extends React.Component {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
+
             const attendees = data && data.events && data.events[0] ? data.events[0].attendees : [];
-            const filteredAttendees = attendees.filter(attendee =>
-              attendee.firstName
+            const filteredNameAttendees = attendees.filter(attendee => {
+              const fullName = `${attendee.firstName} ${attendee.lastName}`;
+              return fullName
+                .toLowerCase()
+                .trim()
+                .includes(cleanedQuery);
+            });
+            const filteredEmailAttendees = attendees.filter(attendee =>
+              attendee.email
                 .toLowerCase()
                 .trim()
                 .includes(cleanedQuery)
             );
-            console.log('filteredAttendees', filteredAttendees);
+            const filteredTwitterAttendees = attendees.filter(attendee =>
+              this.getContactTwitter(attendee)
+                .toLowerCase()
+                .trim()
+                .includes(cleanedQuery)
+            );
+
+            const sections = [];
+            if (filteredNameAttendees.length > 0) {
+              sections.push({ title: 'Name', data: filteredNameAttendees });
+            }
+            if (filteredEmailAttendees.length > 0) {
+              sections.push({ title: 'Email', data: filteredEmailAttendees });
+            }
+            if (filteredTwitterAttendees.length > 0) {
+              sections.push({ title: 'Twitter', data: filteredTwitterAttendees });
+            }
+
+            console.log('Attendees (filtered by name): ', filteredNameAttendees);
+            console.log('Attendees (filtered by email): ', filteredEmailAttendees);
+            console.log('Attendees (filtered by twitter): ', filteredTwitterAttendees);
+
             return (
               <React.Fragment>
                 <SectionList
@@ -212,11 +228,7 @@ class DeferredAttendeesContent extends React.Component {
                   ListHeaderComponent={this._renderHeader}
                   renderItem={this._renderItem}
                   renderSectionHeader={this._renderSectionHeader}
-                  sections={[
-                    { title: 'Name', data: filteredAttendees },
-                    { title: 'Twitter', data: filteredAttendees },
-                    { title: 'Email', data: filteredAttendees },
-                  ]}
+                  sections={sections}
                   keyExtractor={item => item.id}
                   initialNumToRender={10}
                 />
@@ -317,6 +329,14 @@ const styles = StyleSheet.create({
   },
   rowData: {
     flex: 1,
+  },
+  sectionHeader: {
+    paddingHorizontal: 10,
+    paddingTop: 7,
+    paddingBottom: 5,
+    backgroundColor: '#eee',
+    borderWidth: 1,
+    borderColor: '#eee',
   },
   textInput: {
     backgroundColor: 'white',
