@@ -97,13 +97,6 @@ class DeferredAttendeesContent extends React.Component {
     this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
   }
 
-  throttleDelayMs = 25
-  throttleTimeout = null
-  queryThrottle = text => {
-    clearTimeout(this.throttleTimeout);
-    this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
-  }
-
   _renderItem = ({ item: attendee }) => (
     <ContactCard
       key={attendee.id}
