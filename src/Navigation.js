@@ -118,6 +118,15 @@ const CrewNavigation = StackNavigator(
   DefaultStackConfig
 );
 
+const SearchAttendees = StackNavigator(
+  {
+    SearchAttendees: {
+      screen: Screens.SearchAttendees,
+    },
+  },
+  DefaultStackConfig
+);
+
 const SponsorNavigation = StackNavigator(
   {
     SponsorList: {
@@ -144,6 +153,7 @@ const DrawerRouteConfig = {
   Sponsors: { screen: SponsorNavigation },
   Profile: { screen: Screens.Profile },
   Contacts: { screen: Screens.Contacts },
+  SearchAttendees: {screen: SearchAttendees },
   StaffCheckinLists: { screen: StaffCheckinListsNavigation },
 };
 
@@ -369,6 +379,7 @@ class DrawerView extends React.Component {
             { route: 'Sponsors', title: 'Sponsors' },
             { route: 'Profile', title: 'Profile' },
             { route: 'Contacts', title: 'Contacts' },
+            { route: 'SearchAttendees', title: 'Search Attendees' },
             {
               route: 'StaffCheckinLists',
               title: 'StaffCheckinLists',
@@ -500,6 +511,7 @@ export default StackNavigator(
     QRScanner: { screen: QRScannerModalNavigation },
     QRCheckinScanner: { screen: QRCheckinScannerModalNavigation },
     QRContactScanner: { screen: QRContactScannerModalNavigation },
+    SearchAttendees: { screen: Screens.SearchAttendees }
   },
   {
     ...DefaultStackConfig,
