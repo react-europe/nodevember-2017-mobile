@@ -9,7 +9,6 @@ import LoadingPlaceholder from "../components/LoadingPlaceholder";
 import { Colors, Layout } from "../constants";
 import MenuButton from "../components/MenuButton";
 import SaveIconWhenSaved from "../components/SaveIconWhenSaved";
-import moment from "moment";
 import { convertUtcDateToEventTimezoneHour } from "../utils";
 
 import Schedule from "../data/schedule.json";
@@ -27,7 +26,7 @@ class ScheduleRow extends React.Component {
         </BoldText>
 
         {item.speakers
-          ? item.speakers.map((speaker, i) => (
+          ? item.speakers.map((speaker) => (
               <SemiBoldText key={speaker.id + item.title}>
                 {speaker.name}
               </SemiBoldText>

@@ -1,11 +1,9 @@
 import React from "react";
-import { Image, Platform, StyleSheet, View, AsyncStorage } from "react-native";
-import moment from "moment-timezone";
+import { StyleSheet, View, AsyncStorage } from "react-native";
 
-import { BoldText, RegularText, SemiBoldText } from "./StyledText";
+import { RegularText } from "./StyledText";
 import TicketCard from "./TicketCard";
 import { Colors, FontSizes } from "../constants";
-import _ from "lodash";
 import {
   convertUtcDateToEventTimezoneDaytime,
   conferenceHasEnded
@@ -54,7 +52,7 @@ export default class Tickets extends React.Component {
       return null;
     }
 
-    const { dateTime, time } = this.state;
+    const { dateTime } = this.state;
 
     if (dateTime) {
       return (

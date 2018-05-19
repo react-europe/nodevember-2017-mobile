@@ -28,9 +28,6 @@ export function convertUtcDateToEventTimezoneDaytime(date) {
   return moment.tz(d, Event.timezoneId).format("dddd DD MMM, h:mma");
 }
 
-const CONFERENCE_START_TIME = convertUtcDateToEventTimezone(Event.startDate);
-const CONFERENCE_END_TIME = convertUtcDateToEventTimezone(Event.endDate);
-
 export function conferenceHasStarted() {
   return Event.status.hasStarted;
 }

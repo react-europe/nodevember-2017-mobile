@@ -5,10 +5,8 @@ import {
   StyleSheet,
   View,
   Platform,
-  Keyboard
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
-import { BorderlessButton } from "react-native-gesture-handler";
 
 import TabBarIcon from "react-navigation/src/views/TabView/TabBarIcon";
 import withOrientation from "react-navigation/src/views/withOrientation";
@@ -40,7 +38,6 @@ class TabBarBottom extends React.PureComponent {
       labelStyle,
       showLabel,
       showIcon,
-      isLandscape,
       allowFontScaling
     } = this.props;
     if (showLabel === false) {
@@ -158,7 +155,7 @@ class TabBarBottom extends React.PureComponent {
 
   _shouldUseHorizontalTabs() {
     const { routes } = this.props.navigation.state;
-    const { isLandscape, layout, adaptive, tabStyle } = this.props;
+    const { isLandscape, layout, adaptive } = this.props;
 
     if (!adaptive) {
       return false;
@@ -183,13 +180,11 @@ class TabBarBottom extends React.PureComponent {
       navigation,
       jumpToIndex,
       getOnPress,
-      getTestIDProps,
       activeBackgroundColor,
       inactiveBackgroundColor,
       style,
       animateStyle,
-      tabStyle,
-      isLandscape
+      tabStyle
     } = this.props;
     const { routes } = navigation.state;
     const previousScene = routes[navigation.state.index];
@@ -225,7 +220,6 @@ class TabBarBottom extends React.PureComponent {
               outputRange: outputRange
             });
 
-            const justifyContent = this.props.showIcon ? "flex-end" : "center";
             const extraProps = this._renderTestIDProps(scene) || {};
             const { testID, accessibilityLabel } = extraProps;
 

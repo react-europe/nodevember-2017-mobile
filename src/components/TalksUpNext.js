@@ -1,8 +1,7 @@
 import React from "react";
-import { Image, Platform, StyleSheet, View } from "react-native";
-import moment from "moment-timezone";
+import { StyleSheet, View } from "react-native";
 
-import { BoldText, RegularText, SemiBoldText } from "./StyledText";
+import { RegularText, SemiBoldText } from "./StyledText";
 import TalkCard from "./TalkCard";
 import { Colors, FontSizes } from "../constants";
 import { findRandomTalk, findNextTalksAfterDate } from "../data";
@@ -120,7 +119,7 @@ export default class TalksUpNext extends React.Component {
       return null;
     }
 
-    const { dateTime, time } = this.state;
+    const { dateTime } = this.state;
 
     if (dateTime) {
       return (

@@ -6,7 +6,6 @@ import {
   StackNavigator,
   createNavigator,
   createNavigationContainer,
-  SafeAreaView,
 } from 'react-navigation';
 import withCachedChildNavigation from 'react-navigation/src/withCachedChildNavigation';
 import SceneView from 'react-navigation/src/views/SceneView';
@@ -14,19 +13,14 @@ import {
   BackHandler,
   Platform,
   Image,
-  Text,
   StyleSheet,
   StatusBar,
-  View,
-  Button,
-  Alert,
-  AsyncStorage,
+  View
 } from 'react-native';
-import { Constants, BarCodeScanner, Permissions, Notifications } from 'expo';
+import { Constants } from 'expo';
 import { TabViewAnimated } from 'react-native-tab-view';
 import {
   DrawerLayoutAndroid,
-  BorderlessButton,
   RectButton,
 } from 'react-native-gesture-handler';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
@@ -37,11 +31,10 @@ import { Colors, FontSizes, Layout } from './constants';
 import Screens from './screens';
 import TabBarBottom from './components/TabBarBottom';
 import CachedImage from './components/CachedImage';
-import { SemiBoldText, BoldText } from './components/StyledText';
+import { SemiBoldText } from './components/StyledText';
 import _ from 'lodash';
 import Schedule from './data/schedule.json';
 import moment from 'moment';
-import { Provider, Client, Connect, query } from 'urql';
 
 import QRScannerModalNavigation from './screens/QRScreens/Identify';
 import QRCheckinScannerModalNavigation from './screens/QRScreens/CheckIn';
@@ -51,7 +44,7 @@ const DrawerComponent =
   Platform.OS === 'android' ? DrawerLayoutAndroid : DrawerLayout;
 const FullSchedule = Schedule.events[0].groupedSchedule;
 let navSchedule = {};
-_.each(FullSchedule, (day, i) => {
+_.each(FullSchedule, (day) => {
   navSchedule[day.title] = {
     screen: Screens.ScheduleDay({
       day: day.title,
@@ -425,11 +418,6 @@ class DrawerButton extends React.Component {
   state = {
     me: null,
   };
-  componentDidMount() {
-    AsyncStorage.getItem('@MySuperStore:tickets').then(value => {
-      const mytickets = value;
-    });
-  }
   render() {
     return (
       <RectButton
@@ -452,27 +440,6 @@ class DrawerButton extends React.Component {
         </View>
       </RectButton>
     );
-  }
-}
-class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  componentDidCatch(error, info) {
-    // Display fallback UI
-    this.setState({ hasError: true });
-    // You can also log the error to an error reporting service
-    console.log('ERROR', error, info);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return null;
-    }
-    return this.props.children;
   }
 }
 

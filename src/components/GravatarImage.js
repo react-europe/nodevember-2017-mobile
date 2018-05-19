@@ -1,6 +1,5 @@
 import React from 'react';
 import CachedImage from './CachedImage';
-import { Image, View } from 'react-native'
 import md5 from 'crypto-js/md5';
 
 export default class GravatarImage extends React.PureComponent {
