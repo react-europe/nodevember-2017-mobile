@@ -16,7 +16,6 @@ const GET_ATTENDEES = gql`
                         title
                     }
                 }
-
             }
         }
     }

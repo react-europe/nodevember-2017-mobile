@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import _ from 'lodash';
+import { ScrollView } from "react-native-gesture-handler";
 import {
   Animated,
   Linking,
@@ -6,10 +8,10 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  ScrollView,
   StyleSheet,
   AsyncStorage,
   View,
+  SectionList,
 } from 'react-native';
 import { Asset, LinearGradient, WebBrowser, Video } from 'expo';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
@@ -18,7 +20,6 @@ import FadeIn from 'react-native-fade-in-image';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
-import Autocomplete from 'react-native-autocomplete-input';
 import { Query } from 'react-apollo';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
@@ -26,7 +27,7 @@ import MyContacts from '../components/MyContacts';
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
 import VideoBackground from '../components/VideoBackground';
-import { BoldText, SemiBoldText } from '../components/StyledText';
+import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
 import { connectDrawerButton } from '../Navigation';
 import { Colors, FontSizes, Layout } from '../constants';
 import { Speakers, Talks } from '../data';
@@ -37,6 +38,37 @@ import {
 } from '../utils';
 import ContactCard from '../components/ContactCard';
 import GET_ATTENDEES from '../data/attendeesquery'
+import CachedImage from '../components/CachedImage';
+
+
+class ContactRow extends React.Component {
+    render() {
+        const { item: attendee } = this.props;
+
+        return (
+            <View style={styles.row}>
+                <View style={styles.rowAvatarContainer}>
+                    <FadeIn>
+                    <CachedImage
+                        source={{ uri: attendee.avatarUrl }}
+                        style={{ width: 50, height: 50, borderRadius: 25 }}
+                    />
+                    </FadeIn>
+                </View>
+                <View style={styles.rowData}>
+                    <BoldText>
+                    {attendee.firstName} {attendee.lastName}
+                    </BoldText>
+                    {attendee.role ? <SemiBoldText>{attendee.role}</SemiBoldText> : null}
+                    <TouchableOpacity
+                    onPress={() => this._handlePressCrewTwitter(attendee.twitter)}>
+                    <RegularText>@{attendee.twitter}</RegularText>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    }
+}
 
 export const Schedule = require('../data/schedule.json');
 const Event = Schedule.events[0];
@@ -141,6 +173,16 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
+  _renderSectionHeader = ({ section }) => {
+    return (
+      <View style={styles.sectionHeader}>
+        <RegularText>{section.title}</RegularText>
+      </View>
+    );
+  };
+
+  _renderItem = ({ item }) => <ContactCard contact={item} onPress={this._handlePressRow} />;
+
   render() {
     if (!this.state.ready) {
       return null;
@@ -196,21 +238,21 @@ class DeferredAttendeesContent extends React.Component {
                 const filteredAttendees = attendees.filter(comp);
                 console.log('filteredAttendees', filteredAttendees)
                 return (
-                  <Autocomplete
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    containerStyle={styles.autocompleteContainer}
-                    data={filteredAttendees}
-                    onChangeText={text => this.setState({ query: text })}
-                    placeholder="PLACEHOLDER"
-                    renderItem={({ name }) => (
-                    <TouchableOpacity onPress={() => this.setState({ query: name })}>
-                      <Text style={styles.itemText}>
-                       {name}
-                      </Text>
-                    </TouchableOpacity>
-                    )}
-                  />
+                  <React.Fragment>
+                    <SectionList
+                      renderScrollComponent={(props) => <ScrollView {...props}/>}
+                      stickySectionHeadersEnabled={true}
+                      renderItem={this._renderItem}
+                      renderSectionHeader={this._renderSectionHeader}
+                      sections={[
+                          {title: 'Name', data: filteredAttendees},
+                          {title: 'Twitter', data: filteredAttendees},
+                          {title: 'Email', data: filteredAttendees},
+                      ]}
+                      keyExtractor={item => item.id}
+                      initialNumToRender={10}
+                    />
+                  </React.Fragment>
                 );
             }}
         </Query>
@@ -320,6 +362,22 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10
   },
+  row: {
+      flex: 1,
+      padding: 10,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderColor: '#eee',
+      backgroundColor: '#fff',
+      flexDirection: 'row',
+    },
+  rowAvatarContainer: {
+    paddingVertical: 5,
+    paddingRight: 10,
+    paddingLeft: 0,
+  },
+  rowData: {
+    flex: 1,
+  },
 });
 
-export default Attendees;
+export default Attendees
