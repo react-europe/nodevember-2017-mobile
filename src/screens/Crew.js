@@ -1,10 +1,8 @@
 import React from 'react'
 import {
-  Image,
   FlatList,
   StyleSheet,
   View,
-  Text,
   TouchableOpacity,
   Linking
 } from 'react-native'

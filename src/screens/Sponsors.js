@@ -1,16 +1,14 @@
 import React from 'react'
-import { Image, SectionList, StyleSheet, View, Text } from 'react-native'
+import { SectionList, StyleSheet, View } from 'react-native'
 import FadeIn from 'react-native-fade-in-image'
 import { WebBrowser } from 'expo'
 import { ScrollView, RectButton } from 'react-native-gesture-handler'
 
 import { Layout, FontSizes, Colors } from '../constants'
 import MenuButton from '../components/MenuButton'
-import { BoldText, SemiBoldText, RegularText } from '../components/StyledText'
+import { SemiBoldText, RegularText } from '../components/StyledText'
 import LoadingPlaceholder from '../components/LoadingPlaceholder'
 import CachedImage from '../components/CachedImage'
-
-import _ from 'lodash'
 
 export const Schedule = require('../data/schedule.json')
 

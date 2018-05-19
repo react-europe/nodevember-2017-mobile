@@ -21,5 +21,8 @@
   "rules": {
     "no-console": "warn",
     "react/prop-types": "off"
+  },
+  "globals": { 
+    "fetch": false 
   }
 }

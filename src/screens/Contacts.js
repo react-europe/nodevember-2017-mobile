@@ -3,10 +3,6 @@ import {
   Animated,
   Linking,
   Platform,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
   StyleSheet,
   AsyncStorage,
   View
@@ -127,7 +123,7 @@ class DeferredContactsContent extends React.Component {
               underlayColor="#fff"
             >
               <SemiBoldText style={styles.bigButtonText}>
-                Scan a contact badge's QR code
+                {"Scan a contact badge's QR code"}
               </SemiBoldText>
             </RectButton>
           </ClipBorderRadius>

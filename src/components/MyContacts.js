@@ -1,15 +1,9 @@
 import React from "react";
-import { Image, Platform, StyleSheet, View, AsyncStorage } from "react-native";
-import moment from "moment-timezone";
+import { View, AsyncStorage } from "react-native";
 
-import { BoldText, RegularText, SemiBoldText } from "./StyledText";
+import { SemiBoldText } from "./StyledText";
 import ContactCard from "./ContactCard";
-import { Colors, FontSizes } from "../constants";
-import _ from "lodash";
-import {
-  convertUtcDateToEventTimezoneDaytime,
-  conferenceHasEnded
-} from "../utils";
+import { FontSizes } from "../constants";
 
 export default class MyContacts extends React.Component {
   state = {

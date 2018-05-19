@@ -2,38 +2,18 @@ import React from 'react'
 import {
   TouchableOpacity,
   AsyncStorage,
-  Image,
   FlatList,
   StyleSheet,
-  View,
-  Text
+  View
 } from 'react-native'
-import FadeIn from 'react-native-fade-in-image'
-import { WebBrowser } from 'expo'
 import { ScrollView, RectButton } from 'react-native-gesture-handler'
 
-import { Layout, FontSizes, Colors } from '../constants'
+import { FontSizes, Colors } from '../constants'
 import MenuButton from '../components/MenuButton'
-import { BoldText, SemiBoldText, RegularText } from '../components/StyledText'
+import { RegularText } from '../components/StyledText'
 import LoadingPlaceholder from '../components/LoadingPlaceholder'
-import { ListItem, ListSection } from 'react-native-paper'
-
-import _ from 'lodash'
 
 export const Schedule = require('../data/schedule.json')
-
-const ClipBorderRadius = ({ children, style }) => {
-  return (
-    <View
-      style={[
-        { borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10 },
-        style
-      ]}
-    >
-      {children}
-    </View>
-  )
-}
 
 const BORDER_RADIUS = 3
 export class StaffCheckinListRow extends React.Component {
@@ -43,13 +23,6 @@ export class StaffCheckinListRow extends React.Component {
 
   render() {
     const { item: item } = this.props
-    const MyComponent = () => (
-      <ListItem
-        title="First Item"
-        description="Item description"
-        icon="folder"
-      />
-    )
     return (
       <TouchableOpacity onPress={this._handleCheckinListPress}>
         <RectButton
@@ -130,7 +103,7 @@ export default class StaffCheckinLists extends React.Component {
           //<ListItem title={item.lastName} description="Press here to start checking people" icon="folder" key={item.id}/>}
 
           /**/
-          keyExtractor={(item, index) => item.id && item.id.toString()}
+          keyExtractor={item => item.id && item.id.toString()}
         />
       </LoadingPlaceholder>
     )

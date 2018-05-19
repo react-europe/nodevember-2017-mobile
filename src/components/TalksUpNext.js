@@ -1,8 +1,7 @@
 import React from "react";
-import { Image, Platform, StyleSheet, View } from "react-native";
-import moment from "moment-timezone";
+import { StyleSheet, View } from "react-native";
 
-import { BoldText, RegularText, SemiBoldText } from "./StyledText";
+import { RegularText, SemiBoldText } from "./StyledText";
 import TalkCard from "./TalkCard";
 import { Colors, FontSizes } from "../constants";
 import { findRandomTalk, findNextTalksAfterDate } from "../data";
@@ -33,7 +32,69 @@ export default class TalksUpNext extends React.Component {
       time
     };
   }
-
+  componentDidMount() {
+    let q = `{
+  events(slug: "reacteurope-2018") {
+    id
+    status {
+      hasEnded
+      hasStarted
+      onGoing
+      nextFiveScheduledItems {
+        id
+        title
+        description
+        startDate
+        speakers {
+          id
+          name
+          twitter
+          avatarUrl
+          bio
+          talks {
+            id
+            description
+            title
+            startDate
+          }
+        }
+      }
+    }
+  }
+}
+`;
+    let that = this;
+    fetch("http://www.react-europe.org/gql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: q })
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log(res.data);
+        if (
+          res &&
+          res.data &&
+          res.data.events &&
+          res.data.events[0] &&
+          res.data.events[0].status &&
+          res.data.events[0].status.nextFiveScheduledItems &&
+          res.data.events[0].status.nextFiveScheduledItems.length > 0
+        ) {
+          let nextTalks = res.data.events[0].status.nextFiveScheduledItems;
+          that.setState({
+            nextTalks: nextTalks.slice(
+              0,
+              3
+            ),
+            dateTime: nextTalks[0].startDate,
+            time: nextTalks[0].startDate
+          });
+        } else {
+          that.setState({ nextTalks: [] });
+        }
+      });
+  }
   render() {
     const { nextTalks } = this.state;
 
@@ -59,7 +120,7 @@ export default class TalksUpNext extends React.Component {
       return null;
     }
 
-    const { dateTime, time } = this.state;
+    const { dateTime } = this.state;
 
     if (dateTime) {
       return (

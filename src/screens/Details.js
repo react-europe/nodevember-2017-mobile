@@ -1,36 +1,26 @@
 import React from 'react'
 import {
   Animated,
-  Image,
   Platform,
   StyleSheet,
   TouchableOpacity,
-  Text,
-  ScrollView,
   View,
   Linking
 } from 'react-native'
-import { Constants, Video, WebBrowser } from 'expo'
+import { Constants, WebBrowser } from 'expo'
 import FadeIn from 'react-native-fade-in-image'
-import ReadMore from 'react-native-read-more-text'
-import { BorderlessButton } from 'react-native-gesture-handler'
 import { View as AnimatableView } from 'react-native-animatable'
-import _ from 'lodash'
-import { Transition } from 'react-navigation-fluid-transitions'
 
 import AnimatedScrollView from '../components/AnimatedScrollView'
 import NavigationBar from '../components/NavigationBar'
-import { Colors, FontSizes, Icons, Layout } from '../constants'
+import { Colors, FontSizes, Layout } from '../constants'
 import { RegularText, BoldText, SemiBoldText } from '../components/StyledText'
 import { getSpeakerTalk, convertUtcDateToEventTimezoneHour } from '../utils'
-import { findTalkData, findSpeakerData } from '../data'
 import SaveButton from '../components/SaveButton'
 import CachedImage from '../components/CachedImage'
-import { Ionicons } from '@expo/vector-icons'
 import CloseButton from '../components/CloseButton'
 import Markdown from 'react-native-simple-markdown'
 export const Schedule = require('../data/schedule.json')
-const Event = Schedule.events[0]
 
 class SavedButtonNavigationItem extends React.Component {
   render() {
@@ -58,6 +48,7 @@ export default class Details extends React.Component {
   render() {
     let params = this.props.navigation.state.params || {}
     let speaker
+    let speakers
     let talk
     const talkScreen = params.scheduleSlot || params.talk
     if (talkScreen) {
@@ -130,56 +121,50 @@ export default class Details extends React.Component {
             >
               <FadeIn placeholderStyle={{ backgroundColor: 'transparent' }}>
                 {talkScreen ? (
-                  <Transition shared="scale">
-                    <View style={styles.headerRowSpeaker}>
-                      {speakers
-                        ? speakers.map((speaker, i) => (
-                            <View
+                  <View style={styles.headerRowSpeaker}>
+                    {speakers
+                      ? speakers.map(speaker => (
+                          <View
+                            key={speaker.id}
+                            style={styles.headerColumnSpeaker}
+                          >
+                            <TouchableOpacity
                               key={speaker.id}
-                              style={styles.headerColumnSpeaker}
+                              onPress={() => this._handlePressSpeaker(speaker)}
                             >
-                              <TouchableOpacity
-                                key={speaker.id}
-                                onPress={() =>
-                                  this._handlePressSpeaker(speaker)
-                                }
-                              >
-                                <CachedImage
-                                  source={{ uri: speaker.avatarUrl }}
-                                  style={styles.avatarMultiple}
-                                  key={speaker.id + talk.title}
-                                />
-                              </TouchableOpacity>
-                              {speaker.name.split(' ').map((name, index) => (
-                                <View key={index}>
-                                  <TouchableOpacity
-                                    key={speaker.id}
-                                    onPress={() =>
-                                      this._handlePressSpeaker(speaker)
-                                    }
+                              <CachedImage
+                                source={{ uri: speaker.avatarUrl }}
+                                style={styles.avatarMultiple}
+                                key={speaker.id + talk.title}
+                              />
+                            </TouchableOpacity>
+                            {speaker.name.split(' ').map((name, index) => (
+                              <View key={index}>
+                                <TouchableOpacity
+                                  key={speaker.id}
+                                  onPress={() =>
+                                    this._handlePressSpeaker(speaker)
+                                  }
+                                >
+                                  <SemiBoldText
+                                    style={styles.headerText}
+                                    key={'speakers' + speaker.id + name}
                                   >
-                                    <SemiBoldText
-                                      style={styles.headerText}
-                                      key={'speakers' + speaker.id + name}
-                                    >
-                                      {name}
-                                    </SemiBoldText>
-                                  </TouchableOpacity>
-                                </View>
-                              ))}
-                            </View>
-                          ))
-                        : null}
-                    </View>
-                  </Transition>
+                                    {name}
+                                  </SemiBoldText>
+                                </TouchableOpacity>
+                              </View>
+                            ))}
+                          </View>
+                        ))
+                      : null}
+                  </View>
                 ) : (
-                  <Transition shared="scale">
-                    <CachedImage
-                      source={{ uri: speaker.avatarUrl }}
-                      style={styles.avatar}
-                      key={speaker.avatarUrl}
-                    />
-                  </Transition>
+                  <CachedImage
+                    source={{ uri: speaker.avatarUrl }}
+                    style={styles.avatar}
+                    key={speaker.avatarUrl}
+                  />
                 )}
               </FadeIn>
             </Animated.View>
@@ -235,7 +220,7 @@ export default class Details extends React.Component {
                   {talk.type === 0 ? 'Speakers' : 'Trainers'}
                 </SemiBoldText>
 
-                {speakers.map((speaker, i) => (
+                {speakers.map(speaker => (
                   <View key={speaker.id}>
                     <SemiBoldText key={speaker.id + talk.title}>
                       {speaker.name}

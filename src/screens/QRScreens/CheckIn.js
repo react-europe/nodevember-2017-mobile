@@ -1,8 +1,6 @@
 import React from 'react';
-import { AsyncStorage } from 'react-native';
-import { BarCodeScanner, Permissions } from 'expo';
+import { Alert, AsyncStorage } from 'react-native';
 import { query } from 'urql';
-import { GQL } from '../../constants';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 
@@ -43,7 +41,7 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
   }
 
   _delay = async time => {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function(resolve) {
       setTimeout(() => resolve(), time);
     });
   };
@@ -96,14 +94,14 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
       );
       console.log('checkin mutation value', value);
       if (value && value.data && value.data.createCheckin === null) {
-        alert(
+        Alert.alert(
           'This reference could not be found, make sure you selected the right Checkin List!'
         );
       } else if (value && value.data && value.data.createCheckin) {
         if (
           value.data.createCheckin.checkinMessage === 'Already checked-in today'
         ) {
-          alert(
+          Alert.alert(
             'This reference has already been checked today! The person cannot get in as their ticket has already been used by someone else.'
           );
         }

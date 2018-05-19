@@ -3,32 +3,21 @@ import {
   Animated,
   Linking,
   Platform,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
   StyleSheet,
   View,
   AsyncStorage
 } from 'react-native'
-import { Asset, LinearGradient, WebBrowser, Video, Permissions } from 'expo'
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
-import FadeIn from 'react-native-fade-in-image'
+import { Permissions } from 'expo'
+import { RectButton } from 'react-native-gesture-handler'
 import { View as AnimatableView } from 'react-native-animatable'
-import { Ionicons } from '@expo/vector-icons'
+import { withNavigation } from 'react-navigation'
 
 import AnimatedScrollView from '../components/AnimatedScrollView'
+import NavigationBar from '../components/NavigationBar'
 import Tickets from '../components/Tickets'
 import MenuButton from '../components/MenuButton'
-import VideoBackground from '../components/VideoBackground'
-import { BoldText, SemiBoldText } from '../components/StyledText'
+import { SemiBoldText } from '../components/StyledText'
 import { Colors, FontSizes, Layout } from '../constants'
-import { Speakers, Talks } from '../data'
-import {
-  HideWhenConferenceHasStarted,
-  HideWhenConferenceHasEnded,
-  ShowWhenConferenceHasEnded
-} from '../utils'
 export const Schedule = require('../data/schedule.json')
 const Event = Schedule.events[0]
 

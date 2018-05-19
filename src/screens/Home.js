@@ -3,25 +3,15 @@ import {
   Animated,
   Linking,
   Platform,
-  Text,
   Image,
   TouchableOpacity,
-  ScrollView,
   StyleSheet,
   AsyncStorage,
   View
 } from 'react-native'
-import {
-  Asset,
-  LinearGradient,
-  WebBrowser,
-  Video,
-  Permissions,
-  Notifications
-} from 'expo'
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler'
+import { WebBrowser, Notifications } from 'expo'
+import { RectButton } from 'react-native-gesture-handler'
 import { NavigationActions } from 'react-navigation'
-import FadeIn from 'react-native-fade-in-image'
 import { View as AnimatableView } from 'react-native-animatable'
 import { Ionicons } from '@expo/vector-icons'
 import { withNavigation } from 'react-navigation'
@@ -30,13 +20,9 @@ import AnimatedScrollView from '../components/AnimatedScrollView'
 import NavigationBar from '../components/NavigationBar'
 import TalksUpNext from '../components/TalksUpNext'
 import MenuButton from '../components/MenuButton'
-import VideoBackground from '../components/VideoBackground'
-import { BoldText, SemiBoldText } from '../components/StyledText'
-import { connectDrawerButton } from '../Navigation'
-import { Colors, FontSizes, Layout, GQL } from '../constants'
-import { Speakers, Talks } from '../data'
+import { SemiBoldText } from '../components/StyledText'
+import { Colors, FontSizes, Layout } from '../constants'
 import {
-  HideWhenConferenceHasStarted,
   HideWhenConferenceHasEnded,
   ShowWhenConferenceHasEnded
 } from '../utils'
@@ -171,7 +157,6 @@ class DeferredHomeContent extends React.Component {
       return null
     }
     const tix = this.state.tickets || []
-    let staffCheckinLists = []
     let isStaff = false
     tix.map(ticket => {
       if (ticket && ticket.type === 4) {
