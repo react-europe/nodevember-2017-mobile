@@ -10,6 +10,11 @@ import {
   FlatList,
 } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
+<<<<<<< HEAD
+=======
+import { Searchbar } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
+>>>>>>> increase timeout use paper searchBar and fix fontSize error
 import { withNavigation } from 'react-navigation';
 import { Query } from 'react-apollo';
 
@@ -90,7 +95,7 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
-  throttleDelayMs = 50
+  throttleDelayMs = 200
   throttleTimeout = null
   queryThrottle = text => {
     clearTimeout(this.throttleTimeout);
@@ -164,17 +169,12 @@ class DeferredAttendeesContent extends React.Component {
               );
             });
             console.log('Attendees: ', sortedFilteredAttendees);
-            console.log('Rankings: ', attendeesSearchRankingScore);
 
             return (
               <React.Fragment>
-                <TextInput
+                <Searchbar
                   onChangeText={text => this.queryThrottle(text)}
                   placeholder="Search for conference attendees"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  clearButtonMode="while-editing"
-                  returnKeyLabel="Search"
                   style={styles.textInput}
                 />
                 <FlatList
@@ -299,7 +299,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: 'black',
-    fontSize: 16,
   },
 });
 
