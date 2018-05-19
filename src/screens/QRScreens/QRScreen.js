@@ -1,14 +1,13 @@
 import React from "react";
 import {
   ActivityIndicator,
-  AsyncStorage,
   Button,
   Platform,
   StyleSheet,
   Text,
   View
 } from "react-native";
-import { BarCodeScanner, Permissions, Notifications } from "expo";
+import { BarCodeScanner, Permissions } from "expo";
 import { withNavigation, SafeAreaView } from "react-navigation";
 
 @withNavigation

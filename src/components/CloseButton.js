@@ -1,8 +1,5 @@
 import React from 'react';
 import {
-  I18nManager,
-  Image,
-  Text,
   View,
   Platform,
   StyleSheet,
@@ -23,11 +20,8 @@ class CloseButton extends React.PureComponent {
 
   render() {
     const {
-      buttonImage,
       onPress,
       pressColorAndroid,
-      width,
-      tintColor,
     } = this.props;
 
     return (

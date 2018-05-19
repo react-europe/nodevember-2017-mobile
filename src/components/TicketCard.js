@@ -1,22 +1,15 @@
 import React from "react";
-import { Image, Platform, StyleSheet, View } from "react-native";
-import { Svg } from "expo";
-import { RectButton } from "react-native-gesture-handler";
-import FadeIn from "react-native-fade-in-image";
+import { Platform, StyleSheet, View } from "react-native";
 import { withNavigation } from "react-navigation";
 import QRCode from "react-native-qrcode";
 
-import SaveIconWhenSaved from "./SaveIconWhenSaved";
-import { BoldText, RegularText, SemiBoldText } from "./StyledText";
-import { conferenceHasEnded, getSpeakerAvatarURL } from "../utils";
+import { RegularText } from "./StyledText";
 import { Colors, FontSizes } from "../constants";
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
-  Title,
-  Paragraph
+  Title
 } from "react-native-paper";
 
 @withNavigation

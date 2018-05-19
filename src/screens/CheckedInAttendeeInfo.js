@@ -1,46 +1,27 @@
 import React from "react";
 import {
   Animated,
-  Linking,
   Platform,
   Text,
-  Image,
-  TouchableOpacity,
-  Alert,
-  ScrollView,
   StyleSheet,
   View,
   AsyncStorage
 } from "react-native";
-import { Asset, LinearGradient, WebBrowser, Video } from "expo";
-import { BorderlessButton, RectButton } from "react-native-gesture-handler";
-import { NavigationActions } from "react-navigation";
-import FadeIn from "react-native-fade-in-image";
 import { View as AnimatableView } from "react-native-animatable";
-import { Ionicons } from "@expo/vector-icons";
 import { withNavigation } from "react-navigation";
 
 import AnimatedScrollView from "../components/AnimatedScrollView";
-import NavigationBar from "../components/NavigationBar";
-import Tickets from "../components/Tickets";
-import MenuButton from "../components/MenuButton";
-import VideoBackground from "../components/VideoBackground";
-import { BoldText, SemiBoldText } from "../components/StyledText";
-import { connectDrawerButton } from "../Navigation";
 import { Colors, FontSizes, Layout } from "../constants";
-import { Speakers, Talks } from "../data";
-import { Gravatar, GravatarApi } from "react-native-gravatar";
+import { Gravatar } from "react-native-gravatar";
 
 import {
   Button,
   Card,
   CardContent,
   Title,
-  Paragraph
 } from "react-native-paper";
 import Markdown from "react-native-simple-markdown";
 export const Schedule = require("../data/schedule.json");
-const Event = Schedule.events[0];
 
 class CheckedInAttendeeInfo extends React.Component {
   state = {
@@ -49,11 +30,6 @@ class CheckedInAttendeeInfo extends React.Component {
 
   render() {
     const { scrollY } = this.state;
-    const headerOpacity = scrollY.interpolate({
-      inputRange: [0, 150],
-      outputRange: [0, 1],
-      extrapolate: "clamp"
-    });
 
     return (
       <View style={{ flex: 1 }}>
@@ -196,19 +172,6 @@ const OverscrollView = () => (
     }}
   />
 );
-
-const ClipBorderRadius = ({ children, style }) => {
-  return (
-    <View
-      style={[
-        { borderRadius: BORDER_RADIUS, overflow: "hidden", marginTop: 10 },
-        style
-      ]}
-    >
-      {children}
-    </View>
-  );
-};
 
 const BORDER_RADIUS = 3;
 

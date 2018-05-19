@@ -1,11 +1,8 @@
 import React from "react";
-import { Image, Platform, StyleSheet, View, Linking } from "react-native";
-import { Svg, FileSystem, WebBrowser } from "expo";
-import { RectButton } from "react-native-gesture-handler";
-import FadeIn from "react-native-fade-in-image";
+import { Platform, StyleSheet, View, Linking } from "react-native";
+import { WebBrowser } from "expo";
 import { withNavigation } from "react-navigation";
 import GravatarImage from '../components/GravatarImage';
-import SaveIconWhenSaved from "./SaveIconWhenSaved";
 import { BoldText, RegularText, SemiBoldText } from "./StyledText";
 import { sendEmail, openTwitter, getContactTwitter } from "../utils";
 import { Colors, FontSizes } from "../constants";

@@ -61,7 +61,7 @@ export default class QRScannerModalNavigation extends React.Component {
 
   async setTickets(tickets) {
     try {
-      const value = await AsyncStorage.setItem(
+      await AsyncStorage.setItem(
         '@MySuperStore:tickets',
         tickets
       );
@@ -123,11 +123,11 @@ export default class QRScannerModalNavigation extends React.Component {
       ) {
         me = result.data.events[0].me;
         if (me === null) {
-          alert('Ticket not found!');
+          Alert.alert('Ticket not found!');
           return;
         }
       } else {
-        alert('Oops, something went wrong!');
+        Alert.alert('Oops, something went wrong!');
         return;
       }
 
@@ -140,7 +140,7 @@ export default class QRScannerModalNavigation extends React.Component {
         tickets = [me];
       } else {
         let existingTickets = JSON.parse(value) || [];
-        existingTickets.map((ticket, i) => {
+        existingTickets.map((ticket) => {
           if (ticket && me && me.ref && ticket.ref === me.ref) {
             found = true;
             newTickets.push(me);

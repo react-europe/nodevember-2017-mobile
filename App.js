@@ -4,12 +4,11 @@ import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Asset, AppLoading, Font, Updates } from "expo";
-import { AsyncStorage, Alert, Platform, View } from "react-native";
+import {  Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { GQL } from './src/constants'
 import { loadSavedTalksAsync } from "./src/utils/storage";
 import { SafeAreaView } from "react-navigation";
-import { ScheduleQuery } from "./src/data/schedulequery";
 
 if (Platform.OS === "android") {
   SafeAreaView.setStatusBarHeight(0);

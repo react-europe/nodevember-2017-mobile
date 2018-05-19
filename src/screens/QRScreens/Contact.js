@@ -41,6 +41,69 @@ export default class QRContactScannerModalNavigation extends React.Component {
           uuid = ticket.uuid;
         }
       });
+      let variables = { slug: GQL.slug, uuid: uuid, q: contactRef };
+      client
+        .executeQuery(query(qrContactQuery, variables), true)
+        .then(function(scannedContact) {
+          if (
+            scannedContact &&
+            scannedContact.data &&
+            scannedContact.data.events &&
+            scannedContact.data.events[0] &&
+            scannedContact.data.events[0].attendees &&
+            scannedContact.data.events[0].attendees[0]
+          ) {
+            let contact = scannedContact.data.events[0].attendees[0];
+            console.log('new contact', contact);
+            AsyncStorage.getItem('@MySuperStore:contacts').then(
+              storedContacts => {
+                let contacts = null;
+                let newContacts = [];
+                let found = false;
+                if (storedContacts === null && contact && contact.firstName) {
+                  contacts = [contact];
+                } else {
+                  let existingContacts = JSON.parse(storedContacts) || [];
+                  console.log(
+                    'how many existing contacts',
+                    existingContacts.length
+                  );
+                  existingContacts.map((existingContact) => {
+                    console.log('existing contact', existingContact);
+                    if (
+                      existingContact &&
+                      existingContact.id &&
+                      contact &&
+                      contact.id &&
+                      existingContact.id === contact.id
+                    ) {
+                      found = true;
+                      newContacts.push(contact);
+                    } else if (existingContact && existingContact.id) {
+                      newContacts.push(existingContact);
+                    }
+                  });
+                  if (!found && contact && contact.id) {
+                    newContacts.push(contact);
+                  }
+                  contacts = newContacts;
+                }
+                if (contacts === [null]) {
+                  contacts = [];
+                }
+                let stringifiedContacts = JSON.stringify(contacts);
+                AsyncStorage.setItem(
+                  '@MySuperStore:contacts',
+                  stringifiedContacts
+                )
+                  //AsyncStorage.removeItem('@MySuperStore:tickets')
+                  .then(() => {
+                    navigation.navigate('Contacts');
+                  });
+              }
+            );
+          }
+        });
     });
     let variables = { slug: GQL.slug, uuid: uuid, q: contactRef };
     const scannedContact = await client.executeQuery(query(qrContactQuery, variables), true);
