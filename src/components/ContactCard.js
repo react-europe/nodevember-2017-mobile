@@ -1,8 +1,8 @@
 import React from "react";
-import { Platform, StyleSheet, View, Linking } from "react-native";
+import { Platform, StyleSheet, View, Linking, Text } from "react-native";
 import { WebBrowser } from "expo";
 import { withNavigation } from "react-navigation";
-import GravatarImage from '../components/GravatarImage';
+import GravatarImage from "../components/GravatarImage";
 import { Colors, FontSizes } from "../constants";
 import {
   Button,
@@ -12,6 +12,7 @@ import {
   Title,
   Paragraph
 } from "react-native-paper";
+import CachedImage from "../components/CachedImage";
 
 @withNavigation
 export default class ContactCard extends React.Component {
@@ -21,21 +22,53 @@ export default class ContactCard extends React.Component {
     const twitter = this.getContactTwitter();
     return (
       <Card>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <GravatarImage
-            style={styles.avatarImage}
-            email={contact.email}
-          />
-          <View style={{flex: 1}}>
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <GravatarImage style={styles.avatarImage} email={contact.email} />
+          <View style={{ flex: 1 }}>
             <CardContent>
               <Title>{contact.firstName + " " + contact.lastName}</Title>
               {bio === "" ? null : <Paragraph>{bio}</Paragraph>}
             </CardContent>
             <CardActions>
               {twitter !== "" ? (
-                <Button onPress={this._handlePressTwitterButton}>@{twitter}</Button>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center"
+                  }}
+                >
+                  <CachedImage
+                    source={require("../assets/twitter.png")}
+                    style={{
+                      tintColor: "#00AAE4",
+                      height: 40,
+                      width: 40,
+                      resizeMode: "cover"
+                    }}
+                  />
+                  <Button compact onPress={this._handlePressTwitterButton}>
+                    <Text>@{twitter}</Text>
+                  </Button>
+                </View>
               ) : null}
-              <Button onPress={this._handlePressEmailButton}>Email</Button>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center"
+                }}
+              >
+                <CachedImage
+                  source={require("../assets/email.png")}
+                  style={{
+                    height: 40,
+                    width: 40,
+                    resizeMode: "cover"
+                  }}
+                />
+                <Button compact onPress={this._handlePressEmailButton}>
+                  <Text>{this.props.contact.email}</Text>
+                </Button>
+              </View>
             </CardActions>
           </View>
         </View>

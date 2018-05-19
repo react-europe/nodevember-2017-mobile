@@ -1,13 +1,7 @@
 {
   "parser": "babel-eslint",
-  "plugins": [
-    "react",
-    "react-native"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "plugins": ["react", "react-native"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -20,9 +14,11 @@
   },
   "rules": {
     "no-console": "warn",
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "es5"
   },
-  "globals": { 
-    "fetch": false 
+  "globals": {
+    "fetch": false
   }
 }
