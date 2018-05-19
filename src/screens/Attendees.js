@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Animated,
-  Platform,
-  Text,
-  StyleSheet,
-  View,
-  LayoutAnimation,
-} from 'react-native';
+import { Animated, Platform, Text, StyleSheet, View, LayoutAnimation } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Searchbar } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
@@ -28,8 +21,8 @@ class Attendees extends React.Component {
     query: '',
   };
 
-  throttleDelayMs = 200
-  throttleTimeout = null
+  throttleDelayMs = 200;
+  throttleTimeout = null;
   queryThrottle = text => {
     clearTimeout(this.throttleTimeout);
 
@@ -37,7 +30,7 @@ class Attendees extends React.Component {
       LayoutAnimation.easeInEaseOut();
       this.setState({ query: text });
     }, this.throttleDelayMs);
-  }
+  };
 
   render() {
     const { scrollY } = this.state;
@@ -52,6 +45,9 @@ class Attendees extends React.Component {
           onChangeText={text => this.queryThrottle(text)}
           placeholder="Search for conference attendees"
           style={styles.textInput}
+          autoCapitalize="none"
+          autoCorrect={false}
+          clearButtonMode="while-editing"
         />
         <View
           style={{
@@ -61,9 +57,8 @@ class Attendees extends React.Component {
             alignItems: 'center',
           }}
         />
-        <DeferredAttendeesContent query={this.state.query}/>
+        <DeferredAttendeesContent query={this.state.query} />
         <OverscrollView />
-
         <NavigationBar
           renderLeftButton={() => <MenuButton />}
           animatedBackgroundOpacity={headerOpacity}
@@ -85,15 +80,6 @@ class DeferredAttendeesContent extends React.Component {
     }
     setTimeout(() => this.setState({ ready: true }), 200);
   }
-
-  _renderItem = ({ item: attendee }) => (
-    <ContactCard
-      key={attendee.id}
-      contact={attendee}
-      tickets={this.state.tickets}
-      onPress={this._handlePressRow}
-    />
-  );
 
   _handlePressRow = attendee => {
     this.props.navigation.navigate('AttendeeDetail', { attendee });
@@ -198,7 +184,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0,
     borderColor: 'black',
-  }
+  },
 });
 
 export default Attendees;
