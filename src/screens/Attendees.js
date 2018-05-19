@@ -131,6 +131,11 @@ class DeferredAttendeesContent extends React.Component {
     <TextInput
       onChangeText={text => this.setState({ query: text })}
       placeholder="Search a conference attendee here"
+      autoCapitalize="none"
+      autoCorrect={false}
+      clearButtonMode="while-editing"
+      returnKeyLabel="Search"
+      style={styles.textInput}
     />
   );
 
@@ -313,7 +318,15 @@ const styles = StyleSheet.create({
   rowData: {
     flex: 1,
   },
-  textInput: {},
+  textInput: {
+    backgroundColor: 'white',
+    margin: 5,
+    padding: 5,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'black',
+    fontSize: 16,
+  },
 });
 
 export default Attendees;
