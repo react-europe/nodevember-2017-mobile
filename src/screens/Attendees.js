@@ -26,8 +26,6 @@ import { Colors, FontSizes, Layout } from '../constants';
 import GET_ATTENDEES from '../data/attendeesquery';
 import { getContactTwitter } from '../utils';
 
-export const Schedule = require('../data/schedule.json');
-
 class Attendees extends React.Component {
   state = {
     scrollY: new Animated.Value(0),
@@ -127,7 +125,6 @@ class DeferredAttendeesContent extends React.Component {
     }
     const { query } = this.props;
     const cleanedQuery = query.toLowerCase().trim();
-    console.log('State:', this.state);
   
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
