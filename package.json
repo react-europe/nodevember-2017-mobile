@@ -9,10 +9,14 @@
     "devtools": "react-devtools"
   },
   "dependencies": {
+    "apollo-client": "^2.3.1",
+    "apollo-client-preset": "^1.0.8",
     "crypto-js": "^3.1.9-1",
     "expo": "^27.0.0",
     "fbemitter": "^2.1.1",
     "global": "^4.3.2",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.9.2",
     "hoist-non-react-statics": "^2.3.1",
     "lodash": "^4.17.4",
     "moment": "2.21.0",
