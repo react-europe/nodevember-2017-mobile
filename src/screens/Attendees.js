@@ -148,7 +148,6 @@ class DeferredAttendeesContent extends React.Component {
               );
               attendeesData = sortedFilteredAttendees;
             }
-            console.log('Attendees: ', attendeesData);
 
             return (
               <AttendeesSearchResults
