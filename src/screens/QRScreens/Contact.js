@@ -116,7 +116,6 @@ export default class QRContactScannerModalNavigation extends React.Component {
       scannedContact.data.events[0].attendees[0]
     ) {
       let contact = scannedContact.data.events[0].attendees[0];
-      console.log('new contact', contact);
       await addContact(contact);
       navigation.navigate('Contacts');
     }

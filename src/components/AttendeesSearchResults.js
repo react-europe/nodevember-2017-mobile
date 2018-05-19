@@ -2,23 +2,21 @@ import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { ScrollView, RectButton } from 'react-native-gesture-handler';
 import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import Highlighter from 'react-native-highlight-words';
+import _ from 'lodash';
 
 import { Colors } from '../constants'
 import { BoldText, SemiBoldText, RegularText } from './StyledText';
-import LoadingPlaceholder from './LoadingPlaceholder';
 import GravatarImage from './GravatarImage';
 import HighlightableText from './HighlightableText';
 
 import { getContactTwitter } from '../utils';
 
 export const Schedule = require('../data/schedule.json');
-const FullSchedule = Schedule.events[0].groupedSchedule;
 
 const SpeakersAndTalks = Schedule.events[0].speakers;
 const SpeakersData = [{ data: SpeakersAndTalks, title: 'Speakers' }];
 
-class AttendeeSearchResultRow extends React.Component {
+class AttendeesSearchResultRow extends React.Component {
   render() {
     const { attendee, searchQuery } = this.props;
 
@@ -85,32 +83,62 @@ class AttendeeSearchResultRow extends React.Component {
   }
 }
 
-export default class AttendeeSearchResults extends React.Component {
-  render() {
-    return (
-      <LoadingPlaceholder>
-        <FlatList
-          renderScrollComponent={props => <ScrollView {...props} />}
-          renderItem={this._renderItem}
-          data={this.props.attendees}
-          keyExtractor={item => `${item.id}`}
-          initialNumToRender={10}
-          keyboardDismissMode="on-drag"
-          style={styles.list}
+
+const AttendeesSearchResultPlaceholderRow = () => (
+  <RectButton
+    activeOpacity={0.05}
+    style={{ flex: 1, backgroundColor: '#fff' }}
+  >
+    <View style={styles.row}>
+      <View style={styles.rowAvatarContainer}>
+        <MaterialIcons
+          name={'account-circle'}
+          size={48}
+          style={styles.placeholderAvatarImage}
         />
-      </LoadingPlaceholder>
+      </View>
+      <View style={styles.rowData}>
+        <BoldText style={{ backgroundColor: '#efefef', height: 14, marginBottom: 8 }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</BoldText>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <SemiBoldText style={{ color: '#efefef', height: 14, marginRight: 8 }}>•</SemiBoldText>
+          <SemiBoldText style={{ backgroundColor: '#efefef', height: 14 }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SemiBoldText>
+        </View>
+      </View>
+    </View>
+  </RectButton>
+);
+
+export default class AttendeesSearchResults extends React.Component {
+  render() {
+    const { attendees, isLoading } = this.props;
+    const maybeAttendees = isLoading ?
+      _.times(10).map((id) => ({ id })) :
+      attendees;
+    const itemRenderer = isLoading ? this._renderItemPlaceholder : this._renderItem;
+    return (
+      <FlatList
+        renderScrollComponent={props => <ScrollView {...props} />}
+        renderItem={itemRenderer}
+        data={maybeAttendees}
+        keyExtractor={item => `${item.id}`}
+        initialNumToRender={10}
+        keyboardDismissMode="on-drag"
+        style={styles.list}
+      />
     );
   }
 
-  _renderItem = ({ item: attendee }) => {
-    return (
-      <AttendeeSearchResultRow
-        attendee={attendee}
-        onPress={this.props.onPress}
-        searchQuery={this.props.searchQuery}
-      />
-    );
-  };
+  _renderItem = ({ item: attendee }) => (
+    <AttendeesSearchResultRow
+      attendee={attendee}
+      onPress={this.props.onPress}
+      searchQuery={this.props.searchQuery}
+    />
+  );
+
+  _renderItemPlaceholder = () => (
+    <AttendeesSearchResultPlaceholderRow />
+  );
 
   _handlePressRow = attendee => {
     this.props.navigation.navigate('AttendeeDetail', { attendee });
@@ -135,6 +163,12 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+  },
+  placeholderAvatarImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    color: '#efefef'
   },
   rowData: {
     flex: 1,
