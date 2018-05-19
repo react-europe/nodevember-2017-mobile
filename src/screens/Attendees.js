@@ -53,8 +53,6 @@ class Attendees extends React.Component {
           placeholder="Search for conference attendees"
           style={styles.textInput}
         />
-        {/* <View style={}>
-        </View> */}
         <AnimatedScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ paddingBottom: 20 + Layout.notchHeight / 2 }}
