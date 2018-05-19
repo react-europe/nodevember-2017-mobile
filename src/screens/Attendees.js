@@ -121,7 +121,7 @@ class DeferredAttendeesContent extends React.Component {
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
-          {({ error, data }) => {
+          {({ loading, error, data }) => {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
