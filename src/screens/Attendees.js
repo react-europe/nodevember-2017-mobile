@@ -50,7 +50,7 @@ class Attendees extends React.Component {
       extrapolate: 'clamp',
     });
     return (
-      <View style={{ flex: 1, position: 'relative', width: '100%' }}>
+      <View style={{ flex: 1 }}>
         <Searchbar
           onChangeText={text => this.queryThrottle(text)}
           placeholder="Search for conference attendees"
