@@ -63,7 +63,8 @@ class Attendees extends Component {
                     renderItem={this._renderItem}
                     renderSectionHeader={this._renderSectionHeader}
                     sections={[
-                        {title: 'Title1', data: attendees},
+                        {title: 'Attendees', data: attendees},
+                        {title: 'Twitter', data: attendees},
                     ]}
                     keyExtractor={item => item.id}
                     initialNumToRender={10}
