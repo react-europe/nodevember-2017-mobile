@@ -12,7 +12,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import {
   ApolloProvider,
 } from 'react-apollo';
-import ApolloAutocomplete from './ApolloAutocomplete';
+import ApolloAutocomplete from '../components/ApolloAutocomplete';
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: 'https://www.react-europe.org/gql' }),

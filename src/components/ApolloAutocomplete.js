@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import { ScrollView, RectButton } from "react-native-gesture-handler";
-import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
+import { BoldText, SemiBoldText, RegularText } from './StyledText';
 
 import {
   graphql
@@ -17,7 +17,7 @@ import {
 import gql from 'graphql-tag';
 import Downshift from 'downshift'
 import {WebBrowser} from "expo";
-import {Colors, FontSizes} from "../constants";
+import {Colors, FontSizes} from "../constants/index";
 import { Ionicons } from "@expo/vector-icons";
 
 class ApolloAutocomplete extends React.Component {
@@ -221,15 +221,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 2,
     fontSize: 24
-  },
-  list: {
-    borderRadius: 8,
-    overflow: 'hidden'
-  },
-  listItem: {
-    alignItems: 'flex-start',
-    backgroundColor: '#E0E0E0',
-    padding: 12
   },
   sectionHeader: {
     paddingHorizontal: 10,
