@@ -370,12 +370,12 @@ class DrawerView extends React.Component {
             { route: 'Sponsors', title: 'Sponsors' },
             { route: 'Profile', title: 'Profile' },
             { route: 'Contacts', title: 'Contacts' },
-            { route: 'Attendees', title: 'Attendees' },
             {
               route: 'StaffCheckinLists',
               title: 'StaffCheckinLists',
               hidden: true,
             },
+            { route: 'Attendees', title: 'Attendees' },
           ])}
         </View>
       </View>
