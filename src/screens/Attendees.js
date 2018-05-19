@@ -97,27 +97,11 @@ class Attendees extends React.Component {
 class DeferredAttendeesContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
-    tickets: [],
     attendees: [],
     query: '',
   };
 
-  async getTickets() {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
-      this.setState({ tickets: JSON.parse(value) });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  constructor(props) {
-    super(props);
-    this.tickets = [];
-  }
-
   componentDidMount() {
-    this.getTickets();
     if (this.state.ready) {
       return;
     }
@@ -148,7 +132,7 @@ class DeferredAttendeesContent extends React.Component {
   };
 
   _renderItem = ({ item: attendee }) => (
-    <ContactCard key={attendee.id} contact={attendee} tickets={this.state.tickets} />
+    <ContactCard key={attendee.id} contact={attendee} />
   );
 
   render() {
@@ -158,52 +142,21 @@ class DeferredAttendeesContent extends React.Component {
     const { query } = this.state;
     const cleanedQuery = query.toLowerCase().trim();
 
-    // <MyContacts
-    //   tickets={this.state.tickets}
-    //   style={{ marginTop: 20, marginHorizontal: 15, marginBottom: 2 }}
-    // />
-    // {tix && tix.length > 0 ? (
-    //   <ClipBorderRadius>
-    //     <RectButton
-    //       style={styles.bigButton}
-    //       onPress={this._handlePressQRButton}
-    //       underlayColor="#fff">
-    //       <SemiBoldText style={styles.bigButtonText}>
-    //         Scan a contact badge's QR code
-    //       </SemiBoldText>
-    //     </RectButton>
-    //   </ClipBorderRadius>
-    // ) : (
-    //   <ClipBorderRadius>
-    //     <RectButton
-    //       style={styles.bigButton}
-    //       onPress={this._handlePressProfileQRButton}
-    //       underlayColor="#fff">
-    //       <SemiBoldText style={styles.bigButtonText}>
-    //         You need to scan your ticket first
-    //       </SemiBoldText>
-    //     </RectButton>
-    //   </ClipBorderRadius>
-    // )}
-
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
           {({ loading, error, data }) => {
-            if (loading) {
-              return <Text>Loading...</Text>;
-            }
             if (error) {
               return <Text>Error ${error}</Text>;
             }
             const attendees = data && data.events && data.events[0] ? data.events[0].attendees : [];
-            const filteredAttendees = attendees.filter(attendee =>
+            const filteredAttendeesByName = attendees.filter(attendee =>
               attendee.firstName
                 .toLowerCase()
                 .trim()
                 .includes(cleanedQuery)
             );
-            console.log('filteredAttendees', filteredAttendees);
+            console.log('filteredAttendeesByName', filteredAttendeesByName);
             return (
               <React.Fragment>
                 <SectionList
@@ -213,9 +166,9 @@ class DeferredAttendeesContent extends React.Component {
                   renderItem={this._renderItem}
                   renderSectionHeader={this._renderSectionHeader}
                   sections={[
-                    { title: 'Name', data: filteredAttendees },
-                    { title: 'Twitter', data: filteredAttendees },
-                    { title: 'Email', data: filteredAttendees },
+                    { title: 'Name', data: filteredAttendeesByName },
+                    { title: 'Twitter', data: [] },
+                    { title: 'Email', data: [] },
                   ]}
                   keyExtractor={item => item.id}
                   initialNumToRender={10}
