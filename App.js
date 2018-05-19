@@ -1,6 +1,8 @@
 import React from "react";
 import { Asset, AppLoading, Font, Updates } from "expo";
-import {  Platform } from "react-native";
+import { AsyncStorage, Alert, Platform, View } from "react-native";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
 import { Ionicons } from "@expo/vector-icons";
 import { loadSavedTalksAsync } from "./src/utils/storage";
 import { SafeAreaView } from "react-navigation";
@@ -8,6 +10,10 @@ import { SafeAreaView } from "react-navigation";
 if (Platform.OS === "android") {
   SafeAreaView.setStatusBarHeight(0);
 }
+
+const client = new ApolloClient({
+  uri: "https://www.react-europe.org/gql"
+});
 
 import Navigation from "./src/Navigation";
 
@@ -84,6 +90,10 @@ export default class App extends React.Component {
       );
     }
 
-    return <Navigation />;
+    return (
+      <ApolloProvider client={client}>
+        <Navigation />
+      </ApolloProvider>
+    );
   }
 }
