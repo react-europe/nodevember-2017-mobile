@@ -8,7 +8,6 @@ import _ from 'lodash';
 
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
-import ContactCard from '../components/ContactCard';
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 
 import { Colors, Layout } from '../constants';
