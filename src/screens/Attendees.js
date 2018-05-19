@@ -196,7 +196,7 @@ class DeferredAttendeesContent extends React.Component {
             return (
               <React.Fragment>
                 <TextInput
-                  onChangeText={text => this.setState({ query: text })}
+                  onChangeText={text => this.queryThrottle(text)}
                   placeholder="Search for conference attendees"
                   autoCapitalize="none"
                   autoCorrect={false}
