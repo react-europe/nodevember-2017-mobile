@@ -51,9 +51,13 @@ class ApolloAutocompleteList extends React.Component {
   _renderSectionHeader = ({ section }) => {
     const {getInputProps} = this.props;
 
+    const customProps = {...getInputProps()};
+    // Super hack for https://github.com/paypal/downshift/issues/334
+    customProps.onBlur = null;
+
     return (
       <View style={styles.sectionHeader}>
-        <TextInput {...getInputProps()} autoFocus style={styles.textInput} />
+        <TextInput {...customProps} autoFocus style={styles.textInput} />
       </View>
     );
   };
@@ -65,7 +69,6 @@ class ApolloAutocompleteList extends React.Component {
 
     return (
       <SectionList
-        keyboardShouldPersistTaps={'never'}
         renderScrollComponent={props => <ScrollView {...props} />}
         stickySectionHeadersEnabled={true}
         renderItem={this._renderItem}
@@ -90,7 +93,7 @@ class AttendeeRow extends React.Component {
           acc.activity = cur.value;
           break;
         case 58:
-          acc.twitter = cur.value;
+          acc.twitter = cur.value.replace('@', '');
           break;
         case 59:
           acc.jobTitle = cur.value;
