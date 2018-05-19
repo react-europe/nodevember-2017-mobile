@@ -97,27 +97,11 @@ class Attendees extends React.Component {
 class DeferredAttendeesContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
-    tickets: [],
     attendees: [],
     query: '',
   };
 
-  async getTickets() {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
-      this.setState({ tickets: JSON.parse(value) });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  constructor(props) {
-    super(props);
-    this.tickets = [];
-  }
-
   componentDidMount() {
-    this.getTickets();
     if (this.state.ready) {
       return;
     }
@@ -125,6 +109,13 @@ class DeferredAttendeesContent extends React.Component {
     setTimeout(() => {
       this.setState({ ready: true });
     }, 200);
+  }
+
+  throttleDelayMs = 50
+  throttleTimeout = null
+  queryThrottle = text => {
+    clearTimeout(this.throttleTimeout);
+    this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
   }
 
   getContactTwitter = contact => {
@@ -143,7 +134,7 @@ class DeferredAttendeesContent extends React.Component {
   };
 
   _renderItem = ({ item: attendee }) => (
-    <ContactCard key={attendee.id} contact={attendee} tickets={this.state.tickets} />
+    <ContactCard key={attendee.id} contact={attendee} />
   );
 
   render() {
@@ -153,13 +144,11 @@ class DeferredAttendeesContent extends React.Component {
     const { query } = this.state;
     const cleanedQuery = query.toLowerCase().trim();
     console.log('State:', this.state);
+  
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
           {({ loading, error, data }) => {
-            if (loading) {
-              return <Text>Loading...</Text>;
-            }
             if (error) {
               return <Text>Error ${error}</Text>;
             }
@@ -207,7 +196,7 @@ class DeferredAttendeesContent extends React.Component {
             return (
               <React.Fragment>
                 <TextInput
-                  onChangeText={text => this.setState({ query: text })}
+                  onChangeText={text => this.queryThrottle(text)}
                   placeholder="Search for conference attendees"
                   autoCapitalize="none"
                   autoCorrect={false}
