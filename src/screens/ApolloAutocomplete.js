@@ -5,14 +5,19 @@ import {
   Text,
   StyleSheet,
   SectionList,
+  Linking, Platform,
 } from "react-native";
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, RectButton } from "react-native-gesture-handler";
+import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
 
 import {
   graphql
 } from 'react-apollo';
 import gql from 'graphql-tag';
 import Downshift from 'downshift'
+import {WebBrowser} from "expo";
+import {Colors, FontSizes} from "../constants";
+import { Ionicons } from "@expo/vector-icons";
 
 class ApolloAutocomplete extends React.Component {
   render() {
@@ -47,8 +52,8 @@ class ApolloAutocomplete extends React.Component {
 }
 
 class ApolloAutocompleteList extends React.Component {
-  _renderItem = ({ item }) => {
-    return <AttendeeRow item={item} />;
+  _renderItem = ({ item, index }) => {
+    return <AttendeeRow item={item} index={index} />;
   };
 
   _renderSectionHeader = ({ section }) => {
@@ -103,16 +108,77 @@ class AttendeeRow extends React.Component {
     }, {});
   };
 
+  _handlePressTwitterButton = async (twitter) => {
+    try {
+      await Linking.openURL(
+        `twitter://user?screen_name=` + twitter
+      );
+    } catch (e) {
+      WebBrowser.openBrowserAsync("https://twitter.com/" + twitter);
+    }
+  };
+
+  _handlePressEmailButton = async (email) => {
+    let me = { firstName: "", lastName: "" };
+    const emailurl =
+      "mailto:" +
+      email +
+      "?subject=hey it's" +
+      " " +
+      me.firstName +
+      " " +
+      me.lastName +
+      " " +
+      "from ReactEurope&body=ping";
+    try {
+      Platform.OS === "android"
+        ? WebBrowser.openBrowserAsync(emailurl)
+        : await Linking.openURL(emailurl);
+    } catch (e) {
+      WebBrowser.openBrowserAsync("mailto:" + email);
+    }
+  };
+
   render() {
+    const {index} = this.props;
     const {firstName, lastName, email} = this.props.item;
     const {twitter, jobTitle, activity} = this._getExtraInfo();
 
-    return (<View style={styles.rowContainer}>
-      <Text>{firstName + ' ' + lastName}</Text>
-      <Text>{email}</Text>
-      <Text>{twitter}</Text>
-      <Text>{jobTitle}</Text>
-      <Text>{activity}</Text>
+    return (
+      <View style={styles.rowContainer, {backgroundColor: index % 2 === 0 ? '#fff' : '#eee'}}>
+        <BoldText style={styles.rowText}>{firstName + ' ' + lastName}</BoldText>
+        {jobTitle ? <RegularText style={styles.rowText}>{jobTitle}</RegularText> : null}
+        {activity ? <RegularText style={styles.rowText}>{activity}</RegularText> : null}
+        {email ?
+          <RectButton style={[styles.button, {marginBottom: 20}]} underlayColor="#fff" onPress={this._handlePressEmailButton.bind(null, email)}>
+            <Ionicons
+              name="ios-mail"
+              size={23}
+              style={{
+                color: "#fff",
+                marginTop: 3,
+                backgroundColor: "transparent",
+                marginRight: 5
+              }}
+            />
+            <SemiBoldText style={styles.buttonText}>{email}</SemiBoldText>
+          </RectButton> : null
+        }
+        {twitter ?
+          <RectButton style={styles.button} underlayColor="#fff" onPress={this._handlePressTwitterButton.bind(null, twitter)}>
+            <Ionicons
+              name="logo-twitter"
+              size={23}
+              style={{
+                color: "#fff",
+                marginTop: 3,
+                backgroundColor: "transparent",
+                marginRight: 5
+              }}
+            />
+            <SemiBoldText style={styles.buttonText}>@{twitter}</SemiBoldText>
+          </RectButton> : null
+        }
     </View>);
   }
 }
@@ -142,6 +208,8 @@ const ApolloAutocompleteListWithData = graphql(SEARCH_ATTENDEES)(
   ApolloAutocompleteList
 );
 
+const BORDER_RADIUS = 3;
+
 const styles = StyleSheet.create({
   textInput: {
     alignItems: 'flex-start',
@@ -166,10 +234,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
     borderWidth: 1,
     borderColor: '#eee',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   rowContainer: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    padding: 20,
+    marginVertical: 30,
+  },
+  button: {
+    backgroundColor: Colors.blue,
+    paddingHorizontal: 15,
+    height: 50,
+    marginHorizontal: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: BORDER_RADIUS,
+    overflow: "hidden",
+    flexDirection: "row"
+  },
+  buttonText: {
+    fontSize: FontSizes.normalButton,
+    color: "#fff",
+    textAlign: "center",
+    paddingLeft: 15,
+  },
+  rowText: {
+    marginBottom: 15
   }
 });
 
