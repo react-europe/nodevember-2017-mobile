@@ -142,18 +142,6 @@ class DeferredAttendeesContent extends React.Component {
       .replace('twitter.com/', '');
   };
 
-  _renderHeader = () => (
-    <TextInput
-      onChangeText={text => this.setState({ query: text })}
-      placeholder="Search a conference attendee here"
-      autoCapitalize="none"
-      autoCorrect={false}
-      clearButtonMode="while-editing"
-      returnKeyLabel="Search"
-      style={styles.textInput}
-    />
-  );
-
   _renderSectionHeader = ({ section }) => {
     return (
       <View style={styles.sectionHeader}>
@@ -222,15 +210,24 @@ class DeferredAttendeesContent extends React.Component {
 
             return (
               <React.Fragment>
+                <TextInput
+                  onChangeText={text => this.setState({ query: text })}
+                  placeholder="Search a conference attendee here"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  clearButtonMode="while-editing"
+                  returnKeyLabel="Search"
+                  style={styles.textInput}
+                />
                 <SectionList
                   renderScrollComponent={props => <ScrollView {...props} />}
                   stickySectionHeadersEnabled={true}
-                  ListHeaderComponent={this._renderHeader}
                   renderItem={this._renderItem}
                   renderSectionHeader={this._renderSectionHeader}
                   sections={sections}
                   keyExtractor={item => item.id}
                   initialNumToRender={10}
+                  keyboardDismissMode="on-drag"
                 />
               </React.Fragment>
             );
