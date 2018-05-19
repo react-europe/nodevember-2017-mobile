@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView } from 'react-native-gesture-handler';
 import {
   Animated,
   Linking,
@@ -11,6 +11,7 @@ import {
   StyleSheet,
   AsyncStorage,
   View,
+  TextInput,
   SectionList,
 } from 'react-native';
 import { Asset, LinearGradient, WebBrowser, Video } from 'expo';
@@ -37,38 +38,8 @@ import {
   ShowWhenConferenceHasEnded,
 } from '../utils';
 import ContactCard from '../components/ContactCard';
-import GET_ATTENDEES from '../data/attendeesquery'
+import GET_ATTENDEES from '../data/attendeesquery';
 import CachedImage from '../components/CachedImage';
-
-
-class ContactRow extends React.Component {
-    render() {
-        const { item: attendee } = this.props;
-
-        return (
-            <View style={styles.row}>
-                <View style={styles.rowAvatarContainer}>
-                    <FadeIn>
-                    <CachedImage
-                        source={{ uri: attendee.avatarUrl }}
-                        style={{ width: 50, height: 50, borderRadius: 25 }}
-                    />
-                    </FadeIn>
-                </View>
-                <View style={styles.rowData}>
-                    <BoldText>
-                    {attendee.firstName} {attendee.lastName}
-                    </BoldText>
-                    {attendee.role ? <SemiBoldText>{attendee.role}</SemiBoldText> : null}
-                    <TouchableOpacity
-                    onPress={() => this._handlePressCrewTwitter(attendee.twitter)}>
-                    <RegularText>@{attendee.twitter}</RegularText>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        );
-    }
-}
 
 export const Schedule = require('../data/schedule.json');
 const Event = Schedule.events[0];
@@ -98,7 +69,8 @@ class Attendees extends React.Component {
               },
             ],
             { useNativeDriver: true }
-          )}>
+          )}
+        >
           <View
             style={{
               backgroundColor: '#4d5fab',
@@ -133,37 +105,19 @@ class DeferredAttendeesContent extends React.Component {
   async getTickets() {
     try {
       const value = await AsyncStorage.getItem('@MySuperStore:tickets');
-      console.log('tickets', value);
       this.setState({ tickets: JSON.parse(value) });
-      this.tickets = JSON.parse(value);
     } catch (err) {
       console.log(err);
-      return [];
-    }
-  }
-
-  async getAttendees() {
-    // TODO: Fill in correctly
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
-      console.log('attendees', value);
-      this.setState({ attendees: JSON.parse(value) });
-      this.attendees = JSON.parse(value);
-    } catch (err) {
-      console.log(err);
-      return [];
     }
   }
 
   constructor(props) {
     super(props);
     this.tickets = [];
-    this.attendees = [];
   }
 
   componentDidMount() {
     this.getTickets();
-    this.getAttendees();
     if (this.state.ready) {
       return;
     }
@@ -173,6 +127,18 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
+  _renderHeader = () => (
+    <TextInput
+      onChangeText={text => this.setState({ query: text })}
+      placeholder="Search a conference attendee here"
+      autoCapitalize="none"
+      autoCorrect={false}
+      clearButtonMode="while-editing"
+      returnKeyLabel="Search"
+      style={styles.textInput}
+    />
+  );
+
   _renderSectionHeader = ({ section }) => {
     return (
       <View style={styles.sectionHeader}>
@@ -181,14 +147,16 @@ class DeferredAttendeesContent extends React.Component {
     );
   };
 
-  _renderItem = ({ item }) => <ContactCard contact={item} onPress={this._handlePressRow} />;
+  _renderItem = ({ item: attendee }) => (
+    <ContactCard key={attendee.id} contact={attendee} tickets={this.state.tickets} />
+  );
 
   render() {
     if (!this.state.ready) {
       return null;
     }
-    const { query, tickets } = this.state;
-    console.log('state (Attendees):', this.state);
+    const { query } = this.state;
+    const cleanedQuery = query.toLowerCase().trim();
 
     // <MyContacts
     //   tickets={this.state.tickets}
@@ -218,71 +186,47 @@ class DeferredAttendeesContent extends React.Component {
     //   </ClipBorderRadius>
     // )}
 
-
-
-    // <ContactCard
-    //   key={'asdfasdf'} //contact.id + contact.email}
-    //   contact={undefined}
-    //   tickets={tix}
-    //   style={{ marginTop: 10, marginBottom: 10 }}
-    // />
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
-            {({ loading, error, data }) => {
-                if (loading) return <Text>Loading...</Text>
-                if (error) return <Text>Error ${error}</Text>
-
-                const attendees = data && data.events && data.events[0] ? data.events[0].attendees : []
-                const comp = (attendee) => attendee.firstName.toLowerCase().trim().includes(query.toLowerCase().trim());
-                const filteredAttendees = attendees.filter(comp);
-                console.log('filteredAttendees', filteredAttendees)
-                return (
-                  <React.Fragment>
-                    <SectionList
-                      renderScrollComponent={(props) => <ScrollView {...props}/>}
-                      stickySectionHeadersEnabled={true}
-                      renderItem={this._renderItem}
-                      renderSectionHeader={this._renderSectionHeader}
-                      sections={[
-                          {title: 'Name', data: filteredAttendees},
-                          {title: 'Twitter', data: filteredAttendees},
-                          {title: 'Email', data: filteredAttendees},
-                      ]}
-                      keyExtractor={item => item.id}
-                      initialNumToRender={10}
-                    />
-                  </React.Fragment>
-                );
-            }}
+          {({ loading, error, data }) => {
+            if (loading) {
+              return <Text>Loading...</Text>;
+            }
+            if (error) {
+              return <Text>Error ${error}</Text>;
+            }
+            const attendees = data && data.events && data.events[0] ? data.events[0].attendees : [];
+            const filteredAttendees = attendees.filter(attendee =>
+              attendee.firstName
+                .toLowerCase()
+                .trim()
+                .includes(cleanedQuery)
+            );
+            console.log('filteredAttendees', filteredAttendees);
+            return (
+              <React.Fragment>
+                <SectionList
+                  renderScrollComponent={props => <ScrollView {...props} />}
+                  stickySectionHeadersEnabled={true}
+                  ListHeaderComponent={this._renderHeader}
+                  renderItem={this._renderItem}
+                  renderSectionHeader={this._renderSectionHeader}
+                  sections={[
+                    { title: 'Name', data: filteredAttendees },
+                    { title: 'Twitter', data: filteredAttendees },
+                    { title: 'Email', data: filteredAttendees },
+                  ]}
+                  keyExtractor={item => item.id}
+                  initialNumToRender={10}
+                />
+              </React.Fragment>
+            );
+          }}
         </Query>
       </AnimatableView>
     );
   }
-
-  // _handlePressQRButton = () => {
-  //   this.props.navigation.navigate({
-  //     routeName: 'QRContactScanner',
-  //     key: 'QRContactScanner',
-  //   });
-  // };
-  //
-  // _handlePressProfileQRButton = () => {
-  //   this.props.navigation.navigate({
-  //     routeName: 'QRScanner',
-  //     key: 'QRScanner',
-  //   });
-  // };
-
-  // _handlePressTwitterButton = async () => {
-  //   try {
-  //     await Linking.openURL(
-  //       `twitter://user?screen_name=` + Event.twitterHandle
-  //     );
-  //   } catch (e) {
-  //     WebBrowser.openBrowserAsync('https://twitter.com/' + Event.twitterHandle);
-  //   }
-  // };
 }
 
 const OverscrollView = () => (
@@ -300,11 +244,7 @@ const OverscrollView = () => (
 
 const ClipBorderRadius = ({ children, style }) => {
   return (
-    <View
-      style={[
-        { borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10 },
-        style,
-      ]}>
+    <View style={[{ borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10 }, style]}>
       {children}
     </View>
   );
@@ -360,16 +300,16 @@ const styles = StyleSheet.create({
   },
   autocompleteContainer: {
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
   },
   row: {
-      flex: 1,
-      padding: 10,
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderColor: '#eee',
-      backgroundColor: '#fff',
-      flexDirection: 'row',
-    },
+    flex: 1,
+    padding: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: '#eee',
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+  },
   rowAvatarContainer: {
     paddingVertical: 5,
     paddingRight: 10,
@@ -378,6 +318,15 @@ const styles = StyleSheet.create({
   rowData: {
     flex: 1,
   },
+  textInput: {
+    backgroundColor: 'white',
+    margin: 5,
+    padding: 5,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: 'black',
+    fontSize: 16,
+  },
 });
 
-export default Attendees
+export default Attendees;
