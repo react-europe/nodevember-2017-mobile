@@ -126,6 +126,13 @@ class DeferredAttendeesContent extends React.Component {
       .replace('twitter.com/', '');
   };
 
+  throttleDelayMs = 50
+  throttleTimeout = null
+  queryThrottle = text => {
+    clearTimeout(this.throttleTimeout);
+    this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
+  }
+
   _renderItem = ({ item: attendee }) => (
     <ContactCard key={attendee.id} contact={attendee} />
   );
@@ -190,7 +197,7 @@ class DeferredAttendeesContent extends React.Component {
             return (
               <React.Fragment>
                 <TextInput
-                  onChangeText={text => this.setState({ query: text })}
+                  onChangeText={text => this.queryThrottle(text)}
                   placeholder="Search for conference attendees"
                   autoCapitalize="none"
                   autoCorrect={false}
