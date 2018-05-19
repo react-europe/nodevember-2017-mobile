@@ -12,7 +12,7 @@ import {
   AsyncStorage,
   View,
   TextInput,
-  SectionList,
+  FlatList,
 } from 'react-native';
 import { Asset, LinearGradient, WebBrowser, Video } from 'expo';
 import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
@@ -127,24 +127,19 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
-  _renderHeader = () => (
-    <TextInput
-      onChangeText={text => this.setState({ query: text })}
-      placeholder="Search a conference attendee here"
-      autoCapitalize="none"
-      autoCorrect={false}
-      clearButtonMode="while-editing"
-      returnKeyLabel="Search"
-      style={styles.textInput}
-    />
-  );
-
-  _renderSectionHeader = ({ section }) => {
-    return (
-      <View style={styles.sectionHeader}>
-        <RegularText>{section.title}</RegularText>
-      </View>
-    );
+  getContactTwitter = contact => {
+    let twitter = '';
+    if (contact) {
+      contact.answers.map(answer => {
+        if (answer.question && answer.question.title === 'Twitter') {
+          twitter = answer.value;
+        }
+      });
+    }
+    return twitter
+      .replace('@', '')
+      .replace('https://twitter.com/', '')
+      .replace('twitter.com/', '');
   };
 
   _renderItem = ({ item: attendee }) => (
@@ -157,35 +152,7 @@ class DeferredAttendeesContent extends React.Component {
     }
     const { query } = this.state;
     const cleanedQuery = query.toLowerCase().trim();
-
-    // <MyContacts
-    //   tickets={this.state.tickets}
-    //   style={{ marginTop: 20, marginHorizontal: 15, marginBottom: 2 }}
-    // />
-    // {tix && tix.length > 0 ? (
-    //   <ClipBorderRadius>
-    //     <RectButton
-    //       style={styles.bigButton}
-    //       onPress={this._handlePressQRButton}
-    //       underlayColor="#fff">
-    //       <SemiBoldText style={styles.bigButtonText}>
-    //         Scan a contact badge's QR code
-    //       </SemiBoldText>
-    //     </RectButton>
-    //   </ClipBorderRadius>
-    // ) : (
-    //   <ClipBorderRadius>
-    //     <RectButton
-    //       style={styles.bigButton}
-    //       onPress={this._handlePressProfileQRButton}
-    //       underlayColor="#fff">
-    //       <SemiBoldText style={styles.bigButtonText}>
-    //         You need to scan your ticket first
-    //       </SemiBoldText>
-    //     </RectButton>
-    //   </ClipBorderRadius>
-    // )}
-
+    console.log('State:', this.state);
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
@@ -196,29 +163,67 @@ class DeferredAttendeesContent extends React.Component {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
+
             const attendees = data && data.events && data.events[0] ? data.events[0].attendees : [];
-            const filteredAttendees = attendees.filter(attendee =>
-              attendee.firstName
+            const filteredAttendees = attendees.filter(attendee => {
+              const fullName = `${attendee.firstName} ${attendee.lastName}`;
+              return fullName
+                .toLowerCase()
+                .trim()
+                .includes(cleanedQuery);
+            });
+            const filteredNameAttendees = attendees.filter(attendee => {
+              const fullName = `${attendee.firstName} ${attendee.lastName}`;
+              return fullName
+                .toLowerCase()
+                .trim()
+                .includes(cleanedQuery);
+            });
+            const filteredEmailAttendees = attendees.filter(attendee =>
+              attendee.email
                 .toLowerCase()
                 .trim()
                 .includes(cleanedQuery)
             );
-            console.log('filteredAttendees', filteredAttendees);
+            const filteredTwitterAttendees = attendees.filter(attendee =>
+              this.getContactTwitter(attendee)
+                .toLowerCase()
+                .trim()
+                .includes(cleanedQuery)
+            );
+
+            const sections = [];
+            if (filteredNameAttendees.length > 0) {
+              sections.push({ title: 'Name', data: filteredNameAttendees });
+            }
+            if (filteredEmailAttendees.length > 0) {
+              sections.push({ title: 'Email', data: filteredEmailAttendees });
+            }
+            if (filteredTwitterAttendees.length > 0) {
+              sections.push({ title: 'Twitter', data: filteredTwitterAttendees });
+            }
+
+            console.log('Attendees: ', filteredNameAttendees);
+
             return (
               <React.Fragment>
-                <SectionList
+                <TextInput
+                  onChangeText={text => this.setState({ query: text })}
+                  placeholder="Search for conference attendees"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  clearButtonMode="while-editing"
+                  returnKeyLabel="Search"
+                  style={styles.textInput}
+                />
+                <FlatList
                   renderScrollComponent={props => <ScrollView {...props} />}
-                  stickySectionHeadersEnabled={true}
-                  ListHeaderComponent={this._renderHeader}
                   renderItem={this._renderItem}
-                  renderSectionHeader={this._renderSectionHeader}
-                  sections={[
-                    { title: 'Name', data: filteredAttendees },
-                    { title: 'Twitter', data: filteredAttendees },
-                    { title: 'Email', data: filteredAttendees },
-                  ]}
-                  keyExtractor={item => item.id}
+                  renderHeader={this._renderHeader}
+                  data={filteredAttendees}
+                  keyExtractor={item => `${item.id}`}
                   initialNumToRender={10}
+                  keyboardDismissMode="on-drag"
                 />
               </React.Fragment>
             );
@@ -317,6 +322,14 @@ const styles = StyleSheet.create({
   },
   rowData: {
     flex: 1,
+  },
+  sectionHeader: {
+    paddingHorizontal: 10,
+    paddingTop: 7,
+    paddingBottom: 5,
+    backgroundColor: '#eee',
+    borderWidth: 1,
+    borderColor: '#eee',
   },
   textInput: {
     backgroundColor: 'white',
