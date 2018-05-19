@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 import {
   FlatList,
   StyleSheet,
   View,
   TouchableOpacity,
-  Linking,
-} from 'react-native';
-import FadeIn from 'react-native-fade-in-image';
-import { ScrollView } from 'react-native-gesture-handler';
-import { WebBrowser } from 'expo';
+  Linking
+} from "react-native";
+import FadeIn from "react-native-fade-in-image";
+import { ScrollView } from "react-native-gesture-handler";
+import { WebBrowser } from "expo";
 
-import { Colors } from '../constants';
-import MenuButton from '../components/MenuButton';
-import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
-import LoadingPlaceholder from '../components/LoadingPlaceholder';
-import CachedImage from '../components/CachedImage';
+import { Colors } from "../constants";
+import MenuButton from "../components/MenuButton";
+import { BoldText, SemiBoldText, RegularText } from "../components/StyledText";
+import LoadingPlaceholder from "../components/LoadingPlaceholder";
+import CachedImage from "../components/CachedImage";
 
-export const Schedule = require('../data/schedule.json');
+export const Schedule = require("../data/schedule.json");
 
 const CrewData = Schedule.events[0].collaborators;
 
@@ -40,7 +40,8 @@ class CrewRow extends React.Component {
           </BoldText>
           {crew.role ? <SemiBoldText>{crew.role}</SemiBoldText> : null}
           <TouchableOpacity
-            onPress={() => this._handlePressCrewTwitter(crew.twitter)}>
+            onPress={() => this._handlePressCrewTwitter(crew.twitter)}
+          >
             <RegularText>@{crew.twitter}</RegularText>
           </TouchableOpacity>
         </View>
@@ -52,20 +53,14 @@ class CrewRow extends React.Component {
     try {
       await Linking.openURL(`twitter://user?screen_name=` + twitter);
     } catch (e) {
-      WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
+      WebBrowser.openBrowserAsync("https://twitter.com/" + twitter);
     }
   };
 }
 
 export default class Crews extends React.Component {
   static navigationOptions = {
-    title: 'Crew',
-    headerStyle: { backgroundColor: Colors.blue },
-    headerTintColor: 'white',
-    headerLeft: <MenuButton />,
-    headerTitleStyle: {
-      fontFamily: 'open-sans-bold',
-    },
+    title: "Crew"
   };
 
   render() {
@@ -91,16 +86,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: '#eee',
-    backgroundColor: '#fff',
-    flexDirection: 'row',
+    borderColor: "#eee",
+    backgroundColor: "#fff",
+    flexDirection: "row"
   },
   rowAvatarContainer: {
     paddingVertical: 5,
     paddingRight: 10,
-    paddingLeft: 0,
+    paddingLeft: 0
   },
   rowData: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });

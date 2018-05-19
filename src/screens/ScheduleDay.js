@@ -26,7 +26,7 @@ class ScheduleRow extends React.Component {
         </BoldText>
 
         {item.speakers
-          ? item.speakers.map((speaker) => (
+          ? item.speakers.map(speaker => (
               <SemiBoldText key={speaker.id + item.title}>
                 {speaker.name}
               </SemiBoldText>
@@ -65,19 +65,6 @@ export default function ScheduleDay(options) {
   });
 
   class ScheduleDayComponent extends React.Component {
-    static navigationOptions = {
-      title: Layout.isSmallDevice ? options.day : `${options.day} Schedule`,
-      headerStyle: { backgroundColor: Colors.blue },
-      headerTintColor: "white",
-      headerLeft: <MenuButton />,
-      tabBarLabel: options.day,
-      tabBarIcon: ({ tintColor }) => (
-        <BoldText style={{ fontSize: 20, color: tintColor }}>
-          {options.date}
-        </BoldText>
-      )
-    };
-
     render() {
       return (
         <LoadingPlaceholder>
@@ -111,23 +98,25 @@ export default function ScheduleDay(options) {
     };
   }
 
-  return StackNavigator(
-    {
-      Day: {
-        screen: ScheduleDayComponent
-      }
-    },
-    {
-      cardStyle: {
-        backgroundColor: "#fafafa"
-      },
-      navigationOptions: {
-        headerTitleStyle: {
-          fontFamily: "open-sans-bold"
-        }
-      }
-    }
-  );
+  return ScheduleDayComponent;
+
+  // return StackNavigator(
+  //   {
+  //     Day: {
+  //       screen: ScheduleDayComponent
+  //     }
+  //   },
+  //   {
+  //     cardStyle: {
+  //       backgroundColor: '#fafafa'
+  //     },
+  //     navigationOptions: {
+  //       headerTitleStyle: {
+  //         fontFamily: 'open-sans-bold'
+  //       }
+  //     }
+  //   }
+  // )
 }
 
 const styles = StyleSheet.create({

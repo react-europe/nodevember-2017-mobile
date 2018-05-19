@@ -83,12 +83,10 @@ export default class TalksUpNext extends React.Component {
         ) {
           let nextTalks = res.data.events[0].status.nextFiveScheduledItems;
           that.setState({
-            nextTalks: nextTalks.slice(
-              0,
-              3
-            ),
-            dateTime: nextTalks[0].startDate,
-            time: nextTalks[0].startDate
+            nextTalks: nextTalks.slice(0, 3),
+            dateTime:
+              nextTalks && nextTalks.length ? nextTalks[0].startDate : "",
+            time: nextTalks && nextTalks.length ? nextTalks[0].startDate : ""
           });
         } else {
           that.setState({ nextTalks: [] });

@@ -4,7 +4,7 @@ import {
   TouchableWithoutFeedback,
   StyleSheet,
   View,
-  Platform,
+  Platform
 } from "react-native";
 import SafeAreaView from "react-native-safe-area-view";
 
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     flex: 1,
-    minWidth: 30,
+    minWidth: 30
   },
   label: {
     textAlign: "center",

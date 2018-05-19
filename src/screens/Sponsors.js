@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionList, StyleSheet, View} from "react-native";
+import { SectionList, StyleSheet, View } from "react-native";
 import FadeIn from "react-native-fade-in-image";
 import { WebBrowser } from "expo";
 import { ScrollView, RectButton } from "react-native-gesture-handler";
@@ -104,13 +104,7 @@ class SponsorRow extends React.Component {
 
 export default class Sponsors extends React.Component {
   static navigationOptions = {
-    title: "Sponsors",
-    headerStyle: { backgroundColor: Colors.blue },
-    headerTintColor: "white",
-    headerLeft: <MenuButton />,
-    headerTitleStyle: {
-      fontFamily: "open-sans-bold"
-    }
+    title: "Sponsors"
   };
 
   render() {

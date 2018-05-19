@@ -4,7 +4,7 @@ import {
   AsyncStorage,
   FlatList,
   StyleSheet,
-  View,
+  View
 } from "react-native";
 import { ScrollView, RectButton } from "react-native-gesture-handler";
 
@@ -52,13 +52,7 @@ export class StaffCheckinListRow extends React.Component {
 
 export default class StaffCheckinLists extends React.Component {
   static navigationOptions = {
-    title: "Staff Checkin Lists",
-    headerStyle: { backgroundColor: Colors.blue },
-    headerTintColor: "white",
-    headerLeft: <MenuButton />,
-    headerTitleStyle: {
-      fontFamily: "open-sans-bold"
-    }
+    title: "Staff Checkin Lists"
   };
   state = {
     staffCheckinLists: [],
@@ -109,7 +103,7 @@ export default class StaffCheckinLists extends React.Component {
           //<ListItem title={item.lastName} description="Press here to start checking people" icon="folder" key={item.id}/>}
 
           /**/
-          keyExtractor={(item) => item.id && item.id.toString()}
+          keyExtractor={item => item.id && item.id.toString()}
         />
       </LoadingPlaceholder>
     );

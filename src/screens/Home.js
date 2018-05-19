@@ -9,10 +9,7 @@ import {
   AsyncStorage,
   View
 } from "react-native";
-import {
-  WebBrowser,
-  Notifications
-} from "expo";
+import { WebBrowser, Notifications } from "expo";
 import { RectButton } from "react-native-gesture-handler";
 import { NavigationActions } from "react-navigation";
 import { View as AnimatableView } from "react-native-animatable";
@@ -101,10 +98,7 @@ class Home extends React.Component {
           <OverscrollView />
         </AnimatedScrollView>
 
-        <NavigationBar
-          renderLeftButton={() => <MenuButton />}
-          animatedBackgroundOpacity={headerOpacity}
-        />
+        <NavigationBar animatedBackgroundOpacity={headerOpacity} />
       </View>
     );
   }

@@ -1,13 +1,27 @@
 import React from "react";
+import { ApolloClient } from "apollo-client";
+import { ApolloProvider } from "react-apollo";
+import { HttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
 import { Asset, AppLoading, Font, Updates } from "expo";
-import {  Platform } from "react-native";
+import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { GQL } from "./src/constants";
 import { loadSavedTalksAsync } from "./src/utils/storage";
 import { SafeAreaView } from "react-navigation";
 
 if (Platform.OS === "android") {
   SafeAreaView.setStatusBarHeight(0);
 }
+
+const client = new ApolloClient({
+  // By default, this client will send queries to the
+  //  `/graphql` endpoint on the same host
+  // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
+  // to a different host
+  link: new HttpLink({ uri: GQL.uri }),
+  cache: new InMemoryCache()
+});
 
 import Navigation from "./src/Navigation";
 
@@ -83,7 +97,10 @@ export default class App extends React.Component {
         />
       );
     }
-
-    return <Navigation />;
+    return (
+      <ApolloProvider client={client}>
+        <Navigation />
+      </ApolloProvider>
+    );
   }
 }

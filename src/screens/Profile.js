@@ -50,24 +50,9 @@ class Profile extends React.Component {
             { useNativeDriver: true }
           )}
         >
-          <View
-            style={{
-              backgroundColor: "#4d5fab",
-              padding: 10,
-              paddingTop: Layout.headerHeight - 10,
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          />
-
           <DeferredProfileContent />
           <OverscrollView />
         </AnimatedScrollView>
-
-        <NavigationBar
-          renderLeftButton={() => <MenuButton />}
-          animatedBackgroundOpacity={headerOpacity}
-        />
       </View>
     );
   }
@@ -77,7 +62,6 @@ class Profile extends React.Component {
   };
 }
 
-@withNavigation
 class DeferredProfileContent extends React.Component {
   state = {
     tickets: [],

@@ -1,18 +1,20 @@
-import React from 'react';
-import { Image, View, StyleSheet } from 'react-native';
-import { Asset, FileSystem } from 'expo';
-import sha256 from 'crypto-js/sha256';
+import React from "react";
+import { Image, View, StyleSheet } from "react-native";
+import { Asset, FileSystem } from "expo";
+import sha256 from "crypto-js/sha256";
 
 export default class CachedImage extends React.Component {
   state = {
-    source: null,
+    source: null
   };
+
+  unmounting: false;
 
   async componentDidMount() {
     let source = this.props.source;
 
     try {
-      if (typeof source === 'number') {
+      if (typeof source === "number") {
         await Asset.fromModule(source).downloadAsync();
       } else if (source && source.uri) {
         let name = sha256(source.uri);
@@ -28,8 +30,14 @@ export default class CachedImage extends React.Component {
     } catch (e) {
       console.log(e);
     } finally {
-      this.setState({ source });
+      if (!this.unmounting) {
+        this.setState({ source });
+      }
     }
+  }
+
+  componentWillUnmount() {
+    this.unmounting = true;
   }
 
   render() {
@@ -39,7 +47,7 @@ export default class CachedImage extends React.Component {
       let safeImageStyle = { ...StyleSheet.flatten(this.props.style) };
       delete safeImageStyle.tintColor;
       delete safeImageStyle.resizeMode;
-      return <View style={[{ backgroundColor: '#eee' }, safeImageStyle]} />;
+      return <View style={[{ backgroundColor: "#eee" }, safeImageStyle]} />;
     }
   }
 }

@@ -5,7 +5,6 @@ import { BorderlessButton } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { Layout } from "../constants";
 
-@connectDrawerButton
 export default class MenuButton extends React.Component {
   render() {
     return (
