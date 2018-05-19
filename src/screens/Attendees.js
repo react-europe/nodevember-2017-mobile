@@ -1,28 +1,23 @@
 import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
 import {
   Animated,
   Platform,
   Text,
   StyleSheet,
   View,
-  TextInput,
-  FlatList,
   LayoutAnimation,
 } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Searchbar } from 'react-native-paper';
-import { Ionicons } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 import { Query } from 'react-apollo';
 
-import AnimatedScrollView from '../components/AnimatedScrollView';
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
 import ContactCard from '../components/ContactCard';
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 
-import { Colors, FontSizes, Layout } from '../constants';
+import { Colors, Layout } from '../constants';
 import GET_ATTENDEES from '../data/attendeesquery';
 import { getContactTwitter } from '../utils';
 
@@ -39,7 +34,7 @@ class Attendees extends React.Component {
   throttleTimeout = null
   queryThrottle = text => {
     clearTimeout(this.throttleTimeout);
-  
+
     this.throttleTimeout = setTimeout(() => {
       LayoutAnimation.easeInEaseOut();
       this.setState({ query: text });
@@ -60,31 +55,16 @@ class Attendees extends React.Component {
           placeholder="Search for conference attendees"
           style={styles.textInput}
         />
-        <AnimatedScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{ paddingBottom: 20 + Layout.notchHeight / 2 }}
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: { contentOffset: { y: scrollY } },
-              },
-            ],
-            { useNativeDriver: true }
-          )}
-        >
-          <View
-            style={{
-              backgroundColor: '#4d5fab',
-              padding: 10,
-              paddingTop: Layout.headerHeight - 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          />
-          <DeferredAttendeesContent query={this.state.query}/>
-          <OverscrollView />
-        </AnimatedScrollView>
+        <View
+          style={{
+            backgroundColor: '#4d5fab',
+            paddingTop: Layout.headerHeight,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+        <DeferredAttendeesContent query={this.state.query}/>
+        <OverscrollView />
 
         <NavigationBar
           renderLeftButton={() => <MenuButton />}
@@ -128,7 +108,7 @@ class DeferredAttendeesContent extends React.Component {
     const { query } = this.props;
     const cleanedQuery = query.toLowerCase().trim();
     console.log('State:', this.state);
-  
+
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
@@ -218,7 +198,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 60,
     position: 'absolute',
-    top: 90,
+    top: 70 + Layout.notchHeight,
     left: 0,
     right: 0,
     marginLeft: 6,
