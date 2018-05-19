@@ -106,8 +106,6 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
- 
-
   _renderItem = ({ item: attendee }) => (
     <ContactCard
       key={attendee.id}
