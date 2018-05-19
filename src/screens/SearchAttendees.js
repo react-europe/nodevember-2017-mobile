@@ -1,7 +1,6 @@
 import React from "react";
 import {
   View,
-  SafeAreaView,
   StyleSheet,
 } from "react-native";
 import {Colors} from "../constants";
@@ -33,13 +32,13 @@ class SearchAttendees extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <ApolloProvider client={client}>
+      <View style={styles.container}>
+        <ApolloProvider client={client} >
           <View>
             <ApolloAutocomplete />
           </View>
         </ApolloProvider>
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -47,7 +46,6 @@ class SearchAttendees extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    margin: 12,
     flex: 1,
   }
 });

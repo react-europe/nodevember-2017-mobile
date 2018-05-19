@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   SectionList,
-  Linking, Platform,
+  Linking,
+  Platform,
 } from "react-native";
 import { ScrollView, RectButton } from "react-native-gesture-handler";
 import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
@@ -25,24 +26,14 @@ class ApolloAutocomplete extends React.Component {
       <Downshift>
         {({
             getInputProps,
-            getItemProps,
-            getLabelProps,
             inputValue,
-            selectedItem,
-            highlightedIndex,
-            isOpen,
             getRootProps,
           }) =>
           <View {...getRootProps({refKey: 'ref'}, {suppressRefError: true})}>
             <ApolloAutocompleteListWithData
               {...{
                 getInputProps,
-                getItemProps,
-                getLabelProps,
                 inputValue,
-                selectedItem,
-                highlightedIndex,
-                isOpen,
               }}
             />
           </View>}
@@ -53,6 +44,7 @@ class ApolloAutocomplete extends React.Component {
 
 class ApolloAutocompleteList extends React.Component {
   _renderItem = ({ item, index }) => {
+
     return <AttendeeRow item={item} index={index} />;
   };
 
@@ -61,7 +53,7 @@ class ApolloAutocompleteList extends React.Component {
 
     return (
       <View style={styles.sectionHeader}>
-        <TextInput {...getInputProps()} style={styles.textInput} />
+        <TextInput {...getInputProps()} autoFocus style={styles.textInput} />
       </View>
     );
   };
@@ -73,6 +65,7 @@ class ApolloAutocompleteList extends React.Component {
 
     return (
       <SectionList
+        keyboardShouldPersistTaps={'never'}
         renderScrollComponent={props => <ScrollView {...props} />}
         stickySectionHeadersEnabled={true}
         renderItem={this._renderItem}
@@ -140,17 +133,19 @@ class AttendeeRow extends React.Component {
   };
 
   render() {
-    const {index} = this.props;
-    const {firstName, lastName, email} = this.props.item;
+    const {index, item} = this.props;
+    const {firstName, lastName, email} = item;
     const {twitter, jobTitle, activity} = this._getExtraInfo();
 
     return (
       <View style={styles.rowContainer, {backgroundColor: index % 2 === 0 ? '#fff' : '#eee'}}>
-        <BoldText style={styles.rowText}>{firstName + ' ' + lastName}</BoldText>
-        {jobTitle ? <RegularText style={styles.rowText}>{jobTitle}</RegularText> : null}
-        {activity ? <RegularText style={styles.rowText}>{activity}</RegularText> : null}
-        {email ?
-          <RectButton style={[styles.button, {marginBottom: 20}]} underlayColor="#fff" onPress={this._handlePressEmailButton.bind(null, email)}>
+        <View style={styles.textArea}>
+          <BoldText style={styles.rowText}>{firstName + ' ' + lastName}</BoldText>
+          {jobTitle ? <RegularText style={{marginBottom: 10}}>{jobTitle}</RegularText> : null}
+          {activity ? <RegularText style={{marginBottom: 10}}>{activity}</RegularText> : null}
+        </View>
+        {email &&
+          <RectButton style={[styles.button, {marginBottom: 10}]} underlayColor="#fff" onPress={this._handlePressEmailButton.bind(null, email)}>
             <Ionicons
               name="ios-mail"
               size={23}
@@ -162,10 +157,10 @@ class AttendeeRow extends React.Component {
               }}
             />
             <SemiBoldText style={styles.buttonText}>{email}</SemiBoldText>
-          </RectButton> : null
+          </RectButton>
         }
-        {twitter ?
-          <RectButton style={styles.button} underlayColor="#fff" onPress={this._handlePressTwitterButton.bind(null, twitter)}>
+        {twitter &&
+          <RectButton style={[styles.button, {marginBottom: 12}]} underlayColor="#fff" onPress={this._handlePressTwitterButton.bind(null, twitter)}>
             <Ionicons
               name="logo-twitter"
               size={23}
@@ -177,7 +172,7 @@ class AttendeeRow extends React.Component {
               }}
             />
             <SemiBoldText style={styles.buttonText}>@{twitter}</SemiBoldText>
-          </RectButton> : null
+          </RectButton>
         }
     </View>);
   }
@@ -216,7 +211,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0F0F0',
     padding: 12,
     borderRadius: 8,
-    marginBottom: 2
+    marginBottom: 2,
+    fontSize: 24
   },
   list: {
     borderRadius: 8,
@@ -232,9 +228,8 @@ const styles = StyleSheet.create({
     paddingTop: 7,
     paddingBottom: 5,
     backgroundColor: '#eee',
-    borderWidth: 1,
-    borderColor: '#eee',
     borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: '#000',
   },
   rowContainer: {
     flex: 1,
@@ -261,6 +256,10 @@ const styles = StyleSheet.create({
   },
   rowText: {
     marginBottom: 15
+  },
+  textArea: {
+    marginTop: 10,
+    marginHorizontal: 20,
   }
 });
 
