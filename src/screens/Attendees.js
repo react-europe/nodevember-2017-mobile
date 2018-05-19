@@ -8,6 +8,7 @@ import {
   View,
   TextInput,
   FlatList,
+  LayoutAnimation,
 } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
 import { withNavigation } from 'react-navigation';
@@ -84,27 +85,19 @@ class DeferredAttendeesContent extends React.Component {
     if (this.state.ready) {
       return;
     }
-
-    setTimeout(() => {
-      this.setState({ ready: true });
-    }, 200);
+    setTimeout(() => this.setState({ ready: true }), 200);
   }
 
-  throttleDelayMs = 50
-  throttleTimeout = null
+  throttleDelayMs = 200;
+  throttleTimeout = null;
   queryThrottle = text => {
     clearTimeout(this.throttleTimeout);
-    this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
-  }
 
-  _renderItem = ({ item: attendee }) => (
-    <ContactCard
-      key={attendee.id}
-      contact={attendee}
-      tickets={this.state.tickets}
-      onPress={this._handlePressRow}
-    />
-  );
+    this.throttleTimeout = setTimeout(() => {
+      LayoutAnimation.easeInEaseOut();
+      this.setState({ query: text });
+    }, this.throttleDelayMs);
+  };
 
   _handlePressRow = attendee => {
     this.props.navigation.navigate('AttendeeDetail', { attendee });
@@ -177,14 +170,9 @@ class DeferredAttendeesContent extends React.Component {
                   returnKeyLabel="Search"
                   style={styles.textInput}
                 />
-                <FlatList
-                  renderScrollComponent={props => <ScrollView {...props} />}
-                  renderItem={this._renderItem}
-                  renderHeader={this._renderHeader}
-                  data={sortedFilteredAttendees}
-                  keyExtractor={item => `${item.id}`}
-                  initialNumToRender={10}
-                  keyboardDismissMode="on-drag"
+                <AttendeesSearchResults
+                  attendees={sortedFilteredAttendees}
+                  onPress={this._handlePressRow}
                 />
               </React.Fragment>
             );
@@ -219,79 +207,6 @@ const ClipBorderRadius = ({ children, style }) => {
 const BORDER_RADIUS = 3;
 
 const styles = StyleSheet.create({
-  headerContent: {
-    alignItems: 'center',
-    marginTop: 5,
-    paddingVertical: 10,
-  },
-  headerVideoLayer: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  headerVideoOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: Colors.blue,
-    opacity: 0.8,
-  },
-  headerText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 17,
-    lineHeight: 17 * 1.5,
-  },
-  headerSmallText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 7,
-    lineHeight: 7 * 1.5,
-  },
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
-  seeAllTalks: {
-    fontSize: FontSizes.normalButton,
-    color: Colors.blue,
-  },
-  autocompleteContainer: {
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  row: {
-    flex: 1,
-    padding: 10,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: '#eee',
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-  },
-  rowAvatarContainer: {
-    paddingVertical: 5,
-    paddingRight: 10,
-    paddingLeft: 0,
-  },
-  rowData: {
-    flex: 1,
-  },
-  sectionHeader: {
-    paddingHorizontal: 10,
-    paddingTop: 7,
-    paddingBottom: 5,
-    backgroundColor: '#eee',
-    borderWidth: 1,
-    borderColor: '#eee',
-  },
   textInput: {
     backgroundColor: 'white',
     margin: 5,
