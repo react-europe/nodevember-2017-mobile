@@ -111,9 +111,16 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
+  throttleDelayMs = 50
+  throttleTimeout = null
+  queryThrottle = text => {
+    clearTimeout(this.throttleTimeout);
+    this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
+  }
+
   _renderHeader = () => (
     <TextInput
-      onChangeText={text => this.setState({ query: text })}
+      onChangeText={text => this.queryThrottle(text)}
       placeholder="Search a conference attendee here"
       autoCapitalize="none"
       autoCorrect={false}
@@ -156,13 +163,14 @@ class DeferredAttendeesContent extends React.Component {
                 .trim()
                 .includes(cleanedQuery)
             );
+
             console.log('filteredAttendeesByName', filteredAttendeesByName);
             return (
               <React.Fragment>
+                {this._renderHeader()}
                 <SectionList
                   renderScrollComponent={props => <ScrollView {...props} />}
                   stickySectionHeadersEnabled={true}
-                  ListHeaderComponent={this._renderHeader}
                   renderItem={this._renderItem}
                   renderSectionHeader={this._renderSectionHeader}
                   sections={[
