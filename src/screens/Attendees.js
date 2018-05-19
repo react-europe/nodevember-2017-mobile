@@ -4,6 +4,7 @@ import { View as AnimatableView } from 'react-native-animatable';
 import { Searchbar } from 'react-native-paper';
 import { withNavigation } from 'react-navigation';
 import { Query } from 'react-apollo';
+import _ from 'lodash';
 
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
@@ -100,50 +101,60 @@ class DeferredAttendeesContent extends React.Component {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
-            const attendees = data && data.events && data.events[0] ? data.events[0].attendees : [];
-            const filteredAttendees = [];
-            const attendeesSearchRankingScore = {};
-            attendees.forEach(attendee => {
-              const fullName = `${attendee.firstName} ${attendee.lastName}`;
-              const matchesName = fullName
-                .toLowerCase()
-                .trim()
-                .includes(cleanedQuery);
-              const matchesEmail = attendee.email
-                .toLowerCase()
-                .trim()
-                .includes(cleanedQuery);
-              const matchesTwitter = getContactTwitter(attendee)
-                .toLowerCase()
-                .trim()
-                .includes(cleanedQuery);
 
-              attendeesSearchRankingScore[`${attendee.id}`] = 0;
-              if (matchesName || matchesEmail || matchesTwitter) {
-                filteredAttendees.push(attendee);
-              }
-              if (matchesName) {
-                attendeesSearchRankingScore[`${attendee.id}`] += 1;
-              }
-              if (matchesEmail) {
-                attendeesSearchRankingScore[`${attendee.id}`] += 1;
-              }
-              if (matchesTwitter) {
-                attendeesSearchRankingScore[`${attendee.id}`] += 1;
-              }
-            });
-            const sortedFilteredAttendees = filteredAttendees.sort((attendee1, attendee2) => {
-              return (
-                attendeesSearchRankingScore[`${attendee2.id}`] -
-                attendeesSearchRankingScore[`${attendee1.id}`]
+            const attendees = data && data.events && data.events[0] ? data.events[0].attendees : [];
+            let attendeesData;
+            if (cleanedQuery === '') {
+              attendeesData = _.orderBy(
+                attendees,
+                attendee => `${attendee.firstName} ${attendee.lastName}`,
+                ['asc']
               );
-            });
-            console.log('Attendees: ', sortedFilteredAttendees);
+            } else {
+              const filteredAttendees = [];
+              const attendeesSearchRankingScore = {};
+              attendees.forEach(attendee => {
+                const fullName = `${attendee.firstName} ${attendee.lastName}`;
+                const matchesName = fullName
+                  .toLowerCase()
+                  .trim()
+                  .includes(cleanedQuery);
+                const matchesEmail = attendee.email
+                  .toLowerCase()
+                  .trim()
+                  .includes(cleanedQuery);
+                const matchesTwitter = getContactTwitter(attendee)
+                  .toLowerCase()
+                  .trim()
+                  .includes(cleanedQuery);
+
+                attendeesSearchRankingScore[`${attendee.id}`] = 0;
+                if (matchesName || matchesEmail || matchesTwitter) {
+                  filteredAttendees.push(attendee);
+                }
+                if (matchesName) {
+                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
+                }
+                if (matchesEmail) {
+                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
+                }
+                if (matchesTwitter) {
+                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
+                }
+              });
+              const sortedFilteredAttendees = _.orderBy(
+                filteredAttendees,
+                attendee => attendeesSearchRankingScore[`${attendee.id}`],
+                ['desc']
+              );
+              attendeesData = sortedFilteredAttendees;
+            }
+            console.log('Attendees: ', attendeesData);
 
             return (
               <React.Fragment>
                 <AttendeesSearchResults
-                  attendees={sortedFilteredAttendees}
+                  attendees={attendeesData}
                   onPress={this._handlePressRow}
                   searchQuery={cleanedQuery}
                 />
