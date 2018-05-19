@@ -21,7 +21,7 @@ import gql from 'graphql-tag';
 import Downshift from 'downshift'
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: 'https://api.graph.cool/simple/v1/cj5k7w90bjt2i0122z6v0syvu' }),
+  link: new HttpLink({ uri: 'https://www.react-europe.org/gql' }),
   cache: new InMemoryCache(),
 });
 
@@ -83,7 +83,7 @@ function ApolloAutocomplete() {
 }
 
 function ApolloAutocompleteMenu({
-                                  data: {allColors, loading},
+                                  data: {events, loading},
                                   selectedItem,
                                   highlightedIndex,
                                   getItemProps,
@@ -93,27 +93,47 @@ function ApolloAutocompleteMenu({
       <Text>Loading...</Text>
     </View>)
   }
+
+  const attendees = events && events[0] && events[0].attendees;
+
   return (
     <View>
-      {allColors.map(({name: item}, index) =>
-        <TouchableOpacity style={styles.listItem} {...getItemProps({ item, index, key: item, }) }>
-          <View>
-            <Text style={{ fontWeight: item ? 'bold' : 'normal' }}>
-              {item}
-            </Text>
-          </View>
-        </TouchableOpacity>,
+      {attendees.map(({firstName, lastName, id}, index) => {
+        const fullName = firstName + ' ' + lastName;
+          return (
+            <TouchableOpacity style={styles.listItem} {...getItemProps({ item: fullName, index, key: id, }) }>
+              <View>
+                <Text style={{ fontWeight: fullName === selectedItem ? 'bold' : 'normal' }}>
+                  {fullName}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        }
       )}
     </View>
   )
 }
 
 const SEARCH_COLORS = gql`
-  query AllColors($inputValue: String!) {
-    allColors(filter: {name_contains: $inputValue}) {
-      name
+query Attendees($inputValue: String!) {
+  events(slug: "reacteurope-2018") {
+    attendees(q: $inputValue, uuid: "f35ad898-fe07-49cc-bd55-c4fbb59ac1b7") {
+      id
+      lastName
+      email
+      firstName
+      answers {
+        id
+        value
+        question {
+          id
+          title
+        }
+      }
     }
   }
+}
 `;
 
 const ApolloAutocompleteMenuWithData = graphql(SEARCH_COLORS)(
