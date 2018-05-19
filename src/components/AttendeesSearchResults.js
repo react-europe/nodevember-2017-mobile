@@ -119,6 +119,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    marginTop: 80,
+    paddingTop: 80,
   }
 });
