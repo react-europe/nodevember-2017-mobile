@@ -22,6 +22,7 @@ import {
 export default class ContactCard extends React.Component {
   render() {
     const { contact } = this.props;
+    const { email } = contact;
     const bio = this.getContactBio();
     const twitter = this.getContactTwitter();
     return (
@@ -40,7 +41,7 @@ export default class ContactCard extends React.Component {
               {twitter !== "" ? (
                 <Button onPress={this._handlePressTwitterButton}>@{twitter}</Button>
               ) : null}
-              <Button onPress={this._handlePressEmailButton}>Email</Button>
+              <Button onPress={this._handlePressEmailButton}>{email}</Button>
             </CardActions>
           </View>
         </View>
