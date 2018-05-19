@@ -174,7 +174,15 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
-  _renderItem = ({ item }) => <ContactRow item={item} onPress={this._handlePressRow} />;
+  _renderSectionHeader = ({ section }) => {
+    return (
+      <View style={styles.sectionHeader}>
+        <RegularText>{section.title}</RegularText>
+      </View>
+    );
+  };
+
+  _renderItem = ({ item }) => <ContactCard contact={item} onPress={this._handlePressRow} />;
 
   render() {
     if (!this.state.ready) {
@@ -232,36 +240,20 @@ class DeferredAttendeesContent extends React.Component {
                 console.log('filteredAttendees', filteredAttendees)
                 return (
                   <React.Fragment>
-                    <Autocomplete
-                      autoCapitalize="none"
-                      autoCorrect={false}
-                      containerStyle={styles.autocompleteContainer}
-                      data={filteredAttendees}
-                      onChangeText={text => this.setState({ query: text })}
-                      placeholder="PLACEHOLDER"
-                      renderItem={({ name }) => (
-                      <TouchableOpacity onPress={() => this.setState({ query: name })}>
-                        <Text style={styles.itemText}>
-                        {name}
-                        </Text>
-                      </TouchableOpacity>
-                      )}
-                    />
-
                     <SectionList
                       renderScrollComponent={(props) => <ScrollView {...props}/>}
                       stickySectionHeadersEnabled={true}
                       renderItem={this._renderItem}
                       renderSectionHeader={this._renderSectionHeader}
                       sections={[
-                          {title: 'Attendees', data: attendees},
-                          {title: 'Twitter', data: attendees},
+                          {title: 'Name', data: filteredAttendees},
+                          {title: 'Twitter', data: filteredAttendees},
+                          {title: 'Email', data: filteredAttendees},
                       ]}
                       keyExtractor={item => item.id}
                       initialNumToRender={10}
                     />
                   </React.Fragment>
-                  
                 );
             }}
         </Query>
