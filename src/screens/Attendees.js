@@ -10,11 +10,8 @@ import {
   FlatList,
 } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
-<<<<<<< HEAD
-=======
 import { Searchbar } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
->>>>>>> increase timeout use paper searchBar and fix fontSize error
 import { withNavigation } from 'react-navigation';
 import { Query } from 'react-apollo';
 
