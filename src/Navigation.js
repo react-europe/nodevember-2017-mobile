@@ -145,6 +145,7 @@ const DrawerRouteConfig = {
   Profile: { screen: Screens.Profile },
   Contacts: { screen: Screens.Contacts },
   StaffCheckinLists: { screen: StaffCheckinListsNavigation },
+  Attendees: { screen: Screens.Attendees },
 };
 
 const DrawerRouter = TabRouter(DrawerRouteConfig);
@@ -369,6 +370,7 @@ class DrawerView extends React.Component {
             { route: 'Sponsors', title: 'Sponsors' },
             { route: 'Profile', title: 'Profile' },
             { route: 'Contacts', title: 'Contacts' },
+            { route: 'Attendees', title: 'Attendees' },
             {
               route: 'StaffCheckinLists',
               title: 'StaffCheckinLists',

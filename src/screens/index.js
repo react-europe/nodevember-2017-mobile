@@ -9,6 +9,8 @@ import Contacts from "./Contacts";
 import TicketInstructions from "./TicketInstructions";
 import StaffCheckinLists from "./StaffCheckinLists";
 import CheckedInAttendeeInfo from "./CheckedInAttendeeInfo";
+import Attendees from "./Attendees";
+
 export default {
   Home,
   Crew,
@@ -20,5 +22,6 @@ export default {
   Contacts,
   TicketInstructions,
   StaffCheckinLists,
-  CheckedInAttendeeInfo
+  CheckedInAttendeeInfo,
+  Attendees,
 };
