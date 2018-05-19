@@ -151,13 +151,12 @@ class DeferredAttendeesContent extends React.Component {
             console.log('Attendees: ', attendeesData);
 
             return (
-              <React.Fragment>
-                <AttendeesSearchResults
-                  attendees={attendeesData}
-                  onPress={this._handlePressRow}
-                  searchQuery={cleanedQuery}
-                />
-              </React.Fragment>
+              <AttendeesSearchResults
+                attendees={attendeesData}
+                onPress={this._handlePressRow}
+                searchQuery={cleanedQuery}
+                isLoading={loading}
+              />
             );
           }}
         </Query>
