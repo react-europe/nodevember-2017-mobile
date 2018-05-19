@@ -99,25 +99,25 @@ export default function ScheduleDay(options) {
     }
   }
 
-  // return ScheduleDayComponent
+  return ScheduleDayComponent
 
-  return StackNavigator(
-    {
-      Day: {
-        screen: ScheduleDayComponent
-      }
-    },
-    {
-      cardStyle: {
-        backgroundColor: '#fafafa'
-      },
-      navigationOptions: {
-        headerTitleStyle: {
-          fontFamily: 'open-sans-bold'
-        }
-      }
-    }
-  )
+  // return StackNavigator(
+  //   {
+  //     Day: {
+  //       screen: ScheduleDayComponent
+  //     }
+  //   },
+  //   {
+  //     cardStyle: {
+  //       backgroundColor: '#fafafa'
+  //     },
+  //     navigationOptions: {
+  //       headerTitleStyle: {
+  //         fontFamily: 'open-sans-bold'
+  //       }
+  //     }
+  //   }
+  // )
 }
 
 const styles = StyleSheet.create({

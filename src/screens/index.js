@@ -9,7 +9,7 @@ import Contacts from './Contacts'
 import TicketInstructions from './TicketInstructions'
 import StaffCheckinLists from './StaffCheckinLists'
 import CheckedInAttendeeInfo from './CheckedInAttendeeInfo'
-import ExtraMenu from './ExtraMenu'
+import Menu from './Menu'
 export default {
   Home,
   Crew,
@@ -22,5 +22,5 @@ export default {
   TicketInstructions,
   StaffCheckinLists,
   CheckedInAttendeeInfo,
-  ExtraMenu
+  Menu
 }

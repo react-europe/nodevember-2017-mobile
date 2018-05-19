@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Animated,
   Image,
@@ -8,83 +8,85 @@ import {
   Text,
   ScrollView,
   View,
-  Linking,
-} from 'react-native';
-import { Constants, Video, WebBrowser } from 'expo';
-import FadeIn from 'react-native-fade-in-image';
-import ReadMore from 'react-native-read-more-text';
-import { BorderlessButton } from 'react-native-gesture-handler';
-import { View as AnimatableView } from 'react-native-animatable';
-import _ from 'lodash';
+  Linking
+} from 'react-native'
+import { Constants, Video, WebBrowser } from 'expo'
+import FadeIn from 'react-native-fade-in-image'
+import ReadMore from 'react-native-read-more-text'
+import { BorderlessButton } from 'react-native-gesture-handler'
+import { View as AnimatableView } from 'react-native-animatable'
+import _ from 'lodash'
+import { Transition } from 'react-navigation-fluid-transitions'
 
-import AnimatedScrollView from '../components/AnimatedScrollView';
-import NavigationBar from '../components/NavigationBar';
-import { Colors, FontSizes, Icons, Layout } from '../constants';
-import { RegularText, BoldText, SemiBoldText } from '../components/StyledText';
-import { getSpeakerTalk, convertUtcDateToEventTimezoneHour } from '../utils';
-import { findTalkData, findSpeakerData } from '../data';
-import SaveButton from '../components/SaveButton';
-import CachedImage from '../components/CachedImage';
-import { Ionicons } from '@expo/vector-icons';
-import CloseButton from '../components/CloseButton';
-import Markdown from 'react-native-simple-markdown';
-export const Schedule = require('../data/schedule.json');
-const Event = Schedule.events[0];
+import AnimatedScrollView from '../components/AnimatedScrollView'
+import NavigationBar from '../components/NavigationBar'
+import { Colors, FontSizes, Icons, Layout } from '../constants'
+import { RegularText, BoldText, SemiBoldText } from '../components/StyledText'
+import { getSpeakerTalk, convertUtcDateToEventTimezoneHour } from '../utils'
+import { findTalkData, findSpeakerData } from '../data'
+import SaveButton from '../components/SaveButton'
+import CachedImage from '../components/CachedImage'
+import { Ionicons } from '@expo/vector-icons'
+import CloseButton from '../components/CloseButton'
+import Markdown from 'react-native-simple-markdown'
+export const Schedule = require('../data/schedule.json')
+const Event = Schedule.events[0]
 
 class SavedButtonNavigationItem extends React.Component {
   render() {
-    const { talk } = this.props;
+    const { talk } = this.props
 
     return (
       <View
         style={{
           // gross dumb things
           paddingTop: Platform.OS === 'android' ? 30 : 0,
-          marginTop: Layout.notchHeight > 0 ? -5 : 0,
-        }}>
+          marginTop: Layout.notchHeight > 0 ? -5 : 0
+        }}
+      >
         <SaveButton talk={talk} />
       </View>
-    );
+    )
   }
 }
 
 export default class Details extends React.Component {
   state = {
-    scrollY: new Animated.Value(0),
-  };
+    scrollY: new Animated.Value(0)
+  }
 
   render() {
-    let params = this.props.navigation.state.params || {};
-    let speaker;
-    let talk;
-    const talkScreen = params.scheduleSlot || params.talk;
+    let params = this.props.navigation.state.params || {}
+    let speaker
+    let talk
+    const talkScreen = params.scheduleSlot || params.talk
     if (talkScreen) {
-      talk = params.scheduleSlot || params.talk;
-      speakers = talk.speakers;
+      talk = params.scheduleSlot || params.talk
+      speakers = talk.speakers
     } else if (params.speaker) {
-      speaker = params.speaker;
+      speaker = params.speaker
       if (speaker.talks && speaker.talks.length > 0) {
-        talk = getSpeakerTalk(speaker);
+        talk = getSpeakerTalk(speaker)
       }
     }
 
-    const { scrollY } = this.state;
+    const { scrollY } = this.state
     const scale = scrollY.interpolate({
       inputRange: [-300, 0, 1],
       outputRange: [2, 1, 1],
-      extrapolate: 'clamp',
-    });
-    const translateX = 0;
+      extrapolate: 'clamp'
+    })
+    const translateX = 0
     const translateY = scrollY.interpolate({
       inputRange: [-300, 0, 1],
       outputRange: [-50, 1, 1],
-      extrapolate: 'clamp',
-    });
+      extrapolate: 'clamp'
+    })
 
     const headerOpacity = scrollY.interpolate({
       inputRange: [0, 30, 200],
-      outputRange: [0, 0, 1],
-    });
+      outputRange: [0, 0, 1]
+    })
 
     return (
       <View style={{ flex: 1, backgroundColor: '#fff', overflow: 'hidden' }}>
@@ -100,11 +102,11 @@ export default class Details extends React.Component {
                 {
                   translateY: scrollY.interpolate({
                     inputRange: [-1, 0, 1],
-                    outputRange: [1, 0, 0],
-                  }),
-                },
+                    outputRange: [1, 0, 0]
+                  })
+                }
               ],
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.blue
             }}
           />
         ) : null}
@@ -114,58 +116,70 @@ export default class Details extends React.Component {
           onScroll={Animated.event(
             [
               {
-                nativeEvent: { contentOffset: { y: this.state.scrollY } },
-              },
+                nativeEvent: { contentOffset: { y: this.state.scrollY } }
+              }
             ],
             { useNativeDriver: true }
-          )}>
+          )}
+        >
           <View style={styles.headerContainer}>
             <Animated.View
               style={{
-                transform: [{ scale }, { translateX }, { translateY }],
-              }}>
+                transform: [{ scale }, { translateX }, { translateY }]
+              }}
+            >
               <FadeIn placeholderStyle={{ backgroundColor: 'transparent' }}>
                 {talkScreen ? (
-                  <View style={styles.headerRowSpeaker}>
-                    {speakers
-                      ? speakers.map((speaker, i) => (
-                          <View
-                            key={speaker.id}
-                            style={styles.headerColumnSpeaker}>
-                            <TouchableOpacity
+                  <Transition shared="scale">
+                    <View style={styles.headerRowSpeaker}>
+                      {speakers
+                        ? speakers.map((speaker, i) => (
+                            <View
                               key={speaker.id}
-                              onPress={() => this._handlePressSpeaker(speaker)}>
-                              <CachedImage
-                                source={{ uri: speaker.avatarUrl }}
-                                style={styles.avatarMultiple}
-                                key={speaker.id + talk.title}
-                              />
-                            </TouchableOpacity>
-                            {speaker.name.split(' ').map((name, index) => (
-                              <View key={index}>
-                                <TouchableOpacity
-                                  key={speaker.id}
-                                  onPress={() =>
-                                    this._handlePressSpeaker(speaker)
-                                  }>
-                                  <SemiBoldText
-                                    style={styles.headerText}
-                                    key={'speakers' + speaker.id + name}>
-                                    {name}
-                                  </SemiBoldText>
-                                </TouchableOpacity>
-                              </View>
-                            ))}
-                          </View>
-                        ))
-                      : null}
-                  </View>
+                              style={styles.headerColumnSpeaker}
+                            >
+                              <TouchableOpacity
+                                key={speaker.id}
+                                onPress={() =>
+                                  this._handlePressSpeaker(speaker)
+                                }
+                              >
+                                <CachedImage
+                                  source={{ uri: speaker.avatarUrl }}
+                                  style={styles.avatarMultiple}
+                                  key={speaker.id + talk.title}
+                                />
+                              </TouchableOpacity>
+                              {speaker.name.split(' ').map((name, index) => (
+                                <View key={index}>
+                                  <TouchableOpacity
+                                    key={speaker.id}
+                                    onPress={() =>
+                                      this._handlePressSpeaker(speaker)
+                                    }
+                                  >
+                                    <SemiBoldText
+                                      style={styles.headerText}
+                                      key={'speakers' + speaker.id + name}
+                                    >
+                                      {name}
+                                    </SemiBoldText>
+                                  </TouchableOpacity>
+                                </View>
+                              ))}
+                            </View>
+                          ))
+                        : null}
+                    </View>
+                  </Transition>
                 ) : (
-                  <CachedImage
-                    source={{ uri: speaker.avatarUrl }}
-                    style={styles.avatar}
-                    key={speaker.avatarUrl}
-                  />
+                  <Transition shared="scale">
+                    <CachedImage
+                      source={{ uri: speaker.avatarUrl }}
+                      style={styles.avatar}
+                      key={speaker.avatarUrl}
+                    />
+                  </Transition>
                 )}
               </FadeIn>
             </Animated.View>
@@ -176,9 +190,8 @@ export default class Details extends React.Component {
             )}
             {speaker && speaker.twitter ? (
               <TouchableOpacity
-                onPress={() =>
-                  this._handlePressSpeakerTwitter(speaker.twitter)
-                }>
+                onPress={() => this._handlePressSpeakerTwitter(speaker.twitter)}
+              >
                 <RegularText style={styles.headerText}>
                   @{speaker.twitter}
                 </RegularText>
@@ -193,7 +206,8 @@ export default class Details extends React.Component {
             useNativeDriver
             delay={Platform.OS === 'ios' ? 50 : 150}
             duration={500}
-            style={styles.content}>
+            style={styles.content}
+          >
             {talkScreen ? null : (
               <View>
                 <SemiBoldText style={styles.sectionHeader}>Bio</SemiBoldText>
@@ -248,15 +262,16 @@ export default class Details extends React.Component {
           style={[
             Platform.OS === 'android'
               ? { height: Layout.headerHeight + Constants.statusBarHeight }
-              : null,
+              : null
           ]}
           renderLeftButton={() => (
             <View
               style={{
                 // gross dumb things
                 paddingTop: Platform.OS === 'android' ? 30 : 0,
-                marginTop: Layout.notchHeight > 0 ? -5 : 0,
-              }}>
+                marginTop: Layout.notchHeight > 0 ? -5 : 0
+              }}
+            >
               <CloseButton
                 onPress={() => this.props.navigation.goBack()}
                 tintColor="#fff"
@@ -265,93 +280,95 @@ export default class Details extends React.Component {
             </View>
           )}
           renderRightButton={() => {
-            talk ? <SavedButtonNavigationItem talk={talk} /> : null;
+            talk ? <SavedButtonNavigationItem talk={talk} /> : null
           }}
         />
       </View>
-    );
+    )
   }
 
   _renderTruncatedFooter = handlePress => {
     return (
       <TouchableOpacity
         hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
-        onPress={handlePress}>
+        onPress={handlePress}
+      >
         <SemiBoldText style={{ color: Colors.blue, marginTop: 5 }}>
           Read more
         </SemiBoldText>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   _renderRevealedFooter = handlePress => {
     return (
       <TouchableOpacity
         hitSlop={{ top: 15, left: 15, right: 15, bottom: 15 }}
-        onPress={handlePress}>
+        onPress={handlePress}
+      >
         <SemiBoldText style={{ color: Colors.blue, marginTop: 5 }}>
           Show less
         </SemiBoldText>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   _handlePressSpeaker = speaker => {
-    this.props.navigation.navigate('Details', { speaker });
-  };
+    this.props.navigation.navigate('Details', { speaker })
+  }
 
   _handlePressSpeakerTwitter = async twitter => {
     try {
-      await Linking.openURL(`twitter://user?screen_name=` + twitter);
+      await Linking.openURL(`twitter://user?screen_name=` + twitter)
     } catch (e) {
-      WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
+      WebBrowser.openBrowserAsync('https://twitter.com/' + twitter)
     }
-  };
+  }
 }
 const markdownStyles = {
-  text: {},
-};
+  text: {}
+}
 const styles = StyleSheet.create({
   container: {},
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginBottom: 10,
+    marginBottom: 10
   },
   avatarMultiple: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginBottom: 10,
+    marginBottom: 10
   },
   content: {
     backgroundColor: '#fff',
     paddingBottom: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 20
   },
   markdownBio: {
     backgroundColor: '#fff',
     paddingBottom: 20,
     paddingHorizontal: 20,
     width: 300,
-    height: 200,
+    height: 200
   },
   markdownTalkDescription: {
     backgroundColor: '#fff',
     paddingBottom: 20,
     paddingHorizontal: 20,
     width: 300,
-    height: 600,
+    height: 600
   },
   headerRowSpeaker: {
     flexDirection: 'row',
-    height: 140,
+    height: 140
   },
   headerColumnSpeaker: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 5,
+    paddingHorizontal: 5
   },
   headerContainer: {
     backgroundColor: Colors.blue,
@@ -359,21 +376,21 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingHorizontal: 20,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   headerText: {
     color: '#fff',
-    fontSize: FontSizes.subtitle,
+    fontSize: FontSizes.subtitle
   },
   talkTitleText: {
     color: '#fff',
     fontSize: FontSizes.title,
     textAlign: 'center',
-    marginTop: 10,
+    marginTop: 10
   },
   sectionHeader: {
     fontSize: FontSizes.bodyTitle,
     marginTop: 15,
-    marginBottom: 3,
-  },
-});
+    marginBottom: 3
+  }
+})

@@ -5218,6 +5218,10 @@ react-navigation-deprecated-tab-navigator@^1.2.0:
   dependencies:
     react-native-tab-view "^0.0.74"
 
+react-navigation-fluid-transitions@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-navigation-fluid-transitions/-/react-navigation-fluid-transitions-0.2.0.tgz#de18462187cad09ef6bb5f8a9048962eb83222bc"
+
 react-navigation@1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/react-navigation/-/react-navigation-1.5.2.tgz#6b150cbb6706a70ae352562a6eab490cedd05f47"

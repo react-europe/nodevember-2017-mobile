@@ -61,16 +61,6 @@ class Profile extends React.Component {
             { useNativeDriver: true }
           )}
         >
-          <View
-            style={{
-              backgroundColor: '#4d5fab',
-              padding: 10,
-              paddingTop: -10,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          />
-
           <DeferredProfileContent />
           <OverscrollView />
         </AnimatedScrollView>

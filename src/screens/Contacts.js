@@ -53,7 +53,7 @@ class Contacts extends React.Component {
       <View style={{ flex: 1 }}>
         <AnimatedScrollView
           style={{ flex: 1 }}
-          contentContainerStyle={{ paddingBottom: 20 + Layout.notchHeight / 2 }}
+          // contentContainerStyle={{ paddingBottom: 20 + Layout.notchHeight / 2 }}
           scrollEventThrottle={1}
           onScroll={Animated.event(
             [
@@ -64,16 +64,6 @@ class Contacts extends React.Component {
             { useNativeDriver: true }
           )}
         >
-          <View
-            style={{
-              backgroundColor: '#4d5fab',
-              padding: 10,
-              paddingTop: 0,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          />
-
           <DeferredContactsContent />
           <OverscrollView />
         </AnimatedScrollView>
@@ -196,12 +186,7 @@ const OverscrollView = () => (
 
 const ClipBorderRadius = ({ children, style }) => {
   return (
-    <View
-      style={[
-        { borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10 },
-        style
-      ]}
-    >
+    <View style={[{ borderRadius: BORDER_RADIUS, overflow: 'hidden' }, style]}>
       {children}
     </View>
   )
@@ -210,19 +195,6 @@ const ClipBorderRadius = ({ children, style }) => {
 const BORDER_RADIUS = 3
 
 const styles = StyleSheet.create({
-  headerContent: {
-    alignItems: 'center',
-    marginTop: 5,
-    paddingVertical: 10
-  },
-  headerVideoLayer: {
-    ...StyleSheet.absoluteFillObject
-  },
-  headerVideoOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: Colors.blue,
-    opacity: 0.8
-  },
   headerText: {
     color: '#fff',
     textAlign: 'center',

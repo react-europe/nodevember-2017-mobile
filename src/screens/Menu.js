@@ -11,12 +11,12 @@ import {
 } from 'react-native'
 import Navigationbar from '../components/NavigationBar'
 import { Ionicons } from '@expo/vector-icons'
-import { Colors } from '../constants'
+import { Colors, Layout } from '../constants'
+import CachedImage from '../components/CachedImage'
 
 class MenuScreen extends Component {
   static navigationOptions = {
-    title: 'Menu',
-    headerTintColor: 'white'
+    header: null
   }
 
   getIconName = key => {
@@ -29,6 +29,16 @@ class MenuScreen extends Component {
     return (
       <FlatList
         data={[{ key: 'Speakers' }, { key: 'Crew' }, { key: 'Sponsors' }]}
+        ListHeaderComponent={() => (
+          <CachedImage
+            source={require('../assets/hero.png')}
+            style={{
+              height: 240 + Layout.notchHeight,
+              width: Layout.window.width,
+              resizeMode: 'cover'
+            }}
+          />
+        )}
         ItemSeparatorComponent={() => (
           <View
             style={{

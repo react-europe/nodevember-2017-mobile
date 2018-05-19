@@ -57,9 +57,9 @@ const DefaultStackConfig = {
   }
 }
 
-const ExtraMenuNavigation = StackNavigator(
+const MenuNavigation = StackNavigator(
   {
-    Menu: { screen: Screens.ExtraMenu },
+    Menu: { screen: Screens.Menu },
     Speakers: { screen: Screens.Speakers },
     Crew: { screen: Screens.Crew },
     Sponsors: { screen: Screens.Sponsors }
@@ -131,7 +131,7 @@ const PrimaryTabNavigator = TabNavigator(
       }
     },
     Contacts: { screen: ContactsNavigator },
-    ExtraMenu: { screen: ExtraMenuNavigation }
+    Menu: { screen: MenuNavigation }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -146,7 +146,7 @@ const PrimaryTabNavigator = TabNavigator(
           iconName = `ios-calendar${focused ? '' : '-outline'}`
         } else if (routeName === 'Contacts') {
           iconName = `ios-contacts${focused ? '' : '-outline'}`
-        } else if (routeName === 'ExtraMenu') {
+        } else if (routeName === 'Menu') {
           iconName = 'md-menu'
         }
 
@@ -157,8 +157,7 @@ const PrimaryTabNavigator = TabNavigator(
     }),
     tabBarOptions: {
       style: { backgroundColor: '#333' },
-      activeTintColor: '#fff',
-      showLabel: false
+      activeTintColor: '#fff'
     }
   }
 )
