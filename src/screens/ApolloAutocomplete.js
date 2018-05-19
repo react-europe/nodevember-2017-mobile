@@ -51,13 +51,18 @@ class ApolloAutocompleteList extends React.Component {
   _renderSectionHeader = ({ section }) => {
     const {getInputProps} = this.props;
 
-    const customProps = {...getInputProps()};
+    const customProps = {...getInputProps({
+        placeholder: 'Search Attendees',
+        placeholderTextColor: '#000',
+        autoFocus: true
+      })};
+
     // Super hack for https://github.com/paypal/downshift/issues/334
     customProps.onBlur = null;
 
     return (
       <View style={styles.sectionHeader}>
-        <TextInput {...customProps} autoFocus style={styles.textInput} />
+        <TextInput {...customProps} style={styles.textInput}  />
       </View>
     );
   };
