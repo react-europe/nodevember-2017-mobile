@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 60,
     position: 'absolute',
-    top: 90,
+    top: 70 + Layout.notchHeight,
     left: 0,
     right: 0,
     marginLeft: 6,
