@@ -1,48 +1,27 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
+import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
   Animated,
-  Linking,
   Platform,
   Text,
-  Image,
-  TouchableOpacity,
   StyleSheet,
-  AsyncStorage,
   View,
   TextInput,
   FlatList,
 } from 'react-native';
-import { Asset, LinearGradient, WebBrowser, Video } from 'expo';
-import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
-import { NavigationActions } from 'react-navigation';
-import FadeIn from 'react-native-fade-in-image';
 import { View as AnimatableView } from 'react-native-animatable';
-import { Ionicons } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 import { Query } from 'react-apollo';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
-import MyContacts from '../components/MyContacts';
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
-import VideoBackground from '../components/VideoBackground';
-import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
-import { connectDrawerButton } from '../Navigation';
 import { Colors, FontSizes, Layout } from '../constants';
-import { Speakers, Talks } from '../data';
-import {
-  HideWhenConferenceHasStarted,
-  HideWhenConferenceHasEnded,
-  ShowWhenConferenceHasEnded,
-} from '../utils';
 import ContactCard from '../components/ContactCard';
 import GET_ATTENDEES from '../data/attendeesquery';
-import CachedImage from '../components/CachedImage';
+import { getContactTwitter } from '../utils';
 
 export const Schedule = require('../data/schedule.json');
-const Event = Schedule.events[0];
 
 class Attendees extends React.Component {
   state = {
@@ -118,24 +97,18 @@ class DeferredAttendeesContent extends React.Component {
     this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
   }
 
-  getContactTwitter = contact => {
-    let twitter = '';
-    if (contact) {
-      contact.answers.map(answer => {
-        if (answer.question && answer.question.title === 'Twitter') {
-          twitter = answer.value;
-        }
-      });
-    }
-    return twitter
-      .replace('@', '')
-      .replace('https://twitter.com/', '')
-      .replace('twitter.com/', '');
-  };
-
   _renderItem = ({ item: attendee }) => (
-    <ContactCard key={attendee.id} contact={attendee} />
+    <ContactCard
+      key={attendee.id}
+      contact={attendee}
+      tickets={this.state.tickets}
+      onPress={this._handlePressRow}
+    />
   );
+
+  _handlePressRow = attendee => {
+    this.props.navigation.navigate('AttendeeDetail', { attendee });
+  };
 
   render() {
     if (!this.state.ready) {
@@ -144,11 +117,11 @@ class DeferredAttendeesContent extends React.Component {
     const { query } = this.state;
     const cleanedQuery = query.toLowerCase().trim();
     console.log('State:', this.state);
-  
+
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
-          {({ loading, error, data }) => {
+          {({ error, data }) => {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
@@ -165,7 +138,7 @@ class DeferredAttendeesContent extends React.Component {
                 .toLowerCase()
                 .trim()
                 .includes(cleanedQuery);
-              const matchesTwitter = this.getContactTwitter(attendee)
+              const matchesTwitter = getContactTwitter(attendee)
                 .toLowerCase()
                 .trim()
                 .includes(cleanedQuery);

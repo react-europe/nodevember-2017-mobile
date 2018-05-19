@@ -497,6 +497,7 @@ export default StackNavigator(
   {
     Primary: { screen: DrawerNavigation },
     Details: { screen: Screens.Details },
+    AttendeeDetail: { screen: Screens.AttendeeDetail },
     TicketInstructions: { screen: Screens.TicketInstructions },
     CheckedInAttendeeInfo: { screen: Screens.CheckedInAttendeeInfo },
     QRScanner: { screen: QRScannerModalNavigation },
