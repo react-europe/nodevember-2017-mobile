@@ -1,12 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { ScrollView, RectButton } from 'react-native-gesture-handler';
-<<<<<<< HEAD
 import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-=======
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
 import Highlighter from 'react-native-highlight-words';
->>>>>>> react-europe-search-attendees
 
 import { Colors } from '../constants'
 import { BoldText, SemiBoldText, RegularText } from './StyledText';
