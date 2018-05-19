@@ -34,7 +34,7 @@ class AttendeeSearchResultRow extends React.Component {
                 <SemiBoldText>{attendee.email}</SemiBoldText>
               </View>
             ) : null}
-            {this.getAttendeeTwitter() ? (
+            {getContactTwitter(attendee) ? (
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Entypo name={'twitter'} size={16} color="#1da1f2" style={{ paddingRight: 3 }} />
                 <RegularText>@{getContactTwitter(attendee)}</RegularText>
@@ -64,7 +64,7 @@ export default class AttendeeSearchResults extends React.Component {
   }
 
   _renderItem = ({ item: attendee }) => {
-    return <AttendeeSearchResultRow attendee={attendee} onPress={this._handlePressRow} />;
+    return <AttendeeSearchResultRow attendee={attendee} onPress={this.props.onPress} />;
   };
 
   _handlePressRow = attendee => {

@@ -17,8 +17,10 @@ import { Query } from 'react-apollo';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
-import { Colors, FontSizes, Layout } from '../constants';
 import ContactCard from '../components/ContactCard';
+import AttendeesSearchResults from '../components/AttendeesSearchResults';
+
+import { Colors, FontSizes, Layout } from '../constants';
 import GET_ATTENDEES from '../data/attendeesquery';
 import { getContactTwitter } from '../utils';
 
