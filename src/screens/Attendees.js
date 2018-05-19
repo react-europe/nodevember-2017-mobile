@@ -20,7 +20,6 @@ import FadeIn from 'react-native-fade-in-image';
 import { View as AnimatableView } from 'react-native-animatable';
 import { Ionicons } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
-import Autocomplete from 'react-native-autocomplete-input';
 import { Query } from 'react-apollo';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
