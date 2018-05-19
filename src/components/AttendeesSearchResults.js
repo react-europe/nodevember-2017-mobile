@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { ScrollView, RectButton } from 'react-native-gesture-handler';
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import { Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import Highlighter from 'react-native-highlight-words';
 
+import { Colors } from '../constants'
 import { BoldText, SemiBoldText, RegularText } from './StyledText';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import GravatarImage from './GravatarImage';
@@ -11,17 +12,36 @@ import HighlightableText from './HighlightableText';
 
 import { getContactTwitter } from '../utils';
 
+export const Schedule = require('../data/schedule.json');
+const FullSchedule = Schedule.events[0].groupedSchedule;
+
+const SpeakersAndTalks = Schedule.events[0].speakers;
+const SpeakersData = [{ data: SpeakersAndTalks, title: 'Speakers' }];
+
 class AttendeeSearchResultRow extends React.Component {
   render() {
     const { attendee, searchQuery } = this.props;
+
+    let isSpeaker;
+    if (SpeakersData && SpeakersData.length) {
+      isSpeaker = SpeakersData[0].data.filter(speaker => {
+        return getContactTwitter(attendee) === speaker.twitter
+      })[0] ? true : false
+    }
+
     return (
       <RectButton
         onPress={() => this.props.onPress(attendee)}
         activeOpacity={0.05}
         style={{ flex: 1, backgroundColor: '#fff' }}
       >
-        <View style={styles.row}>
-          <View style={styles.rowAvatarContainer}>
+        <View style={[styles.row, { borderLeftWidth: isSpeaker ? 5 : 0 }]}>
+          {isSpeaker && <View style={styles.micIcon}><MaterialCommunityIcons
+            name="presentation"
+            size={32}
+            color="#aab8c2"
+          /></View>}
+          <View style={[styles.rowAvatarContainer, { paddingLeft: isSpeaker ? 0 : 5 }]}>
             <GravatarImage style={styles.avatarImage} email={attendee.email} />
           </View>
           <View style={styles.rowData}>
@@ -102,13 +122,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: '#eee',
+    borderBottomColor: '#eee',
+    borderLeftColor: Colors.blue,
     flexDirection: 'row',
   },
   rowAvatarContainer: {
     paddingVertical: 5,
     paddingRight: 10,
-    paddingLeft: 0,
+    paddingLeft: 5,
   },
   avatarImage: {
     width: 50,
@@ -119,6 +140,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    paddingTop: 80,
+    marginTop: 80,
+  },
+  micIcon: {
+    position: 'absolute',
+    right: 24,
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    height: '100%',
+    top: 10,
   }
 });

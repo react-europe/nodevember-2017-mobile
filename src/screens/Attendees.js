@@ -92,7 +92,6 @@ class DeferredAttendeesContent extends React.Component {
     }
     const { query } = this.props;
     const cleanedQuery = query.toLowerCase().trim();
-    console.log('State:', this.state);
 
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
