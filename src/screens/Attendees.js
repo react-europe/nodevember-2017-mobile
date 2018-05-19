@@ -28,7 +28,7 @@ import MyContacts from '../components/MyContacts';
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
 import VideoBackground from '../components/VideoBackground';
-import { BoldText, SemiBoldText } from '../components/StyledText';
+import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
 import { connectDrawerButton } from '../Navigation';
 import { Colors, FontSizes, Layout } from '../constants';
 import { Speakers, Talks } from '../data';
@@ -39,7 +39,6 @@ import {
 } from '../utils';
 import ContactCard from '../components/ContactCard';
 import GET_ATTENDEES from '../data/attendeesquery'
-import { BoldText, SemiBoldText, RegularText } from '../components/StyledText';
 import CachedImage from '../components/CachedImage';
 
 
@@ -389,3 +388,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default Attendees
