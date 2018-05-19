@@ -79,11 +79,12 @@ export default class TalksUpNext extends React.Component {
           res.data.events &&
           res.data.events[0] &&
           res.data.events[0].status &&
-          res.data.events[0].status.nextFiveScheduledItems
+          res.data.events[0].status.nextFiveScheduledItems &&
+          res.data.events[0].status.nextFiveScheduledItems.length > 0
         ) {
           let nextTalks = res.data.events[0].status.nextFiveScheduledItems;
           that.setState({
-            nextTalks: res.data.events[0].status.nextFiveScheduledItems.slice(
+            nextTalks: nextTalks.slice(
               0,
               3
             ),
