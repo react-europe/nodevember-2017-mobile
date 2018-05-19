@@ -48,9 +48,7 @@ class ApolloAutocomplete extends React.Component {
 
 class ApolloAutocompleteList extends React.Component {
   _renderItem = ({ item }) => {
-    return (<View>
-      <Text>{item.firstName}</Text>
-    </View>);
+    return <AttendeeRow item={item} />;
   };
 
   _renderSectionHeader = ({ section }) => {
@@ -77,6 +75,45 @@ class ApolloAutocompleteList extends React.Component {
         sections={AttendeesData}
         keyExtractor={(item, index) => index.toString()}
       />);
+  }
+}
+
+class AttendeeRow extends React.Component {
+  _getExtraInfo = () => {
+    const {answers} = this.props.item;
+
+    return answers.reduce((acc, cur) => {
+      if (!cur || !cur.value || !cur.question) {
+        return acc;
+      }
+
+      switch (cur.question.id) {
+        case 56:
+          acc.activity = cur.value;
+          break;
+        case 58:
+          acc.twitter = cur.value;
+          break;
+        case 59:
+          acc.jobTitle = cur.value;
+          break;
+      }
+
+      return acc;
+    }, {});
+  };
+
+  render() {
+    const {firstName, lastName, email} = this.props.item;
+    const {twitter, jobTitle, activity} = this._getExtraInfo();
+
+    return (<View style={styles.rowContainer}>
+      <Text>{firstName + ' ' + lastName}</Text>
+      <Text>{email}</Text>
+      <Text>{twitter}</Text>
+      <Text>{jobTitle}</Text>
+      <Text>{activity}</Text>
+    </View>);
   }
 }
 
@@ -130,6 +167,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#eee',
   },
+  rowContainer: {
+    flex: 1,
+    flexDirection: 'column'
+  }
 });
 
 export default ApolloAutocomplete;
