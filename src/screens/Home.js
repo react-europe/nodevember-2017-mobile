@@ -204,14 +204,20 @@ class DeferredHomeContent extends React.Component {
             </RectButton>
           </ClipBorderRadius>
         ) : null}
-
-        <TalksUpNext
-          style={{ marginTop: 20, marginHorizontal: 15, marginBottom: 2 }}
-        />
+        <HideWhenConferenceHasEnded>
+          <TalksUpNext
+            style={{ marginTop: 20, marginHorizontal: 15, marginBottom: 2 }}
+          />
+        </HideWhenConferenceHasEnded>
         <View style={{ marginHorizontal: 15, marginBottom: 20 }}>
           <TouchableOpacity onPress={this._handlePressAllTalks}>
             <SemiBoldText style={styles.seeAllTalks}>
-              See all talks →
+              <HideWhenConferenceHasEnded>
+                See all talks →
+              </HideWhenConferenceHasEnded>
+              <ShowWhenConferenceHasEnded>
+                See all 2018 talks →
+              </ShowWhenConferenceHasEnded>
             </SemiBoldText>
           </TouchableOpacity>
         </View>

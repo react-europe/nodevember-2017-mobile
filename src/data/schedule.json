@@ -35,6 +35,7 @@
                 "id": 915,
                 "keynote": null,
                 "length": 60,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Tue May 15 06:30:00 +0000 2018",
@@ -48,6 +49,7 @@
                 "id": 917,
                 "keynote": null,
                 "length": 480,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -102,6 +104,7 @@
                 "id": 961,
                 "keynote": null,
                 "length": 480,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -124,6 +127,7 @@
                 "id": 971,
                 "keynote": null,
                 "length": 480,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -168,6 +172,7 @@
                 "id": 916,
                 "keynote": null,
                 "length": 60,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Wed May 16 06:30:00 +0000 2018",
@@ -181,6 +186,7 @@
                 "id": 918,
                 "keynote": null,
                 "length": 480,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -235,6 +241,7 @@
                 "id": 968,
                 "keynote": null,
                 "length": 480,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -265,6 +272,7 @@
                 "id": 972,
                 "keynote": null,
                 "length": 480,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -309,6 +317,7 @@
                 "id": 1460,
                 "keynote": null,
                 "length": 90,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 06:30:00 +0000 2018",
@@ -322,6 +331,7 @@
                 "id": 1461,
                 "keynote": null,
                 "length": 60,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 06:45:00 +0000 2018",
@@ -335,6 +345,7 @@
                 "id": 1537,
                 "keynote": null,
                 "length": 15,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 07:45:00 +0000 2018",
@@ -348,6 +359,7 @@
                 "id": 1450,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -370,6 +382,7 @@
                 "id": 1038,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -392,6 +405,7 @@
                 "id": 1462,
                 "keynote": null,
                 "length": 30,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 09:00:00 +0000 2018",
@@ -405,6 +419,7 @@
                 "id": 1453,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -427,6 +442,7 @@
                 "id": 1266,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -449,6 +465,7 @@
                 "id": 1463,
                 "keynote": null,
                 "length": 90,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 10:30:00 +0000 2018",
@@ -462,6 +479,7 @@
                 "id": 1452,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -484,6 +502,7 @@
                 "id": 1041,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -506,6 +525,7 @@
                 "id": 1464,
                 "keynote": null,
                 "length": 30,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 13:00:00 +0000 2018",
@@ -519,6 +539,7 @@
                 "id": 1507,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -541,6 +562,7 @@
                 "id": 1024,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -563,6 +585,7 @@
                 "id": 1465,
                 "keynote": null,
                 "length": 30,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 14:30:00 +0000 2018",
@@ -576,6 +599,7 @@
                 "id": 1071,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -598,6 +622,7 @@
                 "id": 1014,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -628,6 +653,7 @@
                 "id": 1466,
                 "keynote": null,
                 "length": 45,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 16:00:00 +0000 2018",
@@ -641,6 +667,7 @@
                 "id": 1467,
                 "keynote": null,
                 "length": 90,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Thu May 17 16:45:00 +0000 2018",
@@ -660,6 +687,7 @@
                 "id": 1468,
                 "keynote": null,
                 "length": 90,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 06:30:00 +0000 2018",
@@ -673,6 +701,7 @@
                 "id": 1469,
                 "keynote": null,
                 "length": 75,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 06:45:00 +0000 2018",
@@ -686,6 +715,7 @@
                 "id": 1451,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -708,6 +738,7 @@
                 "id": 1458,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -730,6 +761,7 @@
                 "id": 1470,
                 "keynote": null,
                 "length": 30,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 09:00:00 +0000 2018",
@@ -743,6 +775,7 @@
                 "id": 1512,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -765,6 +798,7 @@
                 "id": 1477,
                 "keynote": null,
                 "length": 30,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 10:00:00 +0000 2018",
@@ -778,6 +812,7 @@
                 "id": 1471,
                 "keynote": null,
                 "length": 90,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 10:30:00 +0000 2018",
@@ -791,6 +826,7 @@
                 "id": 1455,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -813,6 +849,7 @@
                 "id": 1162,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -835,6 +872,7 @@
                 "id": 1472,
                 "keynote": null,
                 "length": 30,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 13:00:00 +0000 2018",
@@ -848,6 +886,7 @@
                 "id": 1459,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -870,6 +909,7 @@
                 "id": 1456,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -892,6 +932,7 @@
                 "id": 1473,
                 "keynote": null,
                 "length": 30,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 14:30:00 +0000 2018",
@@ -905,6 +946,7 @@
                 "id": 1454,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -927,6 +969,7 @@
                 "id": 1029,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -949,6 +992,7 @@
                 "id": 1331,
                 "keynote": null,
                 "length": 25,
+                "likes": 0,
                 "room": null,
                 "speakers": [
                   {
@@ -971,6 +1015,7 @@
                 "id": 1474,
                 "keynote": null,
                 "length": 30,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 16:30:00 +0000 2018",
@@ -984,6 +1029,7 @@
                 "id": 1475,
                 "keynote": null,
                 "length": 120,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Fri May 18 17:00:00 +0000 2018",
@@ -1002,7 +1048,8 @@
                 "description": "Our official ReactEurope Hackathon at Mozilla office in Paris from 9am to 9pm on May 19th. IMPORTANT: The address is \"16 Boulevard Montmartre, 75009 Paris, France (https://goo.gl/NLbvX1)\". Make sure to bring your own laptop and French AC adaptor. Registration now open.\n\nThe schedule of the hackathon is:\n\n- checkin and breakfast start at 9:00am\n- lunch at 12pm\n- people start presenting their projects at 7pm",
                 "id": 1476,
                 "keynote": null,
-                "length": 720,
+                "length": 540,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Sat May 19 07:00:00 +0000 2018",
@@ -1016,6 +1063,7 @@
                 "id": 1536,
                 "keynote": null,
                 "length": 180,
+                "likes": 0,
                 "room": null,
                 "speakers": [],
                 "startDate": "Sat May 19 07:30:00 +0000 2018",
@@ -1023,6 +1071,20 @@
                 "talk": null,
                 "title": "comparethemarket.com Workshop",
                 "type": 1
+              },
+              {
+                "description": "Hacakthon demos and lightnings",
+                "id": 1547,
+                "keynote": null,
+                "length": 120,
+                "likes": 0,
+                "room": null,
+                "speakers": [],
+                "startDate": "Sat May 19 16:00:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Hacakthon demos and lightnings",
+                "type": 0
               }
             ],
             "title": "Saturday"
@@ -1719,62 +1781,10 @@
         },
         "startDate": "Thu May 17 06:30:00 +0000 2018",
         "status": {
-          "hasEnded": false,
+          "hasEnded": true,
           "hasStarted": true,
-          "nextFiveScheduledItems": [
-            {
-              "description": "- Declarative Data Fetching in React by [Charles Mangwa](https://twitter.com/Charles_Mangwa)\n- React Interface for Ledger Hardware Wallets by [Anastasia Poupeney](https://twitter.com/anastasiia_ser)\n- Web performance - All in one by [David Boyne](https://twitter.com/boyney123)\n- Design meets Code with BuilderX by [Sanket Sahu](https://twitter.com/sanketsahu)\n- React-admin, build an admin like you play Legos by [Francois Zaninotto](https://twitter.com/francoisz)\n- Introducing Backstage: deploy individual branches of your front-end app by [Jesse Pinho](https://twitter.com/jessepinho)",
-              "id": 1466,
-              "speakers": [],
-              "startDate": "Thu May 17 16:00:00 +0000 2018",
-              "title": "Lightning talks session"
-            },
-            {
-              "description": "Drinks, food, socializing, music.",
-              "id": 1467,
-              "speakers": [],
-              "startDate": "Thu May 17 16:45:00 +0000 2018",
-              "title": "Dinner"
-            },
-            {
-              "description": "Make sure to get in early.",
-              "id": 1468,
-              "speakers": [],
-              "startDate": "Fri May 18 06:30:00 +0000 2018",
-              "title": "Check-in"
-            },
-            {
-              "description": "Your typical French breakfast with croissants, coffee and more.",
-              "id": 1469,
-              "speakers": [],
-              "startDate": "Fri May 18 06:45:00 +0000 2018",
-              "title": "Breakfast"
-            },
-            {
-              "description": "The talk introduces ReasonReact and the way it operates on the state of React components. This is illustrated by introducing the notion of local state presented via a series of examples. State is changed by means of reducers, that can operate directly on the current component, or on distant components via remote actions. Further examples illustrate how certain animations can be considered instances of local state that can be easily composed.",
-              "id": 1451,
-              "speakers": [
-                {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/158/speakers/876/avatar.png",
-                  "bio": "**Engineer at Facebook.\nCo-creator of @fbinfer**, founder of Monoidics, reformed academic.\nInto developer experience, front-end, static analysis, language design.\n**Early @reasonml adopter, co-creator of ReasonReact**.",
-                  "id": 876,
-                  "name": "Cristiano Calcagno",
-                  "talks": [
-                    {
-                      "description": "The talk introduces ReasonReact and the way it operates on the state of React components. This is illustrated by introducing the notion of local state presented via a series of examples. State is changed by means of reducers, that can operate directly on the current component, or on distant components via remote actions. Further examples illustrate how certain animations can be considered instances of local state that can be easily composed.",
-                      "id": 1451,
-                      "startDate": "Fri May 18 08:00:00 +0000 2018",
-                      "title": "ReasonReact and local state"
-                    }
-                  ],
-                  "twitter": "ccrisccris"
-                }
-              ],
-              "startDate": "Fri May 18 08:00:00 +0000 2018",
-              "title": "ReasonReact and local state"
-            }
-          ],
-          "onGoing": true
+          "nextFiveScheduledItems": [],
+          "onGoing": false
         },
         "timezoneId": "Europe/Paris",
         "twitterHandle": "ReactEurope",

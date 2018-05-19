@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { Text, Platform, StyleSheet, View } from "react-native";
 import { RectButton } from "react-native-gesture-handler";
 import { withNavigation } from "react-navigation";
 import GravatarImage from "../components/GravatarImage";
@@ -52,7 +52,7 @@ export default class ContactCard extends React.Component {
                   </Button>
                 </View>
               ) : null}
-              <Button onPress={this._handlePressEmailButton}>{email}</Button>
+              <Button onPress={this._handlePressEmailButton}>EMAIL</Button>
             </CardActions>
           </View>
         </View>
