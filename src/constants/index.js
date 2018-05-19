@@ -24,6 +24,7 @@ export const Layout = {
 
 export const Colors = {
   blue: "#4d5fab",
+  rose: "#aa4d5e",
   faint: "#7a7a7a"
 };
 
