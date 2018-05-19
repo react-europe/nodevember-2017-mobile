@@ -1,26 +1,28 @@
 import React from "react";
-import { Platform, StyleSheet, View, Linking } from "react-native";
-import { WebBrowser } from "expo";
+import { Platform, StyleSheet, View } from "react-native";
+import { RectButton } from "react-native-gesture-handler";
 import { withNavigation } from "react-navigation";
 import GravatarImage from '../components/GravatarImage';
+import { sendEmail, openTwitter, getContactTwitter } from "../utils";
 import { Colors, FontSizes } from "../constants";
 import {
   Button,
-  Card,
   CardActions,
   CardContent,
   Title,
   Paragraph
 } from "react-native-paper";
 
+
 @withNavigation
 export default class ContactCard extends React.Component {
   render() {
-    const { contact } = this.props;
+    const { contact, onPress } = this.props;
+    const { email } = contact;
     const bio = this.getContactBio();
-    const twitter = this.getContactTwitter();
+    const twitter = getContactTwitter(contact);
     return (
-      <Card>
+      <RectButton onPress={() => onPress({ ...contact, bio, twitter })}>
         <View style={{flex: 1, flexDirection: 'row'}}>
           <GravatarImage
             style={styles.avatarImage}
@@ -35,47 +37,27 @@ export default class ContactCard extends React.Component {
               {twitter !== "" ? (
                 <Button onPress={this._handlePressTwitterButton}>@{twitter}</Button>
               ) : null}
-              <Button onPress={this._handlePressEmailButton}>Email</Button>
+              <Button onPress={this._handlePressEmailButton}>{email}</Button>
             </CardActions>
           </View>
         </View>
-      </Card>
+      </RectButton>
     );
   }
-  _handlePressTwitterButton = async () => {
-    const twitter = this.getContactTwitter();
-    try {
-      await Linking.openURL(`twitter://user?screen_name=` + twitter);
-    } catch (e) {
-      WebBrowser.openBrowserAsync("https://twitter.com/" + twitter);
-    }
+  _handlePressTwitterButton = () => {
+    const twitter = getContactTwitter(this.props.contact);
+    openTwitter(twitter);
   };
 
   _handlePressEmailButton = () => {
     const contact = this.props.contact;
-    const email = contact.email;
+    const emailTo = contact.email;
     const { tickets } = this.props;
-    let me = { firstName: "", lastName: "" };
+    let fromName = { firstName: "", lastName: "" };
     if (tickets && tickets[0] && tickets[0].firstName) {
-      me = tickets[0];
+      fromName = tickets[0];
     }
-    const emailurl =
-      "mailto:" +
-      email +
-      "?subject=hey it's" +
-      " " +
-      me.firstName +
-      " " +
-      me.lastName +
-      " " +
-      "from ReactEurope&body=ping";
-    try {
-      Platform.OS === "android"
-        ? WebBrowser.openBrowserAsync(emailurl)
-        : Linking.openURL(emailurl);
-    } catch (e) {
-      WebBrowser.openBrowserAsync("mailto:" + email);
-    }
+    sendEmail(emailTo, fromName);
   };
   getContactBio = () => {
     let contact = this.props.contact;
@@ -88,21 +70,6 @@ export default class ContactCard extends React.Component {
       });
     }
     return bio;
-  };
-  getContactTwitter = () => {
-    let contact = this.props.contact;
-    let twitter = "";
-    if (contact) {
-      contact.answers.map(answer => {
-        if (answer.question && answer.question.title === "Twitter") {
-          twitter = answer.value;
-        }
-      });
-    }
-    return twitter
-      .replace("@", "")
-      .replace("https://twitter.com/", "")
-      .replace("twitter.com/", "");
   };
 }
 const styles = StyleSheet.create({

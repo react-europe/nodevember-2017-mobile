@@ -18,13 +18,14 @@ import CachedImage from '../components/CachedImage'
 
 class MenuScreen extends Component {
   static navigationOptions = {
-    header: null
+    title: 'Menu'
   }
 
   getIconName = key => {
     if (key === 'Speakers') return 'ios-microphone'
     if (key === 'Crew') return 'ios-information-circle'
     if (key === 'Sponsors') return 'ios-beer'
+    if (key === 'Attendees') return 'ios-people'
   }
 
   render() {
@@ -32,7 +33,12 @@ class MenuScreen extends Component {
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" />
         <FlatList
-          data={[{ key: 'Speakers' }, { key: 'Crew' }, { key: 'Sponsors' }]}
+          data={[
+            { key: 'Speakers' },
+            { key: 'Crew' },
+            { key: 'Sponsors' },
+            { key: 'Attendees' }
+          ]}
           ListHeaderComponent={() => (
             <View
               style={{

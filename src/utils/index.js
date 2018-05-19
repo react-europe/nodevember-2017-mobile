@@ -1,5 +1,9 @@
 import moment from "moment-timezone";
 import _ from "lodash";
+import { Platform, Linking } from "react-native";
+import { WebBrowser } from "expo";
+import { AsyncStorage } from 'react-native';
+
 export const Schedule = require("../data/schedule.json");
 const Event = Schedule.events[0];
 
@@ -59,3 +63,90 @@ export function ShowWhenConferenceHasEnded({ children }) {
     return null;
   }
 }
+
+export const sendEmail = (emailTo, fromName = { firstName: "", lastName: "" }) => {
+  const emailurl =
+    "mailto:" +
+    emailTo +
+    "?subject=hey it's" +
+    " " +
+    fromName.firstName +
+    " " +
+    fromName.lastName +
+    " " +
+    "from ReactEurope&body=ping";
+  try {
+    Platform.OS === "android"
+      ? WebBrowser.openBrowserAsync(emailurl)
+      : Linking.openURL(emailurl);
+  } catch (e) {
+    WebBrowser.openBrowserAsync("mailto:" + emailTo);
+  }
+};
+
+export const openTwitter = async (twitter) => {
+  try {
+    await Linking.openURL(`twitter://user?screen_name=` + twitter);
+  } catch (e) {
+    WebBrowser.openBrowserAsync("https://twitter.com/" + twitter);
+  }
+}
+
+export const addContact = async (contact) => {
+  const storedContacts = await AsyncStorage.getItem('@MySuperStore:contacts');
+
+  let contacts = null;
+  let newContacts = [];
+  let found = false;
+  if (storedContacts === null && contact && contact.firstName) {
+    contacts = [contact];
+  } else {
+    let existingContacts = JSON.parse(storedContacts) || [];
+    console.log(
+      'how many existing contacts',
+      existingContacts.length
+    );
+    existingContacts.map((existingContact) => {
+      console.log('existing contact', existingContact);
+      if (
+        existingContact &&
+        existingContact.id &&
+        contact &&
+        contact.id &&
+        existingContact.id === contact.id
+      ) {
+        found = true;
+        newContacts.push(contact);
+      } else if (existingContact && existingContact.id) {
+        newContacts.push(existingContact);
+      }
+    });
+    if (!found && contact && contact.id) {
+      newContacts.push(contact);
+    }
+    contacts = newContacts;
+  }
+  if (contacts === [null]) {
+    contacts = [];
+  }
+  let stringifiedContacts = JSON.stringify(contacts);
+  return AsyncStorage.setItem(
+    '@MySuperStore:contacts',
+    stringifiedContacts
+  );
+};
+
+export const getContactTwitter = (contact) => {
+  let twitter = "";
+  if (contact) {
+    contact.answers.map(answer => {
+      if (answer.question && answer.question.title === "Twitter") {
+        twitter = answer.value;
+      }
+    });
+  }
+  return twitter
+    .replace("@", "")
+    .replace("https://twitter.com/", "")
+    .replace("twitter.com/", "");
+};

@@ -10,6 +10,9 @@ import TicketInstructions from './TicketInstructions'
 import StaffCheckinLists from './StaffCheckinLists'
 import CheckedInAttendeeInfo from './CheckedInAttendeeInfo'
 import Menu from './Menu'
+import Attendees from './Attendees'
+import AttendeeDetail from './AttendeeDetail'
+
 export default {
   Home,
   Crew,
@@ -22,5 +25,7 @@ export default {
   TicketInstructions,
   StaffCheckinLists,
   CheckedInAttendeeInfo,
+  Attendees,
+  AttendeeDetail,
   Menu
 }

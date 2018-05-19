@@ -62,7 +62,9 @@ const MenuNavigation = StackNavigator(
     Menu: { screen: Screens.Menu },
     Speakers: { screen: Screens.Speakers },
     Crew: { screen: Screens.Crew },
-    Sponsors: { screen: Screens.Sponsors }
+    Sponsors: { screen: Screens.Sponsors },
+    Attendees: { screen: Screens.Attendees },
+    AttendeeDetail: { screen: Screens.AttendeeDetail }
   },
   {
     ...DefaultStackConfig,
@@ -165,6 +167,10 @@ const PrimaryTabNavigator = TabNavigator(
 export default StackNavigator(
   {
     Primary: { screen: PrimaryTabNavigator },
+    AttendeeDetail: { screen: Screens.AttendeeDetail },
+    TicketInstructions: { screen: Screens.TicketInstructions },
+
+    CheckedInAttendeeInfo: { screen: Screens.CheckedInAttendeeInfo },
     QRScanner: { screen: QRScannerModalNavigation },
     QRCheckinScanner: { screen: QRCheckinScannerModalNavigation },
     QRContactScanner: { screen: QRContactScannerModalNavigation },
