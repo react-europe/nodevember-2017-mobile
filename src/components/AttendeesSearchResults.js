@@ -2,15 +2,18 @@ import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { ScrollView, RectButton } from 'react-native-gesture-handler';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import Highlighter from 'react-native-highlight-words';
 
 import { BoldText, SemiBoldText, RegularText } from './StyledText';
 import LoadingPlaceholder from './LoadingPlaceholder';
 import GravatarImage from './GravatarImage';
+import HighlightableText from './HighlightableText';
+
 import { getContactTwitter } from '../utils';
 
 class AttendeeSearchResultRow extends React.Component {
   render() {
-    const { attendee } = this.props;
+    const { attendee, searchQuery } = this.props;
     return (
       <RectButton
         onPress={() => this.props.onPress(attendee)}
@@ -22,7 +25,12 @@ class AttendeeSearchResultRow extends React.Component {
             <GravatarImage style={styles.avatarImage} email={attendee.email} />
           </View>
           <View style={styles.rowData}>
-            <BoldText>{`${attendee.firstName} ${attendee.lastName}`}</BoldText>
+            <HighlightableText
+              TextComponent={BoldText}
+              highlightStyle={{ backgroundColor: '#e1e8ed' }}
+              searchWords={[searchQuery]}
+              textToHighlight={`${attendee.firstName} ${attendee.lastName}`}
+            />
             {attendee.email ? (
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <MaterialIcons
@@ -31,13 +39,23 @@ class AttendeeSearchResultRow extends React.Component {
                   color="#aab8c2"
                   style={{ paddingRight: 3 }}
                 />
-                <SemiBoldText>{attendee.email}</SemiBoldText>
+                <HighlightableText
+                  TextComponent={SemiBoldText}
+                  highlightStyle={{ backgroundColor: '#e1e8ed' }}
+                  searchWords={[searchQuery]}
+                  textToHighlight={attendee.email}
+                />
               </View>
             ) : null}
             {getContactTwitter(attendee) ? (
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Entypo name={'twitter'} size={16} color="#1da1f2" style={{ paddingRight: 3 }} />
-                <RegularText>@{getContactTwitter(attendee)}</RegularText>
+                <HighlightableText
+                  TextComponent={RegularText}
+                  highlightStyle={{ backgroundColor: '#e1e8ed' }}
+                  searchWords={[searchQuery]}
+                  textToHighlight={`@${getContactTwitter(attendee)}`}
+                />
               </View>
             ) : null}
           </View>
@@ -65,7 +83,13 @@ export default class AttendeeSearchResults extends React.Component {
   }
 
   _renderItem = ({ item: attendee }) => {
-    return <AttendeeSearchResultRow attendee={attendee} onPress={this.props.onPress} />;
+    return (
+      <AttendeeSearchResultRow
+        attendee={attendee}
+        onPress={this.props.onPress}
+        searchQuery={this.props.searchQuery}
+      />
+    );
   };
 
   _handlePressRow = attendee => {

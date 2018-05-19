@@ -181,6 +181,7 @@ class DeferredAttendeesContent extends React.Component {
                 <AttendeesSearchResults
                   attendees={sortedFilteredAttendees}
                   onPress={this._handlePressRow}
+                  searchQuery={cleanedQuery}
                 />
               </React.Fragment>
             );
