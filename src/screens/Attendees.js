@@ -126,7 +126,7 @@ class DeferredAttendeesContent extends React.Component {
       .replace('twitter.com/', '');
   };
 
-  throttleDelayMs = 50
+  throttleDelayMs = 25
   throttleTimeout = null
   queryThrottle = text => {
     clearTimeout(this.throttleTimeout);
