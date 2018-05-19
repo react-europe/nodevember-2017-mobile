@@ -27,13 +27,13 @@ export default class AttendeeDetail extends React.Component {
     scrollY: new Animated.Value(0),
   };
 
-  _handlePressTwitterButton = () => {
+  _handlePressTwitter = () => {
     const { attendee } = this.props.navigation.state.params;
     const twitter = getContactTwitter(attendee);
     openTwitter(twitter);
   };
 
-  _handlePressEmailButton = () => {
+  _handlePressEmail = () => {
     const { attendee: { email: emailTo } } = this.props.navigation.state.params;
     const { tickets } = this.props;
     let fromName = { firstName: "", lastName: "" };
@@ -58,6 +58,8 @@ export default class AttendeeDetail extends React.Component {
       this.props.navigation.goBack();
       return null;
     }
+
+    const twitter = getContactTwitter(attendee);
 
     const { scrollY } = this.state;
     const scale = scrollY.interpolate({
@@ -125,10 +127,10 @@ export default class AttendeeDetail extends React.Component {
               <SemiBoldText style={styles.headerText} key={attendee.id}>
                 {attendee.firstName} {attendee.lastName}
               </SemiBoldText>
-            {attendee && attendee.twitter ? (
+            {twitter ? (
               <TouchableOpacity onPress={this._handlePressTwitter}>
                 <RegularText style={styles.headerText}>
-                  @{attendee.twitter}
+                  @{twitter}
                 </RegularText>
               </TouchableOpacity>
             ) : null}

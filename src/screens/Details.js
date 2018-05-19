@@ -21,7 +21,7 @@ import AnimatedScrollView from '../components/AnimatedScrollView';
 import NavigationBar from '../components/NavigationBar';
 import { Colors, FontSizes, Icons, Layout } from '../constants';
 import { RegularText, BoldText, SemiBoldText } from '../components/StyledText';
-import { getSpeakerTalk, convertUtcDateToEventTimezoneHour } from '../utils';
+import { getSpeakerTalk, convertUtcDateToEventTimezoneHour, openTwitter } from '../utils';
 import { findTalkData, findSpeakerData } from '../data';
 import SaveButton from '../components/SaveButton';
 import CachedImage from '../components/CachedImage';
@@ -300,12 +300,8 @@ export default class Details extends React.Component {
     this.props.navigation.navigate('Details', { speaker });
   };
 
-  _handlePressSpeakerTwitter = async twitter => {
-    try {
-      await Linking.openURL(`twitter://user?screen_name=` + twitter);
-    } catch (e) {
-      WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
-    }
+  _handlePressSpeakerTwitter = twitter => {
+    openTwitter(twitter);
   };
 }
 const markdownStyles = {

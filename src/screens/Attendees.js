@@ -21,8 +21,6 @@ import { Colors, Layout } from '../constants';
 import GET_ATTENDEES from '../data/attendeesquery';
 import { getContactTwitter } from '../utils';
 
-export const Schedule = require('../data/schedule.json');
-
 class Attendees extends React.Component {
   state = {
     scrollY: new Animated.Value(0),
@@ -183,16 +181,6 @@ const OverscrollView = () => (
     }}
   />
 );
-
-const ClipBorderRadius = ({ children, style }) => {
-  return (
-    <View style={[{ borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10 }, style]}>
-      {children}
-    </View>
-  );
-};
-
-const BORDER_RADIUS = 3;
 
 const styles = StyleSheet.create({
   textInput: {
