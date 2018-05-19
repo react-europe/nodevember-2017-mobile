@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, Platform } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { ScrollView, RectButton } from 'react-native-gesture-handler';
 import { Entypo, MaterialIcons } from '@expo/vector-icons';
 
