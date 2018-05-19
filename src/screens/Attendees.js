@@ -31,7 +31,16 @@ export const Schedule = require('../data/schedule.json');
 class Attendees extends React.Component {
   state = {
     scrollY: new Animated.Value(0),
+    attendees: [],
+    query: '',
   };
+
+  throttleDelayMs = 200
+  throttleTimeout = null
+  queryThrottle = text => {
+    clearTimeout(this.throttleTimeout);
+    this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
+  }
 
   render() {
     const { scrollY } = this.state;
@@ -41,7 +50,14 @@ class Attendees extends React.Component {
       extrapolate: 'clamp',
     });
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, position: 'relative', width: '100%' }}>
+        <Searchbar
+          onChangeText={text => this.queryThrottle(text)}
+          placeholder="Search for conference attendees"
+          style={styles.textInput}
+        />
+        {/* <View style={}>
+        </View> */}
         <AnimatedScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ paddingBottom: 20 + Layout.notchHeight / 2 }}
@@ -64,7 +80,7 @@ class Attendees extends React.Component {
               alignItems: 'center',
             }}
           />
-          <DeferredAttendeesContent />
+          <DeferredAttendeesContent query={this.state.query}/>
           <OverscrollView />
         </AnimatedScrollView>
 
@@ -81,8 +97,6 @@ class Attendees extends React.Component {
 class DeferredAttendeesContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
-    attendees: [],
-    query: '',
   };
 
   componentDidMount() {
@@ -95,12 +109,7 @@ class DeferredAttendeesContent extends React.Component {
     }, 200);
   }
 
-  throttleDelayMs = 200
-  throttleTimeout = null
-  queryThrottle = text => {
-    clearTimeout(this.throttleTimeout);
-    this.throttleTimeout = setTimeout(() => this.setState({ query: text }), this.throttleDelayMs);
-  }
+ 
 
   _renderItem = ({ item: attendee }) => (
     <ContactCard
@@ -119,7 +128,7 @@ class DeferredAttendeesContent extends React.Component {
     if (!this.state.ready) {
       return null;
     }
-    const { query } = this.state;
+    const { query } = this.props;
     const cleanedQuery = query.toLowerCase().trim();
     console.log('State:', this.state);
   
@@ -172,11 +181,6 @@ class DeferredAttendeesContent extends React.Component {
 
             return (
               <React.Fragment>
-                <Searchbar
-                  onChangeText={text => this.queryThrottle(text)}
-                  placeholder="Search for conference attendees"
-                  style={styles.textInput}
-                />
                 <FlatList
                   renderScrollComponent={props => <ScrollView {...props} />}
                   renderItem={this._renderItem}
@@ -185,6 +189,7 @@ class DeferredAttendeesContent extends React.Component {
                   keyExtractor={item => `${item.id}`}
                   initialNumToRender={10}
                   keyboardDismissMode="on-drag"
+                  style={styles.list}
                 />
               </React.Fragment>
             );
@@ -293,13 +298,23 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
   textInput: {
+    height: 60,
+    position: 'absolute',
+    top: 90,
+    left: 0,
+    right: 0,
+    marginLeft: 6,
+    marginRight: 6,
+    zIndex: 10,
     backgroundColor: 'white',
-    margin: 5,
     padding: 5,
     borderRadius: 4,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: 'black',
   },
+  list: {
+    marginTop: 80,
+  }
 });
 
 export default Attendees;
