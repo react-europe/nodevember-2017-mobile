@@ -87,8 +87,8 @@ export default class TalksUpNext extends React.Component {
               0,
               3
             ),
-            dateTime: nextTalks[0].startDate,
-            time: nextTalks[0].startDate
+            dateTime: nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
+            time: nextTalks && nextTalks.length ? nextTalks[0].startDate : ''
           });
         } else {
           that.setState({ nextTalks: [] });
