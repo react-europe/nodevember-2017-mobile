@@ -58,6 +58,7 @@ export default class AttendeeSearchResults extends React.Component {
           keyExtractor={item => `${item.id}`}
           initialNumToRender={10}
           keyboardDismissMode="on-drag"
+          style={styles.list}
         />
       </LoadingPlaceholder>
     );
@@ -93,4 +94,7 @@ const styles = StyleSheet.create({
   rowData: {
     flex: 1,
   },
+  list: {
+    marginTop: 80,
+  }
 });

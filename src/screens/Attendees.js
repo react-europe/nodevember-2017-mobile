@@ -11,6 +11,8 @@ import {
   LayoutAnimation,
 } from 'react-native';
 import { View as AnimatableView } from 'react-native-animatable';
+import { Searchbar } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 import { Query } from 'react-apollo';
 
@@ -29,7 +31,20 @@ export const Schedule = require('../data/schedule.json');
 class Attendees extends React.Component {
   state = {
     scrollY: new Animated.Value(0),
+    attendees: [],
+    query: '',
   };
+
+  throttleDelayMs = 200
+  throttleTimeout = null
+  queryThrottle = text => {
+    clearTimeout(this.throttleTimeout);
+  
+    this.throttleTimeout = setTimeout(() => {
+      LayoutAnimation.easeInEaseOut();
+      this.setState({ query: text });
+    }, this.throttleDelayMs);
+  }
 
   render() {
     const { scrollY } = this.state;
@@ -40,6 +55,11 @@ class Attendees extends React.Component {
     });
     return (
       <View style={{ flex: 1 }}>
+        <Searchbar
+          onChangeText={text => this.queryThrottle(text)}
+          placeholder="Search for conference attendees"
+          style={styles.textInput}
+        />
         <AnimatedScrollView
           style={{ flex: 1 }}
           contentContainerStyle={{ paddingBottom: 20 + Layout.notchHeight / 2 }}
@@ -62,7 +82,7 @@ class Attendees extends React.Component {
               alignItems: 'center',
             }}
           />
-          <DeferredAttendeesContent />
+          <DeferredAttendeesContent query={this.state.query}/>
           <OverscrollView />
         </AnimatedScrollView>
 
@@ -79,8 +99,6 @@ class Attendees extends React.Component {
 class DeferredAttendeesContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
-    attendees: [],
-    query: '',
   };
 
   componentDidMount() {
@@ -90,16 +108,14 @@ class DeferredAttendeesContent extends React.Component {
     setTimeout(() => this.setState({ ready: true }), 200);
   }
 
-  throttleDelayMs = 200;
-  throttleTimeout = null;
-  queryThrottle = text => {
-    clearTimeout(this.throttleTimeout);
-
-    this.throttleTimeout = setTimeout(() => {
-      LayoutAnimation.easeInEaseOut();
-      this.setState({ query: text });
-    }, this.throttleDelayMs);
-  };
+  _renderItem = ({ item: attendee }) => (
+    <ContactCard
+      key={attendee.id}
+      contact={attendee}
+      tickets={this.state.tickets}
+      onPress={this._handlePressRow}
+    />
+  );
 
   _handlePressRow = attendee => {
     this.props.navigation.navigate('AttendeeDetail', { attendee });
@@ -109,14 +125,14 @@ class DeferredAttendeesContent extends React.Component {
     if (!this.state.ready) {
       return null;
     }
-    const { query } = this.state;
+    const { query } = this.props;
     const cleanedQuery = query.toLowerCase().trim();
     console.log('State:', this.state);
-
+  
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
-          {({ error, data }) => {
+          {({ loading, error, data }) => {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
@@ -159,19 +175,9 @@ class DeferredAttendeesContent extends React.Component {
               );
             });
             console.log('Attendees: ', sortedFilteredAttendees);
-            console.log('Rankings: ', attendeesSearchRankingScore);
 
             return (
               <React.Fragment>
-                <TextInput
-                  onChangeText={text => this.queryThrottle(text)}
-                  placeholder="Search for conference attendees"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  clearButtonMode="while-editing"
-                  returnKeyLabel="Search"
-                  style={styles.textInput}
-                />
                 <AttendeesSearchResults
                   attendees={sortedFilteredAttendees}
                   onPress={this._handlePressRow}
@@ -210,14 +216,20 @@ const BORDER_RADIUS = 3;
 
 const styles = StyleSheet.create({
   textInput: {
+    height: 60,
+    position: 'absolute',
+    top: 90,
+    left: 0,
+    right: 0,
+    marginLeft: 6,
+    marginRight: 6,
+    zIndex: 10,
     backgroundColor: 'white',
-    margin: 5,
     padding: 5,
     borderRadius: 4,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: 'black',
-    fontSize: 16,
-  },
+  }
 });
 
 export default Attendees;
