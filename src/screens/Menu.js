@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import {
   View,
+  Image,
   Text,
   Button,
   Platform,
   Constants,
   FlatList,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  StatusBar
 } from 'react-native'
 import Navigationbar from '../components/NavigationBar'
 import { Ionicons } from '@expo/vector-icons'
@@ -27,56 +29,88 @@ class MenuScreen extends Component {
 
   render() {
     return (
-      <FlatList
-        data={[{ key: 'Speakers' }, { key: 'Crew' }, { key: 'Sponsors' }]}
-        ListHeaderComponent={() => (
-          <CachedImage
-            source={require('../assets/hero.png')}
-            style={{
-              height: 240 + Layout.notchHeight,
-              width: Layout.window.width,
-              resizeMode: 'cover'
-            }}
-          />
-        )}
-        ItemSeparatorComponent={() => (
-          <View
-            style={{
-              height: StyleSheet.hairlineWidth,
-              backgroundColor: '#cdcdcd'
-            }}
-          />
-        )}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate(item.key)}
-          >
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" />
+        <FlatList
+          data={[{ key: 'Speakers' }, { key: 'Crew' }, { key: 'Sponsors' }]}
+          ListHeaderComponent={() => (
             <View
               style={{
                 flex: 1,
-                paddingVertical: 12,
-                paddingHorizontal: 16,
-                flexDirection: 'row',
-                alignItems: 'center'
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: 240 + Layout.notchHeight
               }}
             >
-              <Ionicons
-                name={`${this.getIconName(item.key)}`}
-                size={24}
-                color={Colors.blue}
+              <CachedImage
+                source={require('../assets/hero.png')}
+                style={{
+                  height: 240 + Layout.notchHeight,
+                  width: Layout.window.width,
+                  resizeMode: 'cover',
+                  position: 'absolute'
+                }}
               />
-              <Text style={{ fontSize: 20, marginHorizontal: 16, flex: 1 }}>
-                {item.key}
-              </Text>
-              <Ionicons
-                name="ios-arrow-forward-outline"
-                size={24}
-                color="#999"
+              <View
+                style={[
+                  StyleSheet.absoluteFill,
+                  {
+                    backgroundColor: 'rgba(0,0,0,0.5)'
+                  }
+                ]}
+              />
+              <Image
+                source={require('../assets/logo.png')}
+                style={[
+                  {
+                    width: 220,
+                    height: 100,
+                    resizeMode: 'contain'
+                  }
+                ]}
+                tintColor="#fff"
               />
             </View>
-          </TouchableOpacity>
-        )}
-      />
+          )}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                height: StyleSheet.hairlineWidth,
+                backgroundColor: '#cdcdcd'
+              }}
+            />
+          )}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate(item.key)}
+            >
+              <View
+                style={{
+                  flex: 1,
+                  paddingVertical: 12,
+                  paddingHorizontal: 16,
+                  flexDirection: 'row',
+                  alignItems: 'center'
+                }}
+              >
+                <Ionicons
+                  name={`${this.getIconName(item.key)}`}
+                  size={24}
+                  color={Colors.blue}
+                />
+                <Text style={{ fontSize: 20, marginHorizontal: 16, flex: 1 }}>
+                  {item.key}
+                </Text>
+                <Ionicons
+                  name="ios-arrow-forward-outline"
+                  size={24}
+                  color="#999"
+                />
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     )
   }
 }
