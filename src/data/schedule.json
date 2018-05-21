@@ -42,7 +42,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Workshop Checkin & French Breakfast",
-                "type": 3
+                "type": 3,
+                "youtubeUrl": ""
               },
               {
                 "description": "Learn from the best with a 2-day workshop this May 15th and 16th from 8:45am to 5:30pm. **This is not a repeat of last year's workshop but a totally new workshop**. This workshop will focus on helping you build more advanced and professional apps with a real native like experience. Core React Native contributor Brent Vatne and the expo team will guide you through this workshop on how to build great React Native apps. This workshop requires an intermediary level in React Native.  Here are the full details:\n\n- Animated: Review basics, native driver, and tracking.\n- Gestures: react-native-gesture-handler, integration with Animated.\n- Universal components: react-native-web, share code between iOS/Android/web.\n- Camera: take photos, save to disk, upload. Read from photos already on disk.\n- OpenGL: how to use shaders on React Native views.\n- Offline support: keeping your app useful without connectivity.\n\n...and other assorted topics of interest!",
@@ -97,7 +98,8 @@
                 "tags": "workshop,react native,navigation,styling,flex box",
                 "talk": null,
                 "title": "React Native Workshop with Brent Vatne and Expo Team - Day 1",
-                "type": 1
+                "type": 1,
+                "youtubeUrl": ""
               },
               {
                 "description": "In this workshop we will dive into the basics and more advanced usage patterns of mobx-state-tree. It is a tool that helps you to model complex problem domains and combines the best features of the modern state technologies out there. \n\n**Click here to see covered subjects**\n\n0. The state tree philosophy. \n1. Modelling your data structures and state\n2. Views & actions\n3. Asynchronous processes\n4. Composing trees and types\n5. Connecting to GraphQL\n6. Writing your own middleware",
@@ -120,7 +122,8 @@
                 "tags": "mobx, react, mobx-state-tree",
                 "talk": null,
                 "title": "Modelling your state with Mobx-state-tree Workshop",
-                "type": 1
+                "type": 1,
+                "youtubeUrl": ""
               },
               {
                 "description": "This workshop requires an intermediary level in React.js.\n\nThis 2-day workshop will skip the basics and get straight to teaching patterns and techniques that apply directly to developing professionally with React. Using real-world examples, we will cover how to take advantage of React and some of its community packages' features to build maintainable, performant applications. \n\n**Click here to see covered subjects**\n\n- Project Architecture\n- Component Design\n- Patterns for Props\n- setState Master Class\n- Using Context Responsibly\n- HoC’s\n- Routing\n- Redux Patterns\n- Forms\n- SSR\n- Perf & Optimization\n- Scalable CSS-in-JS\n- Testing\n- Render Props\n- Static Typing with Flow\n- Universal Components\n- Error Boundaries\n- Portals\n- Utilizing Developer Tools",
@@ -159,7 +162,8 @@
                 "tags": "react,routing,redux,patterns, props,setState,hoc,ssr,perf,testing,portals,flow",
                 "talk": null,
                 "title": "React.js Workshop with Ken Wheeler, Brandon Dail and Emma Brillhart - Day 1",
-                "type": 1
+                "type": 1,
+                "youtubeUrl": ""
               }
             ],
             "title": "Tuesday"
@@ -179,7 +183,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Workshop Checkin & French Breakfast",
-                "type": 3
+                "type": 3,
+                "youtubeUrl": ""
               },
               {
                 "description": "Learn from the best with a 2-day workshop this May 15th and 16th from 8:45am to 5:30pm. **This is not a repeat of last year's workshop but a totally new workshop**. This workshop will focus on helping you build more advanced and professional apps with a real native like experience. Core React Native contributor Brent Vatne and the expo team will guide you through this workshop on how to build great React Native apps. This workshop requires an intermediary level in React Native.  Here are the full details:\n\n- Animated: Review basics, native driver, and tracking.\n- Gestures: react-native-gesture-handler, integration with Animated.\n- Universal components: react-native-web, share code between iOS/Android/web.\n- Camera: take photos, save to disk, upload. Read from photos already on disk.\n- OpenGL: how to use shaders on React Native views.\n- Offline support: keeping your app useful without connectivity.\n\n...and other assorted topics of interest!",
@@ -234,7 +239,8 @@
                 "tags": "workshop,react native,navigation,styling,flex box",
                 "talk": null,
                 "title": "React Native Workshop with Brent Vatne and Expo Team - Day 2",
-                "type": 1
+                "type": 1,
+                "youtubeUrl": ""
               },
               {
                 "description": "This one-day workshop will teach you everything you need to know to incorporate GraphQL into your application. First, we'll start by building a GraphQL server, covering best practices for architecting your schema, error handling, and caching. You'll also be exposed to some advanced backend topics such as schema stitching.\n\nNext, we'll connect our GraphQL server to a React application with Apollo Client. We'll break down the modular architecture of the client and teach you how to customize your own network interface through Apollo Link. We'll also dive into server-side rendering and building query components with React Apollo. Throughout the course of the workshop, you'll learn practical tips for using GraphQL in production from the engineers at Formidable Labs.\n\nThis workshop assumes participants have basic knowledge of GraphQL and intermediate knowledge of React.",
@@ -265,7 +271,8 @@
                 "tags": "GraphQL, APIs, Apollo,",
                 "talk": null,
                 "title": "Fullstack GraphQL with Apollo and Formidable Labs Workshop",
-                "type": 1
+                "type": 1,
+                "youtubeUrl": ""
               },
               {
                 "description": "This workshop requires an intermediary level in React.js.\n\nThis 2-day workshop will skip the basics and get straight to teaching patterns and techniques that apply directly to developing professionally with React. Using real-world examples, we will cover how to take advantage of React and some of its community packages' features to build maintainable, performant applications. \n\n**Click here to see covered subjects**\n\n- Project Architecture\n- Component Design\n- Patterns for Props\n- setState Master Class\n- Using Context Responsibly\n- HoC’s\n- Routing\n- Redux Patterns\n- Forms\n- SSR\n- Perf & Optimization\n- Scalable CSS-in-JS\n- Testing\n- Render Props\n- Static Typing with Flow\n- Universal Components\n- Error Boundaries\n- Portals\n- Utilizing Developer Tools",
@@ -304,7 +311,8 @@
                 "tags": "react,routing,redux,patterns, props,setState,hoc,ssr,perf,testing,portals,flow",
                 "talk": null,
                 "title": "React.js Workshop with Ken Wheeler, Brandon Dail and Emma Brillhart - Day 2",
-                "type": 1
+                "type": 1,
+                "youtubeUrl": ""
               }
             ],
             "title": "Wednesday"
@@ -324,7 +332,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Registration",
-                "type": 8
+                "type": 8,
+                "youtubeUrl": ""
               },
               {
                 "description": "Your typical French breakfast with croissants, coffee and more.",
@@ -338,7 +347,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Breakfast",
-                "type": 3
+                "type": 3,
+                "youtubeUrl": ""
               },
               {
                 "description": "A little intro before we start.",
@@ -352,7 +362,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Welcome Session",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": ""
               },
               {
                 "description": "The state of React.",
@@ -375,7 +386,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Keynote",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=QFk6YwMz8nc&index=8&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "I'm a sucker for web apps that make me smile.\n\nThis talk explores various ways that we, as front-end developers, can make our products more delightful to use. While it's design's job to give us static mock-ups, it's our job to bring those designs to life.\n\nFor example, at Khan Academy, we fill the user's screen with confetti rain when they get 100% correct on an exercise. I'll talk about how we drew on 2D physics to make the confetti feel real.\n\nMake no mistake; while this talk straddles the line between engineering and UX design, this is very much a React talk. I'll show how to abstract motion and whimsical behaviour into reusable components, and how to do SVG/canvas animation in a React-friendly way. I'll tear down some of my favourite examples from across the web, and show how to implement them in React.",
@@ -398,7 +410,8 @@
                 "tags": "animation, UX, reusable components, case study",
                 "talk": null,
                 "title": "The Case for Whimsy",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=Z2d9rw9RwyE&index=9&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "Socialize, have some coffee or other drinks.",
@@ -412,7 +425,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Coffee Break",
-                "type": 2
+                "type": 2,
+                "youtubeUrl": ""
               },
               {
                 "description": "Let’s play a game. What’s the biggest difference between type systems for JavaScript and an ML inspired language like OCaml or Haskell? Subtyping! Subtyping allows runtime values of some type to be used as a different type, and how a language designer chooses to address subtyping deeply affects every other design decision in the language. From the way values are represented in the runtime, to how effective type inference algorithms are, to the supported polymorphic code patterns. Implicit runtime subtyping is common in today’s most popular languages like JavaScript, Java, C#, and Ruby but the tradeoffs aren’t well understood. Subtyping is useful, but in today’s programming environment subtyping is overrated.",
@@ -435,7 +449,8 @@
                 "tags": "typing, types,subtyping,ml,ocaml,haskel,javascript",
                 "talk": null,
                 "title": "Subtyping is Overrated",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=M6MsDBFwa6Y&index=10&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "Animations and touch related interactions are the secret ingredients that can make a good app an awesome app. Apparently, they are also the elements most sensitive to frame drops, which degrades the great experience they ought to provide. We will learn what the challenges are when building performant and responsive UI on mobile, and get to know how declarative APIs let us deal with these problems.",
@@ -458,7 +473,8 @@
                 "tags": "mobile, react, reactnative, gestures, navigation",
                 "talk": null,
                 "title": "Declarative future of gestures and animations in React Native",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=kdq4z2708VM&index=11&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "Lunch time! Socialize while eating at our delicious buffet.",
@@ -472,7 +488,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "French Buffet",
-                "type": 4
+                "type": 4,
+                "youtubeUrl": ""
               },
               {
                 "description": "nc",
@@ -494,8 +511,9 @@
                 "startDate": "Thu May 17 12:00:00 +0000 2018",
                 "tags": "graphql,apollo",
                 "talk": null,
-                "title": "On Apollo",
-                "type": 0
+                "title": "A Journey Through React Apollo",
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=fCXYA3lZTbo&index=4&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "Redux's reified events, serializable actions and state, middleware, side effect free functional reducers and time travel super powers make it well suited for building simple, networked, testable decoupled simulations. This talk shows how to put those pieces together to build networked ReactVR applications and how it might be useful in a wide variety of other domains.",
@@ -518,7 +536,8 @@
                 "tags": "ReactVR react redux replication optimistic consistency networking synchronisation latency",
                 "talk": null,
                 "title": "Replicated Redux",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=Fr3vp0C22H0&index=5&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "Socialize, have some coffee or other drinks.",
@@ -532,7 +551,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Coffee Break",
-                "type": 2
+                "type": 2,
+                "youtubeUrl": ""
               },
               {
                 "description": "React Native has come a long way since its announcement 3 years ago, but what if its future meant looking even further into its past?",
@@ -555,7 +575,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Bridging React Native Back to its Roots",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=aOWIJ4Mgb2k&index=2&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "In 2017, Airbnb supported 27 languages and had developed robust translation tools that made it easy to add more. We launched Croatian in May with little overhead beyond setting up the new domain and translating phrases. However, this was not true for all new languages; our next most requested language, Hebrew, posed a unique challenge. Because it reads right-to-left, the entire Hebrew UI must be flipped. Browsers only handle reversing the DOM structure, but styling and interactions must be coded manually.\n\nThis talk covers the journey of enabling right-to-left languages on airbnb.com. Recently, Airbnb has moved to a React frontend and away from Sass to a CSS-in-JS paradigm. We developed a performant and cross-browser solution for RTL that leveraged a CSS-in-JS abstraction layer to isolate the logic from our codebase. Our efforts led us most of the way to launching in Arabic and Hebrew while requiring little effort from our product engineers and with minimal disruption to their work.",
@@ -578,7 +599,8 @@
                 "tags": "react, rtl, css-in-js",
                 "talk": null,
                 "title": "Do the Right (to Left) Thing: Directional Content in React",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=dZ9vQYSNVyo&index=3&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "Socialize, have some coffee or other drinks.",
@@ -592,7 +614,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Coffee Break",
-                "type": 2
+                "type": 2,
+                "youtubeUrl": ""
               },
               {
                 "description": "The React `prop-types` package is a simple runtime type system that is used for property validation. But runtime type systems can do many more things than just data validation.\nBecause they are very flexible (as you can basically reuse the entire hosting language to express your types) it will be much less likely that you will run into structures that cannot be expressed in the type system. You can generate runtime types on the fly from other sources (json-schema, graphql etc) or compose them together.\n\nIn this talk I will walk you through some runtime type systems, like prop-types, tcomb and mobx-state-tree. But also show you how runtime- and compile-time typesystems like TypeScript or Flow can co-exist and leverage each other.\n\nIf you thought so far Higher Order Components or render callbacks where cool, in this talk I will show you that these patterns can be applied in general to any datastructure you have.",
@@ -615,7 +638,8 @@
                 "tags": "TypeScript, propTypes, mobx-state-tree, tcomb, flow",
                 "talk": null,
                 "title": "The fun of runtime type systems (Or: \"Funtime type systems\")",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=010daBQPFmw&index=6&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "Creating universal components isn’t just about reusability. Its about creating a development strategy. Without careful planning, your team can quickly end up in some pretty nasty spots. Join Samantha and Kurt as they walk through what universal components are, some best practices, and most importantly, some pitfalls to avoid!",
@@ -646,7 +670,8 @@
                 "tags": "react, react native, universal components, webpack, babel, npm, storybook",
                 "talk": null,
                 "title": "Up and Running with Universal Components",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=D1NkyO-J6B0&index=7&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s"
               },
               {
                 "description": "- Declarative Data Fetching in React by [Charles Mangwa](https://twitter.com/Charles_Mangwa)\n- React Interface for Ledger Hardware Wallets by [Anastasia Poupeney](https://twitter.com/anastasiia_ser)\n- Web performance - All in one by [David Boyne](https://twitter.com/boyney123)\n- Design meets Code with BuilderX by [Sanket Sahu](https://twitter.com/sanketsahu)\n- React-admin, build an admin like you play Legos by [Francois Zaninotto](https://twitter.com/francoisz)\n- Introducing Backstage: deploy individual branches of your front-end app by [Jesse Pinho](https://twitter.com/jessepinho)",
@@ -660,7 +685,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Lightning talks session",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": ""
               },
               {
                 "description": "Drinks, food, socializing, music.",
@@ -674,7 +700,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Dinner",
-                "type": 5
+                "type": 5,
+                "youtubeUrl": ""
               }
             ],
             "title": "Thursday"
@@ -694,7 +721,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Check-in",
-                "type": 8
+                "type": 8,
+                "youtubeUrl": ""
               },
               {
                 "description": "Your typical French breakfast with croissants, coffee and more.",
@@ -708,7 +736,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Breakfast",
-                "type": 3
+                "type": 3,
+                "youtubeUrl": ""
               },
               {
                 "description": "The talk introduces ReasonReact and the way it operates on the state of React components. This is illustrated by introducing the notion of local state presented via a series of examples. State is changed by means of reducers, that can operate directly on the current component, or on distant components via remote actions. Further examples illustrate how certain animations can be considered instances of local state that can be easily composed.",
@@ -731,7 +760,8 @@
                 "tags": "reasonml, react, state",
                 "talk": null,
                 "title": "ReasonReact and local state",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=qJnP-Vatp3M&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=3"
               },
               {
                 "description": "Navigation works in a wildly different way on Mobile apps than it does on the web. Why is that? We will explore how navigation state and URL handling tends to vary between the environments, and introduce a model that manages the complexity of both use-cases. Then, we will dive into the API of React Navigation to see how easy it can be to implement an app with fully-featured navigation on iOS, Android, browser apps, and server-rendered React sites!",
@@ -754,7 +784,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Full Stack React Navigation",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=GzbravzRrBM&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=4"
               },
               {
                 "description": "Socialize, have some coffee or other drinks.\n\n**There will be two lightning talks at the end of this break at 11:20am**:\n\n- Running JS on Paper + A Programming atelier by [Sam Gwilym](https://twitter.com/sgwil)\n- GraphQL API stitching with Apollo by [Christoffer Niska](https://twitter.com/Crisu83)",
@@ -768,7 +799,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Coffee Break",
-                "type": 2
+                "type": 2,
+                "youtubeUrl": ""
               },
               {
                 "description": "CodeSandbox recently turned one year old, I will tell about what happened along the way and what I've learned from building CodeSandbox.",
@@ -791,7 +823,8 @@
                 "tags": "codesandbox,editor,web",
                 "talk": null,
                 "title": "A year of CodeSandbox",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=qURPenhndYA&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=5"
               },
               {
                 "description": "- Refactor. The hard part by [Kasia Jastrzebska](https://twitter.com/kejt_bw)\n- redux without boilerplate [Jan-Jan Van Der Vyver](https://github.com/Jan-Jan)\n- React in Battlefield 1 by [Markus Thurlin](https://twitter.com/truppo)\n- GatsbyJS — building fast modern websites with React [Kyle Mathews](https://twitter.com/kylemathews)\n- Powerful declarative apps with State Machines [Bhargav Ponnapalli](https://twitter.com/imbhargav5)\n- React: smiling while you're styling! by [Bruce Lawson](https://twitter.com/brucel)",
@@ -805,7 +838,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Lightning talks session",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": ""
               },
               {
                 "description": "Lunch time! Socialize while eating at our delicious buffet.",
@@ -819,7 +853,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "French Buffet",
-                "type": 4
+                "type": 4,
+                "youtubeUrl": ""
               },
               {
                 "description": "I want to talk about building apps (of all kinds), the kind of problems we often confront, and how we can embrace immutability to rethink established best practices. This is a sort of sequel-in-spirit to my 2015 talk about Immutable.js. Come for the gifs and over-eager ravings of a bowtie-wearing know-it-all; stay for the deep-dive on algorithmic techniques, musings on the origins of architecture and the human psychology of people who make things; leave with a new way of building high quality apps.",
@@ -842,7 +877,8 @@
                 "tags": "graphql,data-structures,algorithms",
                 "talk": null,
                 "title": "Immutable Application Architecture",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=oHBGhHlVOI0&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=7"
               },
               {
                 "description": "WebAssembly is still very young but is very promising. It outperforms the current web in many ways. Some says that it will replace JavaScript, but don't worry it will not happen.",
@@ -865,7 +901,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "WebAssembly becoming the biggest platform",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": ""
               },
               {
                 "description": "Socialize, have some coffee or other drinks.\n\n**There will be two lightning talks at the end of this break at 3:20pm**:\n\n- Funny code and how to write it by [Charlie Jackson](https://twitter.com/charliejackson)\n- Redux over the wire by [Nicolas Barray](https://twitter.com/yahwastaken)",
@@ -879,7 +916,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Coffee Break",
-                "type": 2
+                "type": 2,
+                "youtubeUrl": ""
               },
               {
                 "description": "React fundamentally changed how we build UI in JavaScript, yet the principles behind React are equally powerful outside the JavaScript ecosystem. What if we could build a design tool based on these principles, allowing us to design flexible, composable component systems? What if we could transpile these components into any language on any platform, such as a Swift components on iOS, or Kotlin components on Android?\n\nIn this talk, he ll demonstrate how React could fundamentally alter design and native development, just like it did for JavaScript.",
@@ -902,7 +940,8 @@
                 "tags": "react, ui,",
                 "talk": null,
                 "title": "Beyond React",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=HVwLOcllTfI&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=6"
               },
               {
                 "description": "nc",
@@ -924,8 +963,9 @@
                 "startDate": "Fri May 18 14:00:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "nc",
-                "type": 0
+                "title": "Stop writing code",
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=WYWVGQKnz5M&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=2"
               },
               {
                 "description": "Socialize, have some coffee or other drinks.\n\n**There will be one lightning talk at the end of this break at 4:55pm**:\n\n- Static Analysis Tools for Components Era by [Andrey Okonetchnikov](https://twitter.com/okonetchnikov)",
@@ -939,7 +979,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Coffee Break",
-                "type": 2
+                "type": 2,
+                "youtubeUrl": ""
               },
               {
                 "description": "In this expo symposium (exposium) 🎙 we shall cordially discuss the usage of recreational cyber-gaming frameworks and their place in the native development environment.📱👾",
@@ -962,7 +1003,8 @@
                 "tags": "gaming,expo,react native",
                 "talk": null,
                 "title": "Using lit APIs to make dope games with Expo",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": ""
               },
               {
                 "description": "Two months ago, I was working on a React project with a lot of SVG icons. I started to convert them into React components. I quickly figured out that it was a bot job and I started to look for a solution to do it. I found tons of projects but none of them matched my needs, so I decided to create my library.\n\nI called it SVGR. The goal was simple, transforming a SVG into a React component. I coded it and I solved my problem, I saved a lot of time! I wanted to make it open source so I took the time to make a \"beautiful\" logo with a lion emoji and a good README. I also integrated Prettier in the project, I wanted to have a nice React code output out of the box. I tweeted it and got 40 stars and one contribution, I was happy.\n\nTwo weeks ago, Christopher Chedeau tweeted about my library, two hours later React Europe also tweeted it, later that day I got a star from Dan Abramov. Next thing you know I was trending on GitHub, getting 1K stars in one day!\n\nWhat is the future for SVGR?",
@@ -985,7 +1027,8 @@
                 "tags": "react, cli, svg, svgr, webpack",
                 "talk": null,
                 "title": "SVGR or how a simple problem became a 2K stars library",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=geKCzi7ZPkA&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=9"
               },
               {
                 "description": "Types can be invaluable when working on a large project, by making refactoring less error-prone, enabling better coordinating between teammates, and improving readability. Reason gives you a powerful, battle-tested type system with cross-file inference, macros, and excellent JavaScript interop.\nLearn how you can start using Reason right now to bring more safety and maintainability to your React Native codebase, and catch a glimpse of a future where Reason can bypass JavaScript entirely to make your react app truly native.",
@@ -1008,7 +1051,8 @@
                 "tags": "types, reason,native",
                 "talk": null,
                 "title": "Type-safe React Native with ReasonML",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": "https://www.youtube.com/watch?v=mXvgZpgRJ6Y&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=10"
               },
               {
                 "description": "This is your opportunity to ask questions to the team and speakers.",
@@ -1022,7 +1066,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Q&A Panel",
-                "type": 6
+                "type": 6,
+                "youtubeUrl": "https://www.youtube.com/watch?v=vk4WuOjcH_Q&t=0s&list=PLCC436JpVnK1X7atG6EIz467Evs4TMX_5&index=11"
               },
               {
                 "description": "Have a last drink before saying good bye.",
@@ -1036,7 +1081,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Drink up",
-                "type": 2
+                "type": 2,
+                "youtubeUrl": ""
               }
             ],
             "title": "Friday"
@@ -1056,7 +1102,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Hackathon at Mozilla from 9am to 9pm",
-                "type": 9
+                "type": 9,
+                "youtubeUrl": ""
               },
               {
                 "description": "Join the comparethemarket Team for this interactive agile workshop centred around the importance of product ownership, continuous improvement and communications in an agile development environment.\n\n[You need to register here](https://www.eventbrite.co.uk/e/react-europe-comparethemarketcom-workshop-tickets-45728819129)\n\n09:30 - 09:45 - Welcome refreshments\n\n09:45 - 10:00 - Ice Breaker\n\n10:00 - 11:00 - Innovation and customer centric design workshop\n\n11:00 - 11:30 - Break\n\n11:30 - 12:30 - Communications in an agile development environment\n\n(This workshop is not organized by ReactEurope)",
@@ -1070,7 +1117,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "comparethemarket.com Workshop",
-                "type": 1
+                "type": 1,
+                "youtubeUrl": ""
               },
               {
                 "description": "Hacakthon demos and lightnings",
@@ -1084,7 +1132,8 @@
                 "tags": "",
                 "talk": null,
                 "title": "Hacakthon demos and lightnings",
-                "type": 0
+                "type": 0,
+                "youtubeUrl": ""
               }
             ],
             "title": "Saturday"
@@ -1133,7 +1182,7 @@
                 "id": 1452,
                 "length": 25,
                 "startDate": "Thu May 17 12:00:00 +0000 2018",
-                "title": "On Apollo",
+                "title": "A Journey Through React Apollo",
                 "type": 0
               }
             ],
@@ -1247,7 +1296,7 @@
                 "id": 1456,
                 "length": 25,
                 "startDate": "Fri May 18 14:00:00 +0000 2018",
-                "title": "nc",
+                "title": "Stop writing code",
                 "type": 0
               }
             ],

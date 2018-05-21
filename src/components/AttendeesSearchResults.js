@@ -64,22 +64,6 @@ class AttendeesSearchResultRow extends React.Component {
               searchWords={[searchQuery]}
               textToHighlight={`${attendee.firstName} ${attendee.lastName}`}
             />
-            {attendee.email ? (
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <MaterialIcons
-                  name={"email"}
-                  size={16}
-                  color="#aab8c2"
-                  style={{ paddingRight: 3 }}
-                />
-                <HighlightableText
-                  TextComponent={SemiBoldText}
-                  highlightStyle={{ backgroundColor: "#e1e8ed" }}
-                  searchWords={[searchQuery]}
-                  textToHighlight={attendee.email}
-                />
-              </View>
-            ) : null}
             {getContactTwitter(attendee) ? (
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Entypo

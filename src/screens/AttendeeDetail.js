@@ -139,13 +139,6 @@ export default class AttendeeDetail extends React.Component {
                 <RegularText style={styles.headerText}>@{twitter}</RegularText>
               </TouchableOpacity>
             ) : null}
-            {attendee && attendee.email ? (
-              <TouchableOpacity onPress={this._handlePressEmail}>
-                <RegularText style={styles.headerText}>
-                  {attendee.email}
-                </RegularText>
-              </TouchableOpacity>
-            ) : null}
           </View>
           <AnimatableView
             animation="fadeIn"
