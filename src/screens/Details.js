@@ -1,90 +1,101 @@
-import React from "react";
+import React from 'react'
 import {
   Animated,
   Platform,
   StyleSheet,
   TouchableOpacity,
   View,
-  Linking
-} from "react-native";
-import { Constants, WebBrowser } from "expo";
-import FadeIn from "react-native-fade-in-image";
-import { View as AnimatableView } from "react-native-animatable";
+  Linking,
+  Text,
+  WebView
+} from 'react-native'
+import { Constants, WebBrowser } from 'expo'
+import FadeIn from 'react-native-fade-in-image'
+import { View as AnimatableView } from 'react-native-animatable'
 
-import AnimatedScrollView from "../components/AnimatedScrollView";
-import NavigationBar from "../components/NavigationBar";
-import { Colors, FontSizes, Layout } from "../constants";
-import { RegularText, BoldText, SemiBoldText } from "../components/StyledText";
-import { getSpeakerTalk, convertUtcDateToEventTimezoneHour } from "../utils";
-import SaveButton from "../components/SaveButton";
-import CachedImage from "../components/CachedImage";
-import CloseButton from "../components/CloseButton";
-import Markdown from "react-native-simple-markdown";
-export const Schedule = require("../data/schedule.json");
+import AnimatedScrollView from '../components/AnimatedScrollView'
+import NavigationBar from '../components/NavigationBar'
+import { Colors, FontSizes, Layout } from '../constants'
+import { RegularText, BoldText, SemiBoldText } from '../components/StyledText'
+import { getSpeakerTalk, convertUtcDateToEventTimezoneHour } from '../utils'
+import SaveButton from '../components/SaveButton'
+import CachedImage from '../components/CachedImage'
+import CloseButton from '../components/CloseButton'
+import Markdown from 'react-native-simple-markdown'
+export const Schedule = require('../data/schedule.json')
 
 class SavedButtonNavigationItem extends React.Component {
   render() {
-    const { talk } = this.props;
+    const { talk } = this.props
 
     return (
       <View
         style={{
           // gross dumb things
-          paddingTop: Platform.OS === "android" ? 30 : 0,
+          paddingTop: Platform.OS === 'android' ? 30 : 0,
           marginTop: Layout.notchHeight > 0 ? -5 : 0
         }}
       >
         <SaveButton talk={talk} />
       </View>
-    );
+    )
   }
 }
 
 export default class Details extends React.Component {
   state = {
     scrollY: new Animated.Value(0)
-  };
+  }
+
+  getEmbedURL = url => {
+    // from https://www.youtube.com/watch?v=QFk6YwMz8nc&index=8&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s
+    // to https://www.youtube.com/embed/QFk6YwMz8nc
+    let id = url.split('v=')[1].split('&')[0]
+    return `https://www.youtube.com/embed/${id}`
+  }
 
   render() {
-    let params = this.props.navigation.state.params || {};
-    let speaker;
-    let speakers;
-    let talk;
-    const talkScreen = params.scheduleSlot || params.talk;
+    let params = this.props.navigation.state.params || {}
+    let speaker
+    let speakers
+    let talk
+    const talkScreen = params.scheduleSlot || params.talk
     if (talkScreen) {
-      talk = params.scheduleSlot || params.talk;
-      speakers = talk.speakers;
+      talk = params.scheduleSlot || params.talk
+      speakers = talk.speakers
     } else if (params.speaker) {
-      speaker = params.speaker;
+      speaker = params.speaker
       if (speaker.talks && speaker.talks.length > 0) {
-        talk = getSpeakerTalk(speaker);
+        talk = getSpeakerTalk(speaker)
       }
     }
 
-    const { scrollY } = this.state;
+    const { scrollY } = this.state
     const scale = scrollY.interpolate({
       inputRange: [-300, 0, 1],
       outputRange: [2, 1, 1],
-      extrapolate: "clamp"
-    });
-    const translateX = 0;
+      extrapolate: 'clamp'
+    })
+    const translateX = 0
     const translateY = scrollY.interpolate({
       inputRange: [-300, 0, 1],
       outputRange: [-50, 1, 1],
-      extrapolate: "clamp"
-    });
+      extrapolate: 'clamp'
+    })
 
     const headerOpacity = scrollY.interpolate({
       inputRange: [0, 30, 200],
       outputRange: [0, 0, 1]
-    });
+    })
+
+    const videoURL = talk.youtubeUrl && this.getEmbedURL(talk.youtubeUrl)
 
     return (
-      <View style={{ flex: 1, backgroundColor: "#fff", overflow: "hidden" }}>
-        {Platform.OS === "ios" ? (
+      <View style={{ flex: 1, backgroundColor: '#fff', overflow: 'hidden' }}>
+        {Platform.OS === 'ios' ? (
           <Animated.View
             style={{
-              position: "absolute",
+              position: 'absolute',
               top: -350,
               left: 0,
               right: 0,
@@ -102,7 +113,7 @@ export default class Details extends React.Component {
           />
         ) : null}
         <AnimatedScrollView
-          style={{ flex: 1, backgroundColor: "transparent" }}
+          style={{ flex: 1, backgroundColor: 'transparent' }}
           scrollEventThrottle={1}
           onScroll={Animated.event(
             [
@@ -119,7 +130,7 @@ export default class Details extends React.Component {
                 transform: [{ scale }, { translateX }, { translateY }]
               }}
             >
-              <FadeIn placeholderStyle={{ backgroundColor: "transparent" }}>
+              <FadeIn placeholderStyle={{ backgroundColor: 'transparent' }}>
                 {talkScreen ? (
                   <View style={styles.headerRowSpeaker}>
                     {speakers
@@ -138,7 +149,7 @@ export default class Details extends React.Component {
                                 key={speaker.id + talk.title}
                               />
                             </TouchableOpacity>
-                            {speaker.name.split(" ").map((name, index) => (
+                            {speaker.name.split(' ').map((name, index) => (
                               <View key={index}>
                                 <TouchableOpacity
                                   key={speaker.id}
@@ -148,7 +159,7 @@ export default class Details extends React.Component {
                                 >
                                   <SemiBoldText
                                     style={styles.headerText}
-                                    key={"speakers" + speaker.id + name}
+                                    key={'speakers' + speaker.id + name}
                                   >
                                     {name}
                                   </SemiBoldText>
@@ -186,10 +197,23 @@ export default class Details extends React.Component {
               <BoldText style={styles.talkTitleText}>{talk.title}</BoldText>
             ) : null}
           </View>
+          {videoURL ? (
+            <View style={styles.videoWrapper}>
+              <WebView
+                source={{
+                  uri: videoURL
+                }}
+                startInLoadingState
+                scalesPageToFit
+                javaScriptEnabled
+                style={{ flex: 1, height: 240 }}
+              />
+            </View>
+          ) : null}
           <AnimatableView
             animation="fadeIn"
             useNativeDriver
-            delay={Platform.OS === "ios" ? 50 : 150}
+            delay={Platform.OS === 'ios' ? 50 : 150}
             duration={500}
             style={styles.content}
           >
@@ -202,22 +226,22 @@ export default class Details extends React.Component {
             {talk ? (
               <SemiBoldText style={styles.sectionHeader}>
                 {talk && talk.type === 0
-                  ? "Talk description"
-                  : "Workshop description"}
+                  ? 'Talk description'
+                  : 'Workshop description'}
               </SemiBoldText>
             ) : null}
             {talk ? (
               <Markdown styles={markdownStyles}>
                 {talk.description.replace(
-                  "**Click here to see covered subjects**",
-                  ""
+                  '**Click here to see covered subjects**',
+                  ''
                 )}
               </Markdown>
             ) : null}
             {talkScreen && speakers.length > 0 ? (
               <View>
                 <SemiBoldText style={styles.sectionHeader}>
-                  {talk.type === 0 ? "Speakers" : "Trainers"}
+                  {talk.type === 0 ? 'Speakers' : 'Trainers'}
                 </SemiBoldText>
 
                 {speakers.map(speaker => (
@@ -245,7 +269,7 @@ export default class Details extends React.Component {
         <NavigationBar
           animatedBackgroundOpacity={headerOpacity}
           style={[
-            Platform.OS === "android"
+            Platform.OS === 'android'
               ? { height: Layout.headerHeight + Constants.statusBarHeight }
               : null
           ]}
@@ -253,7 +277,7 @@ export default class Details extends React.Component {
             <View
               style={{
                 // gross dumb things
-                paddingTop: Platform.OS === "android" ? 30 : 0,
+                paddingTop: Platform.OS === 'android' ? 30 : 0,
                 marginTop: Layout.notchHeight > 0 ? -5 : 0
               }}
             >
@@ -265,11 +289,11 @@ export default class Details extends React.Component {
             </View>
           )}
           renderRightButton={() => {
-            talk ? <SavedButtonNavigationItem talk={talk} /> : null;
+            talk ? <SavedButtonNavigationItem talk={talk} /> : null
           }}
         />
       </View>
-    );
+    )
   }
 
   _renderTruncatedFooter = handlePress => {
@@ -282,8 +306,8 @@ export default class Details extends React.Component {
           Read more
         </SemiBoldText>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   _renderRevealedFooter = handlePress => {
     return (
@@ -295,24 +319,24 @@ export default class Details extends React.Component {
           Show less
         </SemiBoldText>
       </TouchableOpacity>
-    );
-  };
+    )
+  }
 
   _handlePressSpeaker = speaker => {
-    this.props.navigation.navigate("Details", { speaker });
-  };
+    this.props.navigation.navigate('Details', { speaker })
+  }
 
   _handlePressSpeakerTwitter = async twitter => {
     try {
-      await Linking.openURL(`twitter://user?screen_name=` + twitter);
+      await Linking.openURL(`twitter://user?screen_name=` + twitter)
     } catch (e) {
-      WebBrowser.openBrowserAsync("https://twitter.com/" + twitter);
+      WebBrowser.openBrowserAsync('https://twitter.com/' + twitter)
     }
-  };
+  }
 }
 const markdownStyles = {
   text: {}
-};
+}
 const styles = StyleSheet.create({
   container: {},
   avatar: {
@@ -328,31 +352,31 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   content: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     paddingBottom: 20,
     paddingHorizontal: 20
   },
   markdownBio: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     paddingBottom: 20,
     paddingHorizontal: 20,
     width: 300,
     height: 200
   },
   markdownTalkDescription: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     paddingBottom: 20,
     paddingHorizontal: 20,
     width: 300,
     height: 600
   },
   headerRowSpeaker: {
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 140
   },
   headerColumnSpeaker: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingHorizontal: 5
   },
   headerContainer: {
@@ -360,22 +384,23 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight + Layout.notchHeight + 20,
     paddingBottom: 20,
     paddingHorizontal: 20,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   headerText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: FontSizes.subtitle
   },
   talkTitleText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: FontSizes.title,
-    textAlign: "center",
+    textAlign: 'center',
     marginTop: 10
   },
   sectionHeader: {
     fontSize: FontSizes.bodyTitle,
     marginTop: 15,
     marginBottom: 3
-  }
-});
+  },
+  videoWrapper: {}
+})
