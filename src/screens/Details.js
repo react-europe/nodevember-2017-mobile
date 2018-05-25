@@ -47,13 +47,6 @@ export default class Details extends React.Component {
     scrollY: new Animated.Value(0)
   }
 
-  getEmbedURL = url => {
-    // from https://www.youtube.com/watch?v=QFk6YwMz8nc&index=8&list=PLCC436JpVnK3xH_ArpIjdkYDGwWNkVa73&t=0s
-    // to https://www.youtube.com/embed/QFk6YwMz8nc
-    let id = url.split('v=')[1].split('&')[0]
-    return `https://www.youtube.com/embed/${id}`
-  }
-
   render() {
     let params = this.props.navigation.state.params || {}
     let speaker
@@ -88,7 +81,7 @@ export default class Details extends React.Component {
       outputRange: [0, 0, 1]
     })
 
-    const videoURL = talk.youtubeUrl && this.getEmbedURL(talk.youtubeUrl)
+    const videoURL = talk.youtubeId && talk.youtubeId !==""
 
     return (
       <View style={{ flex: 1, backgroundColor: '#fff', overflow: 'hidden' }}>
@@ -201,7 +194,7 @@ export default class Details extends React.Component {
             <View style={styles.videoWrapper}>
               <WebView
                 source={{
-                  uri: videoURL
+                    uri: `https://www.youtube.com/embed/${talk.youtubeId}`
                 }}
                 startInLoadingState
                 scalesPageToFit
