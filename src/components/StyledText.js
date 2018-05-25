@@ -1,5 +1,5 @@
-import React from "react";
-import { Text } from "react-native";
+import React from 'react';
+import {Text} from 'react-native';
 
 export class RegularText extends React.Component {
   render() {
@@ -7,9 +7,9 @@ export class RegularText extends React.Component {
       <Text
         {...this.props}
         style={[
-          { backgroundColor: "transparent" },
+          {backgroundColor: 'transparent'},
           this.props.style,
-          { fontFamily: "open-sans" }
+          {fontFamily: 'open-sans'},
         ]}
       />
     );
@@ -22,9 +22,9 @@ export class SemiBoldText extends React.Component {
       <Text
         {...this.props}
         style={[
-          { backgroundColor: "transparent" },
+          {backgroundColor: 'transparent'},
           this.props.style,
-          { fontFamily: "open-sans-semibold" }
+          {fontFamily: 'open-sans-semibold'},
         ]}
       />
     );
@@ -37,9 +37,9 @@ export class BoldText extends React.Component {
       <Text
         {...this.props}
         style={[
-          { backgroundColor: "transparent" },
+          {backgroundColor: 'transparent'},
           this.props.style,
-          { fontFamily: "open-sans-bold" }
+          {fontFamily: 'open-sans-bold'},
         ]}
       />
     );

@@ -1,6 +1,6 @@
-import _ from "lodash";
+import _ from 'lodash';
 
-export const Schedule = require("../data/schedule.json");
+export const Schedule = require('../data/schedule.json');
 
 const Event = Schedule.events[0];
 export const Talks = Schedule.events[0].schedule;

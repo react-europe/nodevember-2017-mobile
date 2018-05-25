@@ -1,58 +1,52 @@
-import React from "react";
+import React from 'react';
 import {
   Animated,
   Platform,
   Text,
   StyleSheet,
   View,
-  AsyncStorage
-} from "react-native";
-import { View as AnimatableView } from "react-native-animatable";
-import { withNavigation } from "react-navigation";
+  AsyncStorage,
+} from 'react-native';
+import {View as AnimatableView} from 'react-native-animatable';
+import {withNavigation} from 'react-navigation';
 
-import AnimatedScrollView from "../components/AnimatedScrollView";
-import { Colors, FontSizes, Layout } from "../constants";
-import { Gravatar } from "react-native-gravatar";
+import AnimatedScrollView from '../components/AnimatedScrollView';
+import {Colors, FontSizes, Layout} from '../constants';
+import {Gravatar} from 'react-native-gravatar';
 
-import {
-  Button,
-  Card,
-  CardContent,
-  Title,
-} from "react-native-paper";
-import Markdown from "react-native-simple-markdown";
-export const Schedule = require("../data/schedule.json");
+import {Button, Card, CardContent, Title} from 'react-native-paper';
+import Markdown from 'react-native-simple-markdown';
+export const Schedule = require('../data/schedule.json');
 
 class CheckedInAttendeeInfo extends React.Component {
   state = {
-    scrollY: new Animated.Value(0)
+    scrollY: new Animated.Value(0),
   };
 
   render() {
-    const { scrollY } = this.state;
+    const {scrollY} = this.state;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <AnimatedScrollView
-          style={{ flex: 1 }}
-          contentContainerStyle={{ paddingBottom: 20 + Layout.notchHeight / 2 }}
+          style={{flex: 1}}
+          contentContainerStyle={{paddingBottom: 20 + Layout.notchHeight / 2}}
           scrollEventThrottle={1}
           onScroll={Animated.event(
             [
               {
-                nativeEvent: { contentOffset: { y: scrollY } }
-              }
+                nativeEvent: {contentOffset: {y: scrollY}},
+              },
             ],
-            { useNativeDriver: true }
-          )}
-        >
+            {useNativeDriver: true}
+          )}>
           <View
             style={{
-              backgroundColor: "#4d5fab",
+              backgroundColor: '#4d5fab',
               padding: 10,
               paddingTop: Layout.headerHeight - 10,
-              justifyContent: "center",
-              alignItems: "center"
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           />
 
@@ -69,7 +63,7 @@ class CheckinCard extends React.Component {
     super(props);
   }
   render() {
-    const { checkins } = this.props;
+    const {checkins} = this.props;
     // console.log("props", this.props);
     // console.log("checkins", checkins);
     return <Text>Date: {checkins[0].createdAt}</Text>;
@@ -80,12 +74,12 @@ class CheckinCard extends React.Component {
 class DeferredCheckedInAttendeeInfoContent extends React.Component {
   state = {
     tickets: [],
-    ready: Platform.OS === "android" ? false : true
+    ready: Platform.OS === 'android' ? false : true,
   };
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem("@MySuperStore:tickets");
-      this.setState({ tickets: JSON.parse(value) });
+      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+      this.setState({tickets: JSON.parse(value)});
     } catch (err) {
       console.log(err);
       return [];
@@ -103,15 +97,15 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
     }
 
     setTimeout(() => {
-      this.setState({ ready: true });
-      AsyncStorage.removeItem("@MySuperStore:lastCheckedInRef");
+      this.setState({ready: true});
+      AsyncStorage.removeItem('@MySuperStore:lastCheckedInRef');
     }, 200);
   }
 
   render() {
     const params = this.props.navigation.state.params || {};
     const checkedInAttendee = params.checkedInAttendee;
-    console.log("params", params);
+    console.log('params', params);
     if (!this.state.ready) {
       return null;
     }
@@ -121,8 +115,8 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
         <Gravatar
           options={{
             email: checkedInAttendee.email,
-            parameters: { size: "200", d: "mm" },
-            secure: true
+            parameters: {size: '200', d: 'mm'},
+            secure: true,
           }}
           style={styles.roundedProfileImage}
         />
@@ -130,7 +124,7 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
         <Card>
           <CardContent>
             <Title>
-              {checkedInAttendee.firstName + " " + checkedInAttendee.lastName}{" "}
+              {checkedInAttendee.firstName + ' ' + checkedInAttendee.lastName}{' '}
             </Title>
             <Title>Ticket Name: {checkedInAttendee.ticket.name} </Title>
             <Title>Ticket Ref: {checkedInAttendee.ref} </Title>
@@ -142,11 +136,10 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
         <Button
           raised
           onPress={() => {
-            AsyncStorage.removeItem("@MySuperStore:lastCheckedInRef").then(() =>
+            AsyncStorage.removeItem('@MySuperStore:lastCheckedInRef').then(() =>
               this.props.navigation.goBack()
             );
-          }}
-        >
+          }}>
           Close
         </Button>
         {checkedInAttendee.checkins && checkedInAttendee.checkins.length > 0 ? (
@@ -163,12 +156,12 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
 const OverscrollView = () => (
   <View
     style={{
-      position: "absolute",
+      position: 'absolute',
       top: -400,
       height: 400,
       left: 0,
       right: 0,
-      backgroundColor: Colors.blue
+      backgroundColor: Colors.blue,
     }}
   />
 );
@@ -176,7 +169,7 @@ const OverscrollView = () => (
 const BORDER_RADIUS = 3;
 
 const markdownStyles = {
-  text: {}
+  text: {},
 };
 
 const styles = StyleSheet.create({
@@ -184,54 +177,54 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderWidth: 3,
-    borderColor: "white",
-    borderRadius: 50
+    borderColor: 'white',
+    borderRadius: 50,
   },
   headerContent: {
-    alignItems: "center",
+    alignItems: 'center',
     marginTop: 5,
-    paddingVertical: 10
+    paddingVertical: 10,
   },
   headerVideoLayer: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
   },
   headerVideoOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: Colors.blue,
-    opacity: 0.8
+    opacity: 0.8,
   },
   headerText: {
-    color: "#fff",
-    textAlign: "center",
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 17,
-    lineHeight: 17 * 1.5
+    lineHeight: 17 * 1.5,
   },
   headerSmallText: {
-    color: "#fff",
-    textAlign: "center",
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 7,
-    lineHeight: 7 * 1.5
+    lineHeight: 7 * 1.5,
   },
   bigButton: {
     backgroundColor: Colors.blue,
     paddingHorizontal: 15,
     height: 50,
     marginHorizontal: 15,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: BORDER_RADIUS,
-    overflow: "hidden",
-    flexDirection: "row"
+    overflow: 'hidden',
+    flexDirection: 'row',
   },
   bigButtonText: {
     fontSize: FontSizes.normalButton,
-    color: "#fff",
-    textAlign: "center"
+    color: '#fff',
+    textAlign: 'center',
   },
   seeAllTalks: {
     fontSize: FontSizes.normalButton,
-    color: Colors.blue
-  }
+    color: Colors.blue,
+  },
 });
 
 export default CheckedInAttendeeInfo;

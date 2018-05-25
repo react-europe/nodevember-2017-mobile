@@ -1,9 +1,9 @@
-import React from "react";
-import { Platform } from "react-native";
-import { connectDrawerButton } from "../Navigation";
-import { BorderlessButton } from "react-native-gesture-handler";
-import { Ionicons } from "@expo/vector-icons";
-import { Layout } from "../constants";
+import React from 'react';
+import {Platform} from 'react-native';
+import {connectDrawerButton} from '../Navigation';
+import {BorderlessButton} from 'react-native-gesture-handler';
+import {Ionicons} from '@expo/vector-icons';
+import {Layout} from '../constants';
 
 export default class MenuButton extends React.Component {
   render() {
@@ -17,12 +17,11 @@ export default class MenuButton extends React.Component {
           marginLeft: 5,
           paddingHorizontal: 10,
           paddingVertical: 5,
-          alignSelf: "flex-start"
+          alignSelf: 'flex-start',
         }}
-        hitSlop={{ left: 30, top: 30, right: 30, bottom: 30 }}
-      >
+        hitSlop={{left: 30, top: 30, right: 30, bottom: 30}}>
         <Ionicons
-          name={Platform.OS === "ios" ? "ios-menu-outline" : "md-menu"}
+          name={Platform.OS === 'ios' ? 'ios-menu-outline' : 'md-menu'}
           size={28}
           color="#fff"
         />

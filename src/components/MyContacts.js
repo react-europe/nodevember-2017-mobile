@@ -1,18 +1,18 @@
-import React from "react";
-import { View, AsyncStorage } from "react-native";
+import React from 'react';
+import {View, AsyncStorage} from 'react-native';
 
-import { SemiBoldText } from "./StyledText";
-import ContactCard from "./ContactCard";
-import { FontSizes } from "../constants";
+import {SemiBoldText} from './StyledText';
+import ContactCard from './ContactCard';
+import {FontSizes} from '../constants';
 
 export default class MyContacts extends React.Component {
   state = {
-    contacts: []
+    contacts: [],
   };
   async getContacts() {
     try {
-      const value = await AsyncStorage.getItem("@MySuperStore:contacts");
-      this.setState({ contacts: JSON.parse(value) });
+      const value = await AsyncStorage.getItem('@MySuperStore:contacts');
+      this.setState({contacts: JSON.parse(value)});
     } catch (err) {
       return [];
     }
@@ -30,8 +30,8 @@ export default class MyContacts extends React.Component {
   render() {
     const contacts = this.state.contacts || [];
     return (
-      <View style={[{ marginHorizontal: 10 }, this.props.style]}>
-        <SemiBoldText style={{ fontSize: FontSizes.title }}>
+      <View style={[{marginHorizontal: 10}, this.props.style]}>
+        <SemiBoldText style={{fontSize: FontSizes.title}}>
           My Contacts
         </SemiBoldText>
         {contacts.map(contact => (
@@ -39,7 +39,7 @@ export default class MyContacts extends React.Component {
             key={contact.id + contact.email}
             contact={contact}
             tickets={this.props.tickets}
-            style={{ marginTop: 10, marginBottom: 10 }}
+            style={{marginTop: 10, marginBottom: 10}}
           />
         ))}
       </View>

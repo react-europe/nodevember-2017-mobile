@@ -1,8 +1,8 @@
-import React from "react";
-import { Text } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { withSaveState } from "../utils/storage";
-import { Icons, Colors } from "../constants";
+import React from 'react';
+import {Text} from 'react-native';
+import {Ionicons} from '@expo/vector-icons';
+import {withSaveState} from '../utils/storage';
+import {Icons, Colors} from '../constants';
 
 @withSaveState
 export default class SaveIconWhenSaved extends React.Component {
@@ -15,14 +15,14 @@ export default class SaveIconWhenSaved extends React.Component {
       <Ionicons
         name={Icons.favoriteActive}
         color={Colors.blue}
-        style={[{ backgroundColor: "transparent" }, this.props.style]}
+        style={[{backgroundColor: 'transparent'}, this.props.style]}
       />
     );
 
     return (
       <Text>
         {icon}
-        {"  "}
+        {'  '}
       </Text>
     );
   }

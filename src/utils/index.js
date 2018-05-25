@@ -1,10 +1,10 @@
-import moment from "moment-timezone";
-import _ from "lodash";
-import { Platform, Linking } from "react-native";
-import { WebBrowser } from "expo";
-import { AsyncStorage } from "react-native";
+import moment from 'moment-timezone';
+import _ from 'lodash';
+import {Platform, Linking} from 'react-native';
+import {WebBrowser} from 'expo';
+import {AsyncStorage} from 'react-native';
 
-export const Schedule = require("../data/schedule.json");
+export const Schedule = require('../data/schedule.json');
 const Event = Schedule.events[0];
 
 export function getSpeakerTalk(speaker) {
@@ -24,12 +24,12 @@ export function convertUtcDateToEventTimezone(date) {
 
 export function convertUtcDateToEventTimezoneHour(date) {
   let d = new Date(date);
-  return moment.tz(d, Event.timezoneId).format("hh:mma");
+  return moment.tz(d, Event.timezoneId).format('hh:mma');
 }
 
 export function convertUtcDateToEventTimezoneDaytime(date) {
   let d = new Date(date);
-  return moment.tz(d, Event.timezoneId).format("dddd DD MMM, h:mma");
+  return moment.tz(d, Event.timezoneId).format('dddd DD MMM, h:mma');
 }
 
 export function conferenceHasStarted() {
@@ -40,7 +40,7 @@ export function conferenceHasEnded() {
   return Event.status.hasEnded;
 }
 
-export function HideWhenConferenceHasStarted({ children }) {
+export function HideWhenConferenceHasStarted({children}) {
   if (conferenceHasStarted()) {
     return null;
   } else {
@@ -48,7 +48,7 @@ export function HideWhenConferenceHasStarted({ children }) {
   }
 }
 
-export function HideWhenConferenceHasEnded({ children }) {
+export function HideWhenConferenceHasEnded({children}) {
   if (conferenceHasEnded()) {
     return null;
   } else {
@@ -56,7 +56,7 @@ export function HideWhenConferenceHasEnded({ children }) {
   }
 }
 
-export function ShowWhenConferenceHasEnded({ children }) {
+export function ShowWhenConferenceHasEnded({children}) {
   if (conferenceHasEnded()) {
     return children;
   } else {
@@ -66,24 +66,24 @@ export function ShowWhenConferenceHasEnded({ children }) {
 
 export const sendEmail = (
   emailTo,
-  fromName = { firstName: "", lastName: "" }
+  fromName = {firstName: '', lastName: ''}
 ) => {
   const emailurl =
-    "mailto:" +
+    'mailto:' +
     emailTo +
     "?subject=hey it's" +
-    " " +
+    ' ' +
     fromName.firstName +
-    " " +
+    ' ' +
     fromName.lastName +
-    " " +
-    "from ReactEurope&body=ping";
+    ' ' +
+    'from ReactEurope&body=ping';
   try {
-    Platform.OS === "android"
+    Platform.OS === 'android'
       ? WebBrowser.openBrowserAsync(emailurl)
       : Linking.openURL(emailurl);
   } catch (e) {
-    WebBrowser.openBrowserAsync("mailto:" + emailTo);
+    WebBrowser.openBrowserAsync('mailto:' + emailTo);
   }
 };
 
@@ -91,12 +91,12 @@ export const openTwitter = async twitter => {
   try {
     await Linking.openURL(`twitter://user?screen_name=` + twitter);
   } catch (e) {
-    WebBrowser.openBrowserAsync("https://twitter.com/" + twitter);
+    WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
   }
 };
 
 export const addContact = async contact => {
-  const storedContacts = await AsyncStorage.getItem("@MySuperStore:contacts");
+  const storedContacts = await AsyncStorage.getItem('@MySuperStore:contacts');
 
   let contacts = null;
   let newContacts = [];
@@ -105,9 +105,9 @@ export const addContact = async contact => {
     contacts = [contact];
   } else {
     let existingContacts = JSON.parse(storedContacts) || [];
-    console.log("how many existing contacts", existingContacts.length);
+    console.log('how many existing contacts', existingContacts.length);
     existingContacts.map(existingContact => {
-      console.log("existing contact", existingContact);
+      console.log('existing contact', existingContact);
       if (
         existingContact &&
         existingContact.id &&
@@ -130,20 +130,20 @@ export const addContact = async contact => {
     contacts = [];
   }
   let stringifiedContacts = JSON.stringify(contacts);
-  return AsyncStorage.setItem("@MySuperStore:contacts", stringifiedContacts);
+  return AsyncStorage.setItem('@MySuperStore:contacts', stringifiedContacts);
 };
 
 export const getContactTwitter = contact => {
-  let twitter = "";
+  let twitter = '';
   if (contact) {
     contact.answers.map(answer => {
-      if (answer.question && answer.question.title === "Twitter") {
+      if (answer.question && answer.question.title === 'Twitter') {
         twitter = answer.value;
       }
     });
   }
   return twitter
-    .replace("@", "")
-    .replace("https://twitter.com/", "")
-    .replace("twitter.com/", "");
+    .replace('@', '')
+    .replace('https://twitter.com/', '')
+    .replace('twitter.com/', '');
 };

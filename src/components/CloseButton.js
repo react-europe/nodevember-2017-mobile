@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-  View,
-  Platform,
-  StyleSheet,
-} from 'react-native';
+import {View, Platform, StyleSheet} from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons';
-import { BorderlessButton } from 'react-native-gesture-handler';
+import {Ionicons} from '@expo/vector-icons';
+import {BorderlessButton} from 'react-native-gesture-handler';
 
 class CloseButton extends React.PureComponent {
   static defaultProps = {
@@ -19,10 +15,7 @@ class CloseButton extends React.PureComponent {
   state = {};
 
   render() {
-    const {
-      onPress,
-      pressColorAndroid,
-    } = this.props;
+    const {onPress, pressColorAndroid} = this.props;
 
     return (
       <BorderlessButton

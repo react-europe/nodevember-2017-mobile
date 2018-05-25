@@ -1,23 +1,23 @@
-import React from "react";
-import { StyleSheet, View, AsyncStorage } from "react-native";
+import React from 'react';
+import {StyleSheet, View, AsyncStorage} from 'react-native';
 
-import { RegularText } from "./StyledText";
-import TicketCard from "./TicketCard";
-import { Colors, FontSizes } from "../constants";
+import {RegularText} from './StyledText';
+import TicketCard from './TicketCard';
+import {Colors, FontSizes} from '../constants';
 import {
   convertUtcDateToEventTimezoneDaytime,
-  conferenceHasEnded
-} from "../utils";
-import { Title } from "react-native-paper";
+  conferenceHasEnded,
+} from '../utils';
+import {Title} from 'react-native-paper';
 
 export default class Tickets extends React.Component {
   state = {
-    tickets: []
+    tickets: [],
   };
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem("@MySuperStore:tickets");
-      this.setState({ tickets: JSON.parse(value) });
+      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+      this.setState({tickets: JSON.parse(value)});
     } catch (err) {
       return [];
     }
@@ -31,7 +31,7 @@ export default class Tickets extends React.Component {
   render() {
     let tix = this.state.tickets || [];
     return (
-      <View style={[{ marginHorizontal: 10 }, this.props.style]}>
+      <View style={[{marginHorizontal: 10}, this.props.style]}>
         <Title>My Tickets</Title>
         {tix.map(
           ticket =>
@@ -39,7 +39,7 @@ export default class Tickets extends React.Component {
               <TicketCard
                 key={ticket.ref}
                 ticket={ticket}
-                style={{ marginTop: 10, marginBottom: 10 }}
+                style={{marginTop: 10, marginBottom: 10}}
               />
             ) : null
         )}
@@ -52,7 +52,7 @@ export default class Tickets extends React.Component {
       return null;
     }
 
-    const { dateTime } = this.state;
+    const {dateTime} = this.state;
 
     if (dateTime) {
       return (
@@ -69,6 +69,6 @@ export default class Tickets extends React.Component {
 const styles = StyleSheet.create({
   time: {
     color: Colors.faint,
-    fontSize: FontSizes.subtitle
-  }
+    fontSize: FontSizes.subtitle,
+  },
 });

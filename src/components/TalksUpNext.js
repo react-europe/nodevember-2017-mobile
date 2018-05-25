@@ -1,15 +1,15 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 
-import { RegularText, SemiBoldText } from "./StyledText";
-import TalkCard from "./TalkCard";
-import { Colors, FontSizes } from "../constants";
-import { findRandomTalk, findNextTalksAfterDate } from "../data";
-import _ from "lodash";
+import {RegularText, SemiBoldText} from './StyledText';
+import TalkCard from './TalkCard';
+import {Colors, FontSizes} from '../constants';
+import {findRandomTalk, findNextTalksAfterDate} from '../data';
+import _ from 'lodash';
 import {
   convertUtcDateToEventTimezoneDaytime,
-  conferenceHasEnded
-} from "../utils";
+  conferenceHasEnded,
+} from '../utils';
 
 export default class TalksUpNext extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ export default class TalksUpNext extends React.Component {
     this.state = {
       nextTalks,
       dateTime,
-      time
+      time,
     };
   }
   componentDidMount() {
@@ -64,10 +64,10 @@ export default class TalksUpNext extends React.Component {
 }
 `;
     let that = this;
-    fetch("http://www.react-europe.org/gql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: q })
+    fetch('http://www.react-europe.org/gql', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query: q}),
     })
       .then(res => res.json())
       .then(res => {
@@ -85,28 +85,28 @@ export default class TalksUpNext extends React.Component {
           that.setState({
             nextTalks: nextTalks.slice(0, 3),
             dateTime:
-              nextTalks && nextTalks.length ? nextTalks[0].startDate : "",
-            time: nextTalks && nextTalks.length ? nextTalks[0].startDate : ""
+              nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
+            time: nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
           });
         } else {
-          that.setState({ nextTalks: [] });
+          that.setState({nextTalks: []});
         }
       });
   }
   render() {
-    const { nextTalks } = this.state;
+    const {nextTalks} = this.state;
 
     return (
-      <View style={[{ marginHorizontal: 10 }, this.props.style]}>
-        <SemiBoldText style={{ fontSize: FontSizes.title }}>
-          {conferenceHasEnded() ? "A great talk from 2018" : "Coming up next"}
+      <View style={[{marginHorizontal: 10}, this.props.style]}>
+        <SemiBoldText style={{fontSize: FontSizes.title}}>
+          {conferenceHasEnded() ? 'A great talk from 2018' : 'Coming up next'}
         </SemiBoldText>
         {this._renderDateTime()}
         {nextTalks.map(talk => (
           <TalkCard
             key={talk.title}
             talk={talk}
-            style={{ marginTop: 10, marginBottom: 10 }}
+            style={{marginTop: 10, marginBottom: 10}}
           />
         ))}
       </View>
@@ -118,7 +118,7 @@ export default class TalksUpNext extends React.Component {
       return null;
     }
 
-    const { dateTime } = this.state;
+    const {dateTime} = this.state;
 
     if (dateTime) {
       return (
@@ -135,6 +135,6 @@ export default class TalksUpNext extends React.Component {
 const styles = StyleSheet.create({
   time: {
     color: Colors.faint,
-    fontSize: FontSizes.subtitle
-  }
+    fontSize: FontSizes.subtitle,
+  },
 });

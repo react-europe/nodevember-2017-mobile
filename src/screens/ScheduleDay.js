@@ -1,22 +1,22 @@
-import React from "react";
-import { SectionList, StyleSheet, View } from "react-native";
-import { StackNavigator } from "react-navigation";
-import { ScrollView, RectButton } from "react-native-gesture-handler";
-import _ from "lodash";
+import React from 'react';
+import {SectionList, StyleSheet, View} from 'react-native';
+import {StackNavigator} from 'react-navigation';
+import {ScrollView, RectButton} from 'react-native-gesture-handler';
+import _ from 'lodash';
 
-import { RegularText, SemiBoldText, BoldText } from "../components/StyledText";
-import LoadingPlaceholder from "../components/LoadingPlaceholder";
-import { Colors, Layout } from "../constants";
-import MenuButton from "../components/MenuButton";
-import SaveIconWhenSaved from "../components/SaveIconWhenSaved";
-import { convertUtcDateToEventTimezoneHour } from "../utils";
+import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
+import LoadingPlaceholder from '../components/LoadingPlaceholder';
+import {Colors, Layout} from '../constants';
+import MenuButton from '../components/MenuButton';
+import SaveIconWhenSaved from '../components/SaveIconWhenSaved';
+import {convertUtcDateToEventTimezoneHour} from '../utils';
 
-import Schedule from "../data/schedule.json";
+import Schedule from '../data/schedule.json';
 const FullSchedule = Schedule.events[0].groupedSchedule;
 
 class ScheduleRow extends React.Component {
   render() {
-    const { item } = this.props;
+    const {item} = this.props;
 
     const content = (
       <View style={[styles.row, item.talk && styles.rowStatic]}>
@@ -40,8 +40,7 @@ class ScheduleRow extends React.Component {
       <RectButton
         activeOpacity={0.05}
         onPress={this._handlePress}
-        style={{ flex: 1, backgroundColor: "#fff" }}
-      >
+        style={{flex: 1, backgroundColor: '#fff'}}>
         {content}
       </RectButton>
     );
@@ -61,7 +60,7 @@ export default function ScheduleDay(options) {
 
   const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
   const slotsData = _.map(slotsByTime, (data, time) => {
-    return { data, title: convertUtcDateToEventTimezoneHour(time) };
+    return {data, title: convertUtcDateToEventTimezoneHour(time)};
   });
 
   class ScheduleDayComponent extends React.Component {
@@ -81,7 +80,7 @@ export default function ScheduleDay(options) {
       );
     }
 
-    _renderSectionHeader = ({ section }) => {
+    _renderSectionHeader = ({section}) => {
       return (
         <View style={styles.sectionHeader}>
           <RegularText>{section.title}</RegularText>
@@ -89,12 +88,12 @@ export default function ScheduleDay(options) {
       );
     };
 
-    _renderItem = ({ item }) => {
+    _renderItem = ({item}) => {
       return <ScheduleRow item={item} onPress={this._handlePressRow} />;
     };
 
     _handlePressRow = item => {
-      this.props.navigation.navigate("Details", { scheduleSlot: item });
+      this.props.navigation.navigate('Details', {scheduleSlot: item});
     };
   }
 
@@ -124,18 +123,18 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#eee"
+    borderColor: '#eee',
   },
   rowStatic: {
-    backgroundColor: "#f5f5f5",
-    opacity: 0.5
+    backgroundColor: '#f5f5f5',
+    opacity: 0.5,
   },
   sectionHeader: {
     paddingHorizontal: 10,
     paddingTop: 7,
     paddingBottom: 5,
-    backgroundColor: "#eee",
+    backgroundColor: '#eee',
     borderWidth: 1,
-    borderColor: "#eee"
-  }
+    borderColor: '#eee',
+  },
 });

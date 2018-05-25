@@ -1,10 +1,10 @@
-import React from "react";
-import { AsyncStorage } from "react-native";
-import { EventEmitter } from "fbemitter";
-import _ from "lodash";
+import React from 'react';
+import {AsyncStorage} from 'react-native';
+import {EventEmitter} from 'fbemitter';
+import _ from 'lodash';
 
 const _emitter = new EventEmitter();
-const _savedTalksStorageKey = "@Nodevember:savedTalks";
+const _savedTalksStorageKey = '@Nodevember:savedTalks';
 let _savedTalks;
 
 export const loadSavedTalksAsync = async () => {
@@ -31,7 +31,7 @@ export function getSavedStateForTalk(talk) {
 // Returns the subscription, subscriber needs to remove subscription on unmount
 export function subscribeToUpdates(talk, onUpdateFn) {
   const talkKey = _.snakeCase(talk.title);
-  return _emitter.addListener("change", () => {
+  return _emitter.addListener('change', () => {
     const active = _savedTalks[talkKey];
     onUpdateFn(active);
   });
@@ -41,7 +41,7 @@ export const toggleSaved = talk => {
   let key = _.snakeCase(talk.title);
   let newSavedTalks = {
     ..._savedTalks,
-    [key]: !_savedTalks[key]
+    [key]: !_savedTalks[key],
   };
 
   _updateSavedTalks(newSavedTalks);
@@ -49,7 +49,7 @@ export const toggleSaved = talk => {
 
 function _updateSavedTalks(savedTalks) {
   _savedTalks = savedTalks;
-  _emitter.emit("change");
+  _emitter.emit('change');
   _updateAsyncStorage();
 }
 
@@ -64,13 +64,13 @@ function _updateAsyncStorage() {
 export function withSaveState(WrappedComponent) {
   class ComponentWithSaveState extends React.Component {
     state = {
-      saved: getSavedStateForTalk(this.props.talk)
+      saved: getSavedStateForTalk(this.props.talk),
     };
 
     componentWillMount() {
       this._subscription = subscribeToUpdates(this.props.talk, saved => {
         if (saved !== this.state.saved) {
-          this.setState({ saved });
+          this.setState({saved});
         }
       });
     }

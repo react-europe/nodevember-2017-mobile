@@ -1,28 +1,28 @@
-import React from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import { ScrollView, RectButton } from "react-native-gesture-handler";
+import React from 'react';
+import {StyleSheet, View, FlatList} from 'react-native';
+import {ScrollView, RectButton} from 'react-native-gesture-handler';
 import {
   Entypo,
   MaterialIcons,
-  MaterialCommunityIcons
-} from "@expo/vector-icons";
-import _ from "lodash";
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
+import _ from 'lodash';
 
-import { Colors } from "../constants";
-import { BoldText, SemiBoldText, RegularText } from "./StyledText";
-import GravatarImage from "./GravatarImage";
-import HighlightableText from "./HighlightableText";
+import {Colors} from '../constants';
+import {BoldText, SemiBoldText, RegularText} from './StyledText';
+import GravatarImage from './GravatarImage';
+import HighlightableText from './HighlightableText';
 
-import { getContactTwitter } from "../utils";
+import {getContactTwitter} from '../utils';
 
-export const Schedule = require("../data/schedule.json");
+export const Schedule = require('../data/schedule.json');
 
 const SpeakersAndTalks = Schedule.events[0].speakers;
-const SpeakersData = [{ data: SpeakersAndTalks, title: "Speakers" }];
+const SpeakersData = [{data: SpeakersAndTalks, title: 'Speakers'}];
 
 class AttendeesSearchResultRow extends React.Component {
   render() {
-    const { attendee, searchQuery } = this.props;
+    const {attendee, searchQuery} = this.props;
 
     let isSpeaker;
     if (SpeakersData && SpeakersData.length) {
@@ -37,9 +37,8 @@ class AttendeesSearchResultRow extends React.Component {
       <RectButton
         onPress={() => this.props.onPress(attendee)}
         activeOpacity={0.05}
-        style={{ flex: 1, backgroundColor: "#fff" }}
-      >
-        <View style={[styles.row, { borderLeftWidth: isSpeaker ? 5 : 0 }]}>
+        style={{flex: 1, backgroundColor: '#fff'}}>
+        <View style={[styles.row, {borderLeftWidth: isSpeaker ? 5 : 0}]}>
           {isSpeaker && (
             <View style={styles.micIcon}>
               <MaterialCommunityIcons
@@ -52,29 +51,28 @@ class AttendeesSearchResultRow extends React.Component {
           <View
             style={[
               styles.rowAvatarContainer,
-              { paddingLeft: isSpeaker ? 0 : 5 }
-            ]}
-          >
+              {paddingLeft: isSpeaker ? 0 : 5},
+            ]}>
             <GravatarImage style={styles.avatarImage} email={attendee.email} />
           </View>
           <View style={styles.rowData}>
             <HighlightableText
               TextComponent={BoldText}
-              highlightStyle={{ backgroundColor: "#e1e8ed" }}
+              highlightStyle={{backgroundColor: '#e1e8ed'}}
               searchWords={[searchQuery]}
               textToHighlight={`${attendee.firstName} ${attendee.lastName}`}
             />
             {getContactTwitter(attendee) ? (
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Entypo
-                  name={"twitter"}
+                  name={'twitter'}
                   size={16}
                   color="#1da1f2"
-                  style={{ paddingRight: 3 }}
+                  style={{paddingRight: 3}}
                 />
                 <HighlightableText
                   TextComponent={RegularText}
-                  highlightStyle={{ backgroundColor: "#e1e8ed" }}
+                  highlightStyle={{backgroundColor: '#e1e8ed'}}
                   searchWords={[searchQuery]}
                   textToHighlight={`@${getContactTwitter(attendee)}`}
                 />
@@ -88,28 +86,25 @@ class AttendeesSearchResultRow extends React.Component {
 }
 
 const AttendeesSearchResultPlaceholderRow = () => (
-  <RectButton activeOpacity={0.05} style={{ flex: 1, backgroundColor: "#fff" }}>
+  <RectButton activeOpacity={0.05} style={{flex: 1, backgroundColor: '#fff'}}>
     <View style={styles.row}>
       <View style={styles.rowAvatarContainer}>
         <MaterialIcons
-          name={"account-circle"}
+          name={'account-circle'}
           size={48}
           style={styles.placeholderAvatarImage}
         />
       </View>
       <View style={styles.rowData}>
         <BoldText
-          style={{ backgroundColor: "#efefef", height: 14, marginBottom: 8 }}
-        >
+          style={{backgroundColor: '#efefef', height: 14, marginBottom: 8}}>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </BoldText>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <SemiBoldText
-            style={{ color: "#efefef", height: 14, marginRight: 8 }}
-          >
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <SemiBoldText style={{color: '#efefef', height: 14, marginRight: 8}}>
             •
           </SemiBoldText>
-          <SemiBoldText style={{ backgroundColor: "#efefef", height: 14 }}>
+          <SemiBoldText style={{backgroundColor: '#efefef', height: 14}}>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </SemiBoldText>
         </View>
@@ -120,9 +115,9 @@ const AttendeesSearchResultPlaceholderRow = () => (
 
 export default class AttendeesSearchResults extends React.Component {
   render() {
-    const { attendees, isLoading } = this.props;
+    const {attendees, isLoading} = this.props;
     const maybeAttendees = isLoading
-      ? _.times(10).map(id => ({ id }))
+      ? _.times(10).map(id => ({id}))
       : attendees;
     const itemRenderer = isLoading
       ? this._renderItemPlaceholder
@@ -140,7 +135,7 @@ export default class AttendeesSearchResults extends React.Component {
     );
   }
 
-  _renderItem = ({ item: attendee }) => (
+  _renderItem = ({item: attendee}) => (
     <AttendeesSearchResultRow
       attendee={attendee}
       onPress={this.props.onPress}
@@ -151,7 +146,7 @@ export default class AttendeesSearchResults extends React.Component {
   _renderItemPlaceholder = () => <AttendeesSearchResultPlaceholderRow />;
 
   _handlePressRow = attendee => {
-    this.props.navigation.navigate("AttendeeDetail", { attendee });
+    this.props.navigation.navigate('AttendeeDetail', {attendee});
   };
 }
 
@@ -160,39 +155,39 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: "#eee",
+    borderBottomColor: '#eee',
     borderLeftColor: Colors.blue,
-    flexDirection: "row"
+    flexDirection: 'row',
   },
   rowAvatarContainer: {
     paddingVertical: 5,
     paddingRight: 10,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   avatarImage: {
     width: 50,
     height: 50,
-    borderRadius: 25
+    borderRadius: 25,
   },
   placeholderAvatarImage: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    color: "#efefef"
+    color: '#efefef',
   },
   rowData: {
-    flex: 1
+    flex: 1,
   },
   list: {
-    paddingTop: 80
+    paddingTop: 80,
   },
   micIcon: {
-    position: "absolute",
+    position: 'absolute',
     right: 24,
-    alignItems: "center",
+    alignItems: 'center',
     flex: 1,
-    justifyContent: "center",
-    height: "100%",
-    top: 10
-  }
+    justifyContent: 'center',
+    height: '100%',
+    top: 10,
+  },
 });

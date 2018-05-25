@@ -1,35 +1,35 @@
-import React from "react";
+import React from 'react';
 import {
   Animated,
   Platform,
   Text,
   StyleSheet,
   View,
-  LayoutAnimation
-} from "react-native";
-import { View as AnimatableView } from "react-native-animatable";
-import { Searchbar } from "react-native-paper";
-import { withNavigation } from "react-navigation";
-import { Query } from "react-apollo";
-import _ from "lodash";
+  LayoutAnimation,
+} from 'react-native';
+import {View as AnimatableView} from 'react-native-animatable';
+import {Searchbar} from 'react-native-paper';
+import {withNavigation} from 'react-navigation';
+import {Query} from 'react-apollo';
+import _ from 'lodash';
 
-import NavigationBar from "../components/NavigationBar";
-import MenuButton from "../components/MenuButton";
-import AttendeesSearchResults from "../components/AttendeesSearchResults";
+import NavigationBar from '../components/NavigationBar';
+import MenuButton from '../components/MenuButton';
+import AttendeesSearchResults from '../components/AttendeesSearchResults';
 
-import { Colors, Layout } from "../constants";
-import GET_ATTENDEES from "../data/attendeesquery";
-import { getContactTwitter } from "../utils";
+import {Colors, Layout} from '../constants';
+import GET_ATTENDEES from '../data/attendeesquery';
+import {getContactTwitter} from '../utils';
 
 class Attendees extends React.Component {
   static navigationOptions = {
-    title: "Attendees"
+    title: 'Attendees',
   };
 
   state = {
     scrollY: new Animated.Value(0),
     attendees: [],
-    query: ""
+    query: '',
   };
 
   throttleDelayMs = 200;
@@ -39,19 +39,19 @@ class Attendees extends React.Component {
 
     this.throttleTimeout = setTimeout(() => {
       LayoutAnimation.easeInEaseOut();
-      this.setState({ query: text });
+      this.setState({query: text});
     }, this.throttleDelayMs);
   };
 
   render() {
-    const { scrollY } = this.state;
+    const {scrollY} = this.state;
     const headerOpacity = scrollY.interpolate({
       inputRange: [0, 150],
       outputRange: [0, 1],
-      extrapolate: "clamp"
+      extrapolate: 'clamp',
     });
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <Searchbar
           onChangeText={text => this.queryThrottle(text)}
           placeholder="Search for conference attendees"
@@ -70,31 +70,31 @@ class Attendees extends React.Component {
 @withNavigation
 class DeferredAttendeesContent extends React.Component {
   state = {
-    ready: Platform.OS === "android" ? false : true
+    ready: Platform.OS === 'android' ? false : true,
   };
 
   componentDidMount() {
     if (this.state.ready) {
       return;
     }
-    setTimeout(() => this.setState({ ready: true }), 200);
+    setTimeout(() => this.setState({ready: true}), 200);
   }
 
   _handlePressRow = attendee => {
-    this.props.navigation.navigate("AttendeeDetail", { attendee });
+    this.props.navigation.navigate('AttendeeDetail', {attendee});
   };
 
   render() {
     if (!this.state.ready) {
       return null;
     }
-    const { query } = this.props;
+    const {query} = this.props;
     const cleanedQuery = query.toLowerCase().trim();
 
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Query query={GET_ATTENDEES}>
-          {({ loading, error, data }) => {
+          {({loading, error, data}) => {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
@@ -104,11 +104,11 @@ class DeferredAttendeesContent extends React.Component {
                 ? data.events[0].attendees
                 : [];
             let attendeesData;
-            if (cleanedQuery === "") {
+            if (cleanedQuery === '') {
               attendeesData = _.orderBy(
                 attendees,
                 attendee => `${attendee.firstName} ${attendee.lastName}`,
-                ["asc"]
+                ['asc']
               );
             } else {
               const filteredAttendees = [];
@@ -145,7 +145,7 @@ class DeferredAttendeesContent extends React.Component {
               const sortedFilteredAttendees = _.orderBy(
                 filteredAttendees,
                 attendee => attendeesSearchRankingScore[`${attendee.id}`],
-                ["desc"]
+                ['desc']
               );
               attendeesData = sortedFilteredAttendees;
             }
@@ -168,12 +168,12 @@ class DeferredAttendeesContent extends React.Component {
 const OverscrollView = () => (
   <View
     style={{
-      position: "absolute",
+      position: 'absolute',
       top: -400,
       height: 400,
       left: 0,
       right: 0,
-      backgroundColor: Colors.blue
+      backgroundColor: Colors.blue,
     }}
   />
 );
@@ -181,19 +181,19 @@ const OverscrollView = () => (
 const styles = StyleSheet.create({
   textInput: {
     height: 60,
-    position: "absolute",
+    position: 'absolute',
     top: Layout.notchHeight,
     left: 0,
     right: 0,
     marginLeft: 6,
     marginRight: 6,
     zIndex: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 5,
     borderRadius: 4,
     borderWidth: 0,
-    borderColor: "black"
-  }
+    borderColor: 'black',
+  },
 });
 
 export default Attendees;

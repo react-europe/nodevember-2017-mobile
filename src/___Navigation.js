@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
   TabRouter,
   TabNavigator,
   StackNavigator,
   createNavigator,
   createNavigationContainer,
-  SafeAreaView
-} from "react-navigation";
-import withCachedChildNavigation from "react-navigation/src/withCachedChildNavigation";
-import SceneView from "react-navigation/src/views/SceneView";
+  SafeAreaView,
+} from 'react-navigation';
+import withCachedChildNavigation from 'react-navigation/src/withCachedChildNavigation';
+import SceneView from 'react-navigation/src/views/SceneView';
 import {
   BackHandler,
   Platform,
@@ -20,43 +20,43 @@ import {
   View,
   Button,
   Alert,
-  AsyncStorage
-} from "react-native";
-import { Constants, BarCodeScanner, Permissions, Notifications } from "expo";
-import { TabViewAnimated } from "react-native-tab-view";
+  AsyncStorage,
+} from 'react-native';
+import {Constants, BarCodeScanner, Permissions, Notifications} from 'expo';
+import {TabViewAnimated} from 'react-native-tab-view';
 import {
   DrawerLayoutAndroid,
   BorderlessButton,
-  RectButton
-} from "react-native-gesture-handler";
-import DrawerLayout from "react-native-gesture-handler/DrawerLayout";
-import ResourceSavingContainer from "react-native-resource-saving-container";
-import hoistStatics from "hoist-non-react-statics";
+  RectButton,
+} from 'react-native-gesture-handler';
+import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
+import ResourceSavingContainer from 'react-native-resource-saving-container';
+import hoistStatics from 'hoist-non-react-statics';
 
-import { Colors, FontSizes, Layout } from "./constants";
-import Screens from "./screens";
-import TabBarBottom from "./components/TabBarBottom";
-import CachedImage from "./components/CachedImage";
-import { SemiBoldText, BoldText } from "./components/StyledText";
-import _ from "lodash";
-import Schedule from "./data/schedule.json";
-import moment from "moment";
-import { Provider, Client, Connect, query } from "urql";
+import {Colors, FontSizes, Layout} from './constants';
+import Screens from './screens';
+import TabBarBottom from './components/TabBarBottom';
+import CachedImage from './components/CachedImage';
+import {SemiBoldText, BoldText} from './components/StyledText';
+import _ from 'lodash';
+import Schedule from './data/schedule.json';
+import moment from 'moment';
+import {Provider, Client, Connect, query} from 'urql';
 
-import QRScannerModalNavigation from "./screens/QRScreens/Identify";
-import QRCheckinScannerModalNavigation from "./screens/QRScreens/CheckIn";
-import QRContactScannerModalNavigation from "./screens/QRScreens/Contact";
+import QRScannerModalNavigation from './screens/QRScreens/Identify';
+import QRCheckinScannerModalNavigation from './screens/QRScreens/CheckIn';
+import QRContactScannerModalNavigation from './screens/QRScreens/Contact';
 
 const DrawerComponent =
-  Platform.OS === "android" ? DrawerLayoutAndroid : DrawerLayout;
+  Platform.OS === 'android' ? DrawerLayoutAndroid : DrawerLayout;
 const FullSchedule = Schedule.events[0].groupedSchedule;
 let navSchedule = {};
 _.each(FullSchedule, (day, i) => {
   navSchedule[day.title] = {
     screen: Screens.ScheduleDay({
       day: day.title,
-      date: moment(new Date(day.date)).format("D")
-    })
+      date: moment(new Date(day.date)).format('D'),
+    }),
   };
 });
 
@@ -65,11 +65,11 @@ const ScheduleNavigation = TabNavigator(navSchedule, {
   swipeEnabled: false,
   animationEnabled: false,
   tabBarComponent: TabBarBottom,
-  tabBarPosition: "bottom",
+  tabBarPosition: 'bottom',
   tabBarOptions: {
-    style: { backgroundColor: "#333" },
-    activeTintColor: "#fff"
-  }
+    style: {backgroundColor: '#333'},
+    activeTintColor: '#fff',
+  },
 });
 
 export function connectDrawerButton(WrappedComponent) {
@@ -87,7 +87,7 @@ export function connectDrawerButton(WrappedComponent) {
   ConnectedDrawerButton.contextTypes = {
     openDrawer: PropTypes.func,
     closeDrawer: PropTypes.func,
-    toggleDrawer: PropTypes.func
+    toggleDrawer: PropTypes.func,
   };
 
   return hoistStatics(ConnectedDrawerButton, WrappedComponent);
@@ -95,15 +95,15 @@ export function connectDrawerButton(WrappedComponent) {
 
 const DefaultStackConfig = {
   cardStyle: {
-    backgroundColor: "#fafafa"
-  }
+    backgroundColor: '#fafafa',
+  },
 };
 
 const SpeakersNavigation = StackNavigator(
   {
     SpeakerList: {
-      screen: Screens.Speakers
-    }
+      screen: Screens.Speakers,
+    },
   },
   DefaultStackConfig
 );
@@ -111,8 +111,8 @@ const SpeakersNavigation = StackNavigator(
 const CrewNavigation = StackNavigator(
   {
     CrewList: {
-      screen: Screens.Crew
-    }
+      screen: Screens.Crew,
+    },
   },
   DefaultStackConfig
 );
@@ -120,8 +120,8 @@ const CrewNavigation = StackNavigator(
 const SponsorNavigation = StackNavigator(
   {
     SponsorList: {
-      screen: Screens.Sponsors
-    }
+      screen: Screens.Sponsors,
+    },
   },
   DefaultStackConfig
 );
@@ -129,21 +129,21 @@ const SponsorNavigation = StackNavigator(
 const StaffCheckinListsNavigation = StackNavigator(
   {
     StaffCheckinListsList: {
-      screen: Screens.StaffCheckinLists
-    }
+      screen: Screens.StaffCheckinLists,
+    },
   },
   DefaultStackConfig
 );
 
 const DrawerRouteConfig = {
-  Home: { screen: Screens.Home },
-  Schedule: { screen: ScheduleNavigation },
-  Speakers: { screen: SpeakersNavigation },
-  Crew: { screen: CrewNavigation },
-  Sponsors: { screen: SponsorNavigation },
-  Profile: { screen: Screens.Profile },
-  Contacts: { screen: Screens.Contacts },
-  StaffCheckinLists: { screen: StaffCheckinListsNavigation }
+  Home: {screen: Screens.Home},
+  Schedule: {screen: ScheduleNavigation},
+  Speakers: {screen: SpeakersNavigation},
+  Crew: {screen: CrewNavigation},
+  Sponsors: {screen: SponsorNavigation},
+  Profile: {screen: Screens.Profile},
+  Contacts: {screen: Screens.Contacts},
+  StaffCheckinLists: {screen: StaffCheckinListsNavigation},
 };
 
 const DrawerRouter = TabRouter(DrawerRouteConfig);
@@ -151,15 +151,15 @@ const DrawerRouter = TabRouter(DrawerRouteConfig);
 class DrawerScene extends React.PureComponent {
   state = {
     visible: true,
-    me: null
+    me: null,
   };
 
   setVisible = visible => {
-    this.setState({ visible });
+    this.setState({visible});
   };
 
   render() {
-    const { route, screenProps } = this.props;
+    const {route, screenProps} = this.props;
     const childNavigation = this.props.childNavigationProps[route.key];
     const ScreenComponent = DrawerRouter.getComponentForRouteName(
       route.routeName
@@ -167,9 +167,8 @@ class DrawerScene extends React.PureComponent {
 
     return (
       <ResourceSavingContainer
-        style={{ flex: 1, overflow: "hidden" }}
-        visible={Platform.OS === "android" ? this.state.visible : true}
-      >
+        style={{flex: 1, overflow: 'hidden'}}
+        visible={Platform.OS === 'android' ? this.state.visible : true}>
         <SceneView
           screenProps={screenProps}
           component={ScreenComponent}
@@ -189,7 +188,7 @@ class DrawerView extends React.Component {
   static childContextTypes = {
     openDrawer: PropTypes.func,
     closeDrawer: PropTypes.func,
-    toggleDrawer: PropTypes.func
+    toggleDrawer: PropTypes.func,
   };
 
   getChildContext() {
@@ -201,24 +200,24 @@ class DrawerView extends React.Component {
     return {
       openDrawer,
       closeDrawer,
-      toggleDrawer
+      toggleDrawer,
     };
   }
 
   state = {
-    loaded: [this.props.navigation.state.index]
+    loaded: [this.props.navigation.state.index],
   };
 
   componentDidMount() {
-    if (Platform.OS === "ios") {
+    if (Platform.OS === 'ios') {
       return;
     }
 
-    BackHandler.addEventListener("hardwareBackPress", this._onBackPress);
+    BackHandler.addEventListener('hardwareBackPress', this._onBackPress);
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener("hardwareBackPress", this._onBackPress);
+    BackHandler.removeEventListener('hardwareBackPress', this._onBackPress);
   }
 
   _onBackPress = () => {
@@ -240,7 +239,7 @@ class DrawerView extends React.Component {
       const nextRoute = nextProps.navigation.state.routes[nextIndex];
 
       if (!this.state.loaded.includes(nextProps.navigation.state.index)) {
-        this.setState({ loaded: [...this.state.loaded, nextIndex] });
+        this.setState({loaded: [...this.state.loaded, nextIndex]});
       }
 
       if (currentRoute.key !== nextRoute.key) {
@@ -249,7 +248,7 @@ class DrawerView extends React.Component {
     }
   }
 
-  _renderScene = ({ route, focused, index }) => {
+  _renderScene = ({route, focused, index}) => {
     if (focused || this.state.loaded.includes(index)) {
       return (
         <DrawerScene
@@ -284,17 +283,15 @@ class DrawerView extends React.Component {
           drawerPosition={DrawerComponent.positions.Left}
           drawerType="front"
           drawerBackgroundColor="#333333"
-          renderNavigationView={this._renderNavigationView}
-        >
-          <View style={{ flex: 1 }} key="container">
+          renderNavigationView={this._renderNavigationView}>
+          <View style={{flex: 1}} key="container">
             <View
               key="tab-view-container"
               style={{
                 flex: 1,
                 paddingTop:
-                  Platform.OS === "android" ? Constants.statusBarHeight : 0
-              }}
-            >
+                  Platform.OS === 'android' ? Constants.statusBarHeight : 0,
+              }}>
               <TabViewAnimated
                 navigationState={this.props.navigation.state}
                 animationEnabled={false}
@@ -306,13 +303,13 @@ class DrawerView extends React.Component {
             <View
               key="status-bar-underlay"
               style={{
-                position: "absolute",
+                position: 'absolute',
                 top: 0,
                 left: 0,
                 right: 0,
                 height:
-                  Platform.OS === "android" ? Constants.statusBarHeight : 0,
-                backgroundColor: Colors.blue
+                  Platform.OS === 'android' ? Constants.statusBarHeight : 0,
+                backgroundColor: Colors.blue,
               }}
             />
           </View>
@@ -328,35 +325,34 @@ class DrawerView extends React.Component {
       <View style={styles.drawerContainer}>
         <View style={styles.drawerHeader}>
           <CachedImage
-            source={require("./assets/hero.png")}
+            source={require('./assets/hero.png')}
             style={{
               height: 140 + Layout.notchHeight,
               width: DRAWER_WIDTH,
-              resizeMode: "cover"
+              resizeMode: 'cover',
             }}
           />
           <View
             style={[
               StyleSheet.absoluteFill,
-              { backgroundColor: "rgba(23, 127, 100, 0.57)" }
+              {backgroundColor: 'rgba(23, 127, 100, 0.57)'},
             ]}
           />
           <View
             style={[
               StyleSheet.absoluteFill,
               {
-                alignItems: "center",
-                justifyContent: "center",
-                paddingTop: Layout.notchHeight + 20
-              }
-            ]}
-          >
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingTop: Layout.notchHeight + 20,
+              },
+            ]}>
             <Image
-              source={require("./assets/logo.png")}
+              source={require('./assets/logo.png')}
               style={{
                 width: 200,
                 height: 50,
-                resizeMode: "contain"
+                resizeMode: 'contain',
               }}
             />
           </View>
@@ -364,18 +360,18 @@ class DrawerView extends React.Component {
         <View style={styles.drawerButtons}>
           {/* make sure the buttons here are in the same order as in route config */}
           {this._renderButtons([
-            { route: "Home", title: "Home" },
-            { route: "Schedule", title: "Schedule" },
-            { route: "Speakers", title: "Speakers" },
-            { route: "Crew", title: "Crew" },
-            { route: "Sponsors", title: "Sponsors" },
-            { route: "Profile", title: "Profile" },
-            { route: "Contacts", title: "Contacts" },
+            {route: 'Home', title: 'Home'},
+            {route: 'Schedule', title: 'Schedule'},
+            {route: 'Speakers', title: 'Speakers'},
+            {route: 'Crew', title: 'Crew'},
+            {route: 'Sponsors', title: 'Sponsors'},
+            {route: 'Profile', title: 'Profile'},
+            {route: 'Contacts', title: 'Contacts'},
             {
-              route: "StaffCheckinLists",
-              title: "StaffCheckinLists",
-              hidden: true
-            }
+              route: 'StaffCheckinLists',
+              title: 'StaffCheckinLists',
+              hidden: true,
+            },
           ])}
         </View>
       </View>
@@ -391,8 +387,7 @@ class DrawerView extends React.Component {
           <DrawerButton
             key={i}
             onPress={() => this._navigateToScreen(i)}
-            selected={selectedIndex === i}
-          >
+            selected={selectedIndex === i}>
             {config.title}
           </DrawerButton>
         )
@@ -426,10 +421,10 @@ const DrawerNavigation = createNavigationContainer(
 
 class DrawerButton extends React.Component {
   state = {
-    me: null
+    me: null,
   };
   componentDidMount() {
-    AsyncStorage.getItem("@MySuperStore:tickets").then(value => {
+    AsyncStorage.getItem('@MySuperStore:tickets').then(value => {
       const mytickets = value;
     });
   }
@@ -439,18 +434,16 @@ class DrawerButton extends React.Component {
         onPress={this.props.onPress}
         style={{
           backgroundColor: this.props.selected
-            ? "rgba(255,255,255,0.1)"
-            : "#333333"
-        }}
-      >
+            ? 'rgba(255,255,255,0.1)'
+            : '#333333',
+        }}>
         <View
           style={{
             height: 50,
             width: DRAWER_WIDTH,
-            justifyContent: "center",
-            paddingHorizontal: 5
-          }}
-        >
+            justifyContent: 'center',
+            paddingHorizontal: 5,
+          }}>
           <SemiBoldText style={styles.drawerButtonText}>
             {this.props.children.toUpperCase()}
           </SemiBoldText>
@@ -462,14 +455,14 @@ class DrawerButton extends React.Component {
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = {hasError: false};
   }
 
   componentDidCatch(error, info) {
     // Display fallback UI
-    this.setState({ hasError: true });
+    this.setState({hasError: true});
     // You can also log the error to an error reporting service
-    console.log("ERROR", error, info);
+    console.log('ERROR', error, info);
   }
 
   render() {
@@ -483,32 +476,32 @@ class ErrorBoundary extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   drawerButtonText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: FontSizes.normalButton,
-    padding: 10
+    padding: 10,
   },
   drawerButtons: {
-    paddingTop: 0
+    paddingTop: 0,
   },
-  drawerNavigationContainer: {}
+  drawerNavigationContainer: {},
 });
 
 export default StackNavigator(
   {
-    Primary: { screen: DrawerNavigation },
-    Details: { screen: Screens.Details },
-    TicketInstructions: { screen: Screens.TicketInstructions },
-    CheckedInAttendeeInfo: { screen: Screens.CheckedInAttendeeInfo },
-    QRScanner: { screen: QRScannerModalNavigation },
-    QRCheckinScanner: { screen: QRCheckinScannerModalNavigation },
-    QRContactScanner: { screen: QRContactScannerModalNavigation }
+    Primary: {screen: DrawerNavigation},
+    Details: {screen: Screens.Details},
+    TicketInstructions: {screen: Screens.TicketInstructions},
+    CheckedInAttendeeInfo: {screen: Screens.CheckedInAttendeeInfo},
+    QRScanner: {screen: QRScannerModalNavigation},
+    QRCheckinScanner: {screen: QRCheckinScannerModalNavigation},
+    QRContactScanner: {screen: QRContactScannerModalNavigation},
   },
   {
     ...DefaultStackConfig,
-    headerMode: "none",
-    mode: "modal"
+    headerMode: 'none',
+    mode: 'modal',
   }
 );
