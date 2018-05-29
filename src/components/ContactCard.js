@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, Platform, StyleSheet, View} from 'react-native';
-import {RectButton} from 'react-native-gesture-handler';
 import {withNavigation} from 'react-navigation';
 import GravatarImage from '../components/GravatarImage';
 import {sendEmail, openTwitter, getContactTwitter} from '../utils';
@@ -11,18 +10,19 @@ import {
   CardContent,
   Title,
   Paragraph,
+  Card,
 } from 'react-native-paper';
 import CachedImage from '../components/CachedImage';
 
 @withNavigation
 export default class ContactCard extends React.Component {
   render() {
-    const {contact, onPress} = this.props;
+    let {contact, onPress} = this.props;
     const {email} = contact;
     const bio = this.getContactBio();
     const twitter = getContactTwitter(contact);
     return (
-      <RectButton onPress={() => onPress({...contact, bio, twitter})}>
+      <Card>
         <View style={{flex: 1, flexDirection: 'row'}}>
           <GravatarImage style={styles.avatarImage} email={contact.email} />
           <View style={{flex: 1}}>
@@ -55,7 +55,7 @@ export default class ContactCard extends React.Component {
             </CardActions>
           </View>
         </View>
-      </RectButton>
+      </Card>
     );
   }
   _handlePressTwitterButton = () => {
