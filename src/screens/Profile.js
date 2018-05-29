@@ -61,6 +61,7 @@ class Profile extends React.Component {
   };
 }
 
+@withNavigation
 class DeferredProfileContent extends React.Component {
   state = {
     tickets: [],
@@ -130,9 +131,13 @@ class DeferredProfileContent extends React.Component {
     console.log(0);
     this._requestCameraPermission();
     console.log(3);
+    let that = this;
     Permissions.askAsync(Permissions.CAMERA).then(() => {
       console.log(4);
-      this.props.navigation.navigate('QRScanner');
+      that.props.navigation.navigate({
+        routeName: 'QRScanner',
+        key: 'QRScanner',
+      });
       console.log(5);
       return;
     });

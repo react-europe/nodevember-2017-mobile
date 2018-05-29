@@ -117,6 +117,15 @@ const ContactsNavigator = StackNavigator({
   },
 });
 
+const StaffCheckinListsNavigation = StackNavigator(
+  {
+    StaffCheckinListsList: {
+      screen: Screens.StaffCheckinLists,
+    },
+  },
+  DefaultStackConfig
+);
+
 const PrimaryTabNavigator = TabNavigator(
   {
     Home: {
@@ -174,6 +183,8 @@ export default StackNavigator(
     QRScanner: {screen: QRScannerModalNavigation},
     QRCheckinScanner: {screen: QRCheckinScannerModalNavigation},
     QRContactScanner: {screen: QRContactScannerModalNavigation},
+    StaffCheckinLists: {screen: StaffCheckinListsNavigation},
+
     Details: {screen: Screens.Details},
   },
   {

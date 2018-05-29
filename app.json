@@ -5,7 +5,7 @@
       "Official react-europe app for the May 2018 conference, May 17-18 in Paris, France. Read the source or get the app store and play store links on Github: https://github.com/react-europe/react-europe-2018-mobile. Credits to Brent Vatne and Expo.",
     "slug": "reacteurope",
     "privacy": "public",
-    "version": "36.6.9",
+    "version": "38.6.9",
     "primaryColor": "#4d5fab",
     "icon": "./src/assets/icon-ios.png",
     "orientation": "portrait",
@@ -23,7 +23,7 @@
     "android": {
       "package": "hr.apps.n6574",
       "icon": "./src/assets/icon-android.png",
-      "versionCode": 45
+      "versionCode": 47
     },
     "ios": {
       "bundleIdentifier": "reacteurope",
