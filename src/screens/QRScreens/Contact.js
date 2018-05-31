@@ -1,11 +1,11 @@
-import React from "react";
-import { AsyncStorage } from "react-native";
-import { query } from "urql";
+import React from 'react';
+import {AsyncStorage} from 'react-native';
+import {query} from 'urql';
 
-import { GQL } from "../../constants";
-import { addContact } from "../../utils";
-import client from "../../utils/gqlClient";
-import QRScreen from "./QRScreen";
+import {GQL} from '../../constants';
+import {addContact} from '../../utils';
+import client from '../../utils/gqlClient';
+import QRScreen from './QRScreen';
 
 const qrContactQuery = `
 query events($slug: String!, $uuid: String!, $q: String!){
@@ -31,9 +31,9 @@ query events($slug: String!, $uuid: String!, $q: String!){
 export default class QRContactScannerModalNavigation extends React.Component {
   _handleContactBarCodeRead = async data => {
     let navigation = this.props.navigation;
-    const value = await AsyncStorage.getItem("@MySuperStore:tickets");
+    const value = await AsyncStorage.getItem('@MySuperStore:tickets');
     let tickets = JSON.parse(value) || [];
-    let uuid = "";
+    let uuid = '';
     let contactRef = data.data;
     tickets.map(ticket => {
       ticket.checkinLists.map(ch => {
@@ -41,7 +41,7 @@ export default class QRContactScannerModalNavigation extends React.Component {
           uuid = ticket.uuid;
         }
       });
-      let variables = { slug: GQL.slug, uuid: uuid, q: contactRef };
+      let variables = {slug: GQL.slug, uuid: uuid, q: contactRef};
       client
         .executeQuery(query(qrContactQuery, variables), true)
         .then(function(scannedContact) {
@@ -54,8 +54,10 @@ export default class QRContactScannerModalNavigation extends React.Component {
             scannedContact.data.events[0].attendees[0]
           ) {
             let contact = scannedContact.data.events[0].attendees[0];
-            console.log("new contact", contact);
-            AsyncStorage.getItem("@MySuperStore:contacts").then(
+            console.log('new contact', contact);
+            console.log('new contact query', qrContactQuery);
+            console.log('new contact query variables', variables);
+            AsyncStorage.getItem('@MySuperStore:contacts').then(
               storedContacts => {
                 let contacts = null;
                 let newContacts = [];
@@ -65,11 +67,11 @@ export default class QRContactScannerModalNavigation extends React.Component {
                 } else {
                   let existingContacts = JSON.parse(storedContacts) || [];
                   console.log(
-                    "how many existing contacts",
+                    'how many existing contacts',
                     existingContacts.length
                   );
                   existingContacts.map(existingContact => {
-                    console.log("existing contact", existingContact);
+                    console.log('existing contact', existingContact);
                     if (
                       existingContact &&
                       existingContact.id &&
@@ -93,19 +95,19 @@ export default class QRContactScannerModalNavigation extends React.Component {
                 }
                 let stringifiedContacts = JSON.stringify(contacts);
                 AsyncStorage.setItem(
-                  "@MySuperStore:contacts",
+                  '@MySuperStore:contacts',
                   stringifiedContacts
                 )
                   //AsyncStorage.removeItem('@MySuperStore:tickets')
                   .then(() => {
-                    navigation.navigate("Contacts");
+                    navigation.navigate('Contacts');
                   });
               }
             );
           }
         });
     });
-    let variables = { slug: GQL.slug, uuid: uuid, q: contactRef };
+    let variables = {slug: GQL.slug, uuid: uuid, q: contactRef};
     const scannedContact = await client.executeQuery(
       query(qrContactQuery, variables),
       true
@@ -120,7 +122,7 @@ export default class QRContactScannerModalNavigation extends React.Component {
     ) {
       let contact = scannedContact.data.events[0].attendees[0];
       await addContact(contact);
-      navigation.navigate("Contacts");
+      navigation.navigate('Contacts');
     }
   };
 
