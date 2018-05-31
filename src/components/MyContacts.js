@@ -1,5 +1,5 @@
 import React from 'react';
-import {Clipboard, View, AsyncStorage, StyleSheet} from 'react-native';
+import {Alert, Clipboard, View, AsyncStorage, StyleSheet} from 'react-native';
 import {BorderlessButton, RectButton} from 'react-native-gesture-handler';
 import {sendEmail, openTwitter, getContactTwitter} from '../utils';
 
@@ -36,14 +36,6 @@ export default class MyContacts extends React.Component {
         <SemiBoldText style={{fontSize: FontSizes.title}}>
           My Contacts
         </SemiBoldText>
-        {contacts.map(contact => (
-          <ContactCard
-            key={contact.id + contact.email}
-            contact={contact}
-            tickets={this.props.tickets}
-            style={{marginTop: 10, marginBottom: 10}}
-          />
-        ))}
         {contacts && contacts.length > 0 ? (
           <ClipBorderRadius>
             <RectButton
@@ -56,12 +48,20 @@ export default class MyContacts extends React.Component {
             </RectButton>
           </ClipBorderRadius>
         ) : null}
+        {contacts.map(contact => (
+          <ContactCard
+            key={contact.id + contact.email}
+            contact={contact}
+            tickets={this.props.tickets}
+            style={{marginTop: 10, marginBottom: 10}}
+          />
+        ))}
       </View>
     );
   }
 
   _handlePressCopyEmails = () => {
-    let contacts = '';
+    let contacts = 'first name,last name,email,twitter\n';
     this.state.contacts.map(contact => {
       contacts +=
         contact.firstName +
@@ -74,6 +74,11 @@ export default class MyContacts extends React.Component {
         ' \n';
     });
     Clipboard.setString(contacts);
+    Alert.alert(
+      'Contacts copied',
+      'Your contacts have been copied in csv format, you can past them anywhere',
+      [{text: 'OK', onPress: () => Clipboard.setString(contacts)}]
+    );
   };
 }
 
