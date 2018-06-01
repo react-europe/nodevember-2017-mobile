@@ -39,10 +39,12 @@ class CrewRow extends React.Component {
             {crew.firstName} {crew.lastName}
           </BoldText>
           {crew.role ? <SemiBoldText>{crew.role}</SemiBoldText> : null}
-          <TouchableOpacity
-            onPress={() => this._handlePressCrewTwitter(crew.twitter)}>
-            <RegularText>@{crew.twitter}</RegularText>
-          </TouchableOpacity>
+          {crew.twitter && crew.twitter !== '' ? (
+            <TouchableOpacity
+              onPress={() => this._handlePressCrewTwitter(crew.twitter)}>
+              <RegularText>@{crew.twitter}</RegularText>
+            </TouchableOpacity>
+          ) : null}
         </View>
       </View>
     );
