@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   View,
+  AsyncStorage,
   LayoutAnimation,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
@@ -17,6 +18,7 @@ import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 
+import {GQL} from '../constants';
 import {Colors, Layout} from '../constants';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {getContactTwitter} from '../utils';
@@ -71,7 +73,27 @@ class Attendees extends React.Component {
 class DeferredAttendeesContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
+    uuid: '',
   };
+
+  constructor(props) {
+    super(props);
+    this._getUuid();
+  }
+
+  async _getUuid() {
+    const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+    let tickets = JSON.parse(value) || [];
+    let uuid = '';
+    tickets.map(ticket => {
+      ticket.checkinLists.map(ch => {
+        if (ch.mainEvent) {
+          uuid = ticket.uuid;
+          this.setState({uuid: uuid});
+        }
+      });
+    });
+  }
 
   componentDidMount() {
     if (this.state.ready) {
@@ -90,76 +112,80 @@ class DeferredAttendeesContent extends React.Component {
     }
     const {query} = this.props;
     const cleanedQuery = query.toLowerCase().trim();
-
+    const uuid = this.state.uuid;
+    const vars = {slug: GQL.slug, q: 'a', uuid: uuid};
+    console.log(GET_ATTENDEES, vars);
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
-        <Query query={GET_ATTENDEES}>
-          {({loading, error, data}) => {
-            if (error) {
-              return <Text>Error ${error}</Text>;
-            }
+        {uuid != '' ? (
+          <Query query={GET_ATTENDEES} variables={vars}>
+            {({loading, error, data}) => {
+              if (error) {
+                return <Text>Error ${error}</Text>;
+              }
 
-            const attendees =
-              data && data.events && data.events[0]
-                ? data.events[0].attendees
-                : [];
-            let attendeesData;
-            if (cleanedQuery === '') {
-              attendeesData = _.orderBy(
-                attendees,
-                attendee => `${attendee.firstName} ${attendee.lastName}`,
-                ['asc']
+              const attendees =
+                data && data.events && data.events[0]
+                  ? data.events[0].attendees
+                  : [];
+              let attendeesData;
+              if (cleanedQuery === '') {
+                attendeesData = _.orderBy(
+                  attendees,
+                  attendee => `${attendee.firstName} ${attendee.lastName}`,
+                  ['asc']
+                );
+              } else {
+                const filteredAttendees = [];
+                const attendeesSearchRankingScore = {};
+                attendees.forEach(attendee => {
+                  const fullName = `${attendee.firstName} ${attendee.lastName}`;
+                  const matchesName = fullName
+                    .toLowerCase()
+                    .trim()
+                    .includes(cleanedQuery);
+                  const matchesEmail = attendee.email
+                    .toLowerCase()
+                    .trim()
+                    .includes(cleanedQuery);
+                  const matchesTwitter = getContactTwitter(attendee)
+                    .toLowerCase()
+                    .trim()
+                    .includes(cleanedQuery);
+
+                  attendeesSearchRankingScore[`${attendee.id}`] = 0;
+                  if (matchesName || matchesEmail || matchesTwitter) {
+                    filteredAttendees.push(attendee);
+                  }
+                  if (matchesName) {
+                    attendeesSearchRankingScore[`${attendee.id}`] += 1;
+                  }
+                  if (matchesEmail) {
+                    attendeesSearchRankingScore[`${attendee.id}`] += 1;
+                  }
+                  if (matchesTwitter) {
+                    attendeesSearchRankingScore[`${attendee.id}`] += 1;
+                  }
+                });
+                const sortedFilteredAttendees = _.orderBy(
+                  filteredAttendees,
+                  attendee => attendeesSearchRankingScore[`${attendee.id}`],
+                  ['desc']
+                );
+                attendeesData = sortedFilteredAttendees;
+              }
+
+              return (
+                <AttendeesSearchResults
+                  attendees={attendeesData}
+                  onPress={this._handlePressRow}
+                  searchQuery={cleanedQuery}
+                  isLoading={loading}
+                />
               );
-            } else {
-              const filteredAttendees = [];
-              const attendeesSearchRankingScore = {};
-              attendees.forEach(attendee => {
-                const fullName = `${attendee.firstName} ${attendee.lastName}`;
-                const matchesName = fullName
-                  .toLowerCase()
-                  .trim()
-                  .includes(cleanedQuery);
-                const matchesEmail = attendee.email
-                  .toLowerCase()
-                  .trim()
-                  .includes(cleanedQuery);
-                const matchesTwitter = getContactTwitter(attendee)
-                  .toLowerCase()
-                  .trim()
-                  .includes(cleanedQuery);
-
-                attendeesSearchRankingScore[`${attendee.id}`] = 0;
-                if (matchesName || matchesEmail || matchesTwitter) {
-                  filteredAttendees.push(attendee);
-                }
-                if (matchesName) {
-                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
-                }
-                if (matchesEmail) {
-                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
-                }
-                if (matchesTwitter) {
-                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
-                }
-              });
-              const sortedFilteredAttendees = _.orderBy(
-                filteredAttendees,
-                attendee => attendeesSearchRankingScore[`${attendee.id}`],
-                ['desc']
-              );
-              attendeesData = sortedFilteredAttendees;
-            }
-
-            return (
-              <AttendeesSearchResults
-                attendees={attendeesData}
-                onPress={this._handlePressRow}
-                searchQuery={cleanedQuery}
-                isLoading={loading}
-              />
-            );
-          }}
-        </Query>
+            }}
+          </Query>
+        ) : null}
       </AnimatableView>
     );
   }

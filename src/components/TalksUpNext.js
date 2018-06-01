@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import {GQL} from '../constants';
 
 import {RegularText, SemiBoldText} from './StyledText';
 import TalkCard from './TalkCard';
@@ -33,8 +34,11 @@ export default class TalksUpNext extends React.Component {
     };
   }
   componentDidMount() {
-    let q = `{
-  events(slug: "reacteurope-2018") {
+    let q =
+      `{
+  events(slug: "` +
+      GQL.slug +
+      `") {
     id
     status {
       hasEnded
