@@ -33,7 +33,7 @@ class TicketInstructions extends React.Component {
           )}>
           <View
             style={{
-              backgroundColor: '#4d5fab',
+              backgroundColor: Colors.blue,
               padding: 10,
               paddingTop: Layout.headerHeight - 10,
               justifyContent: 'center',
