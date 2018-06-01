@@ -211,9 +211,12 @@ export default class Details extends React.Component {
             )}
             {talk ? (
               <SemiBoldText style={styles.sectionHeader}>
-                {talk && talk.type === 0
-                  ? 'Talk description'
-                  : 'Workshop description'}
+                {talk && talk.type === 0 ? 'Talk description' : null}
+                {talk && talk.type === 1 ? 'Workshop description' : null}
+                {talk && talk.type === 6 ? 'Panel description' : null}
+                {talk && talk.type !== 6 && talk.type !== 0 && talk.type !== 1
+                  ? 'Description'
+                  : null}
               </SemiBoldText>
             ) : null}
             {talk ? (
@@ -227,7 +230,7 @@ export default class Details extends React.Component {
             {talkScreen && speakers.length > 0 ? (
               <View>
                 <SemiBoldText style={styles.sectionHeader}>
-                  {talk.type === 0 ? 'Speakers' : 'Trainers'}
+                  {talk.type === 1 ? 'Trainers' : 'Speakers'}
                 </SemiBoldText>
 
                 {speakers.map(speaker => (
