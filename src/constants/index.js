@@ -22,7 +22,7 @@ export const Layout = {
 };
 
 export const Colors = {
-  blue: '#4d5fab',
+  blue: '#666',
   faint: '#7a7a7a',
 };
 
@@ -41,7 +41,10 @@ export const FontSizes = {
 
 export const GQL = {
   uri: 'https://www.react-europe.org/gql',
-  slug: 'reacteurope-2018',
+  // slug: "reacteurope-2018"
+  // uri: "http://192.168.1.32:4449/gql",
+  //   uri: "https://4fc27a10.ngrok.io/gql",
+  slug: 'hec-seed-2018',
   // uri: "http://192.168.1.32:4449/gql",
   //    uri: "https://a6bb05ac.ngrok.io",
   //    slug: "cluster-test"

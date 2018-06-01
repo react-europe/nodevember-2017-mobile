@@ -71,17 +71,12 @@ class Home extends React.Component {
                   Thank you for joining us!
                 </SemiBoldText>
                 <SemiBoldText style={styles.headerTextSmall}>
-                  See you in May, 2019!
+                  See you next year!
                 </SemiBoldText>
               </ShowWhenConferenceHasEnded>
 
               <HideWhenConferenceHasEnded>
-                <SemiBoldText style={styles.headerText}>
-                  May 17th to 18th (Conference)
-                </SemiBoldText>
-                <SemiBoldText style={styles.headerText}>
-                  May 15th to 16th (Workshops)
-                </SemiBoldText>
+                <SemiBoldText style={styles.headerText}>June 6th</SemiBoldText>
                 <SemiBoldText style={styles.headerText}>
                   Paris, France
                 </SemiBoldText>
