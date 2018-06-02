@@ -1,9 +1,9 @@
 import React from 'react';
-import { Alert, AsyncStorage } from 'react-native';
-import { Permissions, Notifications } from 'expo';
+import {Alert, AsyncStorage} from 'react-native';
+import {Permissions, Notifications} from 'expo';
 import QRScreen from './QRScreen';
-import { query } from 'urql';
-import { GQL } from '../../constants';
+import {query} from 'urql';
+import {GQL} from '../../constants';
 
 import client from '../../utils/gqlClient';
 
@@ -28,6 +28,7 @@ query events($slug: String!, $uuid: String!){
       uuid
       id
       type
+      canCheckin
 staffCheckinLists {
     id
     name
@@ -50,6 +51,7 @@ mutation updateAttendee($uuid: String!, $expoPushToken: String!) {
     lastName
     id
     email
+    canCheckin
   }
 }
 `;
@@ -61,10 +63,7 @@ export default class QRScannerModalNavigation extends React.Component {
 
   async setTickets(tickets) {
     try {
-      await AsyncStorage.setItem(
-        '@MySuperStore:tickets',
-        tickets
-      );
+      await AsyncStorage.setItem('@MySuperStore:tickets', tickets);
     } catch (err) {
       console.log(err);
       return [];
@@ -72,7 +71,7 @@ export default class QRScannerModalNavigation extends React.Component {
   }
 
   async registerForPushNotificationsAsync(uuid) {
-    const { status: existingStatus } = await Permissions.getAsync(
+    const {status: existingStatus} = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );
     let finalStatus = existingStatus;
@@ -82,7 +81,7 @@ export default class QRScannerModalNavigation extends React.Component {
     if (existingStatus !== 'granted') {
       // Android remote notification permissions are granted during the app
       // install, so this will only ask on iOS
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS);
       finalStatus = status;
     }
 
@@ -93,7 +92,7 @@ export default class QRScannerModalNavigation extends React.Component {
 
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
-    const variables = { uuid: uuid, expoPushToken: token };
+    const variables = {uuid: uuid, expoPushToken: token};
     client
       .executeQuery(query(updatePushTokenQuery, variables), true)
       .then(function(value) {
@@ -107,9 +106,9 @@ export default class QRScannerModalNavigation extends React.Component {
       return;
     }
 
-    this.setState({ loading: true });
+    this.setState({loading: true});
 
-    let variables = { slug: GQL.slug, uuid: data.data };
+    let variables = {slug: GQL.slug, uuid: data.data};
     let navigation = this.props.navigation;
     try {
       let result = await client.executeQuery(query(qrQuery, variables), true);
@@ -140,7 +139,7 @@ export default class QRScannerModalNavigation extends React.Component {
         tickets = [me];
       } else {
         let existingTickets = JSON.parse(value) || [];
-        existingTickets.map((ticket) => {
+        existingTickets.map(ticket => {
           if (ticket && me && me.ref && ticket.ref === me.ref) {
             found = true;
             newTickets.push(me);
@@ -173,7 +172,7 @@ export default class QRScannerModalNavigation extends React.Component {
     } catch (e) {
       console.log(e);
     } finally {
-      this.setState({ loading: false });
+      this.setState({loading: false});
     }
   };
 
