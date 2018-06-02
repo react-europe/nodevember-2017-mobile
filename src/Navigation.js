@@ -145,6 +145,8 @@ const PrimaryTabNavigator = TabNavigator(
     Menu: {screen: MenuNavigation},
   },
   {
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: 'bottom',
     navigationOptions: ({navigation}) => ({
       tabBarIcon: ({focused, tintColor}) => {
         const {routeName} = navigation.state;
