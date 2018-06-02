@@ -149,7 +149,7 @@ class DeferredHomeContent extends React.Component {
     const tix = this.state.tickets || [];
     let isStaff = false;
     tix.map(ticket => {
-      if (ticket && ticket.type === 4) {
+      if (ticket && (ticket.type === 4 || ticket.canCheckin)) {
         isStaff = true;
       }
     });
