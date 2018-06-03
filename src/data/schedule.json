@@ -1,734 +1,1318 @@
 {
     "events": [
       {
-        "cocUrl": "http://gdurl.com/RDbh",
-        "collaborators": [
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/collaborators/62/avatar.png",
-            "firstName": "Jérémie",
-            "github": "",
-            "id": 62,
-            "lastName": "Zarka",
-            "role": "co-director MBA",
-            "twitter": "jzrk",
-            "url": "https://twitter.com/jzrk"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/collaborators/65/avatar.png",
-            "firstName": "Ziv",
-            "github": "",
-            "id": 65,
-            "lastName": "Ilan",
-            "role": "organizer",
-            "twitter": "",
-            "url": "https://www.linkedin.com/in/ziv-ilan-b0bb7a149/"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/collaborators/66/avatar.png",
-            "firstName": "Alix",
-            "github": "",
-            "id": 66,
-            "lastName": "Camus",
-            "role": "organizer",
-            "twitter": "",
-            "url": "http://www.linkedin.com/in/alixcamus"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/collaborators/74/avatar.png",
-            "firstName": "Judith",
-            "github": "",
-            "id": 74,
-            "lastName": "Li",
-            "role": "co-director Grande École",
-            "twitter": "",
-            "url": "https://www.linkedin.com/in/judithwli/"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/collaborators/75/avatar.png",
-            "firstName": "Nadia",
-            "github": "",
-            "id": 75,
-            "lastName": "Stand",
-            "role": "organizer",
-            "twitter": "",
-            "url": "https://www.linkedin.com/in/nadiastand/"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/collaborators/76/avatar.png",
-            "firstName": "Paul",
-            "github": "",
-            "id": 76,
-            "lastName": "Hanke",
-            "role": "organizer",
-            "twitter": "",
-            "url": "https://www.linkedin.com/in/paul-hanke/"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/collaborators/77/avatar.png",
-            "firstName": "X-Cabinet",
-            "github": "",
-            "id": 77,
-            "lastName": "Startup",
-            "role": "co-organizer",
-            "twitter": "CabinetStartUp",
-            "url": "https://www.cabinetstartup.fr"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/collaborators/78/avatar.png",
-            "firstName": "Goeffroy",
-            "github": "",
-            "id": 78,
-            "lastName": "De Meyer",
-            "role": "co-organizer X",
-            "twitter": "",
-            "url": ""
-          }
-        ],
-        "description": "Join HEC Seed, the biggest seed-stage startup event organized for the Startup scene in France and outside by HEC Paris students! We are a conference with the mission to foster interest around entrepreneurship and accelerate innovative projects within the HEC and Station F community.\n\nWe connect and empower young entrepreneurs, students, investors and other professionals through a dynamic mix of activities encompassing the following:\n\n- Pitch competitions: we are featuring 10 startups selected out of 60 applicants through two competitions with up to 5,000€ in prize money\n\n- Panels: we have two panels in AI and Fintech, featuring entrepreneurs and industry experts as speakers\n\n- Networking: the entire event will be organized to facilitate networking, culminating in a cocktail for all participants, speakers and jury members\n\nThe event will take place on June 6th, 2018 at Station F in Paris.",
-        "endDate": "Wed Jun 06 18:00:00 +0000 2018",
+        "cocUrl": "http://confcodeofconduct.com/",
+        "collaborators": [],
+        "description": "Pour 2018 vos meetups se réunissent pour organiser une journée sur le thème du Best Of des talks de l'année. Nous vous proposons un mixte des meilleurs conférences, de nouveaux sujets et pleins de surprises...",
+        "endDate": "Thu Jun 07 22:00:00 +0000 2018",
         "groupedSchedule": [
           {
-            "date": "Wed Jun 06 11:00:00 +0000 2018",
+            "date": "Thu Jun 07 08:00:00 +0000 2018",
             "slots": [
               {
-                "description": "Registration at the front door with an introduction of event & MC's on the Master Stage.",
-                "id": 1281,
+                "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
+                "id": 1556,
                 "keynote": null,
-                "length": 30,
+                "length": 180,
                 "likes": 0,
                 "room": null,
-                "speakers": [],
-                "startDate": "Wed Jun 06 11:00:00 +0000 2018",
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1487/avatar.png",
+                    "bio": "Co-Founder & CTO at @jsrepublic",
+                    "github": "",
+                    "id": 1487,
+                    "name": "Mathieu Breton",
+                    "twitter": "MatBreton"
+                  },
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1488/avatar.png",
+                    "bio": "ReactJS french web developer, singer-songwriter based in the Paris suburb. I let myself guided by stoic guys like Epictetus, Marcus-Aurelius and Seneca.",
+                    "github": "",
+                    "id": 1488,
+                    "name": "Michael Romain",
+                    "twitter": "michaelDotJS"
+                  }
+                ],
+                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Registration & Welcome",
-                "type": 8,
+                "title": "GraphQL par la pratique",
+                "type": 1,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
-                "id": 1289,
+                "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
+                "id": 1557,
+                "keynote": null,
+                "length": 180,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1489/avatar.png",
+                    "bio": "▶︎Advocate for Developers & #OSS◀︎ Sr. Engineer @SFEIR • GDE for the @angular @actionsongoogle @googlecloud teams • Member of the @nodejs Foundation • DMs open.",
+                    "github": "",
+                    "id": 1489,
+                    "name": "Wassim Chegham",
+                    "twitter": "manekinekko"
+                  },
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1490/avatar.png",
+                    "bio": "Developer Advocate at @Google for @GoogleCloud during the day, and @ApacheGroovy programming language project PMC Chair & @java_champions at night",
+                    "github": "",
+                    "id": 1490,
+                    "name": "Guillaume Laforge",
+                    "twitter": "glaforge"
+                  }
+                ],
+                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Chatbots, et si on passait la seconde ?",
+                "type": 1,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Venez découvrir avec nous ReasonML, ce nouveau langage* créé par Jordan Walke, le créateur de React. Vous êtes à l’aise avec le JavaScript moderne, vous avez pris goût au typage statique, vous allez adorer ! \nhttps://reasonml.github.io/docs/en/what-and-why.html \nPré-requis:\nVenir avec un laptop et les outils ReasonML installés. Nous aurons pas le temps de les installer pendant le workshop. Vous trouverez tout ce qu’il vous faut ici: https://reasonml.github.io/ (attention surtout pour les utilisateurs de Windows)\nconnaitre React et le JavaScript moderne. Aucune connaissance de ReasonML ou de OCaml n’est nécessaire, mais sans aucune notions de programmation fonctionnelle et de typage statique vous risquez d’être vite un peu perdus",
+                "id": 1558,
+                "keynote": null,
+                "length": 180,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1491/avatar.png",
+                    "bio": "@wgoedel",
+                    "github": "",
+                    "id": 1491,
+                    "name": "Wolfgang Goedel",
+                    "twitter": "wgoedel"
+                  }
+                ],
+                "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Découvrir Reason-React",
+                "type": 1,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Présentation\nIntroduction aux Progressive Web Apps,\nOutils indispensables pour vous aider à développer une PWA,\nAPIs permettant à votre PWA de s’intégrer dans l’écosystème de votre téléphone,\nRessources pour se documenter et rester au fait des évolutions.\nHands-on\nImplémenter un mode offline,\nRendre l’appli apte à s’installer sur un téléphone,\nProposer à l’utilisateur de l’installer,\nPush event & Notification.\nPré-requis\nNiveau correct en JS\nGit et NodeJS installés",
+                "id": 1559,
+                "keynote": null,
+                "length": 1,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1493/avatar.png",
+                    "bio": "Tech Lead Front @sfeir",
+                    "github": "",
+                    "id": 1493,
+                    "name": "Fabien Zibi",
+                    "twitter": "_faz"
+                  }
+                ],
+                "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Ma première Progressive Web App",
+                "type": 1,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              }
+            ],
+            "title": "Thursday"
+          },
+          {
+            "date": "Fri Jun 08 06:00:00 +0000 2018",
+            "slots": [
+              {
+                "description": "Pour ne pas commencer la journée le ventre vide.",
+                "id": 1550,
+                "keynote": null,
+                "length": 70,
+                "likes": 0,
+                "room": null,
+                "speakers": [],
+                "startDate": "Fri Jun 08 06:00:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Accueil et petit-déjeuner",
+                "type": 3,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Bienvenue",
+                "id": 1551,
+                "keynote": null,
+                "length": 10,
+                "likes": 0,
+                "room": null,
+                "speakers": [],
+                "startDate": "Fri Jun 08 07:00:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Intro",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "The collection of modern web browsers APIs and set of best practices on creating the applications turned into a new software creation methodology called Progressive Web Apps (PWA). The Service Worker API is a key API of the whole concept. Let me unleash its power for you! But with great power comes great responsibility - trivially, but true: I'll show the examples of how easy the \"Progressive\" part of the PWA term could become \"Regressive\", how to fix this, and how to test our Service Worker before deploying your app.",
+                "id": 1087,
                 "keynote": null,
                 "length": 30,
                 "likes": 0,
                 "room": null,
                 "speakers": [
                   {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1476/avatar.png",
-                    "bio": "In 1999, Fred Potter created CIRPACK, a telecommunications supplier, later bought by TECHNICOLOR; and WITHINGS, sold to NOKIA, before creating NETATMO in 2011.\nHis vision: a company where every employee knows how the business and projects grow and where daily life is driven by a strong sense of innovation, empowerment, hard work and sharing.",
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1065/avatar.png",
+                    "bio": "Maxim Salnikov is Oslo-based Web UI Engineer, a Google Developer Expert in Web Technologies and Angular. He develops complex web applications since the end of the last century and has extensive experience with all aspects of web front-end: UX/UI prototyping, HTML/CSS/JS, main frameworks, progressive web apps.\n\nMaxim is a founder and active contributor to two conferences: Mobile Era and ngVikings - Nordics’ main conferences for mobile and Angular developers respectively. Also, he leads Norway’s l",
+                    "github": "webmaxru",
+                    "id": 1065,
+                    "name": "Maxim Salnikov",
+                    "twitter": "webmaxru"
+                  }
+                ],
+                "startDate": "Fri Jun 08 07:10:00 +0000 2018",
+                "tags": "pwa, service worker, progressive web apps, application shell, push notifications, cache api",
+                "talk": null,
+                "title": "Tame your Service Worker before your Progressive Web App go into the wild",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Slack is the degree of freedom in a company that allows it to change.\n\nAre you in a situation where you are:\n\n* practicing Scrum or the like?\n* developing 24/7 struggling to keep your head above water to meet demands?\n* overcommitting in your iterations?\n* committing to your exact velocity but still not managing to deliver it all?\n* experiencing inconsistent amount of work finished between iterations?\n* feeling your agility is fragile?\n* frustrated that there is no time to learn new things?\n\n Would you like to know of a simple yet very effective way to solve all these impediments and better yet, improve and learn continuously and be more productive while being happy? Come and join me at this session, and hopefully you can leave it with the necessary knowledge to explain to others why they should **cut you some slack**.",
+                "id": 1493,
+                "keynote": null,
+                "length": 25,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1432/avatar.png",
+                    "bio": "Full Stack Developer, Pragmatic Coach, Hip Hop artist, French of Lebanese origin, raised in Nigeria, currently residing in Paris, France. R&D @ Murex S.A.S.",
                     "github": "",
-                    "id": 1476,
-                    "name": "Fred  Potter",
-                    "twitter": "netatmo"
+                    "id": 1432,
+                    "name": "Morgan Kobeissi",
+                    "twitter": "mc_moe"
+                  }
+                ],
+                "startDate": "Fri Jun 08 07:10:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Cut me some Slack",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Implementing Mobile Payment APIs will not just improve the user experience, but increase the chance of maintaining your users. Thanks to the safety nature of the process of payment, the APIs will make the decision of clicking \"pay\" easier like never before.\nIn this presentation we will discuss the basics of implementing the APIs, the available gateways, and show some demos and how they resonate in the era of PWA.\nWe will also discuss the current limitations, and how the future will look like towards standardizing those APIs.",
+                "id": 1088,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1066/avatar.png",
+                    "bio": "International technical speaker, Google developer expert (GDE), trainer and developer advocate. Passionate about Web and Mobile apps development, including PWA, offline-first design, in-browser database, and cross platform tools. Also interested in Android internals such as building custom ROMs and customize AOSP for embedded devices. www.amahdy.net",
+                    "github": "amahdy",
+                    "id": 1066,
+                    "name": "AMahdy Abdelaziz",
+                    "twitter": "amahdy7"
+                  }
+                ],
+                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
+                "tags": "pwa, web payment, api, web components, mobile",
+                "talk": null,
+                "title": "Web Payment APIs",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Aujourd'hui, le mot UX représente bien trop souvent un concept abstrait. Nous allons donc découvrir quels sont les principes de bases de l'UX ? Quels sont les erreurs classiques que l'on peux trouver dans les applications mobiles ? Comment adapter l'UX d'un site web sur un device mobile ?",
+                "id": 1427,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1393/avatar.png",
+                    "bio": "Digital enthusiast I love solving problems. By working closely with potential users I therefore create easy to use products with great user experience.",
+                    "github": "",
+                    "id": 1393,
+                    "name": "Caroline Besnard",
+                    "twitter": ""
                   },
                   {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1485/avatar.png",
-                    "bio": "Since september 2016, Erwan Sconet is an assistant professor at the Center for Applied Mathematics (CMAP) in Ecole Polytechnique near Paris. His researches interests focus on theoretical statistics and Machine Learning with a particular emphasis on nonparametric estimates. He has done a PhD thesis on a particular algorithm of Machine Learning called random forests, under the supervision of Gérard Biau (LSTA - Paris 6) and Jean-Philipe Vert (Institut Curie).",
-                    "github": "erwanscornet",
-                    "id": 1485,
-                    "name": "Erwan Scornet",
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1394/avatar.png",
+                    "bio": "UX Designer & Scrum Master chez BAM",
+                    "github": "",
+                    "id": 1394,
+                    "name": "Héloïse Bonan",
                     "twitter": ""
                   }
                 ],
-                "startDate": "Wed Jun 06 11:15:00 +0000 2018",
+                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Can AI help startups develop a competitive advantage in today’s business environment?",
-                "type": 6,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
-                "id": 1548,
-                "keynote": null,
-                "length": 40,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1480/avatar.png",
-                    "bio": "Sébastien Bourguignon is Principal & Lead Digital Influencer at Margo and is an expert in digital and blockchain technology. He advises his clients in their digital transformation and their projects of ICO or blockchain. Passionate about digital, innovation and startups, he has also created a blog to share news on these topics. He created the project #PortraitDeStartuper in which he involves startupers to present their return of experience in their entrepreneurial adventure.",
-                    "github": "",
-                    "id": 1480,
-                    "name": "Sébastien Bourguignon",
-                    "twitter": "sebbourguignon"
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1482/avatar.png",
-                    "bio": "Conquer the future through BlockChain. @DomRaider is the bridge between the world of assets and the potential of #blockchain. Follow also @Auctionity @YoudotApp",
-                    "github": "",
-                    "id": 1482,
-                    "name": "Tristan Colombet",
-                    "twitter": "domraider"
-                  }
-                ],
-                "startDate": "Wed Jun 06 11:50:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship",
-                "type": 6,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "5 selected startups pitch for up to 5,000€ prize money.\n\nStartups will pitch 5 minutes presentation plus 3 minutes Q&A in front of our jury composed of entrepreneurs and investors. The competition is sector agnostic with startups at various stages (love money, pre-seed, seed), which we'll segregate into two competitions to ensure fair competition.",
-                "id": 1282,
-                "keynote": null,
-                "length": 50,
-                "likes": 0,
-                "room": null,
-                "speakers": [],
-                "startDate": "Wed Jun 06 12:40:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Pitch Competition - Pre-Seed",
+                "title": "How to distinguish PWA's UX from WEB app's UX",
                 "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Snacks and mingling.",
-                "id": 1283,
+                "description": "Pause café",
+                "id": 1552,
                 "keynote": null,
                 "length": 30,
                 "likes": 0,
                 "room": null,
                 "speakers": [],
-                "startDate": "Wed Jun 06 13:20:00 +0000 2018",
+                "startDate": "Fri Jun 08 08:30:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Break",
-                "type": 5,
+                "title": "Pause",
+                "type": 2,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Panel discussing the role of disruptive fintech services and their relationship to traditional banks.",
-                "id": 1284,
+                "description": "Faire des application web universelles n'est pas si facile, pourtant elles ont beaucoup d'avantages. Je montrerai comment en faire une avec Vue.js et le module `vue-server-renderer`. Nous verrons les bonne pratiques, ce qu'il faut éviter de faire et comment rendre ce processus simple et fun.",
+                "id": 1494,
+                "keynote": null,
+                "length": 25,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1433/avatar.png",
+                    "bio": "Author of @nuxt_js & @terra_js • Community partner of @vuejs • Working on @cmty_io",
+                    "github": "",
+                    "id": 1433,
+                    "name": "Sébastien Chopin",
+                    "twitter": "Atinux"
+                  }
+                ],
+                "startDate": "Fri Jun 08 09:00:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Nuxt.js",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Alors qu’Android est la première plateforme mobile du monde et que java/kotlin sont les langages de prédilection des applications sur cette plateforme pourquoi depuis 2 ans Google pousse les entreprises et les développeurs à porter leurs applications vers les PWA ? Pourquoi ce paradoxe ?",
+                "id": 1425,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1391/avatar.png",
+                    "bio": "Embedded & IoT Business Line Manager",
+                    "github": "",
+                    "id": 1391,
+                    "name": "Cédric Ravalec",
+                    "twitter": "cravalec"
+                  }
+                ],
+                "startDate": "Fri Jun 08 09:20:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Comprendre la stratégie de Google avec les PWA",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Les specs WebVR et WebGL et les récentes APIs HTML5 ont permis aux navigateurs d'afficher des contextes OpenGL et d'y connecter du matériel de réalité virtuelle : casques, contrôleurs de jeux ou simples Cardboard permettent d'enrichir l'expérience web sur ordinateurs comme sur mobiles.\n\nMon ami Pierre Charles et moi-même avons décidé de mener ce projet au sein de notre parcours universitaire en mêlant A-Frame, techno extrêmement jeune développée par la fondation Mozilla, et Vue2, complètement à l'aveugle. Lorsque nous avons lancé le projet, nous étions à première vue des précurseurs sur l'utilisation de ces deux technos dans un projet qui ne relève pas que du prototype.\n\nJe proposerai aujourd'hui de revenir sur le développement de ce projet afin de discuter de l'avenir de la VR dans le développement Web.",
+                "id": 1426,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1392/avatar.png",
+                    "bio": "Ancien étudiant à l'IMAC, gentil, attentionné, doux, un peu niais et surtout j'aime le houmous. Développeur front-end pour @mfg_labs",
+                    "github": "",
+                    "id": 1392,
+                    "name": "Victor Viale",
+                    "twitter": "Koroeskohr"
+                  }
+                ],
+                "startDate": "Fri Jun 08 09:40:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Réalité virtuelle avec VueJS et A-Frame",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Si un de vos collègue vous a déjà dit «Alors là, j'ai utilisé de l'application partielle sur cette fonction que j'ai curryfié en utilisant des fonctions d'ordre supérieur et des closures» et que vous n'avez rien compris, alors ce talk est pour vous.\nLa programmation fonctionnelle présente de nombreux concepts qui viennent des maths. Et cela fait peur ! Mais appliqué à l'informatique, c'est en réalité très simple !\nDurant ce live-coding consistant à refactorer un code impératif vers un code fonctionel, les conceptes principaux seront introduits uniquement quand cela est utile et expliqués en profondeur.\nÀ la fin de ce talk, les concepts suivants n'auront plus de secrets pour vous :\n- La transparance référenciel\n- Les fonctions comme citoyen de première classe\n- Les fonctions d'ordre supérieur\n- Les closure\n- Le lambda calculus\n- La curryfication\n- L'application partielle\n- La composition de fonction\n- La notation «Point-free»",
+                "id": 1116,
                 "keynote": null,
                 "length": 60,
                 "likes": 0,
                 "room": null,
                 "speakers": [
                   {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1447/avatar.png",
-                    "bio": "Olivier Godement leads startups operations and development in France and Southern Europe for Stripe, a technology company that builds economic infrastructure for the internet. Before joining Stripe in 2014, he created SparkUp, one of France's first business crowdfunding platforms. Olivier is a graduate of SciencesPo and ESSEC.\n\nOlivier will be a speaking in the fintech panel.",
-                    "github": "",
-                    "id": 1447,
-                    "name": "Olivier Godement",
-                    "twitter": "oliviergodement"
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1448/avatar.png",
-                    "bio": "Alexandre Prot (HEC Paris and INSEAD graduate) is a serial entrepreneur and angel investor in Internet of Things (IoT), fintech and SaaS companies. While overseeing financial tasks at Smokio, he had been tremendously frustrated by his banking experience. That’s why he decided to launch Qonto: the banking alternative for entrepreneurs and startups. Qonto raised a seed round of €1.6m  in 2016.\n\nAlexandre will be speaking in the fintech panel.",
-                    "github": "",
-                    "id": 1448,
-                    "name": "Alexandre Prot",
-                    "twitter": "alex_prot"
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1465/avatar.png",
-                    "bio": "Olivier founded 123Investment Managers in 2000 with the desire to democratize access to private equity by opening the asset class to retail investors. 123Investment Managers now has over 70,000 private clients and 1.3 billion euros of assets under management invested in 108 European non-listed companies. Olivier was the CEO of 123Investment Managers until September 2014 and is now Chairman of the Supervisory Board.\n\nOlivier will be speaking in the fintech panel.",
-                    "github": "",
-                    "id": 1465,
-                    "name": "Olivier Goy",
-                    "twitter": "oliviergoy"
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1466/avatar.png",
-                    "bio": "Claire Calmejane joined Lloyds Banking Group in October 2012, serving 28 million customers, where she is currently Director of Innovation and Digital Center of Excellence. She was instrumental in building LBG innovation function and digital people strategy. Prior to joining LBG, Claire has spent 7 years in management consulting. She also led the founding phase of a research program on digital transformation at MIT, Cambridge.\n\nClaire will be speaking in the fintech panel.",
-                    "github": "",
-                    "id": 1466,
-                    "name": "Claire Calmejane",
-                    "twitter": "ccalmeja"
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1469/avatar.png",
-                    "bio": "Jérémie Rosselli is General Manager France at N26 Group.\n\nJérémie will be speaking in the fintech panel.",
-                    "github": "",
-                    "id": 1469,
-                    "name": "Jeremie Rosselli",
-                    "twitter": "JeRosselli"
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1470/avatar.png",
-                    "bio": "Olivier Bossard is the Executive Director of the flagship MSc Finance program at HEC Paris. Prior to his 25 years career in Capital Markets across Paris, London and Frankfurt, Olivier earned an Engineering Degree from Ecole Centrale Paris, with Applied Maths specialization, complemented by a MSc in Maths & Artificial Intelligence (with Cryptography and Neural Networks specialization) from Yokohama National University in Japan.\n\nOlivier will be moderating the fintech panel.",
-                    "github": "",
-                    "id": 1470,
-                    "name": "Olivier Bossard",
-                    "twitter": "olivier_bossard"
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1087/avatar.png",
+                    "bio": "Développeur passionné, CTO @ Zenika, co-organisateur des meetups \"software crafters paris\", \"dojo développement paris\" et d'autres.",
+                    "github": "FaustXVI",
+                    "id": 1087,
+                    "name": "Xavier Detant",
+                    "twitter": "XDetant"
                   }
                 ],
-                "startDate": "Wed Jun 06 13:50:00 +0000 2018",
-                "tags": "",
+                "startDate": "Fri Jun 08 10:20:00 +0000 2018",
+                "tags": "javascript, haskell, programmation fonctionnelle",
                 "talk": null,
-                "title": "FinTech & Banks: Friends or Foe?",
-                "type": 6,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "5 selected startups pitch for up to 5,000€ prize money.\n\nStartups will pitch 5 minutes presentation plus 3 minutes Q&A in front of our jury composed of entrepreneurs and investors. The competition is sector agnostic with startups at various stages (love money, pre-seed, seed), which we'll segregate into two competitions to ensure fair competition.",
-                "id": 1291,
-                "keynote": null,
-                "length": 50,
-                "likes": 0,
-                "room": null,
-                "speakers": [],
-                "startDate": "Wed Jun 06 14:50:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Pitch Competition - Seed Stage",
+                "title": "De Javascript à Haskell : La programmation fonctionnelle expliquée simplement",
                 "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "HEC Innovation was launched to support HEC early-stage entrepreneurs. Alumni from Silicon Valley got together to launch this and offer a financial prize as well as mentorship from top entrepreneurs and executives of Silicon Valley. \nWe are proud to include this prize into HEC Seed event, aligned with the mission of supporting early stage entrepreneurs and the HEC community.\nHEC Innovation will award 25,000€ money prizes to startups which are pre-selected based on an independent judging process. The selected teams will be given a chance to pitch their startups on the HEC Seed stage.",
-                "id": 1285,
+                "description": "Déjeuner",
+                "id": 1553,
                 "keynote": null,
-                "length": 20,
+                "length": 80,
                 "likes": 0,
                 "room": null,
                 "speakers": [],
-                "startDate": "Wed Jun 06 15:40:00 +0000 2018",
+                "startDate": "Fri Jun 08 10:40:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "HEC Innovation Awards Ceremony",
-                "type": 6,
+                "title": "Repas",
+                "type": 4,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "A total of 5,000€ from the HEC Entrepreneurship Center and a Stripe premium package will be awarded to the winners of the two pitch competitions. The exact division of the prize money is TBD based on the stage of startups shortlisted and the industry in which they operate.",
-                "id": 1293,
+                "description": "Après les interfaces tactiles, la détection des gestes, la reconnaissance de la voix, que reste-t-il à explorer pour contrôler nos programmes ?\nDepuis qques années, des bandeaux permettant de capturer les petites ondes électriques emisent par notre cerveau ont fait leur discrète apparition sur le marché. Dans le même temps, les API Web Bluetooth se sont développées, permettant l'exploitation de nombreux nouveaux devices par nous autres développeurs web.\nEt si cette combinaison nous permettait de générer quelque-chose contrôlé par notre cerveau?\nDans ce talk, je vous guiderai dans mon exploration de ce domaine fascinant qu'est la NeuroTech. Nous explorerons le traitement de ses signaux, avec quelques démos interactives. Et le tout dans but bien différent de nos projets habituels : celui de réaliser une installation artistique. J'espère ainsi déclencher la fibre créative aupres de l'audience ;)",
+                "id": 1488,
                 "keynote": null,
                 "length": 20,
                 "likes": 0,
                 "room": null,
-                "speakers": [],
-                "startDate": "Wed Jun 06 16:10:00 +0000 2018",
-                "tags": "",
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1426/avatar.png",
+                    "bio": "Dev & entrepreneur @Toucan_Toco, tech-hippie by night",
+                    "github": "davinov",
+                    "id": 1426,
+                    "name": "David Nowinsky",
+                    "twitter": "davinov"
+                  }
+                ],
+                "startDate": "Fri Jun 08 12:00:00 +0000 2018",
+                "tags": "NeuroTech, Art, code, interface, ui, iot, webbluetooth, traitement du signal, rxjs, d3js",
                 "talk": null,
-                "title": "HEC Seed Awards Ceremony",
-                "type": 6,
+                "title": "De développeur web à artiste du cerveau",
+                "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Networking and fun during the closing cocktail.",
-                "id": 1294,
+                "description": "Si vous codez en React vous utilisez très certainement redux et redux-saga. Pour autant comprenons nous vraiment la mécanique de redux avec ses méthodes dispatch, subscribe, getState ? Savons-nous comment le middleware redux-saga intercepte nos actions pour effectuer des calls API ? Recodons ensemble ces deux librairies pour découvrir ce qui se passe sous le capot!",
+                "id": 1492,
                 "keynote": null,
-                "length": 90,
+                "length": 25,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1431/avatar.png",
+                    "bio": "Mobile engineer @bam_lab",
+                    "github": "",
+                    "id": 1431,
+                    "name": "Aurore Malherbes",
+                    "twitter": "aurorema27"
+                  }
+                ],
+                "startDate": "Fri Jun 08 12:00:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Recodons redux et redux-saga",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "In this talk I will be covering High Order Observables and how to master them. These Observables emit other Observables and require specific operators. I will explain how RxJS Core developers deal with complex Observables orchestration and how you can use this knowledge to take your RxJS skills to new heights!",
+                "id": 1084,
+                "keynote": null,
+                "length": 30,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1062/avatar.png",
+                    "bio": "Gerard is very excited about the future of the Web and JavaScript. Always happy Computer Science Engineer and humble Google Developer Expert. He loves to share his learnings by giving talks, trainings and writing about cool technologies. He loves running AngularZone and GraphQL London, mentoring students and giving back to the community.",
+                    "github": "gsans",
+                    "id": 1062,
+                    "name": "Gerard Sans",
+                    "twitter": "gerardsans"
+                  }
+                ],
+                "startDate": "Fri Jun 08 12:40:00 +0000 2018",
+                "tags": "rxjs 5, schedulers",
+                "talk": null,
+                "title": "Bending time with Schedulers and RxJS 5",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "NPM est le premier point d'entrée dés lors qu'il s'agit de package management pour NodeJS. Son API couvre de multiples fonctionnalités : installation, publication, scripts. \"npm install ...\" est probablement un réflexe, pourtant est-ce que vous savez tout ce que ça implique ?\n\nCette présentation a pour but de décortiquer les scripts exécutés lors d'une installation via NPM et de voir quels détournements sont possibles.",
+                "id": 1431,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1397/avatar.png",
+                    "bio": "Music Computing Lab, The Open University   Ecole Centrale Nantes....",
+                    "github": "",
+                    "id": 1397,
+                    "name": "Thomas Crevoisier",
+                    "twitter": "ThomasC__"
+                  }
+                ],
+                "startDate": "Fri Jun 08 12:40:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Les scripts npm et la sécurité",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Why do we do it? Why do we try so hard? Why are we paying to be here, to listen to people talk? Maybe because we’re life long learners - we want to learn new things? Commune with our own kind? But why? Come examine our motives as developers, the pitfalls we fall into, and the cost of being great.",
+                "id": 1144,
+                "keynote": null,
+                "length": 40,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1112/avatar.png",
+                    "bio": "I'm an Angular Developer Advocate & GDE. My two degrees (Web Design & Development and Psychology) feed my speaking career. I’ve spoken at over 20 conferences Internationally, specialising in motivational soft talks. I'm a weekly panelist on Adventures in Angular and Angular Air, which have a combined following of over 16,000 listeners. I enjoy gaming, scuba diving, and have a toothless dog named Gummy. My DM is always open, come talk sometime.",
+                    "github": "alyssamichelle",
+                    "id": 1112,
+                    "name": "Alyssa Nicoll",
+                    "twitter": "alyssanicoll"
+                  }
+                ],
+                "startDate": "Fri Jun 08 13:20:00 +0000 2018",
+                "tags": "psychology, motivation, developer, soft talk",
+                "talk": null,
+                "title": "Innovating is not about technology, but psychology.",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Suite à une récente key note de Bert Belder concernant l'event loop de NodeJs je peux proposer de revenir sur son intervention et plus généralement sur le fonctionnement de l'event loop + libUv qui sont au coeur du fonctionnement de NodeJs.\n\nÇa permet de revenir sur les briques de bases de Node mais aussi de démystifier un peu certaines choses et de faire la part entre mythes et réalité.",
+                "id": 1432,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1398/avatar.png",
+                    "bio": "Dev full stack Js, NodeJs Evangelist, Lead tech Keymetrics",
+                    "github": "",
+                    "id": 1398,
+                    "name": "Vincent Vallet",
+                    "twitter": ""
+                  }
+                ],
+                "startDate": "Fri Jun 08 13:20:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "NodeJs Event Loop",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Pause café",
+                "id": 1554,
+                "keynote": null,
+                "length": 30,
                 "likes": 0,
                 "room": null,
                 "speakers": [],
-                "startDate": "Wed Jun 06 16:30:00 +0000 2018",
+                "startDate": "Fri Jun 08 14:00:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Cocktail",
-                "type": 5,
+                "title": "Pause",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "On sait tous que les tests sont importants. Mais sont-ils suffisamment bons ? Le mutation testing peut vous montrer les bugs qui ne seraient détectés par vos tests, vous permettant ainsi d’améliorer vos tests.\nCe talk se veut très pratique, je montrerais ce qu’est le mutation testing, comment le mettre en place sur un projet et les résultats obtenus sur un projet réel.",
+                "id": 1360,
+                "keynote": null,
+                "length": 30,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1326/avatar.png",
+                    "bio": "Développeur Scala chez Criteo et formateur indépendant. Fan de programmation fonctionnelle typée mais aussi conférencier, organisateur de meetup et ancien freelance et fondateur de startup.\nOuvert à toute discussion sur la qualité de code, la programmation fonctionnelle, DDD, TDD, l’event sourcing ainsi que l’agilité, le management ou le recrutement ;)",
+                    "github": "loicknuchel",
+                    "id": 1326,
+                    "name": "Loïc Knuchel",
+                    "twitter": "loicknuchel"
+                  }
+                ],
+                "startDate": "Fri Jun 08 14:30:00 +0000 2018",
+                "tags": "tests, qualité de code",
+                "talk": null,
+                "title": "Mutation testing, enfin une bonne mesure de la qualité des tests ?",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Je suppose que vous avez déjà vu cette démo montrant une image morcelée qui s'affiche tellement plus vite en HTTP/2. Si ce n'est pas le cas, je vous la montrerai, et je vous expliquerai brièvement pourquoi c'est aussi rapide.\n\nLe but de cette présentation, c'est surtout de vous montrer comment HTTP/2 est implémenté aujourd'hui, en accès direct ou en reverse proxy. On verra en particulier comment configurer les principaux serveurs Web du marché, comme Apache httpd, nginx, NodeJS ou Tomcat.\nEnfin nous évaluerons l'impact que peut avoir HTTP/2 sur notre code et comment les API Push peuvent faire charger l'image morcelée encore plus rapidement.",
+                "id": 1406,
+                "keynote": null,
+                "length": 30,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1373/avatar.png",
+                    "bio": "Alexis Hassler est développeur Java depuis la fin du siècle dernier. Il exerce son métier comme indépendant, en codant, mais aussi en accompagnant ou formant les entreprises pour les aider à améliorer leur façon de développer et de déployer leurs applications Java.",
+                    "github": "hasalex",
+                    "id": 1373,
+                    "name": "Alexis Hassler",
+                    "twitter": "AlexisHassler"
+                  }
+                ],
+                "startDate": "Fri Jun 08 14:30:00 +0000 2018",
+                "tags": "http, performance",
+                "talk": null,
+                "title": "HTTP/2 en pratique",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "J'ai transformé mon lapin en Tamagotchi ! Démarrer un side-project à côté du travail est souvent (très) difficile ! Pourtant, c'est un des meilleurs moyen de progresser et découvrir de nouveaux horizons. Vous avez envie d'automatiser les tâches récurrentes pour votre petit compagnon d'appartement ? Curieux des possibilité de Raspberry Pi sur l'électronique ? Curieux du temps nécessaire pour créer une appli React Native ? Dans cette présentation, je vous fais un retour d'experience sur mon propre side-project en espérant vous donner envie d'en commencer un.",
+                "id": 1433,
+                "keynote": null,
+                "length": 30,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1399/avatar.png",
+                    "bio": "IT Engineer - Downloading opportunities in Paris. BNP Paribas Investment Partners",
+                    "github": "",
+                    "id": 1399,
+                    "name": "Michel Parreno",
+                    "twitter": ""
+                  }
+                ],
+                "startDate": "Fri Jun 08 15:10:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Transformez votre animal en Tamagotchi !",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Voice interaction is exploding in 2017 and beyond. 1 in 6 American homes have a voice-first device, and the number of people speaking to computers is only going to increase. If we take our web pages and put them on voice, we’ll have frustrated customers who are going to look elsewhere. What, then, are the principles of a good voice UI? In this talk we’ll examine how to build a voice UI that gets the conversation going.",
+                "id": 1434,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1400/avatar.png",
+                    "bio": "I’m a Paris-based programmer working largely in JavaScript, Ruby, and Rails. I’m at Algolia, and was previously creator of Pico, which provides teams the tools to better track their indiviudal career growth goals. I work in voice interface, particularly for the Alexa Skills Kit and Google Assistant, a lot.",
+                    "github": "",
+                    "id": 1400,
+                    "name": "Dustin Coates",
+                    "twitter": "dcoates"
+                  }
+                ],
+                "startDate": "Fri Jun 08 15:10:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Alexa, show me a good voice UI",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Adios amigos!",
+                "id": 1555,
+                "keynote": null,
+                "length": 10,
+                "likes": 0,
+                "room": null,
+                "speakers": [],
+                "startDate": "Fri Jun 08 15:50:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Closing Keynote",
+                "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               }
             ],
-            "title": "Wednesday"
+            "title": "Friday"
           }
         ],
-        "id": 185,
-        "name": "HEC Seed 2018",
-        "offset": 3600,
-        "slug": "hec-seed-2018",
+        "id": 171,
+        "name": "Best Of Web 2018",
+        "offset": 7200,
+        "slug": "best-of-web-2018",
         "speakers": [
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1447/avatar.png",
-            "bio": "Olivier Godement leads startups operations and development in France and Southern Europe for Stripe, a technology company that builds economic infrastructure for the internet. Before joining Stripe in 2014, he created SparkUp, one of France's first business crowdfunding platforms. Olivier is a graduate of SciencesPo and ESSEC.\n\nOlivier will be a speaking in the fintech panel.",
-            "github": "",
-            "id": 1447,
-            "name": "Olivier Godement",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1062/avatar.png",
+            "bio": "Gerard is very excited about the future of the Web and JavaScript. Always happy Computer Science Engineer and humble Google Developer Expert. He loves to share his learnings by giving talks, trainings and writing about cool technologies. He loves running AngularZone and GraphQL London, mentoring students and giving back to the community.",
+            "github": "gsans",
+            "id": 1062,
+            "name": "Gerard Sans",
             "talks": [
               {
-                "description": "Panel discussing the role of disruptive fintech services and their relationship to traditional banks.",
-                "id": 1284,
-                "length": 60,
-                "startDate": "Wed Jun 06 13:50:00 +0000 2018",
-                "title": "FinTech & Banks: Friends or Foe?",
-                "type": 6
-              }
-            ],
-            "twitter": "oliviergodement"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1448/avatar.png",
-            "bio": "Alexandre Prot (HEC Paris and INSEAD graduate) is a serial entrepreneur and angel investor in Internet of Things (IoT), fintech and SaaS companies. While overseeing financial tasks at Smokio, he had been tremendously frustrated by his banking experience. That’s why he decided to launch Qonto: the banking alternative for entrepreneurs and startups. Qonto raised a seed round of €1.6m  in 2016.\n\nAlexandre will be speaking in the fintech panel.",
-            "github": "",
-            "id": 1448,
-            "name": "Alexandre Prot",
-            "talks": [
-              {
-                "description": "Panel discussing the role of disruptive fintech services and their relationship to traditional banks.",
-                "id": 1284,
-                "length": 60,
-                "startDate": "Wed Jun 06 13:50:00 +0000 2018",
-                "title": "FinTech & Banks: Friends or Foe?",
-                "type": 6
-              }
-            ],
-            "twitter": "alex_prot"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1465/avatar.png",
-            "bio": "Olivier founded 123Investment Managers in 2000 with the desire to democratize access to private equity by opening the asset class to retail investors. 123Investment Managers now has over 70,000 private clients and 1.3 billion euros of assets under management invested in 108 European non-listed companies. Olivier was the CEO of 123Investment Managers until September 2014 and is now Chairman of the Supervisory Board.\n\nOlivier will be speaking in the fintech panel.",
-            "github": "",
-            "id": 1465,
-            "name": "Olivier Goy",
-            "talks": [
-              {
-                "description": "Panel discussing the role of disruptive fintech services and their relationship to traditional banks.",
-                "id": 1284,
-                "length": 60,
-                "startDate": "Wed Jun 06 13:50:00 +0000 2018",
-                "title": "FinTech & Banks: Friends or Foe?",
-                "type": 6
-              }
-            ],
-            "twitter": "oliviergoy"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1466/avatar.png",
-            "bio": "Claire Calmejane joined Lloyds Banking Group in October 2012, serving 28 million customers, where she is currently Director of Innovation and Digital Center of Excellence. She was instrumental in building LBG innovation function and digital people strategy. Prior to joining LBG, Claire has spent 7 years in management consulting. She also led the founding phase of a research program on digital transformation at MIT, Cambridge.\n\nClaire will be speaking in the fintech panel.",
-            "github": "",
-            "id": 1466,
-            "name": "Claire Calmejane",
-            "talks": [
-              {
-                "description": "Panel discussing the role of disruptive fintech services and their relationship to traditional banks.",
-                "id": 1284,
-                "length": 60,
-                "startDate": "Wed Jun 06 13:50:00 +0000 2018",
-                "title": "FinTech & Banks: Friends or Foe?",
-                "type": 6
-              }
-            ],
-            "twitter": "ccalmeja"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1469/avatar.png",
-            "bio": "Jérémie Rosselli is General Manager France at N26 Group.\n\nJérémie will be speaking in the fintech panel.",
-            "github": "",
-            "id": 1469,
-            "name": "Jeremie Rosselli",
-            "talks": [
-              {
-                "description": "Panel discussing the role of disruptive fintech services and their relationship to traditional banks.",
-                "id": 1284,
-                "length": 60,
-                "startDate": "Wed Jun 06 13:50:00 +0000 2018",
-                "title": "FinTech & Banks: Friends or Foe?",
-                "type": 6
-              }
-            ],
-            "twitter": "JeRosselli"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1470/avatar.png",
-            "bio": "Olivier Bossard is the Executive Director of the flagship MSc Finance program at HEC Paris. Prior to his 25 years career in Capital Markets across Paris, London and Frankfurt, Olivier earned an Engineering Degree from Ecole Centrale Paris, with Applied Maths specialization, complemented by a MSc in Maths & Artificial Intelligence (with Cryptography and Neural Networks specialization) from Yokohama National University in Japan.\n\nOlivier will be moderating the fintech panel.",
-            "github": "",
-            "id": 1470,
-            "name": "Olivier Bossard",
-            "talks": [
-              {
-                "description": "Panel discussing the role of disruptive fintech services and their relationship to traditional banks.",
-                "id": 1284,
-                "length": 60,
-                "startDate": "Wed Jun 06 13:50:00 +0000 2018",
-                "title": "FinTech & Banks: Friends or Foe?",
-                "type": 6
-              }
-            ],
-            "twitter": "olivier_bossard"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1471/avatar.png",
-            "bio": "Alexis Robert spent four years as an entrepreneur, as the cofounder & CTO of ShowMango, a subscription platform for events in London, and PayinTech (previously known as MyBee), a fintech startup in Paris. He joined Kima Venture in Paris and works to identify and evaluate new investments and to build and improve internal software tools.",
-            "github": "",
-            "id": 1471,
-            "name": "Alexis Robert",
-            "talks": [],
-            "twitter": "ale6_"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1472/avatar.png",
-            "bio": "Philosophical VC in Paris. Global nomad. Did NOT co-found Yahoo! in 1994. General Partner @ Hardware Club.\n\nCheck out his blog \"THE CONSCIENCE OF A VC IN PARIS\" @ http://www.jmyang.com/",
-            "github": "",
-            "id": 1472,
-            "name": "Jerry Yang",
-            "talks": [],
-            "twitter": "jmyang1976"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1473/avatar.png",
-            "bio": "Jean runs Kima Ventures, the venture capital of french billionaire Xavier Niel. They invest in 100 new startups per year all over the world and count 650 companies in their portfolio. He serves at the board of Zenly, Payfit, Side, Ibanfirst, Forest Admin and Sourced.",
-            "github": "",
-            "id": 1473,
-            "name": "Jean de La Rochebrochard",
-            "talks": [],
-            "twitter": "2lr"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1474/avatar.png",
-            "bio": "Lucas works in the seed team at Partech and is in charge of meeting and reaching out to outstanding entrepreneurs all around Europe. Prior to Partech, Lucas was an analyst at Kerala Ventures and also worked in the marketing teams at Tiller Systems, Microsoft and Deezer.",
-            "github": "",
-            "id": 1474,
-            "name": "Lucas Liabeuf",
-            "talks": [],
-            "twitter": "LucasLiabeuf"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1475/avatar.png",
-            "bio": "VC @ ParTech",
-            "github": "",
-            "id": 1475,
-            "name": "Alison Imbert",
-            "talks": [],
-            "twitter": ""
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1476/avatar.png",
-            "bio": "In 1999, Fred Potter created CIRPACK, a telecommunications supplier, later bought by TECHNICOLOR; and WITHINGS, sold to NOKIA, before creating NETATMO in 2011.\nHis vision: a company where every employee knows how the business and projects grow and where daily life is driven by a strong sense of innovation, empowerment, hard work and sharing.",
-            "github": "",
-            "id": 1476,
-            "name": "Fred  Potter",
-            "talks": [
-              {
-                "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
-                "id": 1289,
+                "description": "In this talk I will be covering High Order Observables and how to master them. These Observables emit other Observables and require specific operators. I will explain how RxJS Core developers deal with complex Observables orchestration and how you can use this knowledge to take your RxJS skills to new heights!",
+                "id": 1084,
                 "length": 30,
-                "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-                "title": "Can AI help startups develop a competitive advantage in today’s business environment?",
-                "type": 6
+                "startDate": "Fri Jun 08 12:40:00 +0000 2018",
+                "title": "Bending time with Schedulers and RxJS 5",
+                "type": 0
               }
             ],
-            "twitter": "netatmo"
+            "twitter": "gerardsans"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1477/avatar.png",
-            "bio": "#earlystage #VC @Elaia_Partners We love #tech & #B2B and our #ElaiaFamily 😍",
-            "github": "",
-            "id": 1477,
-            "name": "Armelle de Tinguy",
-            "talks": [],
-            "twitter": "adetinguy"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1478/avatar.png",
-            "bio": "Analyst @otiumventure",
-            "github": "",
-            "id": 1478,
-            "name": "Martin Chochod",
-            "talks": [],
-            "twitter": "martin_chochod"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1480/avatar.png",
-            "bio": "Sébastien Bourguignon is Principal & Lead Digital Influencer at Margo and is an expert in digital and blockchain technology. He advises his clients in their digital transformation and their projects of ICO or blockchain. Passionate about digital, innovation and startups, he has also created a blog to share news on these topics. He created the project #PortraitDeStartuper in which he involves startupers to present their return of experience in their entrepreneurial adventure.",
-            "github": "",
-            "id": 1480,
-            "name": "Sébastien Bourguignon",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1065/avatar.png",
+            "bio": "Maxim Salnikov is Oslo-based Web UI Engineer, a Google Developer Expert in Web Technologies and Angular. He develops complex web applications since the end of the last century and has extensive experience with all aspects of web front-end: UX/UI prototyping, HTML/CSS/JS, main frameworks, progressive web apps.\n\nMaxim is a founder and active contributor to two conferences: Mobile Era and ngVikings - Nordics’ main conferences for mobile and Angular developers respectively. Also, he leads Norway’s l",
+            "github": "webmaxru",
+            "id": 1065,
+            "name": "Maxim Salnikov",
             "talks": [
               {
-                "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
-                "id": 1548,
-                "length": 40,
-                "startDate": "Wed Jun 06 11:50:00 +0000 2018",
-                "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship",
-                "type": 6
-              }
-            ],
-            "twitter": "sebbourguignon"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1482/avatar.png",
-            "bio": "Conquer the future through BlockChain. @DomRaider is the bridge between the world of assets and the potential of #blockchain. Follow also @Auctionity @YoudotApp",
-            "github": "",
-            "id": 1482,
-            "name": "Tristan Colombet",
-            "talks": [
-              {
-                "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
-                "id": 1548,
-                "length": 40,
-                "startDate": "Wed Jun 06 11:50:00 +0000 2018",
-                "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship",
-                "type": 6
-              }
-            ],
-            "twitter": "domraider"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1485/avatar.png",
-            "bio": "Since september 2016, Erwan Sconet is an assistant professor at the Center for Applied Mathematics (CMAP) in Ecole Polytechnique near Paris. His researches interests focus on theoretical statistics and Machine Learning with a particular emphasis on nonparametric estimates. He has done a PhD thesis on a particular algorithm of Machine Learning called random forests, under the supervision of Gérard Biau (LSTA - Paris 6) and Jean-Philipe Vert (Institut Curie).",
-            "github": "erwanscornet",
-            "id": 1485,
-            "name": "Erwan Scornet",
-            "talks": [
-              {
-                "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
-                "id": 1289,
+                "description": "The collection of modern web browsers APIs and set of best practices on creating the applications turned into a new software creation methodology called Progressive Web Apps (PWA). The Service Worker API is a key API of the whole concept. Let me unleash its power for you! But with great power comes great responsibility - trivially, but true: I'll show the examples of how easy the \"Progressive\" part of the PWA term could become \"Regressive\", how to fix this, and how to test our Service Worker before deploying your app.",
+                "id": 1087,
                 "length": 30,
-                "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-                "title": "Can AI help startups develop a competitive advantage in today’s business environment?",
-                "type": 6
+                "startDate": "Fri Jun 08 07:10:00 +0000 2018",
+                "title": "Tame your Service Worker before your Progressive Web App go into the wild",
+                "type": 0
+              }
+            ],
+            "twitter": "webmaxru"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1066/avatar.png",
+            "bio": "International technical speaker, Google developer expert (GDE), trainer and developer advocate. Passionate about Web and Mobile apps development, including PWA, offline-first design, in-browser database, and cross platform tools. Also interested in Android internals such as building custom ROMs and customize AOSP for embedded devices. www.amahdy.net",
+            "github": "amahdy",
+            "id": 1066,
+            "name": "AMahdy Abdelaziz",
+            "talks": [
+              {
+                "description": "Implementing Mobile Payment APIs will not just improve the user experience, but increase the chance of maintaining your users. Thanks to the safety nature of the process of payment, the APIs will make the decision of clicking \"pay\" easier like never before.\nIn this presentation we will discuss the basics of implementing the APIs, the available gateways, and show some demos and how they resonate in the era of PWA.\nWe will also discuss the current limitations, and how the future will look like towards standardizing those APIs.",
+                "id": 1088,
+                "length": 20,
+                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
+                "title": "Web Payment APIs",
+                "type": 0
+              }
+            ],
+            "twitter": "amahdy7"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1087/avatar.png",
+            "bio": "Développeur passionné, CTO @ Zenika, co-organisateur des meetups \"software crafters paris\", \"dojo développement paris\" et d'autres.",
+            "github": "FaustXVI",
+            "id": 1087,
+            "name": "Xavier Detant",
+            "talks": [
+              {
+                "description": "Si un de vos collègue vous a déjà dit «Alors là, j'ai utilisé de l'application partielle sur cette fonction que j'ai curryfié en utilisant des fonctions d'ordre supérieur et des closures» et que vous n'avez rien compris, alors ce talk est pour vous.\nLa programmation fonctionnelle présente de nombreux concepts qui viennent des maths. Et cela fait peur ! Mais appliqué à l'informatique, c'est en réalité très simple !\nDurant ce live-coding consistant à refactorer un code impératif vers un code fonctionel, les conceptes principaux seront introduits uniquement quand cela est utile et expliqués en profondeur.\nÀ la fin de ce talk, les concepts suivants n'auront plus de secrets pour vous :\n- La transparance référenciel\n- Les fonctions comme citoyen de première classe\n- Les fonctions d'ordre supérieur\n- Les closure\n- Le lambda calculus\n- La curryfication\n- L'application partielle\n- La composition de fonction\n- La notation «Point-free»",
+                "id": 1116,
+                "length": 60,
+                "startDate": "Fri Jun 08 10:20:00 +0000 2018",
+                "title": "De Javascript à Haskell : La programmation fonctionnelle expliquée simplement",
+                "type": 0
+              }
+            ],
+            "twitter": "XDetant"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1105/avatar.png",
+            "bio": "GDE Web Technology, je travaille pour Lucca en tant que responsable des composants des produits.\n\nEn dehors du travail, je suis co-fondateur du GDG Nantes, organisateur du DevFest Nantes, co-créateur des Nantes Wit et organisateur de Devoxx4Kids\n\nRetrouvez l'ensemble de mes contributions sur https://github.com/jefBinomed",
+            "github": "jefbinomed",
+            "id": 1105,
+            "name": "Jean-François Garreau",
+            "talks": [],
+            "twitter": "jefbinomed"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1112/avatar.png",
+            "bio": "I'm an Angular Developer Advocate & GDE. My two degrees (Web Design & Development and Psychology) feed my speaking career. I’ve spoken at over 20 conferences Internationally, specialising in motivational soft talks. I'm a weekly panelist on Adventures in Angular and Angular Air, which have a combined following of over 16,000 listeners. I enjoy gaming, scuba diving, and have a toothless dog named Gummy. My DM is always open, come talk sometime.",
+            "github": "alyssamichelle",
+            "id": 1112,
+            "name": "Alyssa Nicoll",
+            "talks": [
+              {
+                "description": "Why do we do it? Why do we try so hard? Why are we paying to be here, to listen to people talk? Maybe because we’re life long learners - we want to learn new things? Commune with our own kind? But why? Come examine our motives as developers, the pitfalls we fall into, and the cost of being great.",
+                "id": 1144,
+                "length": 40,
+                "startDate": "Fri Jun 08 13:20:00 +0000 2018",
+                "title": "Innovating is not about technology, but psychology.",
+                "type": 0
+              }
+            ],
+            "twitter": "alyssanicoll"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1326/avatar.png",
+            "bio": "Développeur Scala chez Criteo et formateur indépendant. Fan de programmation fonctionnelle typée mais aussi conférencier, organisateur de meetup et ancien freelance et fondateur de startup.\nOuvert à toute discussion sur la qualité de code, la programmation fonctionnelle, DDD, TDD, l’event sourcing ainsi que l’agilité, le management ou le recrutement ;)",
+            "github": "loicknuchel",
+            "id": 1326,
+            "name": "Loïc Knuchel",
+            "talks": [
+              {
+                "description": "On sait tous que les tests sont importants. Mais sont-ils suffisamment bons ? Le mutation testing peut vous montrer les bugs qui ne seraient détectés par vos tests, vous permettant ainsi d’améliorer vos tests.\nCe talk se veut très pratique, je montrerais ce qu’est le mutation testing, comment le mettre en place sur un projet et les résultats obtenus sur un projet réel.",
+                "id": 1360,
+                "length": 30,
+                "startDate": "Fri Jun 08 14:30:00 +0000 2018",
+                "title": "Mutation testing, enfin une bonne mesure de la qualité des tests ?",
+                "type": 0
+              }
+            ],
+            "twitter": "loicknuchel"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1373/avatar.png",
+            "bio": "Alexis Hassler est développeur Java depuis la fin du siècle dernier. Il exerce son métier comme indépendant, en codant, mais aussi en accompagnant ou formant les entreprises pour les aider à améliorer leur façon de développer et de déployer leurs applications Java.",
+            "github": "hasalex",
+            "id": 1373,
+            "name": "Alexis Hassler",
+            "talks": [
+              {
+                "description": "Je suppose que vous avez déjà vu cette démo montrant une image morcelée qui s'affiche tellement plus vite en HTTP/2. Si ce n'est pas le cas, je vous la montrerai, et je vous expliquerai brièvement pourquoi c'est aussi rapide.\n\nLe but de cette présentation, c'est surtout de vous montrer comment HTTP/2 est implémenté aujourd'hui, en accès direct ou en reverse proxy. On verra en particulier comment configurer les principaux serveurs Web du marché, comme Apache httpd, nginx, NodeJS ou Tomcat.\nEnfin nous évaluerons l'impact que peut avoir HTTP/2 sur notre code et comment les API Push peuvent faire charger l'image morcelée encore plus rapidement.",
+                "id": 1406,
+                "length": 30,
+                "startDate": "Fri Jun 08 14:30:00 +0000 2018",
+                "title": "HTTP/2 en pratique",
+                "type": 0
+              }
+            ],
+            "twitter": "AlexisHassler"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1391/avatar.png",
+            "bio": "Embedded & IoT Business Line Manager",
+            "github": "",
+            "id": 1391,
+            "name": "Cédric Ravalec",
+            "talks": [
+              {
+                "description": "Alors qu’Android est la première plateforme mobile du monde et que java/kotlin sont les langages de prédilection des applications sur cette plateforme pourquoi depuis 2 ans Google pousse les entreprises et les développeurs à porter leurs applications vers les PWA ? Pourquoi ce paradoxe ?",
+                "id": 1425,
+                "length": 20,
+                "startDate": "Fri Jun 08 09:20:00 +0000 2018",
+                "title": "Comprendre la stratégie de Google avec les PWA",
+                "type": 0
+              }
+            ],
+            "twitter": "cravalec"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1392/avatar.png",
+            "bio": "Ancien étudiant à l'IMAC, gentil, attentionné, doux, un peu niais et surtout j'aime le houmous. Développeur front-end pour @mfg_labs",
+            "github": "",
+            "id": 1392,
+            "name": "Victor Viale",
+            "talks": [
+              {
+                "description": "Les specs WebVR et WebGL et les récentes APIs HTML5 ont permis aux navigateurs d'afficher des contextes OpenGL et d'y connecter du matériel de réalité virtuelle : casques, contrôleurs de jeux ou simples Cardboard permettent d'enrichir l'expérience web sur ordinateurs comme sur mobiles.\n\nMon ami Pierre Charles et moi-même avons décidé de mener ce projet au sein de notre parcours universitaire en mêlant A-Frame, techno extrêmement jeune développée par la fondation Mozilla, et Vue2, complètement à l'aveugle. Lorsque nous avons lancé le projet, nous étions à première vue des précurseurs sur l'utilisation de ces deux technos dans un projet qui ne relève pas que du prototype.\n\nJe proposerai aujourd'hui de revenir sur le développement de ce projet afin de discuter de l'avenir de la VR dans le développement Web.",
+                "id": 1426,
+                "length": 20,
+                "startDate": "Fri Jun 08 09:40:00 +0000 2018",
+                "title": "Réalité virtuelle avec VueJS et A-Frame",
+                "type": 0
+              }
+            ],
+            "twitter": "Koroeskohr"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1393/avatar.png",
+            "bio": "Digital enthusiast I love solving problems. By working closely with potential users I therefore create easy to use products with great user experience.",
+            "github": "",
+            "id": 1393,
+            "name": "Caroline Besnard",
+            "talks": [
+              {
+                "description": "Aujourd'hui, le mot UX représente bien trop souvent un concept abstrait. Nous allons donc découvrir quels sont les principes de bases de l'UX ? Quels sont les erreurs classiques que l'on peux trouver dans les applications mobiles ? Comment adapter l'UX d'un site web sur un device mobile ?",
+                "id": 1427,
+                "length": 20,
+                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
+                "title": "How to distinguish PWA's UX from WEB app's UX",
+                "type": 0
               }
             ],
             "twitter": ""
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1486/avatar.png",
-            "bio": "Lucie Vannier is a Customer Engineer in Google Cloud France, responsible of the Gaming & Entertainment market assisting companies in their digital transition.\nShe started at IBM as a technical advisor / pre-sales architect in the banking industry. Passionate about technology and innovation, she do also loves FoodChéri, cats and climbing (despite an evident lack of talent in this area).",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1394/avatar.png",
+            "bio": "UX Designer & Scrum Master chez BAM",
             "github": "",
-            "id": 1486,
-            "name": "Lucie Vannier",
-            "talks": [],
+            "id": 1394,
+            "name": "Héloïse Bonan",
+            "talks": [
+              {
+                "description": "Aujourd'hui, le mot UX représente bien trop souvent un concept abstrait. Nous allons donc découvrir quels sont les principes de bases de l'UX ? Quels sont les erreurs classiques que l'on peux trouver dans les applications mobiles ? Comment adapter l'UX d'un site web sur un device mobile ?",
+                "id": 1427,
+                "length": 20,
+                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
+                "title": "How to distinguish PWA's UX from WEB app's UX",
+                "type": 0
+              }
+            ],
             "twitter": ""
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1397/avatar.png",
+            "bio": "Music Computing Lab, The Open University   Ecole Centrale Nantes....",
+            "github": "",
+            "id": 1397,
+            "name": "Thomas Crevoisier",
+            "talks": [
+              {
+                "description": "NPM est le premier point d'entrée dés lors qu'il s'agit de package management pour NodeJS. Son API couvre de multiples fonctionnalités : installation, publication, scripts. \"npm install ...\" est probablement un réflexe, pourtant est-ce que vous savez tout ce que ça implique ?\n\nCette présentation a pour but de décortiquer les scripts exécutés lors d'une installation via NPM et de voir quels détournements sont possibles.",
+                "id": 1431,
+                "length": 20,
+                "startDate": "Fri Jun 08 12:40:00 +0000 2018",
+                "title": "Les scripts npm et la sécurité",
+                "type": 0
+              }
+            ],
+            "twitter": "ThomasC__"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1398/avatar.png",
+            "bio": "Dev full stack Js, NodeJs Evangelist, Lead tech Keymetrics",
+            "github": "",
+            "id": 1398,
+            "name": "Vincent Vallet",
+            "talks": [
+              {
+                "description": "Suite à une récente key note de Bert Belder concernant l'event loop de NodeJs je peux proposer de revenir sur son intervention et plus généralement sur le fonctionnement de l'event loop + libUv qui sont au coeur du fonctionnement de NodeJs.\n\nÇa permet de revenir sur les briques de bases de Node mais aussi de démystifier un peu certaines choses et de faire la part entre mythes et réalité.",
+                "id": 1432,
+                "length": 20,
+                "startDate": "Fri Jun 08 13:20:00 +0000 2018",
+                "title": "NodeJs Event Loop",
+                "type": 0
+              }
+            ],
+            "twitter": ""
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1399/avatar.png",
+            "bio": "IT Engineer - Downloading opportunities in Paris. BNP Paribas Investment Partners",
+            "github": "",
+            "id": 1399,
+            "name": "Michel Parreno",
+            "talks": [
+              {
+                "description": "J'ai transformé mon lapin en Tamagotchi ! Démarrer un side-project à côté du travail est souvent (très) difficile ! Pourtant, c'est un des meilleurs moyen de progresser et découvrir de nouveaux horizons. Vous avez envie d'automatiser les tâches récurrentes pour votre petit compagnon d'appartement ? Curieux des possibilité de Raspberry Pi sur l'électronique ? Curieux du temps nécessaire pour créer une appli React Native ? Dans cette présentation, je vous fais un retour d'experience sur mon propre side-project en espérant vous donner envie d'en commencer un.",
+                "id": 1433,
+                "length": 30,
+                "startDate": "Fri Jun 08 15:10:00 +0000 2018",
+                "title": "Transformez votre animal en Tamagotchi !",
+                "type": 0
+              }
+            ],
+            "twitter": ""
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1400/avatar.png",
+            "bio": "I’m a Paris-based programmer working largely in JavaScript, Ruby, and Rails. I’m at Algolia, and was previously creator of Pico, which provides teams the tools to better track their indiviudal career growth goals. I work in voice interface, particularly for the Alexa Skills Kit and Google Assistant, a lot.",
+            "github": "",
+            "id": 1400,
+            "name": "Dustin Coates",
+            "talks": [
+              {
+                "description": "Voice interaction is exploding in 2017 and beyond. 1 in 6 American homes have a voice-first device, and the number of people speaking to computers is only going to increase. If we take our web pages and put them on voice, we’ll have frustrated customers who are going to look elsewhere. What, then, are the principles of a good voice UI? In this talk we’ll examine how to build a voice UI that gets the conversation going.",
+                "id": 1434,
+                "length": 20,
+                "startDate": "Fri Jun 08 15:10:00 +0000 2018",
+                "title": "Alexa, show me a good voice UI",
+                "type": 0
+              }
+            ],
+            "twitter": "dcoates"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1426/avatar.png",
+            "bio": "Dev & entrepreneur @Toucan_Toco, tech-hippie by night",
+            "github": "davinov",
+            "id": 1426,
+            "name": "David Nowinsky",
+            "talks": [
+              {
+                "description": "Après les interfaces tactiles, la détection des gestes, la reconnaissance de la voix, que reste-t-il à explorer pour contrôler nos programmes ?\nDepuis qques années, des bandeaux permettant de capturer les petites ondes électriques emisent par notre cerveau ont fait leur discrète apparition sur le marché. Dans le même temps, les API Web Bluetooth se sont développées, permettant l'exploitation de nombreux nouveaux devices par nous autres développeurs web.\nEt si cette combinaison nous permettait de générer quelque-chose contrôlé par notre cerveau?\nDans ce talk, je vous guiderai dans mon exploration de ce domaine fascinant qu'est la NeuroTech. Nous explorerons le traitement de ses signaux, avec quelques démos interactives. Et le tout dans but bien différent de nos projets habituels : celui de réaliser une installation artistique. J'espère ainsi déclencher la fibre créative aupres de l'audience ;)",
+                "id": 1488,
+                "length": 20,
+                "startDate": "Fri Jun 08 12:00:00 +0000 2018",
+                "title": "De développeur web à artiste du cerveau",
+                "type": 0
+              }
+            ],
+            "twitter": "davinov"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1431/avatar.png",
+            "bio": "Mobile engineer @bam_lab",
+            "github": "",
+            "id": 1431,
+            "name": "Aurore Malherbes",
+            "talks": [
+              {
+                "description": "Si vous codez en React vous utilisez très certainement redux et redux-saga. Pour autant comprenons nous vraiment la mécanique de redux avec ses méthodes dispatch, subscribe, getState ? Savons-nous comment le middleware redux-saga intercepte nos actions pour effectuer des calls API ? Recodons ensemble ces deux librairies pour découvrir ce qui se passe sous le capot!",
+                "id": 1492,
+                "length": 25,
+                "startDate": "Fri Jun 08 12:00:00 +0000 2018",
+                "title": "Recodons redux et redux-saga",
+                "type": 0
+              }
+            ],
+            "twitter": "aurorema27"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1432/avatar.png",
+            "bio": "Full Stack Developer, Pragmatic Coach, Hip Hop artist, French of Lebanese origin, raised in Nigeria, currently residing in Paris, France. R&D @ Murex S.A.S.",
+            "github": "",
+            "id": 1432,
+            "name": "Morgan Kobeissi",
+            "talks": [
+              {
+                "description": "Slack is the degree of freedom in a company that allows it to change.\n\nAre you in a situation where you are:\n\n* practicing Scrum or the like?\n* developing 24/7 struggling to keep your head above water to meet demands?\n* overcommitting in your iterations?\n* committing to your exact velocity but still not managing to deliver it all?\n* experiencing inconsistent amount of work finished between iterations?\n* feeling your agility is fragile?\n* frustrated that there is no time to learn new things?\n\n Would you like to know of a simple yet very effective way to solve all these impediments and better yet, improve and learn continuously and be more productive while being happy? Come and join me at this session, and hopefully you can leave it with the necessary knowledge to explain to others why they should **cut you some slack**.",
+                "id": 1493,
+                "length": 25,
+                "startDate": "Fri Jun 08 07:10:00 +0000 2018",
+                "title": "Cut me some Slack",
+                "type": 0
+              }
+            ],
+            "twitter": "mc_moe"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1433/avatar.png",
+            "bio": "Author of @nuxt_js & @terra_js • Community partner of @vuejs • Working on @cmty_io",
+            "github": "",
+            "id": 1433,
+            "name": "Sébastien Chopin",
+            "talks": [
+              {
+                "description": "Faire des application web universelles n'est pas si facile, pourtant elles ont beaucoup d'avantages. Je montrerai comment en faire une avec Vue.js et le module `vue-server-renderer`. Nous verrons les bonne pratiques, ce qu'il faut éviter de faire et comment rendre ce processus simple et fun.",
+                "id": 1494,
+                "length": 25,
+                "startDate": "Fri Jun 08 09:00:00 +0000 2018",
+                "title": "Nuxt.js",
+                "type": 0
+              }
+            ],
+            "twitter": "Atinux"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1487/avatar.png",
+            "bio": "Co-Founder & CTO at @jsrepublic",
+            "github": "",
+            "id": 1487,
+            "name": "Mathieu Breton",
+            "talks": [
+              {
+                "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
+                "id": 1556,
+                "length": 180,
+                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                "title": "GraphQL par la pratique",
+                "type": 1
+              }
+            ],
+            "twitter": "MatBreton"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1488/avatar.png",
+            "bio": "ReactJS french web developer, singer-songwriter based in the Paris suburb. I let myself guided by stoic guys like Epictetus, Marcus-Aurelius and Seneca.",
+            "github": "",
+            "id": 1488,
+            "name": "Michael Romain",
+            "talks": [
+              {
+                "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
+                "id": 1556,
+                "length": 180,
+                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                "title": "GraphQL par la pratique",
+                "type": 1
+              }
+            ],
+            "twitter": "michaelDotJS"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1489/avatar.png",
+            "bio": "▶︎Advocate for Developers & #OSS◀︎ Sr. Engineer @SFEIR • GDE for the @angular @actionsongoogle @googlecloud teams • Member of the @nodejs Foundation • DMs open.",
+            "github": "",
+            "id": 1489,
+            "name": "Wassim Chegham",
+            "talks": [
+              {
+                "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
+                "id": 1557,
+                "length": 180,
+                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                "title": "Chatbots, et si on passait la seconde ?",
+                "type": 1
+              }
+            ],
+            "twitter": "manekinekko"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1490/avatar.png",
+            "bio": "Developer Advocate at @Google for @GoogleCloud during the day, and @ApacheGroovy programming language project PMC Chair & @java_champions at night",
+            "github": "",
+            "id": 1490,
+            "name": "Guillaume Laforge",
+            "talks": [
+              {
+                "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
+                "id": 1557,
+                "length": 180,
+                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                "title": "Chatbots, et si on passait la seconde ?",
+                "type": 1
+              }
+            ],
+            "twitter": "glaforge"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1491/avatar.png",
+            "bio": "@wgoedel",
+            "github": "",
+            "id": 1491,
+            "name": "Wolfgang Goedel",
+            "talks": [
+              {
+                "description": "Venez découvrir avec nous ReasonML, ce nouveau langage* créé par Jordan Walke, le créateur de React. Vous êtes à l’aise avec le JavaScript moderne, vous avez pris goût au typage statique, vous allez adorer ! \nhttps://reasonml.github.io/docs/en/what-and-why.html \nPré-requis:\nVenir avec un laptop et les outils ReasonML installés. Nous aurons pas le temps de les installer pendant le workshop. Vous trouverez tout ce qu’il vous faut ici: https://reasonml.github.io/ (attention surtout pour les utilisateurs de Windows)\nconnaitre React et le JavaScript moderne. Aucune connaissance de ReasonML ou de OCaml n’est nécessaire, mais sans aucune notions de programmation fonctionnelle et de typage statique vous risquez d’être vite un peu perdus",
+                "id": 1558,
+                "length": 180,
+                "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+                "title": "Découvrir Reason-React",
+                "type": 1
+              }
+            ],
+            "twitter": "wgoedel"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1492/avatar.png",
+            "bio": "@rudy_weber",
+            "github": "",
+            "id": 1492,
+            "name": "Rudy Weber",
+            "talks": [],
+            "twitter": "rudy_weber"
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1493/avatar.png",
+            "bio": "Tech Lead Front @sfeir",
+            "github": "",
+            "id": 1493,
+            "name": "Fabien Zibi",
+            "talks": [
+              {
+                "description": "Présentation\nIntroduction aux Progressive Web Apps,\nOutils indispensables pour vous aider à développer une PWA,\nAPIs permettant à votre PWA de s’intégrer dans l’écosystème de votre téléphone,\nRessources pour se documenter et rester au fait des évolutions.\nHands-on\nImplémenter un mode offline,\nRendre l’appli apte à s’installer sur un téléphone,\nProposer à l’utilisateur de l’installer,\nPush event & Notification.\nPré-requis\nNiveau correct en JS\nGit et NodeJS installés",
+                "id": 1559,
+                "length": 1,
+                "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+                "title": "Ma première Progressive Web App",
+                "type": 1
+              }
+            ],
+            "twitter": "_faz"
           }
         ],
         "sponsors": {
           "diamond": [],
           "gold": [],
-          "partner": [
-            {
-              "description": "The world’s rendezvous for startups & leaders, on May 24th - 26th 2018, Paris.\n\nVivaTech is the world's rendezvous for startups and leaders to celebrate innovation together. It's a gathering of the world's brightest minds, talents, and products taking place in Paris on 24–26 May 2018.",
-              "id": 35684,
-              "jobUrl": "https://vivatechnology.com/category/join-the-team/",
-              "logoUrl": "https://api.eventlama.com/events/185/purchases/35684/logo.png",
-              "name": "VIVA Technology",
-              "url": "https://vivatechnology.com/"
-            },
-            {
-              "description": "HEC Paris has been committed to entrepreneurship, innovation and inclusive business, both in terms of training and research, for over 30 years. We actively encourage innovative and responsible business initiatives. This approach is supported by the Entrepreneurship Center which promotes business creation.",
-              "id": 35687,
-              "jobUrl": "http://entrepreneurship-center.hec.edu/create/incubator/",
-              "logoUrl": "https://api.eventlama.com/events/185/purchases/35687/logo.png",
-              "name": "HEC Entrepreneurship Center",
-              "url": "http://entrepreneurship-center.hec.edu/"
-            }
-          ],
+          "partner": [],
           "platinum": []
         },
-        "startDate": "Wed Jun 06 11:00:00 +0000 2018",
+        "startDate": "Wed Jun 06 22:00:00 +0000 2018",
         "status": {
           "hasEnded": false,
           "hasStarted": false,
           "nextFiveScheduledItems": [
             {
-              "description": "Registration at the front door with an introduction of event & MC's on the Master Stage.",
-              "id": 1281,
-              "speakers": [],
-              "startDate": "Wed Jun 06 11:00:00 +0000 2018",
-              "title": "Registration & Welcome"
-            },
-            {
-              "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
-              "id": 1289,
+              "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
+              "id": 1556,
               "speakers": [
                 {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1476/avatar.png",
-                  "bio": "In 1999, Fred Potter created CIRPACK, a telecommunications supplier, later bought by TECHNICOLOR; and WITHINGS, sold to NOKIA, before creating NETATMO in 2011.\nHis vision: a company where every employee knows how the business and projects grow and where daily life is driven by a strong sense of innovation, empowerment, hard work and sharing.",
-                  "id": 1476,
-                  "name": "Fred  Potter",
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1487/avatar.png",
+                  "bio": "Co-Founder & CTO at @jsrepublic",
+                  "id": 1487,
+                  "name": "Mathieu Breton",
                   "talks": [
                     {
-                      "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
-                      "id": 1289,
-                      "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-                      "title": "Can AI help startups develop a competitive advantage in today’s business environment?"
+                      "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
+                      "id": 1556,
+                      "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                      "title": "GraphQL par la pratique"
                     }
                   ],
-                  "twitter": "netatmo"
+                  "twitter": "MatBreton"
                 },
                 {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1485/avatar.png",
-                  "bio": "Since september 2016, Erwan Sconet is an assistant professor at the Center for Applied Mathematics (CMAP) in Ecole Polytechnique near Paris. His researches interests focus on theoretical statistics and Machine Learning with a particular emphasis on nonparametric estimates. He has done a PhD thesis on a particular algorithm of Machine Learning called random forests, under the supervision of Gérard Biau (LSTA - Paris 6) and Jean-Philipe Vert (Institut Curie).",
-                  "id": 1485,
-                  "name": "Erwan Scornet",
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1488/avatar.png",
+                  "bio": "ReactJS french web developer, singer-songwriter based in the Paris suburb. I let myself guided by stoic guys like Epictetus, Marcus-Aurelius and Seneca.",
+                  "id": 1488,
+                  "name": "Michael Romain",
                   "talks": [
                     {
-                      "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
-                      "id": 1289,
-                      "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-                      "title": "Can AI help startups develop a competitive advantage in today’s business environment?"
+                      "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
+                      "id": 1556,
+                      "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                      "title": "GraphQL par la pratique"
                     }
                   ],
-                  "twitter": ""
+                  "twitter": "michaelDotJS"
                 }
               ],
-              "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-              "title": "Can AI help startups develop a competitive advantage in today’s business environment?"
+              "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+              "title": "GraphQL par la pratique"
             },
             {
-              "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
-              "id": 1548,
+              "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
+              "id": 1557,
               "speakers": [
                 {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1480/avatar.png",
-                  "bio": "Sébastien Bourguignon is Principal & Lead Digital Influencer at Margo and is an expert in digital and blockchain technology. He advises his clients in their digital transformation and their projects of ICO or blockchain. Passionate about digital, innovation and startups, he has also created a blog to share news on these topics. He created the project #PortraitDeStartuper in which he involves startupers to present their return of experience in their entrepreneurial adventure.",
-                  "id": 1480,
-                  "name": "Sébastien Bourguignon",
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1489/avatar.png",
+                  "bio": "▶︎Advocate for Developers & #OSS◀︎ Sr. Engineer @SFEIR • GDE for the @angular @actionsongoogle @googlecloud teams • Member of the @nodejs Foundation • DMs open.",
+                  "id": 1489,
+                  "name": "Wassim Chegham",
                   "talks": [
                     {
-                      "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
-                      "id": 1548,
-                      "startDate": "Wed Jun 06 11:50:00 +0000 2018",
-                      "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship"
+                      "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
+                      "id": 1557,
+                      "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                      "title": "Chatbots, et si on passait la seconde ?"
                     }
                   ],
-                  "twitter": "sebbourguignon"
+                  "twitter": "manekinekko"
                 },
                 {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1482/avatar.png",
-                  "bio": "Conquer the future through BlockChain. @DomRaider is the bridge between the world of assets and the potential of #blockchain. Follow also @Auctionity @YoudotApp",
-                  "id": 1482,
-                  "name": "Tristan Colombet",
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1490/avatar.png",
+                  "bio": "Developer Advocate at @Google for @GoogleCloud during the day, and @ApacheGroovy programming language project PMC Chair & @java_champions at night",
+                  "id": 1490,
+                  "name": "Guillaume Laforge",
                   "talks": [
                     {
-                      "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
-                      "id": 1548,
-                      "startDate": "Wed Jun 06 11:50:00 +0000 2018",
-                      "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship"
+                      "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
+                      "id": 1557,
+                      "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                      "title": "Chatbots, et si on passait la seconde ?"
                     }
                   ],
-                  "twitter": "domraider"
+                  "twitter": "glaforge"
                 }
               ],
-              "startDate": "Wed Jun 06 11:50:00 +0000 2018",
-              "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship"
+              "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+              "title": "Chatbots, et si on passait la seconde ?"
             },
             {
-              "description": "5 selected startups pitch for up to 5,000€ prize money.\n\nStartups will pitch 5 minutes presentation plus 3 minutes Q&A in front of our jury composed of entrepreneurs and investors. The competition is sector agnostic with startups at various stages (love money, pre-seed, seed), which we'll segregate into two competitions to ensure fair competition.",
-              "id": 1282,
-              "speakers": [],
-              "startDate": "Wed Jun 06 12:40:00 +0000 2018",
-              "title": "Pitch Competition - Pre-Seed"
+              "description": "Venez découvrir avec nous ReasonML, ce nouveau langage* créé par Jordan Walke, le créateur de React. Vous êtes à l’aise avec le JavaScript moderne, vous avez pris goût au typage statique, vous allez adorer ! \nhttps://reasonml.github.io/docs/en/what-and-why.html \nPré-requis:\nVenir avec un laptop et les outils ReasonML installés. Nous aurons pas le temps de les installer pendant le workshop. Vous trouverez tout ce qu’il vous faut ici: https://reasonml.github.io/ (attention surtout pour les utilisateurs de Windows)\nconnaitre React et le JavaScript moderne. Aucune connaissance de ReasonML ou de OCaml n’est nécessaire, mais sans aucune notions de programmation fonctionnelle et de typage statique vous risquez d’être vite un peu perdus",
+              "id": 1558,
+              "speakers": [
+                {
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1491/avatar.png",
+                  "bio": "@wgoedel",
+                  "id": 1491,
+                  "name": "Wolfgang Goedel",
+                  "talks": [
+                    {
+                      "description": "Venez découvrir avec nous ReasonML, ce nouveau langage* créé par Jordan Walke, le créateur de React. Vous êtes à l’aise avec le JavaScript moderne, vous avez pris goût au typage statique, vous allez adorer ! \nhttps://reasonml.github.io/docs/en/what-and-why.html \nPré-requis:\nVenir avec un laptop et les outils ReasonML installés. Nous aurons pas le temps de les installer pendant le workshop. Vous trouverez tout ce qu’il vous faut ici: https://reasonml.github.io/ (attention surtout pour les utilisateurs de Windows)\nconnaitre React et le JavaScript moderne. Aucune connaissance de ReasonML ou de OCaml n’est nécessaire, mais sans aucune notions de programmation fonctionnelle et de typage statique vous risquez d’être vite un peu perdus",
+                      "id": 1558,
+                      "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+                      "title": "Découvrir Reason-React"
+                    }
+                  ],
+                  "twitter": "wgoedel"
+                }
+              ],
+              "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+              "title": "Découvrir Reason-React"
             },
             {
-              "description": "Snacks and mingling.",
-              "id": 1283,
+              "description": "Présentation\nIntroduction aux Progressive Web Apps,\nOutils indispensables pour vous aider à développer une PWA,\nAPIs permettant à votre PWA de s’intégrer dans l’écosystème de votre téléphone,\nRessources pour se documenter et rester au fait des évolutions.\nHands-on\nImplémenter un mode offline,\nRendre l’appli apte à s’installer sur un téléphone,\nProposer à l’utilisateur de l’installer,\nPush event & Notification.\nPré-requis\nNiveau correct en JS\nGit et NodeJS installés",
+              "id": 1559,
+              "speakers": [
+                {
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1493/avatar.png",
+                  "bio": "Tech Lead Front @sfeir",
+                  "id": 1493,
+                  "name": "Fabien Zibi",
+                  "talks": [
+                    {
+                      "description": "Présentation\nIntroduction aux Progressive Web Apps,\nOutils indispensables pour vous aider à développer une PWA,\nAPIs permettant à votre PWA de s’intégrer dans l’écosystème de votre téléphone,\nRessources pour se documenter et rester au fait des évolutions.\nHands-on\nImplémenter un mode offline,\nRendre l’appli apte à s’installer sur un téléphone,\nProposer à l’utilisateur de l’installer,\nPush event & Notification.\nPré-requis\nNiveau correct en JS\nGit et NodeJS installés",
+                      "id": 1559,
+                      "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+                      "title": "Ma première Progressive Web App"
+                    }
+                  ],
+                  "twitter": "_faz"
+                }
+              ],
+              "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+              "title": "Ma première Progressive Web App"
+            },
+            {
+              "description": "Pour ne pas commencer la journée le ventre vide.",
+              "id": 1550,
               "speakers": [],
-              "startDate": "Wed Jun 06 13:20:00 +0000 2018",
-              "title": "Break"
+              "startDate": "Fri Jun 08 06:00:00 +0000 2018",
+              "title": "Accueil et petit-déjeuner"
             }
           ],
           "onGoing": false
         },
         "timezoneId": "Europe/Paris",
-        "twitterHandle": "HECSEED",
+        "twitterHandle": "bestofwebconf",
         "venueCity": "Paris",
         "venueCountry": "France",
-        "venueName": "",
-        "websiteUrl": ""
+        "venueName": "La Grande Crypte",
+        "websiteUrl": "http://bestofweb.paris/"
       }
     ]
   }
+

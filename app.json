@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "HEC Seed",
+    "name": "BestOfWeb ",
     "description":
-      "Official HEC Seed app for the June 2018 conference, June 6th in Paris, France. Scan your own ticket so you can scan other people's QR during the conference to exchange contact.",
-    "slug": "hecseed",
+      "Best Web Meetups of Paris in a conference.",
+    "slug": "bestofweb",
     "privacy": "public",
     "version": "1.0.2",
     "primaryColor": "#666",
     "icon": "./src/assets/icon-ios.png",
     "orientation": "portrait",
     "sdkVersion": "27.0.0",
-    "scheme": "hecseed",
+    "scheme": "bestofweb",
     "assetBundlePatterns": ["**/*"],
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,15 +18,15 @@
     "splash": {
       "image": "./src/assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#666"
+      "backgroundColor": "#FFF"
     },
     "android": {
-      "package": "eventlama.apps.hecseed",
+      "package": "eventlama.apps.bestofweb",
       "icon": "./src/assets/icon-android.png",
       "versionCode": 3
     },
     "ios": {
-      "bundleIdentifier": "hecseed",
+      "bundleIdentifier": "bestofweb",
       "supportsTablet": true,
       "loadJSInBackgroundExperimental": true,
       "infoPlist": {
