@@ -107,6 +107,31 @@
                 "youtubeUrl": ""
               },
               {
+                "description": "Introduction and discussion around Fred journey as an entrepreneur and the business of Netatmo.",
+                "id": 1560,
+                "keynote": null,
+                "length": 10,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1468/avatar.png",
+                    "bio": "In 1999, Fred Potter created CIRPACK, a telecommunications supplier, later bought by TECHNICOLOR; and WITHINGS, sold to NOKIA, before creating NETATMO in 2011.\nHis vision: a company where every employee knows how the business and projects grow and where daily life is driven by a strong sense of innovation, empowerment, hard work and sharing.",
+                    "github": "",
+                    "id": 1468,
+                    "name": "Fred Potter",
+                    "twitter": ""
+                  }
+                ],
+                "startDate": "Wed Jun 06 11:30:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "The IoT revolution for the smart home industry",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
                 "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
                 "id": 1289,
                 "keynote": null,
@@ -129,12 +154,20 @@
                     "id": 1485,
                     "name": "Erwan Scornet",
                     "twitter": ""
+                  },
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1486/avatar.png",
+                    "bio": "Lucie Vannier is a Customer Engineer in Google Cloud France, responsible of the Gaming & Entertainment market assisting companies in their digital transition.\nShe started at IBM as a technical advisor / pre-sales architect in the banking industry. Passionate about technology and innovation, she do also loves FoodChéri, cats and climbing (despite an evident lack of talent in this area).",
+                    "github": "",
+                    "id": 1486,
+                    "name": "Lucie Vannier",
+                    "twitter": ""
                   }
                 ],
-                "startDate": "Wed Jun 06 11:15:00 +0000 2018",
+                "startDate": "Wed Jun 06 11:40:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Can AI help startups develop a competitive advantage in today’s business environment?",
+                "title": "Can Ai help startups develop a competitive advantage in today’s business environment?",
                 "type": 6,
                 "youtubeId": "",
                 "youtubeUrl": ""
@@ -164,7 +197,7 @@
                     "twitter": "domraider"
                   }
                 ],
-                "startDate": "Wed Jun 06 11:50:00 +0000 2018",
+                "startDate": "Wed Jun 06 12:10:00 +0000 2018",
                 "tags": "",
                 "talk": null,
                 "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship",
@@ -180,7 +213,7 @@
                 "likes": 0,
                 "room": null,
                 "speakers": [],
-                "startDate": "Wed Jun 06 12:40:00 +0000 2018",
+                "startDate": "Wed Jun 06 12:50:00 +0000 2018",
                 "tags": "",
                 "talk": null,
                 "title": "Pitch Competition - Pre-Seed",
@@ -192,7 +225,7 @@
                 "description": "Snacks and mingling.",
                 "id": 1283,
                 "keynote": null,
-                "length": 30,
+                "length": 40,
                 "likes": 0,
                 "room": null,
                 "speakers": [],
@@ -506,8 +539,8 @@
                 "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
                 "id": 1289,
                 "length": 30,
-                "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-                "title": "Can AI help startups develop a competitive advantage in today’s business environment?",
+                "startDate": "Wed Jun 06 11:40:00 +0000 2018",
+                "title": "Can Ai help startups develop a competitive advantage in today’s business environment?",
                 "type": 6
               }
             ],
@@ -542,7 +575,7 @@
                 "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
                 "id": 1548,
                 "length": 40,
-                "startDate": "Wed Jun 06 11:50:00 +0000 2018",
+                "startDate": "Wed Jun 06 12:10:00 +0000 2018",
                 "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship",
                 "type": 6
               }
@@ -560,7 +593,7 @@
                 "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
                 "id": 1548,
                 "length": 40,
-                "startDate": "Wed Jun 06 11:50:00 +0000 2018",
+                "startDate": "Wed Jun 06 12:10:00 +0000 2018",
                 "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship",
                 "type": 6
               }
@@ -578,8 +611,8 @@
                 "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
                 "id": 1289,
                 "length": 30,
-                "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-                "title": "Can AI help startups develop a competitive advantage in today’s business environment?",
+                "startDate": "Wed Jun 06 11:40:00 +0000 2018",
+                "title": "Can Ai help startups develop a competitive advantage in today’s business environment?",
                 "type": 6
               }
             ],
@@ -591,7 +624,16 @@
             "github": "",
             "id": 1486,
             "name": "Lucie Vannier",
-            "talks": [],
+            "talks": [
+              {
+                "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
+                "id": 1289,
+                "length": 30,
+                "startDate": "Wed Jun 06 11:40:00 +0000 2018",
+                "title": "Can Ai help startups develop a competitive advantage in today’s business environment?",
+                "type": 6
+              }
+            ],
             "twitter": ""
           }
         ],
@@ -631,6 +673,29 @@
               "title": "Registration & Welcome"
             },
             {
+              "description": "Introduction and discussion around Fred journey as an entrepreneur and the business of Netatmo.",
+              "id": 1560,
+              "speakers": [
+                {
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1468/avatar.png",
+                  "bio": "In 1999, Fred Potter created CIRPACK, a telecommunications supplier, later bought by TECHNICOLOR; and WITHINGS, sold to NOKIA, before creating NETATMO in 2011.\nHis vision: a company where every employee knows how the business and projects grow and where daily life is driven by a strong sense of innovation, empowerment, hard work and sharing.",
+                  "id": 1468,
+                  "name": "Fred Potter",
+                  "talks": [
+                    {
+                      "description": "Introduction and discussion around Fred journey as an entrepreneur and the business of Netatmo.",
+                      "id": 1560,
+                      "startDate": "Wed Jun 06 11:30:00 +0000 2018",
+                      "title": "The IoT revolution for the smart home industry"
+                    }
+                  ],
+                  "twitter": ""
+                }
+              ],
+              "startDate": "Wed Jun 06 11:30:00 +0000 2018",
+              "title": "The IoT revolution for the smart home industry"
+            },
+            {
               "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
               "id": 1289,
               "speakers": [
@@ -643,8 +708,8 @@
                     {
                       "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
                       "id": 1289,
-                      "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-                      "title": "Can AI help startups develop a competitive advantage in today’s business environment?"
+                      "startDate": "Wed Jun 06 11:40:00 +0000 2018",
+                      "title": "Can Ai help startups develop a competitive advantage in today’s business environment?"
                     }
                   ],
                   "twitter": "netatmo"
@@ -658,15 +723,30 @@
                     {
                       "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
                       "id": 1289,
-                      "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-                      "title": "Can AI help startups develop a competitive advantage in today’s business environment?"
+                      "startDate": "Wed Jun 06 11:40:00 +0000 2018",
+                      "title": "Can Ai help startups develop a competitive advantage in today’s business environment?"
+                    }
+                  ],
+                  "twitter": ""
+                },
+                {
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/185/speakers/1486/avatar.png",
+                  "bio": "Lucie Vannier is a Customer Engineer in Google Cloud France, responsible of the Gaming & Entertainment market assisting companies in their digital transition.\nShe started at IBM as a technical advisor / pre-sales architect in the banking industry. Passionate about technology and innovation, she do also loves FoodChéri, cats and climbing (despite an evident lack of talent in this area).",
+                  "id": 1486,
+                  "name": "Lucie Vannier",
+                  "talks": [
+                    {
+                      "description": "Speakers to be announced\n\nPanel discussing practical case studies with entrepreneurs, large corporations and other experts in the machine learning domain.",
+                      "id": 1289,
+                      "startDate": "Wed Jun 06 11:40:00 +0000 2018",
+                      "title": "Can Ai help startups develop a competitive advantage in today’s business environment?"
                     }
                   ],
                   "twitter": ""
                 }
               ],
-              "startDate": "Wed Jun 06 11:15:00 +0000 2018",
-              "title": "Can AI help startups develop a competitive advantage in today’s business environment?"
+              "startDate": "Wed Jun 06 11:40:00 +0000 2018",
+              "title": "Can Ai help startups develop a competitive advantage in today’s business environment?"
             },
             {
               "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
@@ -681,7 +761,7 @@
                     {
                       "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
                       "id": 1548,
-                      "startDate": "Wed Jun 06 11:50:00 +0000 2018",
+                      "startDate": "Wed Jun 06 12:10:00 +0000 2018",
                       "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship"
                     }
                   ],
@@ -696,35 +776,28 @@
                     {
                       "description": "What could perfectly complement the great FinTech panel than some insights on an emmerging way to finance entrepreneurship: Initial Coin Offering leveraging the blockchain technology.\n\nSeveral great successes have happened over the past few months. It now looks clear that ICO is a robust way to seek for funds.\n\nHowever the subject is still subject to polemics and the intent of this panel is to discuss the risks and limitations of ICO and their regulation.",
                       "id": 1548,
-                      "startDate": "Wed Jun 06 11:50:00 +0000 2018",
+                      "startDate": "Wed Jun 06 12:10:00 +0000 2018",
                       "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship"
                     }
                   ],
                   "twitter": "domraider"
                 }
               ],
-              "startDate": "Wed Jun 06 11:50:00 +0000 2018",
+              "startDate": "Wed Jun 06 12:10:00 +0000 2018",
               "title": "Regulating #ICO: a walk through case studies, risks and upcoming regulation on this new way to finance entrepreneurship"
             },
             {
               "description": "5 selected startups pitch for up to 5,000€ prize money.\n\nStartups will pitch 5 minutes presentation plus 3 minutes Q&A in front of our jury composed of entrepreneurs and investors. The competition is sector agnostic with startups at various stages (love money, pre-seed, seed), which we'll segregate into two competitions to ensure fair competition.",
               "id": 1282,
               "speakers": [],
-              "startDate": "Wed Jun 06 12:40:00 +0000 2018",
+              "startDate": "Wed Jun 06 12:50:00 +0000 2018",
               "title": "Pitch Competition - Pre-Seed"
-            },
-            {
-              "description": "Snacks and mingling.",
-              "id": 1283,
-              "speakers": [],
-              "startDate": "Wed Jun 06 13:20:00 +0000 2018",
-              "title": "Break"
             }
           ],
           "onGoing": false
         },
         "timezoneId": "Europe/Paris",
-        "twitterHandle": "HECSEED",
+        "twitterHandle": "@HECSEED",
         "venueCity": "Paris",
         "venueCountry": "France",
         "venueName": "",
@@ -732,3 +805,4 @@
       }
     ]
   }
+
