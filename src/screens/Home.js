@@ -63,7 +63,6 @@ class Home extends React.Component {
             <Image
               source={require('../assets/logo.png')}
               style={{width: 220, height: 60, resizeMode: 'contain'}}
-              tintColor="#fff"
             />
             <View style={styles.headerContent}>
               <ShowWhenConferenceHasEnded>
