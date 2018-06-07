@@ -80,7 +80,7 @@ export default class Details extends React.Component {
       outputRange: [0, 0, 1],
     });
 
-    const videoURL = talk.youtubeId && talk.youtubeId !== '';
+    const videoURL = talk && talk.youtubeId && talk.youtubeId !== '';
 
     return (
       <View style={{flex: 1, backgroundColor: '#fff', overflow: 'hidden'}}>
