@@ -5,7 +5,7 @@
       "Best Web Meetups of Paris in a conference.",
     "slug": "bestofweb",
     "privacy": "public",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "primaryColor": "#666",
     "icon": "./src/assets/icon-ios.png",
     "orientation": "portrait",
@@ -23,7 +23,7 @@
     "android": {
       "package": "eventlama.apps.bestofweb",
       "icon": "./src/assets/icon-android.png",
-      "versionCode": 3
+      "versionCode": 4
     },
     "ios": {
       "bundleIdentifier": "bestofweb",
