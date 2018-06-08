@@ -68,7 +68,6 @@ class MenuScreen extends Component {
                     resizeMode: 'contain',
                   },
                 ]}
-                tintColor="#fff"
               />
             </View>
           )}
