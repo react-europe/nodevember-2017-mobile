@@ -23,6 +23,7 @@ import MenuButton from '../components/MenuButton';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
+import {saveNewContact} from '../utils/storage';
 export const Schedule = require('../data/schedule.json');
 const Event = Schedule.events[0];
 
@@ -141,9 +142,21 @@ class DeferredHomeContent extends React.Component {
     }, 200);
   }
   _handleNotification = notification => {
+    let navigation = this.props.navigation;
     this.setState({notification: notification});
-    if (notification && notification.data && notification.data.url) {
-      WebBrowser.openBrowserAsync(notification.data.url);
+    if (notification && notification.data && notification.data.action) {
+      switch (notification.data.action) {
+        case 'newURL':
+          WebBrowser.openBrowserAsync(notification.data.url);
+          break;
+        case 'newContact':
+          console.log(notification);
+          let contact = notification.data.data;
+          saveNewContact(contact, navigation);
+          break;
+        default:
+          console.log('ok');
+      }
     }
   };
   render() {
