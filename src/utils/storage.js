@@ -86,3 +86,45 @@ export function withSaveState(WrappedComponent) {
 
   return ComponentWithSaveState;
 }
+
+export function saveNewContact(contact, navigation) {
+  AsyncStorage.getItem('@MySuperStore:contacts').then(storedContacts => {
+    let contacts = null;
+    let newContacts = [];
+    let found = false;
+    if (storedContacts === null && contact && contact.firstName) {
+      contacts = [contact];
+    } else {
+      let existingContacts = JSON.parse(storedContacts) || [];
+      console.log('how many existing contacts', existingContacts.length);
+      existingContacts.map(existingContact => {
+        console.log('existing contact', existingContact);
+        if (
+          existingContact &&
+          existingContact.id &&
+          contact &&
+          contact.id &&
+          existingContact.id === contact.id
+        ) {
+          found = true;
+          newContacts.push(contact);
+        } else if (existingContact && existingContact.id) {
+          newContacts.push(existingContact);
+        }
+      });
+      if (!found && contact && contact.id) {
+        newContacts.push(contact);
+      }
+      contacts = newContacts;
+    }
+    if (contacts === [null]) {
+      contacts = [];
+    }
+    let stringifiedContacts = JSON.stringify(contacts);
+    AsyncStorage.setItem('@MySuperStore:contacts', stringifiedContacts)
+      //AsyncStorage.removeItem('@MySuperStore:tickets')
+      .then(() => {
+        navigation.navigate('Contacts');
+      });
+  });
+}
