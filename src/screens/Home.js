@@ -70,7 +70,7 @@ class Home extends React.Component {
                 <SemiBoldText style={styles.headerText}>
                   Thank you for joining us!
                 </SemiBoldText>
-                <SemiBoldText style={styles.headerTextSmall}>
+                <SemiBoldText style={[styles.headerTextSmall, {color: '#fff'}]}>
                   See you in May, 2019!
                 </SemiBoldText>
               </ShowWhenConferenceHasEnded>

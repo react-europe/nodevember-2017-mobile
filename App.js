@@ -4,7 +4,7 @@ import { ApolloProvider } from "react-apollo";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { Asset, AppLoading, Font, Updates } from "expo";
-import { Platform } from "react-native";
+import { Platform, StatusBar, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { GQL } from "./src/constants";
 import { loadSavedTalksAsync } from "./src/utils/storage";
@@ -98,9 +98,12 @@ export default class App extends React.Component {
       );
     }
     return (
-      <ApolloProvider client={client}>
-        <Navigation />
-      </ApolloProvider>
+      <View style={{flex: 1}}>
+        <ApolloProvider client={client}>
+          <Navigation />
+        </ApolloProvider>
+        <StatusBar barStyle="light-content" />
+      </View>
     );
   }
 }

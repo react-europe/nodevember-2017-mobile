@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {View, Text, StatusBar} from 'react-native';
-import {TabNavigator, StackNavigator} from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createMaterialTopTabNavigator,
+  createStackNavigator,
+} from 'react-navigation';
 
 import Schedule from './data/schedule.json';
 import moment from 'moment';
 import {Colors, FontSizes, Layout} from './constants';
-import TabBarBottom from './components/TabBarBottom';
 
 import Screens from './screens';
 import QRScannerModalNavigation from './screens/QRScreens/Identify';
@@ -26,28 +29,13 @@ _.each(FullSchedule, (day, i) => {
   };
 });
 
-const ScheduleNavigation = TabNavigator(navSchedule, {
-  lazy: false,
-  swipeEnabled: true,
-  animationEnabled: true,
-  tabBarComponent: TabBarBottom,
-  tabBarPosition: 'top',
+const ScheduleNavigation = createMaterialTopTabNavigator(navSchedule, {
   tabBarOptions: {
     style: {backgroundColor: '#333'},
     activeTintColor: '#fff',
-    showLabel: false,
   },
   navigationOptions: ({navigation}) => ({
-    tabBarIcon: ({focused, tintColor}) => {
-      const {routeName} = navigation.state;
-      // You can return any component that you like here! We usually use an
-      // icon component from react-native-vector-icons
-      return (
-        <Text style={{color: tintColor, fontWeight: '800', fontSize: 18}}>
-          {routeName.substring(0, 3).toUpperCase()}
-        </Text>
-      );
-    },
+    tabBarLabel: navigation.state.routeName.substring(0, 3).toUpperCase(),
   }),
 });
 
@@ -55,9 +43,21 @@ const DefaultStackConfig = {
   cardStyle: {
     backgroundColor: '#fafafa',
   },
+  navigationOptions: ({navigation}) => ({
+    title: navigation.state.routeName,
+    headerStyle: {
+      borderBottomWidth: 0,
+      shadowRadius: 0,
+      backgroundColor: Colors.blue,
+    },
+    headerTintColor: 'white',
+    headerTitleStyle: {
+      fontFamily: 'open-sans-bold',
+    },
+  }),
 };
 
-const MenuNavigation = StackNavigator(
+const MenuNavigation = createStackNavigator(
   {
     Menu: {screen: Screens.Menu},
     Speakers: {screen: Screens.Speakers},
@@ -66,58 +66,37 @@ const MenuNavigation = StackNavigator(
     Attendees: {screen: Screens.Attendees},
     AttendeeDetail: {screen: Screens.AttendeeDetail},
   },
-  {
-    ...DefaultStackConfig,
-    navigationOptions: {
-      headerStyle: {backgroundColor: Colors.blue},
-      headerTintColor: 'white',
-    },
-  }
+  DefaultStackConfig
 );
 
-const ScheduleStackNavigator = StackNavigator({
-  Schedule: {
-    screen: ScheduleNavigation,
-    navigationOptions: {
-      title: 'Schedule',
-      headerStyle: {backgroundColor: Colors.blue},
-      headerTintColor: 'white',
-      headerTitleStyle: {
-        fontFamily: 'open-sans-bold',
-      },
+const ScheduleStackNavigator = createStackNavigator(
+  {
+    Schedule: {
+      screen: ScheduleNavigation,
     },
   },
-});
+  DefaultStackConfig
+);
 
-const ProfileNavigator = StackNavigator({
-  Profile: {
-    screen: Screens.Profile,
-    navigationOptions: {
-      title: 'Profile',
-      headerStyle: {backgroundColor: Colors.blue},
-      headerTintColor: 'white',
-      headerTitleStyle: {
-        fontFamily: 'open-sans-bold',
-      },
+const ProfileNavigator = createStackNavigator(
+  {
+    Profile: {
+      screen: Screens.Profile,
     },
   },
-});
+  DefaultStackConfig
+);
 
-const ContactsNavigator = StackNavigator({
-  Contacts: {
-    screen: Screens.Contacts,
-    navigationOptions: {
-      title: 'Contacts',
-      headerStyle: {backgroundColor: Colors.blue},
-      headerTintColor: 'white',
-      headerTitleStyle: {
-        fontFamily: 'open-sans-bold',
-      },
+const ContactsNavigator = createStackNavigator(
+  {
+    Contacts: {
+      screen: Screens.Contacts,
     },
   },
-});
+  DefaultStackConfig
+);
 
-const StaffCheckinListsNavigation = StackNavigator(
+const StaffCheckinListsNavigation = createStackNavigator(
   {
     StaffCheckinListsList: {
       screen: Screens.StaffCheckinLists,
@@ -126,7 +105,7 @@ const StaffCheckinListsNavigation = StackNavigator(
   DefaultStackConfig
 );
 
-const PrimaryTabNavigator = TabNavigator(
+const PrimaryTabNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: Screens.Home,
@@ -134,19 +113,11 @@ const PrimaryTabNavigator = TabNavigator(
     Profile: {screen: ProfileNavigator},
     Schedule: {
       screen: ScheduleStackNavigator,
-      navigationOptions: {
-        title: 'Schedule',
-        headerTitleStyle: {
-          fontFamily: 'open-sans-bold',
-        },
-      },
     },
     Contacts: {screen: ContactsNavigator},
     Menu: {screen: MenuNavigation},
   },
   {
-    tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
     navigationOptions: ({navigation}) => ({
       tabBarIcon: ({focused, tintColor}) => {
         const {routeName} = navigation.state;
@@ -175,7 +146,7 @@ const PrimaryTabNavigator = TabNavigator(
   }
 );
 
-export default StackNavigator(
+export default createStackNavigator(
   {
     Primary: {screen: PrimaryTabNavigator},
     AttendeeDetail: {screen: Screens.AttendeeDetail},
