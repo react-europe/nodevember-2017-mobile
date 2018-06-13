@@ -8,11 +8,6 @@ import { Platform, StatusBar, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { GQL } from "./src/constants";
 import { loadSavedTalksAsync } from "./src/utils/storage";
-import { SafeAreaView } from "react-navigation";
-
-if (Platform.OS === "android") {
-  SafeAreaView.setStatusBarHeight(0);
-}
 
 const client = new ApolloClient({
   // By default, this client will send queries to the
