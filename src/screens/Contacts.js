@@ -4,6 +4,7 @@ import {
   Linking,
   Platform,
   StyleSheet,
+  ScrollView,
   AsyncStorage,
   View,
 } from 'react-native';
@@ -15,7 +16,6 @@ import {View as AnimatableView} from 'react-native-animatable';
 import {Ionicons} from '@expo/vector-icons';
 import {withNavigation} from 'react-navigation';
 
-import AnimatedScrollView from '../components/AnimatedScrollView';
 import MyContacts from '../components/MyContacts';
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
@@ -33,35 +33,12 @@ export const Schedule = require('../data/schedule.json');
 const Event = Schedule.events[0];
 
 class Contacts extends React.Component {
-  state = {
-    scrollY: new Animated.Value(0),
-  };
-
   render() {
-    const {scrollY} = this.state;
-    const headerOpacity = scrollY.interpolate({
-      inputRange: [0, 150],
-      outputRange: [0, 1],
-      extrapolate: 'clamp',
-    });
-
     return (
       <View style={{flex: 1}}>
-        <AnimatedScrollView
-          style={{flex: 1}}
-          // contentContainerStyle={{ paddingBottom: 20 + Layout.notchHeight / 2 }}
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {contentOffset: {y: scrollY}},
-              },
-            ],
-            {useNativeDriver: true}
-          )}>
+        <ScrollView style={{flex: 1}}>
           <DeferredContactsContent />
-          <OverscrollView />
-        </AnimatedScrollView>
+        </ScrollView>
       </View>
     );
   }
@@ -165,19 +142,6 @@ class DeferredContactsContent extends React.Component {
     }
   };
 }
-
-const OverscrollView = () => (
-  <View
-    style={{
-      position: 'absolute',
-      top: -400,
-      height: 400,
-      left: 0,
-      right: 0,
-      backgroundColor: Colors.blue,
-    }}
-  />
-);
 
 const ClipBorderRadius = ({children, style}) => {
   return (

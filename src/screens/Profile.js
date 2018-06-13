@@ -4,6 +4,7 @@ import {
   Linking,
   Platform,
   StyleSheet,
+  ScrollView,
   View,
   AsyncStorage,
 } from 'react-native';
@@ -12,7 +13,6 @@ import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
 import {withNavigation} from 'react-navigation';
 
-import AnimatedScrollView from '../components/AnimatedScrollView';
 import NavigationBar from '../components/NavigationBar';
 import Tickets from '../components/Tickets';
 import MenuButton from '../components/MenuButton';
@@ -23,35 +23,15 @@ const Event = Schedule.events[0];
 
 class Profile extends React.Component {
   state = {
-    scrollY: new Animated.Value(0),
     hasCameraPermission: null,
   };
 
   render() {
-    const {scrollY} = this.state;
-    const headerOpacity = scrollY.interpolate({
-      inputRange: [0, 150],
-      outputRange: [0, 1],
-      extrapolate: 'clamp',
-    });
-
     return (
       <View style={{flex: 1}}>
-        <AnimatedScrollView
-          style={{flex: 1}}
-          contentContainerStyle={{paddingBottom: 20 + Layout.notchHeight / 2}}
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {contentOffset: {y: scrollY}},
-              },
-            ],
-            {useNativeDriver: true}
-          )}>
+        <ScrollView style={{flex: 1}}>
           <DeferredProfileContent />
-          <OverscrollView />
-        </AnimatedScrollView>
+        </ScrollView>
       </View>
     );
   }
@@ -152,7 +132,6 @@ const OverscrollView = () => (
       height: 400,
       left: 0,
       right: 0,
-      backgroundColor: Colors.blue,
     }}
   />
 );
