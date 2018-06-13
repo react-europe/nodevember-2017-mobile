@@ -55,11 +55,6 @@ class SpeakerRow extends React.Component {
 export default class Speakers extends React.Component {
   static navigationOptions = {
     title: 'Speakers',
-    headerStyle: {backgroundColor: Colors.blue},
-    headerTintColor: 'white',
-    headerTitleStyle: {
-      fontFamily: 'open-sans-bold',
-    },
   };
 
   render() {
