@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "BestOfWeb ",
+    "name": "Paris.rb conf",
     "description":
-      "Best Web Meetups of Paris in a conference.",
-    "slug": "bestofweb",
+      "Meet other Ruby enthusiasts from all over the World at Paris.rb conf 2018. The conference will be held in Paris this June 28-29. Come to exchange, listen to great talks, and learn what’s new in Ruby.",
+    "slug": "parisrbconf",
     "privacy": "public",
     "version": "1.0.4",
     "primaryColor": "#666",
     "icon": "./src/assets/icon-ios.png",
     "orientation": "portrait",
     "sdkVersion": "27.0.0",
-    "scheme": "bestofweb",
+    "scheme": "parisrbconf",
     "assetBundlePatterns": ["**/*"],
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,12 +21,12 @@
       "backgroundColor": "#FFF"
     },
     "android": {
-      "package": "eventlama.apps.bestofweb",
+      "package": "eventlama.apps.parisrbconf",
       "icon": "./src/assets/icon-android.png",
       "versionCode": 5
     },
     "ios": {
-      "bundleIdentifier": "bestofweb",
+      "bundleIdentifier": "parisrbconf",
       "supportsTablet": true,
       "loadJSInBackgroundExperimental": true,
       "infoPlist": {

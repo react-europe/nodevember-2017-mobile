@@ -1,127 +1,305 @@
-{
+  {
     "events": [
       {
         "cocUrl": "http://confcodeofconduct.com/",
-        "collaborators": [],
-        "description": "Pour 2018 vos meetups se réunissent pour organiser une journée sur le thème du Best Of des talks de l'année. Nous vous proposons un mixte des meilleurs conférences, de nouveaux sujets et pleins de surprises...",
-        "endDate": "Thu Jun 07 22:00:00 +0000 2018",
+        "collaborators": [
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/collaborators/55/avatar.png",
+            "firstName": "Guillaume",
+            "github": "",
+            "id": 55,
+            "lastName": "Boudon",
+            "role": "co-organizer",
+            "twitter": "",
+            "url": ""
+          },
+          {
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/collaborators/56/avatar.png",
+            "firstName": "Maxime",
+            "github": "Goldenson",
+            "id": 56,
+            "lastName": "Orefice",
+            "role": "organizer",
+            "twitter": "goldenson_",
+            "url": ""
+          }
+        ],
+        "description": "Meet other Ruby enthusiasts from all over the World at Paris.rb conf 2018. The conference will be held in Paris this June 28-29. Come to exchange, listen to great talks, and learn what's new in Ruby.",
+        "endDate": "Fri Jun 29 16:00:00 +0000 2018",
         "groupedSchedule": [
           {
-            "date": "Thu Jun 07 08:00:00 +0000 2018",
+            "date": "Thu Jun 28 06:20:00 +0000 2018",
             "slots": [
               {
-                "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
-                "id": 1556,
+                "description": "",
+                "id": 1527,
                 "keynote": null,
-                "length": 180,
+                "length": 60,
                 "likes": 0,
                 "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1487/avatar.png",
-                    "bio": "Co-Founder & CTO at @jsrepublic",
-                    "github": "",
-                    "id": 1487,
-                    "name": "Mathieu Breton",
-                    "twitter": "MatBreton"
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1488/avatar.png",
-                    "bio": "ReactJS french web developer, singer-songwriter based in the Paris suburb. I let myself guided by stoic guys like Epictetus, Marcus-Aurelius and Seneca.",
-                    "github": "",
-                    "id": 1488,
-                    "name": "Michael Romain",
-                    "twitter": "michaelDotJS"
-                  }
-                ],
-                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                "speakers": [],
+                "startDate": "Thu Jun 28 06:20:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "GraphQL par la pratique",
-                "type": 1,
+                "title": "Check in",
+                "type": 8,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
-                "id": 1557,
+                "description": "",
+                "id": 1523,
                 "keynote": null,
-                "length": 180,
+                "length": 40,
                 "likes": 0,
                 "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1489/avatar.png",
-                    "bio": "▶︎Advocate for Developers & #OSS◀︎ Sr. Engineer @SFEIR • GDE for the @angular @actionsongoogle @googlecloud teams • Member of the @nodejs Foundation • DMs open.",
-                    "github": "",
-                    "id": 1489,
-                    "name": "Wassim Chegham",
-                    "twitter": "manekinekko"
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1490/avatar.png",
-                    "bio": "Developer Advocate at @Google for @GoogleCloud during the day, and @ApacheGroovy programming language project PMC Chair & @java_champions at night",
-                    "github": "",
-                    "id": 1490,
-                    "name": "Guillaume Laforge",
-                    "twitter": "glaforge"
-                  }
-                ],
-                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
+                "speakers": [],
+                "startDate": "Thu Jun 28 06:40:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Chatbots, et si on passait la seconde ?",
-                "type": 1,
+                "title": "Breakfast",
+                "type": 3,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Venez découvrir avec nous ReasonML, ce nouveau langage* créé par Jordan Walke, le créateur de React. Vous êtes à l’aise avec le JavaScript moderne, vous avez pris goût au typage statique, vous allez adorer ! \nhttps://reasonml.github.io/docs/en/what-and-why.html \nPré-requis:\nVenir avec un laptop et les outils ReasonML installés. Nous aurons pas le temps de les installer pendant le workshop. Vous trouverez tout ce qu’il vous faut ici: https://reasonml.github.io/ (attention surtout pour les utilisateurs de Windows)\nconnaitre React et le JavaScript moderne. Aucune connaissance de ReasonML ou de OCaml n’est nécessaire, mais sans aucune notions de programmation fonctionnelle et de typage statique vous risquez d’être vite un peu perdus",
-                "id": 1558,
+                "description": "We've all heard the phrase \"Rails doesn't scale\". Long running test suites and no standard for implementing multiple databases makes it hard scale monolithic Rails applications. Rails 6 will start making Rails scalable by default with parallel testing and improved support for using multiple databases. You'll no longer be forced to reinvent the wheel and create your own solution to these problems. In this talk we'll take a look why these improvements are important, how they work, and ways in which small ideas can quickly snowball into major changes. This is just the beginning of Rails 6.",
+                "id": 1529,
                 "keynote": null,
-                "length": 180,
+                "length": 40,
                 "likes": 0,
                 "room": null,
                 "speakers": [
                   {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1491/avatar.png",
-                    "bio": "@wgoedel",
-                    "github": "",
-                    "id": 1491,
-                    "name": "Wolfgang Goedel",
-                    "twitter": "wgoedel"
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1010/avatar.png",
+                    "bio": "Senior Systems Engineer @github, @Rails Core Team, 👩‍💻 speaker, ❤️ OSS. Formerly @basecamp.",
+                    "github": "eileencodes",
+                    "id": 1010,
+                    "name": "Eileen M. Uchitelle",
+                    "twitter": "eileencodes"
                   }
                 ],
-                "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+                "startDate": "Thu Jun 28 07:20:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Découvrir Reason-React",
-                "type": 1,
+                "title": "The Future of Rails 6: Scalable by Default",
+                "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Présentation\nIntroduction aux Progressive Web Apps,\nOutils indispensables pour vous aider à développer une PWA,\nAPIs permettant à votre PWA de s’intégrer dans l’écosystème de votre téléphone,\nRessources pour se documenter et rester au fait des évolutions.\nHands-on\nImplémenter un mode offline,\nRendre l’appli apte à s’installer sur un téléphone,\nProposer à l’utilisateur de l’installer,\nPush event & Notification.\nPré-requis\nNiveau correct en JS\nGit et NodeJS installés",
-                "id": 1559,
+                "description": "As day-to-day developers we all struggle with bugs, maintaining and moving around each other's code. Piling up layers of it makes our code bases grow out of control to the point where bloated code obscures the understanding of our own solutions.\n\nLosing trust in the tools we use is the first step to writing legacy code, and dealing with codebases like these is one of the primary sources of stress and discomfort in our jobs.\n\nSo what makes code comfortable? What makes a codebase habitable? Why do we strive to write simple solutions and what are the obstacles behind them? We'll go over this questions while looking at code samples from various less-popular-yet-powerful tools in Ruby-land , trying to spot the \"less-code\" in them.\n\nI'll also share some of my experience in how this less code type of thinking helped me to get back to the basics and spot my own ignorance, to become a better programmer.",
+                "id": 1083,
                 "keynote": null,
-                "length": 1,
+                "length": 20,
                 "likes": 0,
                 "room": null,
                 "speakers": [
                   {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1493/avatar.png",
-                    "bio": "Tech Lead Front @sfeir",
-                    "github": "",
-                    "id": 1493,
-                    "name": "Fabien Zibi",
-                    "twitter": "_faz"
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1061/avatar.png",
+                    "bio": "I'm a developer from Buenos Aires, Argentina. Open source lover with an attention to detail. I'm a Computer Science student and I've been working with Ruby since 2009. Currently working at Citrusbyte, where I hone my productivity, leadership and distributed systems skills.\n\nLove martial arts, heavy metal, Doctor Who, anime and books. Talk to me if you want to know what to watch or read next.",
+                    "github": "tonchis",
+                    "id": 1061,
+                    "name": "Lucas Tolchinsky",
+                    "twitter": "tonchis_"
                   }
                 ],
-                "startDate": "Thu Jun 07 12:00:00 +0000 2018",
+                "startDate": "Thu Jun 28 08:20:00 +0000 2018",
+                "tags": "ruby, less code, legacy",
+                "talk": null,
+                "title": "Less code, more confidence",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Want to build a Bot without the hassle of provisioning and managing servers? Amazon’s got a service for that and it’s called AWS Lambda - it executes your code only when needed, scales automatically and you pay only for the compute time you consume.\n\nThere’s one problem with Lambda - it doesn’t support Ruby! Let’s checkout multiple options on how to build a Ruby Bot and package it into an executable which you can run on any machine without the need to actually have Ruby installed.",
+                "id": 1201,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1175/avatar.png",
+                    "bio": "Damir is a Rails Senior Software Engineer @ Netflix. He is a strong advocate of clean coding, automated testing and passionate about constant improvement. On top of that, he is an organizer of Ruby Meetups in Zagreb, a regular blogger, conference speaker, open source lover and contributor.",
+                    "github": "DamirSvrtan",
+                    "id": 1175,
+                    "name": "Damir Svrtan",
+                    "twitter": "DamirSvrtan"
+                  }
+                ],
+                "startDate": "Thu Jun 28 09:00:00 +0000 2018",
+                "tags": "ruby aws-lambda aws mruby travelling-ruby jruby bots",
+                "talk": null,
+                "title": "Building Serverless Ruby Bots",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "All technology professionals should understand machine learning well enough to recognise situations where it is most beneficial and appropriate. Even if you are familiar with machine learning, you will walk away with renewed interest and inspiration for ways you can apply it, and maybe learn about food and wine along the way. \n\nI'll introduce you to machine learning, some ways it can be applied, when it is most beneficial, as well as the major tools available in Ruby. I'll also show you a practical example: my wine pairing chat bot. We'll go through the process of breaking down the fundamentals of tasting, and introduce the challenges around pairing wines, and wine-food interactions. I'll show you how I use machine learning to enable the bot to converse, recognise flavours, and recommend wines based on those flavours.",
+                "id": 1060,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1031/avatar.png",
+                    "bio": "After several years Ruby software development in Washington, DC, Mai left IT to pursue her passion for food and wine. She earned a Masters degree in Oenology at the University of Adelaide, and continued on her journey, working in wine production in Australia, France, California, and New Zealand. Mai is now based in Wellington, and has since returned to the tech industry. Since then, she has been exploring ways to use technology to make wine more accessible to the public.",
+                    "github": "mjnguyennz",
+                    "id": 1031,
+                    "name": "Mai Nguyen",
+                    "twitter": "containsulfite"
+                  }
+                ],
+                "startDate": "Thu Jun 28 09:40:00 +0000 2018",
+                "tags": "food, wine, chatbots, machine learning, ai, ruby",
+                "talk": null,
+                "title": "Food, Wine and Machine Learning: Teaching a Bot to Taste",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "A junior developer will join your team. If nothing is done, he/she will be very likely unproductive for a long time. You and me have been there too. This is not a great experience, for nobody. Still, great engineers need to be made, and it starts from day one. Based on my experience and the EURA NOVA onboarding, I'll discuss why onboarding is important, which elements are required, how to plan and do it, and which common pitfalls to avoid.",
+                "id": 992,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/963/avatar.png",
+                    "bio": "Dedicated to bring tools and practices to developers, I <a href=\"http://ibakesoftware.com\">love to build products and facilitate their development</a>. I am passionate about making technologies humanist, I care to make complex concepts very simple, I am a polyglot developer, C++ and Ruby being my strongest languages. I work at <a href=\"https://euranova.eu\">EURA NOVA</a> as their Head of Engineering, I lead the development of our new data platform, David.",
+                    "github": "toch",
+                    "id": 963,
+                    "name": "Christophe Philemotte",
+                    "twitter": "_toch"
+                  }
+                ],
+                "startDate": "Thu Jun 28 10:20:00 +0000 2018",
+                "tags": "onboarding,junior",
+                "talk": null,
+                "title": "How to onboard a junior developer",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "",
+                "id": 1524,
+                "keynote": null,
+                "length": 110,
+                "likes": 0,
+                "room": null,
+                "speakers": [],
+                "startDate": "Thu Jun 28 10:40:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Ma première Progressive Web App",
-                "type": 1,
+                "title": "Lunch",
+                "type": 4,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "It is a case study combined with some nice Ruby technology. In the mid-late 2000s, I was doing web sites for financial companies. These were combinations of static content with dynamic content and small applications. They needed to be fast, to be reliable, to almost never go down, and to be able to scale as needed; they also needed to be cheap to run. What evolved from this was a 100% Ruby stack, from the layer that interacts with the user's web browser to load balancing of requests to the application back ends, that was all written in Ruby.\n\nIt was fast (really, even in the Ruby 1.8 days), stable, capable, and extensible, and has evolved in use on production web sites for 10 years.\n\nWe'll look a little at the components involved, why it was done this way, and some practical lessons for modern web sites.",
+                "id": 1213,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1188/avatar.png",
+                    "bio": "I have been doing Ruby full time since 2002. I was the former Ruby 1.8.6. maintainer. I have freelanced, worked for Engine Yard, and currently, Cookpad, full time with Ruby and web technologies since that time.\n\nIn my off time, I raise my 4 kids and do endurance sports: ultra marathons and gravel bike races.",
+                    "github": "wyhaines",
+                    "id": 1188,
+                    "name": "Kirk Haines",
+                    "twitter": "wyhaines"
+                  }
+                ],
+                "startDate": "Thu Jun 28 12:30:00 +0000 2018",
+                "tags": "ruby, web, scaling, reliability, deployment",
+                "talk": null,
+                "title": "It's Rubies All The Way Down!",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "This presentation is a deepening of the graphql-ruby and graphql-batch gems, with a proposal of a modern, domain driven, backend API architecture.\n\nIt's a re-organization of the Rails basic MVC architecture, with only one controller, the GraphQL controller, the models, and all the code in the graphql folder, separated by domains.\n\nThe idea is to have for each domain: a type, an input type, and a service object, that exposes the index/show/create/destroy/update methods, which can be rewrite to add business oriented code.\n\nThis architecture is live in the startup I work on, and is delightful to maintain.",
+                "id": 1421,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1387/avatar.png",
+                    "bio": "I'm Poilon, a former C developer that fell in love with Ruby and it's ecosystem in 2013. Web crawling and code automation went a real passion with ruby ! Right now I'm really focusing on GraphQL, I see it as a really good alternative to standard rest APIs.\nWhen I don't code, I enjoy chatting about AI and ML, and doing some deep learning courses.\nOtherwise, I raise my two kids and still try to play some smash melee competitively.",
+                    "github": "poilon",
+                    "id": 1387,
+                    "name": "Paul-Armand Assus",
+                    "twitter": "poilon"
+                  }
+                ],
+                "startDate": "Thu Jun 28 13:10:00 +0000 2018",
+                "tags": "ruby rails api graphql",
+                "talk": null,
+                "title": "GraphQL-DDD on Rails architecture",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "In 2001, we produced a exhibition work \"A Hands-On Model of the Internet\" at the National Museum of Emerging Science and Innovation in Tokyo. The work shows the workings of \"packet switching\" mechanism with white and black balls.",
+                "id": 1561,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1059/avatar.png",
+                    "bio": "Media Artist / Senior Research Scientist at the AIST / Chairman of NicoNicoGakkaiβ / Ph.D. (Information Science and Technology) / ``Patterns, Wiki, and XP''",
+                    "github": "eto",
+                    "id": 1059,
+                    "name": "Koichiro Eto",
+                    "twitter": "eto"
+                  }
+                ],
+                "startDate": "Thu Jun 28 13:50:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Ruby and Art: The Earliest Stage",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "How many times have we dutifully repeated the same mouse and keyboard actions, missing the irony that we spend our lives automating things for others, but so often neglect to do so for ourselves?\n\nThis talk will walk you through the design and implementation of a wifi command line utility for the Mac -- one that you could use as a model for automating your own manual process, including:\n\n* the multitude of cost/benefit decisions, including many compromises for speedier completion.\n\n* command suite (e.g. git) vs. option based (e.g. grep) design\n\n* how to address a target audience that includes non-Rubyists\n\n* class design, including separating back end functionality from command line & user input plumbing, and multi-OS support\n\n* providing an interactive shell in your utility\n\nAfter this presentation you will be able to make a better informed decision about the optimal balance of effort and functionality, and be better equipped to write an excellent implementation.",
+                "id": 1216,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1191/avatar.png",
+                    "bio": "Keith is a long time software developer who started his software development career writing an in-house accounting package on an Apple II in Applesoft BASIC. He's worked with Ruby for the last few years. He's lived on four continents and now spends most of his time split between Chiang Mai, Thailand, and Reston, Virginia (a suburb of Washington, DC). His other interests include karaoke, current events, foreign languages, massage, technical community, and becoming a better human being.",
+                    "github": "keithrbennett",
+                    "id": 1191,
+                    "name": "Keith Bennett",
+                    "twitter": "keithrbennett"
+                  }
+                ],
+                "startDate": "Thu Jun 28 14:30:00 +0000 2018",
+                "tags": "ruby command-line utilities pry shell",
+                "talk": null,
+                "title": "Writing a Command Line Utility in Ruby - Automation is Not Just For Your Users",
+                "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               }
@@ -129,558 +307,277 @@
             "title": "Thursday"
           },
           {
-            "date": "Fri Jun 08 06:00:00 +0000 2018",
+            "date": "Fri Jun 29 06:20:00 +0000 2018",
             "slots": [
               {
-                "description": "Pour ne pas commencer la journée le ventre vide.",
-                "id": 1550,
+                "description": "",
+                "id": 1528,
                 "keynote": null,
-                "length": 70,
+                "length": 60,
                 "likes": 0,
                 "room": null,
                 "speakers": [],
-                "startDate": "Fri Jun 08 06:00:00 +0000 2018",
+                "startDate": "Fri Jun 29 06:20:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Accueil et petit-déjeuner",
+                "title": "Check in",
+                "type": 8,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "",
+                "id": 1525,
+                "keynote": null,
+                "length": 40,
+                "likes": 0,
+                "room": null,
+                "speakers": [],
+                "startDate": "Fri Jun 29 06:40:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Breakfast",
                 "type": 3,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Bienvenue",
-                "id": 1551,
-                "keynote": null,
-                "length": 10,
-                "likes": 0,
-                "room": null,
-                "speakers": [],
-                "startDate": "Fri Jun 08 07:00:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Intro",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "The collection of modern web browsers APIs and set of best practices on creating the applications turned into a new software creation methodology called Progressive Web Apps (PWA). The Service Worker API is a key API of the whole concept. Let me unleash its power for you! But with great power comes great responsibility - trivially, but true: I'll show the examples of how easy the \"Progressive\" part of the PWA term could become \"Regressive\", how to fix this, and how to test our Service Worker before deploying your app.",
-                "id": 1087,
-                "keynote": null,
-                "length": 30,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1065/avatar.png",
-                    "bio": "Maxim Salnikov is Oslo-based Web UI Engineer, a Google Developer Expert in Web Technologies and Angular. He develops complex web applications since the end of the last century and has extensive experience with all aspects of web front-end: UX/UI prototyping, HTML/CSS/JS, main frameworks, progressive web apps.\n\nMaxim is a founder and active contributor to two conferences: Mobile Era and ngVikings - Nordics’ main conferences for mobile and Angular developers respectively. Also, he leads Norway’s l",
-                    "github": "webmaxru",
-                    "id": 1065,
-                    "name": "Maxim Salnikov",
-                    "twitter": "webmaxru"
-                  }
-                ],
-                "startDate": "Fri Jun 08 07:10:00 +0000 2018",
-                "tags": "pwa, service worker, progressive web apps, application shell, push notifications, cache api",
-                "talk": null,
-                "title": "Tame your Service Worker before your Progressive Web App go into the wild",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Slack is the degree of freedom in a company that allows it to change.\n\nAre you in a situation where you are:\n\n* practicing Scrum or the like?\n* developing 24/7 struggling to keep your head above water to meet demands?\n* overcommitting in your iterations?\n* committing to your exact velocity but still not managing to deliver it all?\n* experiencing inconsistent amount of work finished between iterations?\n* feeling your agility is fragile?\n* frustrated that there is no time to learn new things?\n\n Would you like to know of a simple yet very effective way to solve all these impediments and better yet, improve and learn continuously and be more productive while being happy? Come and join me at this session, and hopefully you can leave it with the necessary knowledge to explain to others why they should **cut you some slack**.",
-                "id": 1493,
-                "keynote": null,
-                "length": 25,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1432/avatar.png",
-                    "bio": "Full Stack Developer, Pragmatic Coach, Hip Hop artist, French of Lebanese origin, raised in Nigeria, currently residing in Paris, France. R&D @ Murex S.A.S.",
-                    "github": "",
-                    "id": 1432,
-                    "name": "Morgan Kobeissi",
-                    "twitter": "mc_moe"
-                  }
-                ],
-                "startDate": "Fri Jun 08 07:10:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Cut me some Slack",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Implementing Mobile Payment APIs will not just improve the user experience, but increase the chance of maintaining your users. Thanks to the safety nature of the process of payment, the APIs will make the decision of clicking \"pay\" easier like never before.\nIn this presentation we will discuss the basics of implementing the APIs, the available gateways, and show some demos and how they resonate in the era of PWA.\nWe will also discuss the current limitations, and how the future will look like towards standardizing those APIs.",
-                "id": 1088,
-                "keynote": null,
-                "length": 20,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1066/avatar.png",
-                    "bio": "International technical speaker, Google developer expert (GDE), trainer and developer advocate. Passionate about Web and Mobile apps development, including PWA, offline-first design, in-browser database, and cross platform tools. Also interested in Android internals such as building custom ROMs and customize AOSP for embedded devices. www.amahdy.net",
-                    "github": "amahdy",
-                    "id": 1066,
-                    "name": "AMahdy Abdelaziz",
-                    "twitter": "amahdy7"
-                  }
-                ],
-                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
-                "tags": "pwa, web payment, api, web components, mobile",
-                "talk": null,
-                "title": "Web Payment APIs",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Aujourd'hui, le mot UX représente bien trop souvent un concept abstrait. Nous allons donc découvrir quels sont les principes de bases de l'UX ? Quels sont les erreurs classiques que l'on peux trouver dans les applications mobiles ? Comment adapter l'UX d'un site web sur un device mobile ?",
-                "id": 1427,
-                "keynote": null,
-                "length": 20,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1393/avatar.png",
-                    "bio": "Digital enthusiast I love solving problems. By working closely with potential users I therefore create easy to use products with great user experience.",
-                    "github": "",
-                    "id": 1393,
-                    "name": "Caroline Besnard",
-                    "twitter": ""
-                  },
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1394/avatar.png",
-                    "bio": "UX Designer & Scrum Master chez BAM",
-                    "github": "",
-                    "id": 1394,
-                    "name": "Héloïse Bonan",
-                    "twitter": ""
-                  }
-                ],
-                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "How to distinguish PWA's UX from WEB app's UX",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Pause café",
-                "id": 1552,
-                "keynote": null,
-                "length": 30,
-                "likes": 0,
-                "room": null,
-                "speakers": [],
-                "startDate": "Fri Jun 08 08:30:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Pause",
-                "type": 2,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Faire des application web universelles n'est pas si facile, pourtant elles ont beaucoup d'avantages. Je montrerai comment en faire une avec Vue.js et le module `vue-server-renderer`. Nous verrons les bonne pratiques, ce qu'il faut éviter de faire et comment rendre ce processus simple et fun.",
-                "id": 1494,
-                "keynote": null,
-                "length": 25,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1433/avatar.png",
-                    "bio": "Author of @nuxt_js & @terra_js • Community partner of @vuejs • Working on @cmty_io",
-                    "github": "",
-                    "id": 1433,
-                    "name": "Sébastien Chopin",
-                    "twitter": "Atinux"
-                  }
-                ],
-                "startDate": "Fri Jun 08 09:00:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Nuxt.js",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Alors qu’Android est la première plateforme mobile du monde et que java/kotlin sont les langages de prédilection des applications sur cette plateforme pourquoi depuis 2 ans Google pousse les entreprises et les développeurs à porter leurs applications vers les PWA ? Pourquoi ce paradoxe ?",
-                "id": 1425,
-                "keynote": null,
-                "length": 20,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1391/avatar.png",
-                    "bio": "Embedded & IoT Business Line Manager",
-                    "github": "",
-                    "id": 1391,
-                    "name": "Cédric Ravalec",
-                    "twitter": "cravalec"
-                  }
-                ],
-                "startDate": "Fri Jun 08 09:20:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Comprendre la stratégie de Google avec les PWA",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Les specs WebVR et WebGL et les récentes APIs HTML5 ont permis aux navigateurs d'afficher des contextes OpenGL et d'y connecter du matériel de réalité virtuelle : casques, contrôleurs de jeux ou simples Cardboard permettent d'enrichir l'expérience web sur ordinateurs comme sur mobiles.\n\nMon ami Pierre Charles et moi-même avons décidé de mener ce projet au sein de notre parcours universitaire en mêlant A-Frame, techno extrêmement jeune développée par la fondation Mozilla, et Vue2, complètement à l'aveugle. Lorsque nous avons lancé le projet, nous étions à première vue des précurseurs sur l'utilisation de ces deux technos dans un projet qui ne relève pas que du prototype.\n\nJe proposerai aujourd'hui de revenir sur le développement de ce projet afin de discuter de l'avenir de la VR dans le développement Web.",
-                "id": 1426,
-                "keynote": null,
-                "length": 20,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1392/avatar.png",
-                    "bio": "Ancien étudiant à l'IMAC, gentil, attentionné, doux, un peu niais et surtout j'aime le houmous. Développeur front-end pour @mfg_labs",
-                    "github": "",
-                    "id": 1392,
-                    "name": "Victor Viale",
-                    "twitter": "Koroeskohr"
-                  }
-                ],
-                "startDate": "Fri Jun 08 09:40:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Réalité virtuelle avec VueJS et A-Frame",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Si un de vos collègue vous a déjà dit «Alors là, j'ai utilisé de l'application partielle sur cette fonction que j'ai curryfié en utilisant des fonctions d'ordre supérieur et des closures» et que vous n'avez rien compris, alors ce talk est pour vous.\nLa programmation fonctionnelle présente de nombreux concepts qui viennent des maths. Et cela fait peur ! Mais appliqué à l'informatique, c'est en réalité très simple !\nDurant ce live-coding consistant à refactorer un code impératif vers un code fonctionel, les conceptes principaux seront introduits uniquement quand cela est utile et expliqués en profondeur.\nÀ la fin de ce talk, les concepts suivants n'auront plus de secrets pour vous :\n- La transparance référenciel\n- Les fonctions comme citoyen de première classe\n- Les fonctions d'ordre supérieur\n- Les closure\n- Le lambda calculus\n- La curryfication\n- L'application partielle\n- La composition de fonction\n- La notation «Point-free»",
-                "id": 1116,
-                "keynote": null,
-                "length": 60,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1087/avatar.png",
-                    "bio": "Développeur passionné, CTO @ Zenika, co-organisateur des meetups \"software crafters paris\", \"dojo développement paris\" et d'autres.",
-                    "github": "FaustXVI",
-                    "id": 1087,
-                    "name": "Xavier Detant",
-                    "twitter": "XDetant"
-                  }
-                ],
-                "startDate": "Fri Jun 08 10:20:00 +0000 2018",
-                "tags": "javascript, haskell, programmation fonctionnelle",
-                "talk": null,
-                "title": "De Javascript à Haskell : La programmation fonctionnelle expliquée simplement",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Déjeuner",
-                "id": 1553,
-                "keynote": null,
-                "length": 80,
-                "likes": 0,
-                "room": null,
-                "speakers": [],
-                "startDate": "Fri Jun 08 10:40:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Repas",
-                "type": 4,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Après les interfaces tactiles, la détection des gestes, la reconnaissance de la voix, que reste-t-il à explorer pour contrôler nos programmes ?\nDepuis qques années, des bandeaux permettant de capturer les petites ondes électriques emisent par notre cerveau ont fait leur discrète apparition sur le marché. Dans le même temps, les API Web Bluetooth se sont développées, permettant l'exploitation de nombreux nouveaux devices par nous autres développeurs web.\nEt si cette combinaison nous permettait de générer quelque-chose contrôlé par notre cerveau?\nDans ce talk, je vous guiderai dans mon exploration de ce domaine fascinant qu'est la NeuroTech. Nous explorerons le traitement de ses signaux, avec quelques démos interactives. Et le tout dans but bien différent de nos projets habituels : celui de réaliser une installation artistique. J'espère ainsi déclencher la fibre créative aupres de l'audience ;)",
-                "id": 1488,
-                "keynote": null,
-                "length": 20,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1426/avatar.png",
-                    "bio": "Dev & entrepreneur @Toucan_Toco, tech-hippie by night",
-                    "github": "davinov",
-                    "id": 1426,
-                    "name": "David Nowinsky",
-                    "twitter": "davinov"
-                  }
-                ],
-                "startDate": "Fri Jun 08 12:00:00 +0000 2018",
-                "tags": "NeuroTech, Art, code, interface, ui, iot, webbluetooth, traitement du signal, rxjs, d3js",
-                "talk": null,
-                "title": "De développeur web à artiste du cerveau",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Si vous codez en React vous utilisez très certainement redux et redux-saga. Pour autant comprenons nous vraiment la mécanique de redux avec ses méthodes dispatch, subscribe, getState ? Savons-nous comment le middleware redux-saga intercepte nos actions pour effectuer des calls API ? Recodons ensemble ces deux librairies pour découvrir ce qui se passe sous le capot!",
-                "id": 1492,
-                "keynote": null,
-                "length": 25,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1431/avatar.png",
-                    "bio": "Mobile engineer @bam_lab",
-                    "github": "",
-                    "id": 1431,
-                    "name": "Aurore Malherbes",
-                    "twitter": "aurorema27"
-                  }
-                ],
-                "startDate": "Fri Jun 08 12:00:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Recodons redux et redux-saga",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "In this talk I will be covering High Order Observables and how to master them. These Observables emit other Observables and require specific operators. I will explain how RxJS Core developers deal with complex Observables orchestration and how you can use this knowledge to take your RxJS skills to new heights!",
-                "id": 1084,
-                "keynote": null,
-                "length": 30,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1062/avatar.png",
-                    "bio": "Gerard is very excited about the future of the Web and JavaScript. Always happy Computer Science Engineer and humble Google Developer Expert. He loves to share his learnings by giving talks, trainings and writing about cool technologies. He loves running AngularZone and GraphQL London, mentoring students and giving back to the community.",
-                    "github": "gsans",
-                    "id": 1062,
-                    "name": "Gerard Sans",
-                    "twitter": "gerardsans"
-                  }
-                ],
-                "startDate": "Fri Jun 08 12:40:00 +0000 2018",
-                "tags": "rxjs 5, schedulers",
-                "talk": null,
-                "title": "Bending time with Schedulers and RxJS 5",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "NPM est le premier point d'entrée dés lors qu'il s'agit de package management pour NodeJS. Son API couvre de multiples fonctionnalités : installation, publication, scripts. \"npm install ...\" est probablement un réflexe, pourtant est-ce que vous savez tout ce que ça implique ?\n\nCette présentation a pour but de décortiquer les scripts exécutés lors d'une installation via NPM et de voir quels détournements sont possibles.",
-                "id": 1431,
-                "keynote": null,
-                "length": 20,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1397/avatar.png",
-                    "bio": "Music Computing Lab, The Open University   Ecole Centrale Nantes....",
-                    "github": "",
-                    "id": 1397,
-                    "name": "Thomas Crevoisier",
-                    "twitter": "ThomasC__"
-                  }
-                ],
-                "startDate": "Fri Jun 08 12:40:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Les scripts npm et la sécurité",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Why do we do it? Why do we try so hard? Why are we paying to be here, to listen to people talk? Maybe because we’re life long learners - we want to learn new things? Commune with our own kind? But why? Come examine our motives as developers, the pitfalls we fall into, and the cost of being great.",
-                "id": 1144,
+                "description": "In this talk we would take a look in why keeping your application up-to-date is important and different strategies to upgrade Rails application to the newest version taking as example a huge monolithic Rails application. We will learn what were the biggest challenges and how they could be avoided.",
+                "id": 1531,
                 "keynote": null,
                 "length": 40,
                 "likes": 0,
                 "room": null,
                 "speakers": [
                   {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1112/avatar.png",
-                    "bio": "I'm an Angular Developer Advocate & GDE. My two degrees (Web Design & Development and Psychology) feed my speaking career. I’ve spoken at over 20 conferences Internationally, specialising in motivational soft talks. I'm a weekly panelist on Adventures in Angular and Angular Air, which have a combined following of over 16,000 listeners. I enjoy gaming, scuba diving, and have a toothless dog named Gummy. My DM is always open, come talk sometime.",
-                    "github": "alyssamichelle",
-                    "id": 1112,
-                    "name": "Alyssa Nicoll",
-                    "twitter": "alyssanicoll"
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1009/avatar.png",
+                    "bio": "Self-appointed Rails policeman, Rails Core Team Member, Simple Form maintainer",
+                    "github": "rafaelfranca",
+                    "id": 1009,
+                    "name": "Rafael França",
+                    "twitter": "rafaelfranca"
                   }
                 ],
-                "startDate": "Fri Jun 08 13:20:00 +0000 2018",
-                "tags": "psychology, motivation, developer, soft talk",
+                "startDate": "Fri Jun 29 07:20:00 +0000 2018",
+                "tags": "",
                 "talk": null,
-                "title": "Innovating is not about technology, but psychology.",
+                "title": "Living on Rails edge",
                 "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Suite à une récente key note de Bert Belder concernant l'event loop de NodeJs je peux proposer de revenir sur son intervention et plus généralement sur le fonctionnement de l'event loop + libUv qui sont au coeur du fonctionnement de NodeJs.\n\nÇa permet de revenir sur les briques de bases de Node mais aussi de démystifier un peu certaines choses et de faire la part entre mythes et réalité.",
-                "id": 1432,
+                "description": "In applications that persist data, getting the current state of the system is trivial. But often the question is not only where are we now, but how did we get here? Event sourcing is a pattern that stores changes to state as a sequence of events. The events encapsulate all the information needed for a record to change from one state to another, and the current state can be completely destroyed and rebuilt by replaying these events. Sounds great, right? But how do we take a system that is not designed using event sourcing, and start to apply some of these patterns? I’ll give an overview of the architecture’s key components and share some examples of how to adopt event sourcing into an existing application.",
+                "id": 1248,
                 "keynote": null,
                 "length": 20,
                 "likes": 0,
                 "room": null,
                 "speakers": [
                   {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1398/avatar.png",
-                    "bio": "Dev full stack Js, NodeJs Evangelist, Lead tech Keymetrics",
-                    "github": "",
-                    "id": 1398,
-                    "name": "Vincent Vallet",
-                    "twitter": ""
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1214/avatar.png",
+                    "bio": "Jenna is a backend developer on the Amazon integration team at Shopify.  Her introduction to software began with a hasty retreat from C in a university physics class, only to return thanks to the joy of Ruby. Outside of work, she can be found knitting, riding her bike or climbing inside on pretend rocks.",
+                    "github": "jennaleeb",
+                    "id": 1214,
+                    "name": "Jenna Blumenthal",
+                    "twitter": "jennaleeblume"
                   }
                 ],
-                "startDate": "Fri Jun 08 13:20:00 +0000 2018",
-                "tags": "",
+                "startDate": "Fri Jun 29 08:20:00 +0000 2018",
+                "tags": "event sourcing, architecture, design patterns",
                 "talk": null,
-                "title": "NodeJs Event Loop",
+                "title": "Event Sourcing for Everyone",
                 "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Pause café",
-                "id": 1554,
-                "keynote": null,
-                "length": 30,
-                "likes": 0,
-                "room": null,
-                "speakers": [],
-                "startDate": "Fri Jun 08 14:00:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Pause",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "On sait tous que les tests sont importants. Mais sont-ils suffisamment bons ? Le mutation testing peut vous montrer les bugs qui ne seraient détectés par vos tests, vous permettant ainsi d’améliorer vos tests.\nCe talk se veut très pratique, je montrerais ce qu’est le mutation testing, comment le mettre en place sur un projet et les résultats obtenus sur un projet réel.",
-                "id": 1360,
-                "keynote": null,
-                "length": 30,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1326/avatar.png",
-                    "bio": "Développeur Scala chez Criteo et formateur indépendant. Fan de programmation fonctionnelle typée mais aussi conférencier, organisateur de meetup et ancien freelance et fondateur de startup.\nOuvert à toute discussion sur la qualité de code, la programmation fonctionnelle, DDD, TDD, l’event sourcing ainsi que l’agilité, le management ou le recrutement ;)",
-                    "github": "loicknuchel",
-                    "id": 1326,
-                    "name": "Loïc Knuchel",
-                    "twitter": "loicknuchel"
-                  }
-                ],
-                "startDate": "Fri Jun 08 14:30:00 +0000 2018",
-                "tags": "tests, qualité de code",
-                "talk": null,
-                "title": "Mutation testing, enfin une bonne mesure de la qualité des tests ?",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Je suppose que vous avez déjà vu cette démo montrant une image morcelée qui s'affiche tellement plus vite en HTTP/2. Si ce n'est pas le cas, je vous la montrerai, et je vous expliquerai brièvement pourquoi c'est aussi rapide.\n\nLe but de cette présentation, c'est surtout de vous montrer comment HTTP/2 est implémenté aujourd'hui, en accès direct ou en reverse proxy. On verra en particulier comment configurer les principaux serveurs Web du marché, comme Apache httpd, nginx, NodeJS ou Tomcat.\nEnfin nous évaluerons l'impact que peut avoir HTTP/2 sur notre code et comment les API Push peuvent faire charger l'image morcelée encore plus rapidement.",
-                "id": 1406,
-                "keynote": null,
-                "length": 30,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1373/avatar.png",
-                    "bio": "Alexis Hassler est développeur Java depuis la fin du siècle dernier. Il exerce son métier comme indépendant, en codant, mais aussi en accompagnant ou formant les entreprises pour les aider à améliorer leur façon de développer et de déployer leurs applications Java.",
-                    "github": "hasalex",
-                    "id": 1373,
-                    "name": "Alexis Hassler",
-                    "twitter": "AlexisHassler"
-                  }
-                ],
-                "startDate": "Fri Jun 08 14:30:00 +0000 2018",
-                "tags": "http, performance",
-                "talk": null,
-                "title": "HTTP/2 en pratique",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "J'ai transformé mon lapin en Tamagotchi ! Démarrer un side-project à côté du travail est souvent (très) difficile ! Pourtant, c'est un des meilleurs moyen de progresser et découvrir de nouveaux horizons. Vous avez envie d'automatiser les tâches récurrentes pour votre petit compagnon d'appartement ? Curieux des possibilité de Raspberry Pi sur l'électronique ? Curieux du temps nécessaire pour créer une appli React Native ? Dans cette présentation, je vous fais un retour d'experience sur mon propre side-project en espérant vous donner envie d'en commencer un.",
-                "id": 1433,
-                "keynote": null,
-                "length": 30,
-                "likes": 0,
-                "room": null,
-                "speakers": [
-                  {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1399/avatar.png",
-                    "bio": "IT Engineer - Downloading opportunities in Paris. BNP Paribas Investment Partners",
-                    "github": "",
-                    "id": 1399,
-                    "name": "Michel Parreno",
-                    "twitter": ""
-                  }
-                ],
-                "startDate": "Fri Jun 08 15:10:00 +0000 2018",
-                "tags": "",
-                "talk": null,
-                "title": "Transformez votre animal en Tamagotchi !",
-                "type": 0,
-                "youtubeId": "",
-                "youtubeUrl": ""
-              },
-              {
-                "description": "Voice interaction is exploding in 2017 and beyond. 1 in 6 American homes have a voice-first device, and the number of people speaking to computers is only going to increase. If we take our web pages and put them on voice, we’ll have frustrated customers who are going to look elsewhere. What, then, are the principles of a good voice UI? In this talk we’ll examine how to build a voice UI that gets the conversation going.",
-                "id": 1434,
+                "description": "Runtime errors can sometimes turn into dark and unpleasant journeys which lead you to question the nature of reality. Thankfully, Ruby often provides friendly feedback for understanding the cause and remedy for exceptions. Yet, there are situations in which programmers don't receive clear enough context for what really caused an exception and how to address it. We'll look at Ruby's error feedback mechanisms and search for constructive ways in which they can be made more helpful to humans.",
+                "id": 1300,
                 "keynote": null,
                 "length": 20,
                 "likes": 0,
                 "room": null,
                 "speakers": [
                   {
-                    "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1400/avatar.png",
-                    "bio": "I’m a Paris-based programmer working largely in JavaScript, Ruby, and Rails. I’m at Algolia, and was previously creator of Pico, which provides teams the tools to better track their indiviudal career growth goals. I work in voice interface, particularly for the Alexa Skills Kit and Google Assistant, a lot.",
-                    "github": "",
-                    "id": 1400,
-                    "name": "Dustin Coates",
-                    "twitter": "dcoates"
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1253/avatar.png",
+                    "bio": "Software bricoleur, Keep a Changelogger, Code School maintainer, irregular Ruby and Rails contributor, and undercover French person.",
+                    "github": "olivierlacan",
+                    "id": 1253,
+                    "name": "Olivier Lacan",
+                    "twitter": "olivierlacan"
                   }
                 ],
-                "startDate": "Fri Jun 08 15:10:00 +0000 2018",
-                "tags": "",
+                "startDate": "Fri Jun 29 09:00:00 +0000 2018",
+                "tags": "ruby, exceptions, errors",
                 "talk": null,
-                "title": "Alexa, show me a good voice UI",
+                "title": "Human Errors",
                 "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
               },
               {
-                "description": "Adios amigos!",
-                "id": 1555,
+                "description": "The RubyGems is a mechanism to install libraries via the Internet without standard libraries. As maintenance manager of RubyGems and core member of Ruby core team, I'm working to merge the latest version of RubyGems with a latest stable version of ruby every year.\n\nIn this presentation, I will introduce the new feature of RubyGems 2.7 and describe the mechanism of integration with Bundler. Finally, I introduce a roadmap for RubyGems 3 and 4, which is developing for Ruby 2.6 and 3 release.\n\nThrough this talk, you will be able to enjoy the ruby world more by understanding RubyGems at the center of ruby's ecosystem.",
+                "id": 1227,
                 "keynote": null,
-                "length": 10,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1200/avatar.png",
+                    "bio": "A member of Ruby core team. RubyGems, Rake, RDoc, Psych, ruby-build, etc. and He is an administrator of ruby-lang.org and supports to develop the environment of Ruby language.\n\nHe is also Executive Officer in GMO Pepabo, Inc. His most interest things are “Productivity” He believes, there's business value in fun.",
+                    "github": "hsbt",
+                    "id": 1200,
+                    "name": "Hiroshi Shibata",
+                    "twitter": "hsbt"
+                  }
+                ],
+                "startDate": "Fri Jun 29 09:40:00 +0000 2018",
+                "tags": "rubygems ruby core gem",
+                "talk": null,
+                "title": "RubyGems 3 & 4",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Many devs struggle when understanding humans. Why can't they be as simple as code?\nBut sometimes, living with humans gives interesting lessons to apply to your code.\nAre you an engineer or manager? A beginner or experienced coder?\nWe have many code principles that can be weird, or dangerous if applied too litterally.\nMy goal is to give simple metaphors, for you to explain to your teams how patterns can be used or misused, for a cleaner codebase and better team communication.",
+                "id": 1435,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1402/avatar.png",
+                    "bio": "Sylvain Abélard is a problem solver at Faveod. He mostly uses Ruby, Rails and asking questions to help people. He's co-organiser at ParisRB and would love to welcome you in beautiful Paris, France.",
+                    "github": "abelards",
+                    "id": 1402,
+                    "name": "Sylvain Abélard",
+                    "twitter": "abelar_s"
+                  }
+                ],
+                "startDate": "Fri Jun 29 10:20:00 +0000 2018",
+                "tags": "code, resiliency, patterns, metaphors",
+                "talk": null,
+                "title": "Clean code lessons from messy humans",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "",
+                "id": 1526,
+                "keynote": null,
+                "length": 110,
                 "likes": 0,
                 "room": null,
                 "speakers": [],
-                "startDate": "Fri Jun 08 15:50:00 +0000 2018",
+                "startDate": "Fri Jun 29 10:40:00 +0000 2018",
                 "tags": "",
                 "talk": null,
-                "title": "Closing Keynote",
+                "title": "Lunch",
+                "type": 4,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "We all enjoy the flexibility and expressiveness that languages like Ruby give us, but such flexibility is also paired with the unknown. Dealing with dynamic data and runtime conditions can lead to unknown scenarios and runtime errors.\n\nCompiled languages, specially today offer a fresh perspective and help us developers better understand and shape our code.\n\nThis talk aims to discover certain techniques transfered from compiled languages' realm and transfer those to dynamic languages like Ruby. Will talk from my experience working on mid-size Ruby projects (8K+ LOC).\n\nFull description here: https://gist.github.com/luislavena/2adca9ccb341f0a675f9767ed0b0e54b",
+                "id": 1118,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1089/avatar.png",
+                    "bio": "Ruby contributor. Maintainer of One-Click Ruby Installer. Avid Open-Source contributor Also know as *nix developer's nightmare. Technical Director at AREA 17.",
+                    "github": "luislavena",
+                    "id": 1089,
+                    "name": "Luis Lavena",
+                    "twitter": "luislavena"
+                  }
+                ],
+                "startDate": "Fri Jun 29 12:30:00 +0000 2018",
+                "tags": "ruby, compilers, crystal",
+                "talk": null,
+                "title": "Crystal: How using a compiled language made me write better Ruby",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Writing tests is a significant part of the Ruby development process.\n\nThe test suite’s run time increases as the application evolves. We don’t care until we found ourselves wasting too much time waiting for the green light.\n\nWhat makes tests slow and how to heal them? Let’s answer these questions.\n\nI would like to start the talk by answering several questions, e.g., “Do you write tests?”, “How long does your test suite run?”, etc. Some stats & charts.\n\nIn the first part of the I would like to share a few real-life stories: “Our tests were slow, we did some investigation, and the reason was X.” Most of these reasons are related to incorrect environment configuration for tests.\n\nThe second part of the talk is answering the question: how to find bottlenecks in your tests?\n\nI'm going to introduce the tool called TestProf–a toolbox for profiling test suites and a set of ready-made recipes to write faster tests and fix your existing slow codebase.\n\nLet's make tests faster!",
+                "id": 1126,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1097/avatar.png",
+                    "bio": "A mathematician found his happiness in programming Ruby and Erlang, contributing to open source, mentoring Rails devs and being an Evil Martian. Author of Anycable and TestProf.",
+                    "github": "palkan",
+                    "id": 1097,
+                    "name": "Vladimir Dementyev",
+                    "twitter": "palkan_tula"
+                  }
+                ],
+                "startDate": "Fri Jun 29 13:10:00 +0000 2018",
+                "tags": "ruby, tests, profiling",
+                "talk": null,
+                "title": "99 problems of slow tests",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "An exploration of the challenges that Ruby faces today, combined with ideas\nregarding how we can change things for the better. We'll talk about the language, its ecosystem and its community.\nWhile on this bold adventure we'll plot a course towards Ruby 4.0 - a mystical and magical Ruby release that would ensure Ruby's dominance to infinity and beyond! Oh, and did I mention we'll have a ton fun while doing so? We'll most certainly do!",
+                "id": 1212,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1187/avatar.png",
+                    "bio": "Bozhidar is the author of RuboCop and the editor of the community Ruby and Rails style guides. Most people would probably describe him as an Emacs zealot (and they would be right). He's also quite fond of the Lisp family of languages, functional programming in general and Clojure in particular.\n\nBelieve it or not, Bozhidar has hobbies and interests outside the realm of computers, but we won't bore with those here.",
+                    "github": "bbatsov",
+                    "id": 1187,
+                    "name": "Bozhidar Batsov",
+                    "twitter": "bbatsov"
+                  }
+                ],
+                "startDate": "Fri Jun 29 13:50:00 +0000 2018",
+                "tags": "ruby",
+                "talk": null,
+                "title": "Ruby 4.0: To Infinity and Beyond",
+                "type": 0,
+                "youtubeId": "",
+                "youtubeUrl": ""
+              },
+              {
+                "description": "Much of how we understand, describe, and value code is based on subjective criteria that are easy for us to grasp intuitively but almost impossible to define or communicate objectively.\n\nCan advances in applied aesthetics and theoretical neurology provide insights into the advantages and disadvantages of relying on such elusive criteria? Do mathematical and evolutionary theories indicate that our code evolves aesthetically to enhance its survivability, durability, and success?\n\nThis talk will explore the role that concepts such as beauty, sublimity, completeness and simplicity play in the way that we model reality in software, relate to our own and other people's code, and ultimately measure the value of our work as professionals.",
+                "id": 1534,
+                "keynote": null,
+                "length": 20,
+                "likes": 0,
+                "room": null,
+                "speakers": [
+                  {
+                    "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1056/avatar.png",
+                    "bio": "Code witch at Stitch Fix and creator of the Contributor Covenant. Ruby Hero. Developer, speaker, writer, and musician.",
+                    "github": "CoralineAda",
+                    "id": 1056,
+                    "name": "Coraline Ehmke",
+                    "twitter": "CoralineAda"
+                  }
+                ],
+                "startDate": "Fri Jun 29 14:30:00 +0000 2018",
+                "tags": "",
+                "talk": null,
+                "title": "Aesthetics and the Evolution of Code",
                 "type": 0,
                 "youtubeId": "",
                 "youtubeUrl": ""
@@ -689,630 +586,605 @@
             "title": "Friday"
           }
         ],
-        "id": 171,
-        "name": "Best Of Web 2018",
+        "id": 166,
+        "name": "Paris.rb conf 2018",
         "offset": 7200,
-        "slug": "best-of-web-2018",
+        "slug": "parisrb-conf-2018",
         "speakers": [
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1062/avatar.png",
-            "bio": "Gerard is very excited about the future of the Web and JavaScript. Always happy Computer Science Engineer and humble Google Developer Expert. He loves to share his learnings by giving talks, trainings and writing about cool technologies. He loves running AngularZone and GraphQL London, mentoring students and giving back to the community.",
-            "github": "gsans",
-            "id": 1062,
-            "name": "Gerard Sans",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/963/avatar.png",
+            "bio": "Dedicated to bring tools and practices to developers, I <a href=\"http://ibakesoftware.com\">love to build products and facilitate their development</a>. I am passionate about making technologies humanist, I care to make complex concepts very simple, I am a polyglot developer, C++ and Ruby being my strongest languages. I work at <a href=\"https://euranova.eu\">EURA NOVA</a> as their Head of Engineering, I lead the development of our new data platform, David.",
+            "github": "toch",
+            "id": 963,
+            "name": "Christophe Philemotte",
             "talks": [
               {
-                "description": "In this talk I will be covering High Order Observables and how to master them. These Observables emit other Observables and require specific operators. I will explain how RxJS Core developers deal with complex Observables orchestration and how you can use this knowledge to take your RxJS skills to new heights!",
-                "id": 1084,
-                "length": 30,
-                "startDate": "Fri Jun 08 12:40:00 +0000 2018",
-                "title": "Bending time with Schedulers and RxJS 5",
-                "type": 0
-              }
-            ],
-            "twitter": "gerardsans"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1065/avatar.png",
-            "bio": "Maxim Salnikov is Oslo-based Web UI Engineer, a Google Developer Expert in Web Technologies and Angular. He develops complex web applications since the end of the last century and has extensive experience with all aspects of web front-end: UX/UI prototyping, HTML/CSS/JS, main frameworks, progressive web apps.\n\nMaxim is a founder and active contributor to two conferences: Mobile Era and ngVikings - Nordics’ main conferences for mobile and Angular developers respectively. Also, he leads Norway’s l",
-            "github": "webmaxru",
-            "id": 1065,
-            "name": "Maxim Salnikov",
-            "talks": [
-              {
-                "description": "The collection of modern web browsers APIs and set of best practices on creating the applications turned into a new software creation methodology called Progressive Web Apps (PWA). The Service Worker API is a key API of the whole concept. Let me unleash its power for you! But with great power comes great responsibility - trivially, but true: I'll show the examples of how easy the \"Progressive\" part of the PWA term could become \"Regressive\", how to fix this, and how to test our Service Worker before deploying your app.",
-                "id": 1087,
-                "length": 30,
-                "startDate": "Fri Jun 08 07:10:00 +0000 2018",
-                "title": "Tame your Service Worker before your Progressive Web App go into the wild",
-                "type": 0
-              }
-            ],
-            "twitter": "webmaxru"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1066/avatar.png",
-            "bio": "International technical speaker, Google developer expert (GDE), trainer and developer advocate. Passionate about Web and Mobile apps development, including PWA, offline-first design, in-browser database, and cross platform tools. Also interested in Android internals such as building custom ROMs and customize AOSP for embedded devices. www.amahdy.net",
-            "github": "amahdy",
-            "id": 1066,
-            "name": "AMahdy Abdelaziz",
-            "talks": [
-              {
-                "description": "Implementing Mobile Payment APIs will not just improve the user experience, but increase the chance of maintaining your users. Thanks to the safety nature of the process of payment, the APIs will make the decision of clicking \"pay\" easier like never before.\nIn this presentation we will discuss the basics of implementing the APIs, the available gateways, and show some demos and how they resonate in the era of PWA.\nWe will also discuss the current limitations, and how the future will look like towards standardizing those APIs.",
-                "id": 1088,
+                "description": "A junior developer will join your team. If nothing is done, he/she will be very likely unproductive for a long time. You and me have been there too. This is not a great experience, for nobody. Still, great engineers need to be made, and it starts from day one. Based on my experience and the EURA NOVA onboarding, I'll discuss why onboarding is important, which elements are required, how to plan and do it, and which common pitfalls to avoid.",
+                "id": 992,
                 "length": 20,
-                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
-                "title": "Web Payment APIs",
+                "startDate": "Thu Jun 28 10:20:00 +0000 2018",
+                "title": "How to onboard a junior developer",
                 "type": 0
               }
             ],
-            "twitter": "amahdy7"
+            "twitter": "_toch"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1087/avatar.png",
-            "bio": "Développeur passionné, CTO @ Zenika, co-organisateur des meetups \"software crafters paris\", \"dojo développement paris\" et d'autres.",
-            "github": "FaustXVI",
-            "id": 1087,
-            "name": "Xavier Detant",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1009/avatar.png",
+            "bio": "Self-appointed Rails policeman, Rails Core Team Member, Simple Form maintainer",
+            "github": "rafaelfranca",
+            "id": 1009,
+            "name": "Rafael França",
             "talks": [
               {
-                "description": "Si un de vos collègue vous a déjà dit «Alors là, j'ai utilisé de l'application partielle sur cette fonction que j'ai curryfié en utilisant des fonctions d'ordre supérieur et des closures» et que vous n'avez rien compris, alors ce talk est pour vous.\nLa programmation fonctionnelle présente de nombreux concepts qui viennent des maths. Et cela fait peur ! Mais appliqué à l'informatique, c'est en réalité très simple !\nDurant ce live-coding consistant à refactorer un code impératif vers un code fonctionel, les conceptes principaux seront introduits uniquement quand cela est utile et expliqués en profondeur.\nÀ la fin de ce talk, les concepts suivants n'auront plus de secrets pour vous :\n- La transparance référenciel\n- Les fonctions comme citoyen de première classe\n- Les fonctions d'ordre supérieur\n- Les closure\n- Le lambda calculus\n- La curryfication\n- L'application partielle\n- La composition de fonction\n- La notation «Point-free»",
-                "id": 1116,
-                "length": 60,
-                "startDate": "Fri Jun 08 10:20:00 +0000 2018",
-                "title": "De Javascript à Haskell : La programmation fonctionnelle expliquée simplement",
-                "type": 0
-              }
-            ],
-            "twitter": "XDetant"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1105/avatar.png",
-            "bio": "GDE Web Technology, je travaille pour Lucca en tant que responsable des composants des produits.\n\nEn dehors du travail, je suis co-fondateur du GDG Nantes, organisateur du DevFest Nantes, co-créateur des Nantes Wit et organisateur de Devoxx4Kids\n\nRetrouvez l'ensemble de mes contributions sur https://github.com/jefBinomed",
-            "github": "jefbinomed",
-            "id": 1105,
-            "name": "Jean-François Garreau",
-            "talks": [],
-            "twitter": "jefbinomed"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1112/avatar.png",
-            "bio": "I'm an Angular Developer Advocate & GDE. My two degrees (Web Design & Development and Psychology) feed my speaking career. I’ve spoken at over 20 conferences Internationally, specialising in motivational soft talks. I'm a weekly panelist on Adventures in Angular and Angular Air, which have a combined following of over 16,000 listeners. I enjoy gaming, scuba diving, and have a toothless dog named Gummy. My DM is always open, come talk sometime.",
-            "github": "alyssamichelle",
-            "id": 1112,
-            "name": "Alyssa Nicoll",
-            "talks": [
-              {
-                "description": "Why do we do it? Why do we try so hard? Why are we paying to be here, to listen to people talk? Maybe because we’re life long learners - we want to learn new things? Commune with our own kind? But why? Come examine our motives as developers, the pitfalls we fall into, and the cost of being great.",
-                "id": 1144,
+                "description": "In this talk we would take a look in why keeping your application up-to-date is important and different strategies to upgrade Rails application to the newest version taking as example a huge monolithic Rails application. We will learn what were the biggest challenges and how they could be avoided.",
+                "id": 1531,
                 "length": 40,
-                "startDate": "Fri Jun 08 13:20:00 +0000 2018",
-                "title": "Innovating is not about technology, but psychology.",
+                "startDate": "Fri Jun 29 07:20:00 +0000 2018",
+                "title": "Living on Rails edge",
                 "type": 0
               }
             ],
-            "twitter": "alyssanicoll"
+            "twitter": "rafaelfranca"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1326/avatar.png",
-            "bio": "Développeur Scala chez Criteo et formateur indépendant. Fan de programmation fonctionnelle typée mais aussi conférencier, organisateur de meetup et ancien freelance et fondateur de startup.\nOuvert à toute discussion sur la qualité de code, la programmation fonctionnelle, DDD, TDD, l’event sourcing ainsi que l’agilité, le management ou le recrutement ;)",
-            "github": "loicknuchel",
-            "id": 1326,
-            "name": "Loïc Knuchel",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1010/avatar.png",
+            "bio": "Senior Systems Engineer @github, @Rails Core Team, 👩‍💻 speaker, ❤️ OSS. Formerly @basecamp.",
+            "github": "eileencodes",
+            "id": 1010,
+            "name": "Eileen M. Uchitelle",
             "talks": [
               {
-                "description": "On sait tous que les tests sont importants. Mais sont-ils suffisamment bons ? Le mutation testing peut vous montrer les bugs qui ne seraient détectés par vos tests, vous permettant ainsi d’améliorer vos tests.\nCe talk se veut très pratique, je montrerais ce qu’est le mutation testing, comment le mettre en place sur un projet et les résultats obtenus sur un projet réel.",
-                "id": 1360,
-                "length": 30,
-                "startDate": "Fri Jun 08 14:30:00 +0000 2018",
-                "title": "Mutation testing, enfin une bonne mesure de la qualité des tests ?",
+                "description": "We've all heard the phrase \"Rails doesn't scale\". Long running test suites and no standard for implementing multiple databases makes it hard scale monolithic Rails applications. Rails 6 will start making Rails scalable by default with parallel testing and improved support for using multiple databases. You'll no longer be forced to reinvent the wheel and create your own solution to these problems. In this talk we'll take a look why these improvements are important, how they work, and ways in which small ideas can quickly snowball into major changes. This is just the beginning of Rails 6.",
+                "id": 1529,
+                "length": 40,
+                "startDate": "Thu Jun 28 07:20:00 +0000 2018",
+                "title": "The Future of Rails 6: Scalable by Default",
                 "type": 0
               }
             ],
-            "twitter": "loicknuchel"
+            "twitter": "eileencodes"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1373/avatar.png",
-            "bio": "Alexis Hassler est développeur Java depuis la fin du siècle dernier. Il exerce son métier comme indépendant, en codant, mais aussi en accompagnant ou formant les entreprises pour les aider à améliorer leur façon de développer et de déployer leurs applications Java.",
-            "github": "hasalex",
-            "id": 1373,
-            "name": "Alexis Hassler",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1031/avatar.png",
+            "bio": "After several years Ruby software development in Washington, DC, Mai left IT to pursue her passion for food and wine. She earned a Masters degree in Oenology at the University of Adelaide, and continued on her journey, working in wine production in Australia, France, California, and New Zealand. Mai is now based in Wellington, and has since returned to the tech industry. Since then, she has been exploring ways to use technology to make wine more accessible to the public.",
+            "github": "mjnguyennz",
+            "id": 1031,
+            "name": "Mai Nguyen",
             "talks": [
               {
-                "description": "Je suppose que vous avez déjà vu cette démo montrant une image morcelée qui s'affiche tellement plus vite en HTTP/2. Si ce n'est pas le cas, je vous la montrerai, et je vous expliquerai brièvement pourquoi c'est aussi rapide.\n\nLe but de cette présentation, c'est surtout de vous montrer comment HTTP/2 est implémenté aujourd'hui, en accès direct ou en reverse proxy. On verra en particulier comment configurer les principaux serveurs Web du marché, comme Apache httpd, nginx, NodeJS ou Tomcat.\nEnfin nous évaluerons l'impact que peut avoir HTTP/2 sur notre code et comment les API Push peuvent faire charger l'image morcelée encore plus rapidement.",
-                "id": 1406,
-                "length": 30,
-                "startDate": "Fri Jun 08 14:30:00 +0000 2018",
-                "title": "HTTP/2 en pratique",
-                "type": 0
-              }
-            ],
-            "twitter": "AlexisHassler"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1391/avatar.png",
-            "bio": "Embedded & IoT Business Line Manager",
-            "github": "",
-            "id": 1391,
-            "name": "Cédric Ravalec",
-            "talks": [
-              {
-                "description": "Alors qu’Android est la première plateforme mobile du monde et que java/kotlin sont les langages de prédilection des applications sur cette plateforme pourquoi depuis 2 ans Google pousse les entreprises et les développeurs à porter leurs applications vers les PWA ? Pourquoi ce paradoxe ?",
-                "id": 1425,
+                "description": "All technology professionals should understand machine learning well enough to recognise situations where it is most beneficial and appropriate. Even if you are familiar with machine learning, you will walk away with renewed interest and inspiration for ways you can apply it, and maybe learn about food and wine along the way. \n\nI'll introduce you to machine learning, some ways it can be applied, when it is most beneficial, as well as the major tools available in Ruby. I'll also show you a practical example: my wine pairing chat bot. We'll go through the process of breaking down the fundamentals of tasting, and introduce the challenges around pairing wines, and wine-food interactions. I'll show you how I use machine learning to enable the bot to converse, recognise flavours, and recommend wines based on those flavours.",
+                "id": 1060,
                 "length": 20,
-                "startDate": "Fri Jun 08 09:20:00 +0000 2018",
-                "title": "Comprendre la stratégie de Google avec les PWA",
+                "startDate": "Thu Jun 28 09:40:00 +0000 2018",
+                "title": "Food, Wine and Machine Learning: Teaching a Bot to Taste",
+                "type": 0
+              },
+              {
+                "description": "In this talk we would take a look in why keeping your application up-to-date is important and different strategies to upgrade Rails application to the newest version taking as example a huge monolithic Rails application. We will learn what were the biggest challenges and how they could be avoided.",
+                "id": 1531,
+                "length": 40,
+                "startDate": "Fri Jun 29 07:20:00 +0000 2018",
+                "title": "Living on Rails edge",
                 "type": 0
               }
             ],
-            "twitter": "cravalec"
+            "twitter": "containsulfite"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1392/avatar.png",
-            "bio": "Ancien étudiant à l'IMAC, gentil, attentionné, doux, un peu niais et surtout j'aime le houmous. Développeur front-end pour @mfg_labs",
-            "github": "",
-            "id": 1392,
-            "name": "Victor Viale",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1056/avatar.png",
+            "bio": "Code witch at Stitch Fix and creator of the Contributor Covenant. Ruby Hero. Developer, speaker, writer, and musician.",
+            "github": "CoralineAda",
+            "id": 1056,
+            "name": "Coraline Ehmke",
             "talks": [
               {
-                "description": "Les specs WebVR et WebGL et les récentes APIs HTML5 ont permis aux navigateurs d'afficher des contextes OpenGL et d'y connecter du matériel de réalité virtuelle : casques, contrôleurs de jeux ou simples Cardboard permettent d'enrichir l'expérience web sur ordinateurs comme sur mobiles.\n\nMon ami Pierre Charles et moi-même avons décidé de mener ce projet au sein de notre parcours universitaire en mêlant A-Frame, techno extrêmement jeune développée par la fondation Mozilla, et Vue2, complètement à l'aveugle. Lorsque nous avons lancé le projet, nous étions à première vue des précurseurs sur l'utilisation de ces deux technos dans un projet qui ne relève pas que du prototype.\n\nJe proposerai aujourd'hui de revenir sur le développement de ce projet afin de discuter de l'avenir de la VR dans le développement Web.",
-                "id": 1426,
+                "description": "Much of how we understand, describe, and value code is based on subjective criteria that are easy for us to grasp intuitively but almost impossible to define or communicate objectively.\n\nCan advances in applied aesthetics and theoretical neurology provide insights into the advantages and disadvantages of relying on such elusive criteria? Do mathematical and evolutionary theories indicate that our code evolves aesthetically to enhance its survivability, durability, and success?\n\nThis talk will explore the role that concepts such as beauty, sublimity, completeness and simplicity play in the way that we model reality in software, relate to our own and other people's code, and ultimately measure the value of our work as professionals.",
+                "id": 1534,
                 "length": 20,
-                "startDate": "Fri Jun 08 09:40:00 +0000 2018",
-                "title": "Réalité virtuelle avec VueJS et A-Frame",
+                "startDate": "Fri Jun 29 14:30:00 +0000 2018",
+                "title": "Aesthetics and the Evolution of Code",
                 "type": 0
               }
             ],
-            "twitter": "Koroeskohr"
+            "twitter": "CoralineAda"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1393/avatar.png",
-            "bio": "Digital enthusiast I love solving problems. By working closely with potential users I therefore create easy to use products with great user experience.",
-            "github": "",
-            "id": 1393,
-            "name": "Caroline Besnard",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1059/avatar.png",
+            "bio": "Media Artist / Senior Research Scientist at the AIST / Chairman of NicoNicoGakkaiβ / Ph.D. (Information Science and Technology) / ``Patterns, Wiki, and XP''",
+            "github": "eto",
+            "id": 1059,
+            "name": "Koichiro Eto",
             "talks": [
               {
-                "description": "Aujourd'hui, le mot UX représente bien trop souvent un concept abstrait. Nous allons donc découvrir quels sont les principes de bases de l'UX ? Quels sont les erreurs classiques que l'on peux trouver dans les applications mobiles ? Comment adapter l'UX d'un site web sur un device mobile ?",
-                "id": 1427,
+                "description": "In this talk we would take a look in why keeping your application up-to-date is important and different strategies to upgrade Rails application to the newest version taking as example a huge monolithic Rails application. We will learn what were the biggest challenges and how they could be avoided.",
+                "id": 1531,
+                "length": 40,
+                "startDate": "Fri Jun 29 07:20:00 +0000 2018",
+                "title": "Living on Rails edge",
+                "type": 0
+              },
+              {
+                "description": "In 2001, we produced a exhibition work \"A Hands-On Model of the Internet\" at the National Museum of Emerging Science and Innovation in Tokyo. The work shows the workings of \"packet switching\" mechanism with white and black balls.",
+                "id": 1561,
                 "length": 20,
-                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
-                "title": "How to distinguish PWA's UX from WEB app's UX",
+                "startDate": "Thu Jun 28 13:50:00 +0000 2018",
+                "title": "Ruby and Art: The Earliest Stage",
                 "type": 0
               }
             ],
-            "twitter": ""
+            "twitter": "eto"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1394/avatar.png",
-            "bio": "UX Designer & Scrum Master chez BAM",
-            "github": "",
-            "id": 1394,
-            "name": "Héloïse Bonan",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1061/avatar.png",
+            "bio": "I'm a developer from Buenos Aires, Argentina. Open source lover with an attention to detail. I'm a Computer Science student and I've been working with Ruby since 2009. Currently working at Citrusbyte, where I hone my productivity, leadership and distributed systems skills.\n\nLove martial arts, heavy metal, Doctor Who, anime and books. Talk to me if you want to know what to watch or read next.",
+            "github": "tonchis",
+            "id": 1061,
+            "name": "Lucas Tolchinsky",
             "talks": [
               {
-                "description": "Aujourd'hui, le mot UX représente bien trop souvent un concept abstrait. Nous allons donc découvrir quels sont les principes de bases de l'UX ? Quels sont les erreurs classiques que l'on peux trouver dans les applications mobiles ? Comment adapter l'UX d'un site web sur un device mobile ?",
-                "id": 1427,
+                "description": "As day-to-day developers we all struggle with bugs, maintaining and moving around each other's code. Piling up layers of it makes our code bases grow out of control to the point where bloated code obscures the understanding of our own solutions.\n\nLosing trust in the tools we use is the first step to writing legacy code, and dealing with codebases like these is one of the primary sources of stress and discomfort in our jobs.\n\nSo what makes code comfortable? What makes a codebase habitable? Why do we strive to write simple solutions and what are the obstacles behind them? We'll go over this questions while looking at code samples from various less-popular-yet-powerful tools in Ruby-land , trying to spot the \"less-code\" in them.\n\nI'll also share some of my experience in how this less code type of thinking helped me to get back to the basics and spot my own ignorance, to become a better programmer.",
+                "id": 1083,
                 "length": 20,
-                "startDate": "Fri Jun 08 07:50:00 +0000 2018",
-                "title": "How to distinguish PWA's UX from WEB app's UX",
+                "startDate": "Thu Jun 28 08:20:00 +0000 2018",
+                "title": "Less code, more confidence",
+                "type": 0
+              },
+              {
+                "description": "We've all heard the phrase \"Rails doesn't scale\". Long running test suites and no standard for implementing multiple databases makes it hard scale monolithic Rails applications. Rails 6 will start making Rails scalable by default with parallel testing and improved support for using multiple databases. You'll no longer be forced to reinvent the wheel and create your own solution to these problems. In this talk we'll take a look why these improvements are important, how they work, and ways in which small ideas can quickly snowball into major changes. This is just the beginning of Rails 6.",
+                "id": 1529,
+                "length": 40,
+                "startDate": "Thu Jun 28 07:20:00 +0000 2018",
+                "title": "The Future of Rails 6: Scalable by Default",
                 "type": 0
               }
             ],
-            "twitter": ""
+            "twitter": "tonchis_"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1397/avatar.png",
-            "bio": "Music Computing Lab, The Open University   Ecole Centrale Nantes....",
-            "github": "",
-            "id": 1397,
-            "name": "Thomas Crevoisier",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1089/avatar.png",
+            "bio": "Ruby contributor. Maintainer of One-Click Ruby Installer. Avid Open-Source contributor Also know as *nix developer's nightmare. Technical Director at AREA 17.",
+            "github": "luislavena",
+            "id": 1089,
+            "name": "Luis Lavena",
             "talks": [
               {
-                "description": "NPM est le premier point d'entrée dés lors qu'il s'agit de package management pour NodeJS. Son API couvre de multiples fonctionnalités : installation, publication, scripts. \"npm install ...\" est probablement un réflexe, pourtant est-ce que vous savez tout ce que ça implique ?\n\nCette présentation a pour but de décortiquer les scripts exécutés lors d'une installation via NPM et de voir quels détournements sont possibles.",
-                "id": 1431,
+                "description": "We all enjoy the flexibility and expressiveness that languages like Ruby give us, but such flexibility is also paired with the unknown. Dealing with dynamic data and runtime conditions can lead to unknown scenarios and runtime errors.\n\nCompiled languages, specially today offer a fresh perspective and help us developers better understand and shape our code.\n\nThis talk aims to discover certain techniques transfered from compiled languages' realm and transfer those to dynamic languages like Ruby. Will talk from my experience working on mid-size Ruby projects (8K+ LOC).\n\nFull description here: https://gist.github.com/luislavena/2adca9ccb341f0a675f9767ed0b0e54b",
+                "id": 1118,
                 "length": 20,
-                "startDate": "Fri Jun 08 12:40:00 +0000 2018",
-                "title": "Les scripts npm et la sécurité",
+                "startDate": "Fri Jun 29 12:30:00 +0000 2018",
+                "title": "Crystal: How using a compiled language made me write better Ruby",
                 "type": 0
               }
             ],
-            "twitter": "ThomasC__"
+            "twitter": "luislavena"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1398/avatar.png",
-            "bio": "Dev full stack Js, NodeJs Evangelist, Lead tech Keymetrics",
-            "github": "",
-            "id": 1398,
-            "name": "Vincent Vallet",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1097/avatar.png",
+            "bio": "A mathematician found his happiness in programming Ruby and Erlang, contributing to open source, mentoring Rails devs and being an Evil Martian. Author of Anycable and TestProf.",
+            "github": "palkan",
+            "id": 1097,
+            "name": "Vladimir Dementyev",
             "talks": [
               {
-                "description": "Suite à une récente key note de Bert Belder concernant l'event loop de NodeJs je peux proposer de revenir sur son intervention et plus généralement sur le fonctionnement de l'event loop + libUv qui sont au coeur du fonctionnement de NodeJs.\n\nÇa permet de revenir sur les briques de bases de Node mais aussi de démystifier un peu certaines choses et de faire la part entre mythes et réalité.",
-                "id": 1432,
+                "description": "Writing tests is a significant part of the Ruby development process.\n\nThe test suite’s run time increases as the application evolves. We don’t care until we found ourselves wasting too much time waiting for the green light.\n\nWhat makes tests slow and how to heal them? Let’s answer these questions.\n\nI would like to start the talk by answering several questions, e.g., “Do you write tests?”, “How long does your test suite run?”, etc. Some stats & charts.\n\nIn the first part of the I would like to share a few real-life stories: “Our tests were slow, we did some investigation, and the reason was X.” Most of these reasons are related to incorrect environment configuration for tests.\n\nThe second part of the talk is answering the question: how to find bottlenecks in your tests?\n\nI'm going to introduce the tool called TestProf–a toolbox for profiling test suites and a set of ready-made recipes to write faster tests and fix your existing slow codebase.\n\nLet's make tests faster!",
+                "id": 1126,
                 "length": 20,
-                "startDate": "Fri Jun 08 13:20:00 +0000 2018",
-                "title": "NodeJs Event Loop",
+                "startDate": "Fri Jun 29 13:10:00 +0000 2018",
+                "title": "99 problems of slow tests",
                 "type": 0
               }
             ],
-            "twitter": ""
+            "twitter": "palkan_tula"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1399/avatar.png",
-            "bio": "IT Engineer - Downloading opportunities in Paris. BNP Paribas Investment Partners",
-            "github": "",
-            "id": 1399,
-            "name": "Michel Parreno",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1175/avatar.png",
+            "bio": "Damir is a Rails Senior Software Engineer @ Netflix. He is a strong advocate of clean coding, automated testing and passionate about constant improvement. On top of that, he is an organizer of Ruby Meetups in Zagreb, a regular blogger, conference speaker, open source lover and contributor.",
+            "github": "DamirSvrtan",
+            "id": 1175,
+            "name": "Damir Svrtan",
             "talks": [
               {
-                "description": "J'ai transformé mon lapin en Tamagotchi ! Démarrer un side-project à côté du travail est souvent (très) difficile ! Pourtant, c'est un des meilleurs moyen de progresser et découvrir de nouveaux horizons. Vous avez envie d'automatiser les tâches récurrentes pour votre petit compagnon d'appartement ? Curieux des possibilité de Raspberry Pi sur l'électronique ? Curieux du temps nécessaire pour créer une appli React Native ? Dans cette présentation, je vous fais un retour d'experience sur mon propre side-project en espérant vous donner envie d'en commencer un.",
-                "id": 1433,
-                "length": 30,
-                "startDate": "Fri Jun 08 15:10:00 +0000 2018",
-                "title": "Transformez votre animal en Tamagotchi !",
-                "type": 0
-              }
-            ],
-            "twitter": ""
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1400/avatar.png",
-            "bio": "I’m a Paris-based programmer working largely in JavaScript, Ruby, and Rails. I’m at Algolia, and was previously creator of Pico, which provides teams the tools to better track their indiviudal career growth goals. I work in voice interface, particularly for the Alexa Skills Kit and Google Assistant, a lot.",
-            "github": "",
-            "id": 1400,
-            "name": "Dustin Coates",
-            "talks": [
-              {
-                "description": "Voice interaction is exploding in 2017 and beyond. 1 in 6 American homes have a voice-first device, and the number of people speaking to computers is only going to increase. If we take our web pages and put them on voice, we’ll have frustrated customers who are going to look elsewhere. What, then, are the principles of a good voice UI? In this talk we’ll examine how to build a voice UI that gets the conversation going.",
-                "id": 1434,
+                "description": "Want to build a Bot without the hassle of provisioning and managing servers? Amazon’s got a service for that and it’s called AWS Lambda - it executes your code only when needed, scales automatically and you pay only for the compute time you consume.\n\nThere’s one problem with Lambda - it doesn’t support Ruby! Let’s checkout multiple options on how to build a Ruby Bot and package it into an executable which you can run on any machine without the need to actually have Ruby installed.",
+                "id": 1201,
                 "length": 20,
-                "startDate": "Fri Jun 08 15:10:00 +0000 2018",
-                "title": "Alexa, show me a good voice UI",
+                "startDate": "Thu Jun 28 09:00:00 +0000 2018",
+                "title": "Building Serverless Ruby Bots",
+                "type": 0
+              },
+              {
+                "description": "We've all heard the phrase \"Rails doesn't scale\". Long running test suites and no standard for implementing multiple databases makes it hard scale monolithic Rails applications. Rails 6 will start making Rails scalable by default with parallel testing and improved support for using multiple databases. You'll no longer be forced to reinvent the wheel and create your own solution to these problems. In this talk we'll take a look why these improvements are important, how they work, and ways in which small ideas can quickly snowball into major changes. This is just the beginning of Rails 6.",
+                "id": 1529,
+                "length": 40,
+                "startDate": "Thu Jun 28 07:20:00 +0000 2018",
+                "title": "The Future of Rails 6: Scalable by Default",
                 "type": 0
               }
             ],
-            "twitter": "dcoates"
+            "twitter": "DamirSvrtan"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1426/avatar.png",
-            "bio": "Dev & entrepreneur @Toucan_Toco, tech-hippie by night",
-            "github": "davinov",
-            "id": 1426,
-            "name": "David Nowinsky",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1187/avatar.png",
+            "bio": "Bozhidar is the author of RuboCop and the editor of the community Ruby and Rails style guides. Most people would probably describe him as an Emacs zealot (and they would be right). He's also quite fond of the Lisp family of languages, functional programming in general and Clojure in particular.\n\nBelieve it or not, Bozhidar has hobbies and interests outside the realm of computers, but we won't bore with those here.",
+            "github": "bbatsov",
+            "id": 1187,
+            "name": "Bozhidar Batsov",
             "talks": [
               {
-                "description": "Après les interfaces tactiles, la détection des gestes, la reconnaissance de la voix, que reste-t-il à explorer pour contrôler nos programmes ?\nDepuis qques années, des bandeaux permettant de capturer les petites ondes électriques emisent par notre cerveau ont fait leur discrète apparition sur le marché. Dans le même temps, les API Web Bluetooth se sont développées, permettant l'exploitation de nombreux nouveaux devices par nous autres développeurs web.\nEt si cette combinaison nous permettait de générer quelque-chose contrôlé par notre cerveau?\nDans ce talk, je vous guiderai dans mon exploration de ce domaine fascinant qu'est la NeuroTech. Nous explorerons le traitement de ses signaux, avec quelques démos interactives. Et le tout dans but bien différent de nos projets habituels : celui de réaliser une installation artistique. J'espère ainsi déclencher la fibre créative aupres de l'audience ;)",
-                "id": 1488,
+                "description": "An exploration of the challenges that Ruby faces today, combined with ideas\nregarding how we can change things for the better. We'll talk about the language, its ecosystem and its community.\nWhile on this bold adventure we'll plot a course towards Ruby 4.0 - a mystical and magical Ruby release that would ensure Ruby's dominance to infinity and beyond! Oh, and did I mention we'll have a ton fun while doing so? We'll most certainly do!",
+                "id": 1212,
                 "length": 20,
-                "startDate": "Fri Jun 08 12:00:00 +0000 2018",
-                "title": "De développeur web à artiste du cerveau",
+                "startDate": "Fri Jun 29 13:50:00 +0000 2018",
+                "title": "Ruby 4.0: To Infinity and Beyond",
                 "type": 0
               }
             ],
-            "twitter": "davinov"
+            "twitter": "bbatsov"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1431/avatar.png",
-            "bio": "Mobile engineer @bam_lab",
-            "github": "",
-            "id": 1431,
-            "name": "Aurore Malherbes",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1188/avatar.png",
+            "bio": "I have been doing Ruby full time since 2002. I was the former Ruby 1.8.6. maintainer. I have freelanced, worked for Engine Yard, and currently, Cookpad, full time with Ruby and web technologies since that time.\n\nIn my off time, I raise my 4 kids and do endurance sports: ultra marathons and gravel bike races.",
+            "github": "wyhaines",
+            "id": 1188,
+            "name": "Kirk Haines",
             "talks": [
               {
-                "description": "Si vous codez en React vous utilisez très certainement redux et redux-saga. Pour autant comprenons nous vraiment la mécanique de redux avec ses méthodes dispatch, subscribe, getState ? Savons-nous comment le middleware redux-saga intercepte nos actions pour effectuer des calls API ? Recodons ensemble ces deux librairies pour découvrir ce qui se passe sous le capot!",
-                "id": 1492,
-                "length": 25,
-                "startDate": "Fri Jun 08 12:00:00 +0000 2018",
-                "title": "Recodons redux et redux-saga",
+                "description": "It is a case study combined with some nice Ruby technology. In the mid-late 2000s, I was doing web sites for financial companies. These were combinations of static content with dynamic content and small applications. They needed to be fast, to be reliable, to almost never go down, and to be able to scale as needed; they also needed to be cheap to run. What evolved from this was a 100% Ruby stack, from the layer that interacts with the user's web browser to load balancing of requests to the application back ends, that was all written in Ruby.\n\nIt was fast (really, even in the Ruby 1.8 days), stable, capable, and extensible, and has evolved in use on production web sites for 10 years.\n\nWe'll look a little at the components involved, why it was done this way, and some practical lessons for modern web sites.",
+                "id": 1213,
+                "length": 20,
+                "startDate": "Thu Jun 28 12:30:00 +0000 2018",
+                "title": "It's Rubies All The Way Down!",
+                "type": 0
+              },
+              {
+                "description": "In this talk we would take a look in why keeping your application up-to-date is important and different strategies to upgrade Rails application to the newest version taking as example a huge monolithic Rails application. We will learn what were the biggest challenges and how they could be avoided.",
+                "id": 1531,
+                "length": 40,
+                "startDate": "Fri Jun 29 07:20:00 +0000 2018",
+                "title": "Living on Rails edge",
                 "type": 0
               }
             ],
-            "twitter": "aurorema27"
+            "twitter": "wyhaines"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1432/avatar.png",
-            "bio": "Full Stack Developer, Pragmatic Coach, Hip Hop artist, French of Lebanese origin, raised in Nigeria, currently residing in Paris, France. R&D @ Murex S.A.S.",
-            "github": "",
-            "id": 1432,
-            "name": "Morgan Kobeissi",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1191/avatar.png",
+            "bio": "Keith is a long time software developer who started his software development career writing an in-house accounting package on an Apple II in Applesoft BASIC. He's worked with Ruby for the last few years. He's lived on four continents and now spends most of his time split between Chiang Mai, Thailand, and Reston, Virginia (a suburb of Washington, DC). His other interests include karaoke, current events, foreign languages, massage, technical community, and becoming a better human being.",
+            "github": "keithrbennett",
+            "id": 1191,
+            "name": "Keith Bennett",
             "talks": [
               {
-                "description": "Slack is the degree of freedom in a company that allows it to change.\n\nAre you in a situation where you are:\n\n* practicing Scrum or the like?\n* developing 24/7 struggling to keep your head above water to meet demands?\n* overcommitting in your iterations?\n* committing to your exact velocity but still not managing to deliver it all?\n* experiencing inconsistent amount of work finished between iterations?\n* feeling your agility is fragile?\n* frustrated that there is no time to learn new things?\n\n Would you like to know of a simple yet very effective way to solve all these impediments and better yet, improve and learn continuously and be more productive while being happy? Come and join me at this session, and hopefully you can leave it with the necessary knowledge to explain to others why they should **cut you some slack**.",
-                "id": 1493,
-                "length": 25,
-                "startDate": "Fri Jun 08 07:10:00 +0000 2018",
-                "title": "Cut me some Slack",
+                "description": "How many times have we dutifully repeated the same mouse and keyboard actions, missing the irony that we spend our lives automating things for others, but so often neglect to do so for ourselves?\n\nThis talk will walk you through the design and implementation of a wifi command line utility for the Mac -- one that you could use as a model for automating your own manual process, including:\n\n* the multitude of cost/benefit decisions, including many compromises for speedier completion.\n\n* command suite (e.g. git) vs. option based (e.g. grep) design\n\n* how to address a target audience that includes non-Rubyists\n\n* class design, including separating back end functionality from command line & user input plumbing, and multi-OS support\n\n* providing an interactive shell in your utility\n\nAfter this presentation you will be able to make a better informed decision about the optimal balance of effort and functionality, and be better equipped to write an excellent implementation.",
+                "id": 1216,
+                "length": 20,
+                "startDate": "Thu Jun 28 14:30:00 +0000 2018",
+                "title": "Writing a Command Line Utility in Ruby - Automation is Not Just For Your Users",
+                "type": 0
+              },
+              {
+                "description": "In this talk we would take a look in why keeping your application up-to-date is important and different strategies to upgrade Rails application to the newest version taking as example a huge monolithic Rails application. We will learn what were the biggest challenges and how they could be avoided.",
+                "id": 1531,
+                "length": 40,
+                "startDate": "Fri Jun 29 07:20:00 +0000 2018",
+                "title": "Living on Rails edge",
                 "type": 0
               }
             ],
-            "twitter": "mc_moe"
+            "twitter": "keithrbennett"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1433/avatar.png",
-            "bio": "Author of @nuxt_js & @terra_js • Community partner of @vuejs • Working on @cmty_io",
-            "github": "",
-            "id": 1433,
-            "name": "Sébastien Chopin",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1200/avatar.png",
+            "bio": "A member of Ruby core team. RubyGems, Rake, RDoc, Psych, ruby-build, etc. and He is an administrator of ruby-lang.org and supports to develop the environment of Ruby language.\n\nHe is also Executive Officer in GMO Pepabo, Inc. His most interest things are “Productivity” He believes, there's business value in fun.",
+            "github": "hsbt",
+            "id": 1200,
+            "name": "Hiroshi Shibata",
             "talks": [
               {
-                "description": "Faire des application web universelles n'est pas si facile, pourtant elles ont beaucoup d'avantages. Je montrerai comment en faire une avec Vue.js et le module `vue-server-renderer`. Nous verrons les bonne pratiques, ce qu'il faut éviter de faire et comment rendre ce processus simple et fun.",
-                "id": 1494,
-                "length": 25,
-                "startDate": "Fri Jun 08 09:00:00 +0000 2018",
-                "title": "Nuxt.js",
+                "description": "The RubyGems is a mechanism to install libraries via the Internet without standard libraries. As maintenance manager of RubyGems and core member of Ruby core team, I'm working to merge the latest version of RubyGems with a latest stable version of ruby every year.\n\nIn this presentation, I will introduce the new feature of RubyGems 2.7 and describe the mechanism of integration with Bundler. Finally, I introduce a roadmap for RubyGems 3 and 4, which is developing for Ruby 2.6 and 3 release.\n\nThrough this talk, you will be able to enjoy the ruby world more by understanding RubyGems at the center of ruby's ecosystem.",
+                "id": 1227,
+                "length": 20,
+                "startDate": "Fri Jun 29 09:40:00 +0000 2018",
+                "title": "RubyGems 3 & 4",
                 "type": 0
               }
             ],
-            "twitter": "Atinux"
+            "twitter": "hsbt"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1487/avatar.png",
-            "bio": "Co-Founder & CTO at @jsrepublic",
-            "github": "",
-            "id": 1487,
-            "name": "Mathieu Breton",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1214/avatar.png",
+            "bio": "Jenna is a backend developer on the Amazon integration team at Shopify.  Her introduction to software began with a hasty retreat from C in a university physics class, only to return thanks to the joy of Ruby. Outside of work, she can be found knitting, riding her bike or climbing inside on pretend rocks.",
+            "github": "jennaleeb",
+            "id": 1214,
+            "name": "Jenna Blumenthal",
             "talks": [
               {
-                "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
-                "id": 1556,
-                "length": 180,
-                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-                "title": "GraphQL par la pratique",
-                "type": 1
+                "description": "In applications that persist data, getting the current state of the system is trivial. But often the question is not only where are we now, but how did we get here? Event sourcing is a pattern that stores changes to state as a sequence of events. The events encapsulate all the information needed for a record to change from one state to another, and the current state can be completely destroyed and rebuilt by replaying these events. Sounds great, right? But how do we take a system that is not designed using event sourcing, and start to apply some of these patterns? I’ll give an overview of the architecture’s key components and share some examples of how to adopt event sourcing into an existing application.",
+                "id": 1248,
+                "length": 20,
+                "startDate": "Fri Jun 29 08:20:00 +0000 2018",
+                "title": "Event Sourcing for Everyone",
+                "type": 0
               }
             ],
-            "twitter": "MatBreton"
+            "twitter": "jennaleeblume"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1488/avatar.png",
-            "bio": "ReactJS french web developer, singer-songwriter based in the Paris suburb. I let myself guided by stoic guys like Epictetus, Marcus-Aurelius and Seneca.",
-            "github": "",
-            "id": 1488,
-            "name": "Michael Romain",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1253/avatar.png",
+            "bio": "Software bricoleur, Keep a Changelogger, Code School maintainer, irregular Ruby and Rails contributor, and undercover French person.",
+            "github": "olivierlacan",
+            "id": 1253,
+            "name": "Olivier Lacan",
             "talks": [
               {
-                "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
-                "id": 1556,
-                "length": 180,
-                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-                "title": "GraphQL par la pratique",
-                "type": 1
+                "description": "Runtime errors can sometimes turn into dark and unpleasant journeys which lead you to question the nature of reality. Thankfully, Ruby often provides friendly feedback for understanding the cause and remedy for exceptions. Yet, there are situations in which programmers don't receive clear enough context for what really caused an exception and how to address it. We'll look at Ruby's error feedback mechanisms and search for constructive ways in which they can be made more helpful to humans.",
+                "id": 1300,
+                "length": 20,
+                "startDate": "Fri Jun 29 09:00:00 +0000 2018",
+                "title": "Human Errors",
+                "type": 0
               }
             ],
-            "twitter": "michaelDotJS"
+            "twitter": "olivierlacan"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1489/avatar.png",
-            "bio": "▶︎Advocate for Developers & #OSS◀︎ Sr. Engineer @SFEIR • GDE for the @angular @actionsongoogle @googlecloud teams • Member of the @nodejs Foundation • DMs open.",
-            "github": "",
-            "id": 1489,
-            "name": "Wassim Chegham",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1387/avatar.png",
+            "bio": "I'm Poilon, a former C developer that fell in love with Ruby and it's ecosystem in 2013. Web crawling and code automation went a real passion with ruby ! Right now I'm really focusing on GraphQL, I see it as a really good alternative to standard rest APIs.\nWhen I don't code, I enjoy chatting about AI and ML, and doing some deep learning courses.\nOtherwise, I raise my two kids and still try to play some smash melee competitively.",
+            "github": "poilon",
+            "id": 1387,
+            "name": "Paul-Armand Assus",
             "talks": [
               {
-                "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
-                "id": 1557,
-                "length": 180,
-                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-                "title": "Chatbots, et si on passait la seconde ?",
-                "type": 1
+                "description": "This presentation is a deepening of the graphql-ruby and graphql-batch gems, with a proposal of a modern, domain driven, backend API architecture.\n\nIt's a re-organization of the Rails basic MVC architecture, with only one controller, the GraphQL controller, the models, and all the code in the graphql folder, separated by domains.\n\nThe idea is to have for each domain: a type, an input type, and a service object, that exposes the index/show/create/destroy/update methods, which can be rewrite to add business oriented code.\n\nThis architecture is live in the startup I work on, and is delightful to maintain.",
+                "id": 1421,
+                "length": 20,
+                "startDate": "Thu Jun 28 13:10:00 +0000 2018",
+                "title": "GraphQL-DDD on Rails architecture",
+                "type": 0
+              },
+              {
+                "description": "In this talk we would take a look in why keeping your application up-to-date is important and different strategies to upgrade Rails application to the newest version taking as example a huge monolithic Rails application. We will learn what were the biggest challenges and how they could be avoided.",
+                "id": 1531,
+                "length": 40,
+                "startDate": "Fri Jun 29 07:20:00 +0000 2018",
+                "title": "Living on Rails edge",
+                "type": 0
               }
             ],
-            "twitter": "manekinekko"
+            "twitter": "poilon"
           },
           {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1490/avatar.png",
-            "bio": "Developer Advocate at @Google for @GoogleCloud during the day, and @ApacheGroovy programming language project PMC Chair & @java_champions at night",
-            "github": "",
-            "id": 1490,
-            "name": "Guillaume Laforge",
+            "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1402/avatar.png",
+            "bio": "Sylvain Abélard is a problem solver at Faveod. He mostly uses Ruby, Rails and asking questions to help people. He's co-organiser at ParisRB and would love to welcome you in beautiful Paris, France.",
+            "github": "abelards",
+            "id": 1402,
+            "name": "Sylvain Abélard",
             "talks": [
               {
-                "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
-                "id": 1557,
-                "length": 180,
-                "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-                "title": "Chatbots, et si on passait la seconde ?",
-                "type": 1
+                "description": "Many devs struggle when understanding humans. Why can't they be as simple as code?\nBut sometimes, living with humans gives interesting lessons to apply to your code.\nAre you an engineer or manager? A beginner or experienced coder?\nWe have many code principles that can be weird, or dangerous if applied too litterally.\nMy goal is to give simple metaphors, for you to explain to your teams how patterns can be used or misused, for a cleaner codebase and better team communication.",
+                "id": 1435,
+                "length": 20,
+                "startDate": "Fri Jun 29 10:20:00 +0000 2018",
+                "title": "Clean code lessons from messy humans",
+                "type": 0
               }
             ],
-            "twitter": "glaforge"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1491/avatar.png",
-            "bio": "@wgoedel",
-            "github": "",
-            "id": 1491,
-            "name": "Wolfgang Goedel",
-            "talks": [
-              {
-                "description": "Venez découvrir avec nous ReasonML, ce nouveau langage* créé par Jordan Walke, le créateur de React. Vous êtes à l’aise avec le JavaScript moderne, vous avez pris goût au typage statique, vous allez adorer ! \nhttps://reasonml.github.io/docs/en/what-and-why.html \nPré-requis:\nVenir avec un laptop et les outils ReasonML installés. Nous aurons pas le temps de les installer pendant le workshop. Vous trouverez tout ce qu’il vous faut ici: https://reasonml.github.io/ (attention surtout pour les utilisateurs de Windows)\nconnaitre React et le JavaScript moderne. Aucune connaissance de ReasonML ou de OCaml n’est nécessaire, mais sans aucune notions de programmation fonctionnelle et de typage statique vous risquez d’être vite un peu perdus",
-                "id": 1558,
-                "length": 180,
-                "startDate": "Thu Jun 07 12:00:00 +0000 2018",
-                "title": "Découvrir Reason-React",
-                "type": 1
-              }
-            ],
-            "twitter": "wgoedel"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1492/avatar.png",
-            "bio": "@rudy_weber",
-            "github": "",
-            "id": 1492,
-            "name": "Rudy Weber",
-            "talks": [],
-            "twitter": "rudy_weber"
-          },
-          {
-            "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1493/avatar.png",
-            "bio": "Tech Lead Front @sfeir",
-            "github": "",
-            "id": 1493,
-            "name": "Fabien Zibi",
-            "talks": [
-              {
-                "description": "Présentation\nIntroduction aux Progressive Web Apps,\nOutils indispensables pour vous aider à développer une PWA,\nAPIs permettant à votre PWA de s’intégrer dans l’écosystème de votre téléphone,\nRessources pour se documenter et rester au fait des évolutions.\nHands-on\nImplémenter un mode offline,\nRendre l’appli apte à s’installer sur un téléphone,\nProposer à l’utilisateur de l’installer,\nPush event & Notification.\nPré-requis\nNiveau correct en JS\nGit et NodeJS installés",
-                "id": 1559,
-                "length": 1,
-                "startDate": "Thu Jun 07 12:00:00 +0000 2018",
-                "title": "Ma première Progressive Web App",
-                "type": 1
-              }
-            ],
-            "twitter": "_faz"
+            "twitter": "abelar_s"
           }
         ],
         "sponsors": {
           "diamond": [],
-          "gold": [],
-          "partner": [],
+          "gold": [
+            {
+              "description": "Aircall is a Cloud Call Center Software for Growing Teams which empowers Sales & Support teams with a phone system that integrates with all their favorite tools (Salesforce, Zendesk, Front...)!",
+              "id": 35963,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/35963/logo.png",
+              "name": "Aircall",
+              "url": "https://aircall.io/"
+            },
+            {
+              "description": "Shopify is the leading cloud-based, multi-channel commerce platform designed for small and medium-sized businesses. Merchants can use the software to design, set up, and manage their stores across multiple sales channels, including web, mobile, social media, marketplaces, brick-and-mortar locations, and pop-up shops. It was engineered for reliability and scale, bringing enterprise-level technology to businesses of all sizes. Shopify currently powers 600,000+ businesses in 175+ countries and is trusted by brands like Red Bull, Nestle, Kylie Cosmetics, and many more.",
+              "id": 36271,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/36271/logo.png",
+              "name": "Shopify",
+              "url": "https://shopify.com/"
+            },
+            {
+              "description": "We help companies recruiting the best Ruby developers. We put you in touch with permanent, freelance and internship developers.",
+              "id": 38784,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/38784/logo.png",
+              "name": "Milesrock",
+              "url": "http://2018.rubyparis.org"
+            }
+          ],
+          "partner": [
+            {
+              "description": "The Efrei Group comprises two engineering schools, a digital academy, a research laboratory, a start-up incubator and an endowment fund, all grouped together on the Paris Sud campus of Villejuif.",
+              "id": 35762,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/35762/logo.png",
+              "name": "Efrei Paris",
+              "url": "http://www.efrei.fr/"
+            },
+            {
+              "description": "Efrei Entrepreneurs is the incubator of the Groupe Efrei. It hosts up to 12 start-ups for 6 to 12 months. They are assisted and followed and they can exchange with each other.",
+              "id": 35763,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/35763/logo.png",
+              "name": "Efrei Entrepreneurs",
+              "url": "http://www.efreientrepreneurs.fr/"
+            },
+            {
+              "description": "HEC Seed is an international conference that connects and empowers young entrepreneurs, students, investors and other professionals of the European entrepreneurial scene by employing a dynamic mix of inspiring speeches, hands-on workshops, competitive pitches and networking opportunities.",
+              "id": 36069,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/36069/logo.png",
+              "name": "HEC Seed",
+              "url": "http://hecseedparis.com/"
+            },
+            {
+              "description": "Warren Walter assists you in your digital and innovative projects: consulting, technical assistance, training, design sprint, but also startups and tech events (hackathon, conference, show ...).",
+              "id": 36144,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/36144/logo.png",
+              "name": "Warren Walter",
+              "url": "http://www.warren-walter.com/"
+            },
+            {
+              "description": "Girls in Tech (GIT) is a global non-profit focused on the engagement, education and empowerment of girls and women who are passionate about technology.\nWith headquarters in San Francisco and more than 100,000 members located around the globe, GIT relies on volunteer efforts to lead each of the 60 local chapters.\nGIT is not just for professional women. We operate with the spirit of the girl within all of us—fearless, lively and determined.",
+              "id": 37011,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/37011/logo.png",
+              "name": "Girls in Tech",
+              "url": "https://paris.girlsintech.org/"
+            },
+            {
+              "description": "ClubCollect is a financial technology startup based in Amsterdam. We help clubs of all shapes and sizes across Europe to manage their membership and billing needs through the use of our software platform. We have a developer-led culture and work with Ruby (Rails) and Elixir (Phoenix).",
+              "id": 40967,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/40967/logo.png",
+              "name": "ClubCollect",
+              "url": "https://clubcollect.com/"
+            },
+            {
+              "description": "Eura Nova supports organisations of all sizes to address any of their data science and engineering challenges. They recruit the best world talents with intellectual curiosity, systematic knowledge sharing mentality, and a strong will to reach targets.",
+              "id": 40969,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/40969/logo.png",
+              "name": "Eura Nova",
+              "url": "https://euranova.eu/"
+            },
+            {
+              "description": "Netflix is the world's leading internet entertainment service with 125 million members in over 190 countries enjoying more than 140 million hours of TV shows and movies every day! Besides streaming, it's also developing the largest studio in the world and using Ruby to help run it!",
+              "id": 41305,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/41305/logo.png",
+              "name": "Netflix",
+              "url": "https://www.netflix.com"
+            },
+            {
+              "description": "Citrusbyte is a team of strategy, design and engineering experts united by their passion for building human-centered, outcome-focused software. From concept to launch, they apply startup-style customer development and agile engineering to creating new products and areas of business.",
+              "id": 41307,
+              "jobUrl": "",
+              "logoUrl": "https://api.eventlama.com/events/166/purchases/41307/logo.png",
+              "name": "Citrusbyte",
+              "url": "https://citrusbyte.com"
+            }
+          ],
           "platinum": []
         },
-        "startDate": "Wed Jun 06 22:00:00 +0000 2018",
+        "startDate": "Thu Jun 28 06:00:00 +0000 2018",
         "status": {
           "hasEnded": false,
           "hasStarted": false,
           "nextFiveScheduledItems": [
             {
-              "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
-              "id": 1556,
-              "speakers": [
-                {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1487/avatar.png",
-                  "bio": "Co-Founder & CTO at @jsrepublic",
-                  "id": 1487,
-                  "name": "Mathieu Breton",
-                  "talks": [
-                    {
-                      "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
-                      "id": 1556,
-                      "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-                      "title": "GraphQL par la pratique"
-                    }
-                  ],
-                  "twitter": "MatBreton"
-                },
-                {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1488/avatar.png",
-                  "bio": "ReactJS french web developer, singer-songwriter based in the Paris suburb. I let myself guided by stoic guys like Epictetus, Marcus-Aurelius and Seneca.",
-                  "id": 1488,
-                  "name": "Michael Romain",
-                  "talks": [
-                    {
-                      "description": "Le buzzword du moment enfin démontrer lors d'une mise en pratique ! Lors de ce TP, nous vous initierons à GraphQL. Cette nouvelle technologie sortie tout droit de chez Facebook, pourrait grandement simplifier vos API multicannals.\n\nPré-requis\nConnaissance en Node.js et Express basiques\nManiement de Node & NPM\nConnaissance d'un framework composant (React basique dans notre cas)\nConnaissance de REST",
-                      "id": 1556,
-                      "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-                      "title": "GraphQL par la pratique"
-                    }
-                  ],
-                  "twitter": "michaelDotJS"
-                }
-              ],
-              "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-              "title": "GraphQL par la pratique"
-            },
-            {
-              "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
-              "id": 1557,
-              "speakers": [
-                {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1489/avatar.png",
-                  "bio": "▶︎Advocate for Developers & #OSS◀︎ Sr. Engineer @SFEIR • GDE for the @angular @actionsongoogle @googlecloud teams • Member of the @nodejs Foundation • DMs open.",
-                  "id": 1489,
-                  "name": "Wassim Chegham",
-                  "talks": [
-                    {
-                      "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
-                      "id": 1557,
-                      "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-                      "title": "Chatbots, et si on passait la seconde ?"
-                    }
-                  ],
-                  "twitter": "manekinekko"
-                },
-                {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1490/avatar.png",
-                  "bio": "Developer Advocate at @Google for @GoogleCloud during the day, and @ApacheGroovy programming language project PMC Chair & @java_champions at night",
-                  "id": 1490,
-                  "name": "Guillaume Laforge",
-                  "talks": [
-                    {
-                      "description": "Après l’étape de conception du persona de votre chatbot, de ses dialogues, il est maintenant temps de passer la seconde et de se plonger dans des sujets plus avancés. Nous allons continuer notre exploration de Dialogflow, de la plateforme Actions on Google, pour parler d’authentification des utilisateurs (par exemple, avec “account linking”), comment peut-on effectuer des transactions, comment au mieux tirer parti de la “surface” d’utilisation (téléphone, enceinte connectée), ou bien quelles informations peuvent être demandées (localisation, adresse, nom, etc.)\n\nPré-requis\nUn laptop & Node.js",
-                      "id": 1557,
-                      "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-                      "title": "Chatbots, et si on passait la seconde ?"
-                    }
-                  ],
-                  "twitter": "glaforge"
-                }
-              ],
-              "startDate": "Thu Jun 07 08:00:00 +0000 2018",
-              "title": "Chatbots, et si on passait la seconde ?"
-            },
-            {
-              "description": "Venez découvrir avec nous ReasonML, ce nouveau langage* créé par Jordan Walke, le créateur de React. Vous êtes à l’aise avec le JavaScript moderne, vous avez pris goût au typage statique, vous allez adorer ! \nhttps://reasonml.github.io/docs/en/what-and-why.html \nPré-requis:\nVenir avec un laptop et les outils ReasonML installés. Nous aurons pas le temps de les installer pendant le workshop. Vous trouverez tout ce qu’il vous faut ici: https://reasonml.github.io/ (attention surtout pour les utilisateurs de Windows)\nconnaitre React et le JavaScript moderne. Aucune connaissance de ReasonML ou de OCaml n’est nécessaire, mais sans aucune notions de programmation fonctionnelle et de typage statique vous risquez d’être vite un peu perdus",
-              "id": 1558,
-              "speakers": [
-                {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1491/avatar.png",
-                  "bio": "@wgoedel",
-                  "id": 1491,
-                  "name": "Wolfgang Goedel",
-                  "talks": [
-                    {
-                      "description": "Venez découvrir avec nous ReasonML, ce nouveau langage* créé par Jordan Walke, le créateur de React. Vous êtes à l’aise avec le JavaScript moderne, vous avez pris goût au typage statique, vous allez adorer ! \nhttps://reasonml.github.io/docs/en/what-and-why.html \nPré-requis:\nVenir avec un laptop et les outils ReasonML installés. Nous aurons pas le temps de les installer pendant le workshop. Vous trouverez tout ce qu’il vous faut ici: https://reasonml.github.io/ (attention surtout pour les utilisateurs de Windows)\nconnaitre React et le JavaScript moderne. Aucune connaissance de ReasonML ou de OCaml n’est nécessaire, mais sans aucune notions de programmation fonctionnelle et de typage statique vous risquez d’être vite un peu perdus",
-                      "id": 1558,
-                      "startDate": "Thu Jun 07 12:00:00 +0000 2018",
-                      "title": "Découvrir Reason-React"
-                    }
-                  ],
-                  "twitter": "wgoedel"
-                }
-              ],
-              "startDate": "Thu Jun 07 12:00:00 +0000 2018",
-              "title": "Découvrir Reason-React"
-            },
-            {
-              "description": "Présentation\nIntroduction aux Progressive Web Apps,\nOutils indispensables pour vous aider à développer une PWA,\nAPIs permettant à votre PWA de s’intégrer dans l’écosystème de votre téléphone,\nRessources pour se documenter et rester au fait des évolutions.\nHands-on\nImplémenter un mode offline,\nRendre l’appli apte à s’installer sur un téléphone,\nProposer à l’utilisateur de l’installer,\nPush event & Notification.\nPré-requis\nNiveau correct en JS\nGit et NodeJS installés",
-              "id": 1559,
-              "speakers": [
-                {
-                  "avatarUrl": "https://api.eventlama.com/avatars/events/171/speakers/1493/avatar.png",
-                  "bio": "Tech Lead Front @sfeir",
-                  "id": 1493,
-                  "name": "Fabien Zibi",
-                  "talks": [
-                    {
-                      "description": "Présentation\nIntroduction aux Progressive Web Apps,\nOutils indispensables pour vous aider à développer une PWA,\nAPIs permettant à votre PWA de s’intégrer dans l’écosystème de votre téléphone,\nRessources pour se documenter et rester au fait des évolutions.\nHands-on\nImplémenter un mode offline,\nRendre l’appli apte à s’installer sur un téléphone,\nProposer à l’utilisateur de l’installer,\nPush event & Notification.\nPré-requis\nNiveau correct en JS\nGit et NodeJS installés",
-                      "id": 1559,
-                      "startDate": "Thu Jun 07 12:00:00 +0000 2018",
-                      "title": "Ma première Progressive Web App"
-                    }
-                  ],
-                  "twitter": "_faz"
-                }
-              ],
-              "startDate": "Thu Jun 07 12:00:00 +0000 2018",
-              "title": "Ma première Progressive Web App"
-            },
-            {
-              "description": "Pour ne pas commencer la journée le ventre vide.",
-              "id": 1550,
+              "description": "",
+              "id": 1527,
               "speakers": [],
-              "startDate": "Fri Jun 08 06:00:00 +0000 2018",
-              "title": "Accueil et petit-déjeuner"
+              "startDate": "Thu Jun 28 06:20:00 +0000 2018",
+              "title": "Check in"
+            },
+            {
+              "description": "",
+              "id": 1523,
+              "speakers": [],
+              "startDate": "Thu Jun 28 06:40:00 +0000 2018",
+              "title": "Breakfast"
+            },
+            {
+              "description": "We've all heard the phrase \"Rails doesn't scale\". Long running test suites and no standard for implementing multiple databases makes it hard scale monolithic Rails applications. Rails 6 will start making Rails scalable by default with parallel testing and improved support for using multiple databases. You'll no longer be forced to reinvent the wheel and create your own solution to these problems. In this talk we'll take a look why these improvements are important, how they work, and ways in which small ideas can quickly snowball into major changes. This is just the beginning of Rails 6.",
+              "id": 1529,
+              "speakers": [
+                {
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1010/avatar.png",
+                  "bio": "Senior Systems Engineer @github, @Rails Core Team, 👩‍💻 speaker, ❤️ OSS. Formerly @basecamp.",
+                  "id": 1010,
+                  "name": "Eileen M. Uchitelle",
+                  "talks": [
+                    {
+                      "description": "We've all heard the phrase \"Rails doesn't scale\". Long running test suites and no standard for implementing multiple databases makes it hard scale monolithic Rails applications. Rails 6 will start making Rails scalable by default with parallel testing and improved support for using multiple databases. You'll no longer be forced to reinvent the wheel and create your own solution to these problems. In this talk we'll take a look why these improvements are important, how they work, and ways in which small ideas can quickly snowball into major changes. This is just the beginning of Rails 6.",
+                      "id": 1529,
+                      "startDate": "Thu Jun 28 07:20:00 +0000 2018",
+                      "title": "The Future of Rails 6: Scalable by Default"
+                    }
+                  ],
+                  "twitter": "eileencodes"
+                }
+              ],
+              "startDate": "Thu Jun 28 07:20:00 +0000 2018",
+              "title": "The Future of Rails 6: Scalable by Default"
+            },
+            {
+              "description": "As day-to-day developers we all struggle with bugs, maintaining and moving around each other's code. Piling up layers of it makes our code bases grow out of control to the point where bloated code obscures the understanding of our own solutions.\n\nLosing trust in the tools we use is the first step to writing legacy code, and dealing with codebases like these is one of the primary sources of stress and discomfort in our jobs.\n\nSo what makes code comfortable? What makes a codebase habitable? Why do we strive to write simple solutions and what are the obstacles behind them? We'll go over this questions while looking at code samples from various less-popular-yet-powerful tools in Ruby-land , trying to spot the \"less-code\" in them.\n\nI'll also share some of my experience in how this less code type of thinking helped me to get back to the basics and spot my own ignorance, to become a better programmer.",
+              "id": 1083,
+              "speakers": [
+                {
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1061/avatar.png",
+                  "bio": "I'm a developer from Buenos Aires, Argentina. Open source lover with an attention to detail. I'm a Computer Science student and I've been working with Ruby since 2009. Currently working at Citrusbyte, where I hone my productivity, leadership and distributed systems skills.\n\nLove martial arts, heavy metal, Doctor Who, anime and books. Talk to me if you want to know what to watch or read next.",
+                  "id": 1061,
+                  "name": "Lucas Tolchinsky",
+                  "talks": [
+                    {
+                      "description": "As day-to-day developers we all struggle with bugs, maintaining and moving around each other's code. Piling up layers of it makes our code bases grow out of control to the point where bloated code obscures the understanding of our own solutions.\n\nLosing trust in the tools we use is the first step to writing legacy code, and dealing with codebases like these is one of the primary sources of stress and discomfort in our jobs.\n\nSo what makes code comfortable? What makes a codebase habitable? Why do we strive to write simple solutions and what are the obstacles behind them? We'll go over this questions while looking at code samples from various less-popular-yet-powerful tools in Ruby-land , trying to spot the \"less-code\" in them.\n\nI'll also share some of my experience in how this less code type of thinking helped me to get back to the basics and spot my own ignorance, to become a better programmer.",
+                      "id": 1083,
+                      "startDate": "Thu Jun 28 08:20:00 +0000 2018",
+                      "title": "Less code, more confidence"
+                    },
+                    {
+                      "description": "We've all heard the phrase \"Rails doesn't scale\". Long running test suites and no standard for implementing multiple databases makes it hard scale monolithic Rails applications. Rails 6 will start making Rails scalable by default with parallel testing and improved support for using multiple databases. You'll no longer be forced to reinvent the wheel and create your own solution to these problems. In this talk we'll take a look why these improvements are important, how they work, and ways in which small ideas can quickly snowball into major changes. This is just the beginning of Rails 6.",
+                      "id": 1529,
+                      "startDate": "Thu Jun 28 07:20:00 +0000 2018",
+                      "title": "The Future of Rails 6: Scalable by Default"
+                    }
+                  ],
+                  "twitter": "tonchis_"
+                }
+              ],
+              "startDate": "Thu Jun 28 08:20:00 +0000 2018",
+              "title": "Less code, more confidence"
+            },
+            {
+              "description": "Want to build a Bot without the hassle of provisioning and managing servers? Amazon’s got a service for that and it’s called AWS Lambda - it executes your code only when needed, scales automatically and you pay only for the compute time you consume.\n\nThere’s one problem with Lambda - it doesn’t support Ruby! Let’s checkout multiple options on how to build a Ruby Bot and package it into an executable which you can run on any machine without the need to actually have Ruby installed.",
+              "id": 1201,
+              "speakers": [
+                {
+                  "avatarUrl": "https://api.eventlama.com/avatars/events/166/speakers/1175/avatar.png",
+                  "bio": "Damir is a Rails Senior Software Engineer @ Netflix. He is a strong advocate of clean coding, automated testing and passionate about constant improvement. On top of that, he is an organizer of Ruby Meetups in Zagreb, a regular blogger, conference speaker, open source lover and contributor.",
+                  "id": 1175,
+                  "name": "Damir Svrtan",
+                  "talks": [
+                    {
+                      "description": "Want to build a Bot without the hassle of provisioning and managing servers? Amazon’s got a service for that and it’s called AWS Lambda - it executes your code only when needed, scales automatically and you pay only for the compute time you consume.\n\nThere’s one problem with Lambda - it doesn’t support Ruby! Let’s checkout multiple options on how to build a Ruby Bot and package it into an executable which you can run on any machine without the need to actually have Ruby installed.",
+                      "id": 1201,
+                      "startDate": "Thu Jun 28 09:00:00 +0000 2018",
+                      "title": "Building Serverless Ruby Bots"
+                    },
+                    {
+                      "description": "We've all heard the phrase \"Rails doesn't scale\". Long running test suites and no standard for implementing multiple databases makes it hard scale monolithic Rails applications. Rails 6 will start making Rails scalable by default with parallel testing and improved support for using multiple databases. You'll no longer be forced to reinvent the wheel and create your own solution to these problems. In this talk we'll take a look why these improvements are important, how they work, and ways in which small ideas can quickly snowball into major changes. This is just the beginning of Rails 6.",
+                      "id": 1529,
+                      "startDate": "Thu Jun 28 07:20:00 +0000 2018",
+                      "title": "The Future of Rails 6: Scalable by Default"
+                    }
+                  ],
+                  "twitter": "DamirSvrtan"
+                }
+              ],
+              "startDate": "Thu Jun 28 09:00:00 +0000 2018",
+              "title": "Building Serverless Ruby Bots"
             }
           ],
           "onGoing": false
         },
         "timezoneId": "Europe/Paris",
-        "twitterHandle": "bestofwebconf",
-        "venueCity": "Paris",
+        "twitterHandle": "parisrb",
+        "venueCity": "Villejuif",
         "venueCountry": "France",
-        "venueName": "La Grande Crypte",
-        "websiteUrl": "http://bestofweb.paris/"
+        "venueName": "Efrei",
+        "websiteUrl": ""
       }
     ]
   }
-
