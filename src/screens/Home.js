@@ -75,7 +75,9 @@ class Home extends React.Component {
               </ShowWhenConferenceHasEnded>
 
               <HideWhenConferenceHasEnded>
-                <SemiBoldText style={styles.headerText}>June 6th</SemiBoldText>
+                <SemiBoldText style={styles.headerText}>
+                  June 28th-29th
+                </SemiBoldText>
                 <SemiBoldText style={styles.headerText}>
                   Paris, France
                 </SemiBoldText>
