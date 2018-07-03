@@ -13,8 +13,6 @@ import MenuButton from '../components/MenuButton';
 import {RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 
-export const Schedule = require('../data/schedule.json');
-
 const BORDER_RADIUS = 3;
 export class StaffCheckinListRow extends React.Component {
   constructor(props) {

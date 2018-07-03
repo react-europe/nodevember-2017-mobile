@@ -16,7 +16,6 @@ import {Gravatar} from 'react-native-gravatar';
 
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 import Markdown from 'react-native-simple-markdown';
-export const Schedule = require('../data/schedule.json');
 
 class CheckedInAttendeeInfo extends React.Component {
   state = {

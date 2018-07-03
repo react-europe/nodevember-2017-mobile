@@ -1,32 +1,61 @@
-import React from "react";
-import { ApolloClient } from "apollo-client";
-import { ApolloProvider } from "react-apollo";
-import { HttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { Asset, AppLoading, Font, Updates } from "expo";
-import { Platform, StatusBar, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { GQL } from "./src/constants";
-import { loadSavedTalksAsync } from "./src/utils/storage";
+import React from 'react';
+import {ApolloClient} from 'apollo-client';
+import {ApolloProvider, Query} from 'react-apollo';
+import {HttpLink} from 'apollo-link-http';
+import {InMemoryCache} from 'apollo-cache-inmemory';
+import {Asset, AppLoading, Font, Updates} from 'expo';
+import {Platform, StatusBar, View, AsyncStorage} from 'react-native';
+import {Ionicons} from '@expo/vector-icons';
+import {GQL} from './src/constants';
+import {loadSavedTalksAsync} from './src/utils/storage';
+import GET_SCHEDULE from './src/data/schedulequery';
+export const Schedule = require('./src/data/schedule.json');
+//const Event = Schedule.events[0];
+import {saveSchedule} from './src/utils';
 
 const client = new ApolloClient({
   // By default, this client will send queries to the
   //  `/graphql` endpoint on the same host
   // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
   // to a different host
-  link: new HttpLink({ uri: GQL.uri }),
-  cache: new InMemoryCache()
+  link: new HttpLink({uri: GQL.uri}),
+  cache: new InMemoryCache(),
 });
 
-import Navigation from "./src/Navigation";
+import AppNavigator from './src/Navigation';
 
 export default class App extends React.Component {
   state = {
-    appIsReady: false
+    appIsReady: false,
   };
 
+  constructor() {
+    super();
+    AsyncStorage.getItem('@MySuperStore:schedule').then(schedule => {
+      const event = JSON.parse(schedule);
+      if (event.slug) {
+        this.setState({schedule: event});
+      }
+    });
+  }
   componentDidMount() {
-    Updates.addListener(({ type }) => {
+    client
+      .query({
+        query: GET_SCHEDULE,
+        variables: {slug: GQL.slug},
+      })
+      .then(result => {
+        console.log('RESULT PROPS GQL', result);
+        if (
+          result &&
+          result.data &&
+          result.data.events &&
+          result.data.events[0]
+        ) {
+          saveSchedule(result.data.events[0]);
+        }
+      });
+    Updates.addListener(({type}) => {
       if (type === Updates.EventType.DOWNLOAD_FINISHED) {
         if (this.state.appIsReady) {
           this._promptForReload();
@@ -68,15 +97,15 @@ export default class App extends React.Component {
   _loadAssetsAsync = async () => {
     return Promise.all([
       Font.loadAsync({
-        "open-sans-bold": require("./src/assets/OpenSans-Bold.ttf"),
-        "open-sans": require("./src/assets/OpenSans-Regular.ttf"),
-        "open-sans-semibold": require("./src/assets/OpenSans-SemiBold.ttf"),
-        ...Ionicons.font
+        'open-sans-bold': require('./src/assets/OpenSans-Bold.ttf'),
+        'open-sans': require('./src/assets/OpenSans-Regular.ttf'),
+        'open-sans-semibold': require('./src/assets/OpenSans-SemiBold.ttf'),
+        ...Ionicons.font,
       }),
-      Asset.fromModule(require("./src/assets/logo.png")).downloadAsync(),
+      Asset.fromModule(require('./src/assets/logo.png')).downloadAsync(),
       Asset.fromModule(
-        require("react-navigation/src/views/assets/back-icon.png")
-      ).downloadAsync()
+        require('react-navigation/src/views/assets/back-icon.png')
+      ).downloadAsync(),
     ]);
   };
 
@@ -87,7 +116,7 @@ export default class App extends React.Component {
           startAsync={this._loadResourcesAsync}
           onError={console.error}
           onFinish={() => {
-            this.setState({ appIsReady: true });
+            this.setState({appIsReady: true, schedule: Schedule.events[0]});
           }}
         />
       );
@@ -95,7 +124,7 @@ export default class App extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ApolloProvider client={client}>
-          <Navigation />
+          <AppNavigator screenProps={{event: this.state.schedule}} />
         </ApolloProvider>
         <StatusBar barStyle="light-content" />
       </View>

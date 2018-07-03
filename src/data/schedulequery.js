@@ -1,129 +1,135 @@
-export const ScheduleQuery = `
-{
-  events(slug: "reacteurope-2018") {
-    id
-    description
-    websiteUrl
-    name
-    venueName
-    venueCountry
-    venueCity
-    cocUrl
-    twitterHandle
-    offset
-    startDate
-    endDate
-    timezoneId
-    slug
-    status{
-      hasEnded
-      hasStarted
-      onGoing
-      nextFiveScheduledItems {
-        id
-        title
-        description
-		avatarUrl
-        startDate
-        speakers {
+import gql from 'graphql-tag';
+
+const GET_SCHEDULE = gql`
+  query events($slug: String!) {
+    events(slug: $slug) {
+      id
+      description
+      websiteUrl
+      name
+      venueName
+      venueCountry
+      venueCity
+      cocUrl
+      twitterHandle
+      offset
+      startDate
+      endDate
+      timezoneId
+      slug
+      status {
+        hasEnded
+        hasStarted
+        onGoing
+        nextFiveScheduledItems {
           id
-          name
-          twitter
-          bio
-          talks {
+          title
+          description
+          startDate
+          speakers {
             id
-            description
-            title
-            startDate
+            name
+            twitter
+            avatarUrl
+            bio
+            talks {
+              id
+              description
+              title
+              startDate
+            }
           }
         }
-
       }
-    }
-    collaborators {
-      id
-      firstName
-      lastName
-      twitter
-      github
-      url
-      role
-      avatarUrl
-    }
-    speakers {
-      id
-      name
-      twitter
-      github
-      avatarUrl
-      bio
-      talks {
+      collaborators {
         id
-        title
-        type
-        description
-        length
-        startDate
+        firstName
+        lastName
+        twitter
+        github
+        url
+        role
+        avatarUrl
       }
-    }
-    groupedSchedule {
-      title
-      date
-      slots {
+      speakers {
         id
-        title
-        description
-        length
-        startDate
-        tags
-        type
-        room
-        talk
-        keynote
-        speakers {
+        name
+        twitter
+        github
+        avatarUrl
+        bio
+        talks {
           id
-          name
-          twitter
-          github
-          avatarUrl
-          bio
+          title
+          type
+          description
+          length
+          startDate
         }
       }
-    }
-    sponsors {
-      diamond {
-        id
-        name
-        description
-        url
-        logoUrl
-        jobUrl
+      groupedSchedule {
+        title
+        date
+        slots {
+          id
+          title
+          likes
+          description
+          length
+          startDate
+          youtubeUrl
+          youtubeId
+          tags
+          type
+          room
+          talk
+          keynote
+          speakers {
+            id
+            name
+            twitter
+            github
+            avatarUrl
+            bio
+          }
+        }
       }
-      platinum {
-        id
-        name
-        description
-        url
-        logoUrl
-        jobUrl
-      }
-      gold {
-        id
-        name
-        description
-        url
-        logoUrl
-        jobUrl
-      }
-      partner {
-        id
-        name
-        description
-        url
-        logoUrl
-        jobUrl
+      sponsors {
+        diamond {
+          id
+          name
+          description
+          url
+          logoUrl
+          jobUrl
+        }
+        platinum {
+          id
+          name
+          description
+          url
+          logoUrl
+          jobUrl
+        }
+        gold {
+          id
+          name
+          description
+          url
+          logoUrl
+          jobUrl
+        }
+        partner {
+          id
+          name
+          description
+          url
+          logoUrl
+          jobUrl
+        }
       }
     }
   }
-}
 `;
+
+export default GET_SCHEDULE;

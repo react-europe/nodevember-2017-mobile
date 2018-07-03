@@ -15,18 +15,20 @@ import HighlightableText from './HighlightableText';
 
 import {getContactTwitter} from '../utils';
 
-export const Schedule = require('../data/schedule.json');
-
-const SpeakersAndTalks = Schedule.events[0].speakers;
-const SpeakersData = [{data: SpeakersAndTalks, title: 'Speakers'}];
-
 class AttendeesSearchResultRow extends React.Component {
+  constructor(props) {
+    super(props);
+    const event = this.props.event;
+    const SpeakersAndTalks = event && evnt.speakers ? event.speakers : [];
+    this.SpeakersData = [{data: SpeakersAndTalks, title: 'Speakers'}];
+  }
+
   render() {
     const {attendee, searchQuery} = this.props;
 
     let isSpeaker;
-    if (SpeakersData && SpeakersData.length) {
-      isSpeaker = SpeakersData[0].data.filter(speaker => {
+    if (this.SpeakersData && this.SpeakersData.length) {
+      isSpeaker = this.SpeakersData[0].data.filter(speaker => {
         return getContactTwitter(attendee) === speaker.twitter;
       })[0]
         ? true
@@ -114,6 +116,9 @@ const AttendeesSearchResultPlaceholderRow = () => (
 );
 
 export default class AttendeesSearchResults extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     const {attendees, isLoading} = this.props;
     const maybeAttendees = isLoading

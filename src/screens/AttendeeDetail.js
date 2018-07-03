@@ -18,7 +18,6 @@ import {Colors, FontSizes, Layout} from '../constants';
 import {RegularText, SemiBoldText} from '../components/StyledText';
 import GravatarImage from '../components/GravatarImage';
 import CloseButton from '../components/CloseButton';
-export const Schedule = require('../data/schedule.json');
 import {sendEmail, openTwitter, addContact, getContactTwitter} from '../utils';
 
 export default class AttendeeDetail extends React.Component {

@@ -29,8 +29,6 @@ import {
   HideWhenConferenceHasEnded,
   ShowWhenConferenceHasEnded,
 } from '../utils';
-export const Schedule = require('../data/schedule.json');
-const Event = Schedule.events[0];
 
 class Contacts extends React.Component {
   render() {
@@ -130,16 +128,6 @@ class DeferredContactsContent extends React.Component {
       routeName: 'QRScanner',
       key: 'QRScanner',
     });
-  };
-
-  _handlePressTwitterButton = async () => {
-    try {
-      await Linking.openURL(
-        `twitter://user?screen_name=` + Event.twitterHandle
-      );
-    } catch (e) {
-      WebBrowser.openBrowserAsync('https://twitter.com/' + Event.twitterHandle);
-    }
   };
 }
 

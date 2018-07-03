@@ -7,7 +7,6 @@ import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, Layout} from '../constants';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 import Markdown from 'react-native-simple-markdown';
-export const Schedule = require('../data/schedule.json');
 
 class TicketInstructions extends React.Component {
   state = {

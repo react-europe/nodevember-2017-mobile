@@ -10,11 +10,6 @@ import CachedImage from '../components/CachedImage';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 
-export const Schedule = require('../data/schedule.json');
-
-const SpeakersAndTalks = Schedule.events[0].speakers;
-const SpeakersData = [{data: SpeakersAndTalks, title: 'Speakers'}];
-
 class SpeakerRow extends React.Component {
   render() {
     const {item: speaker} = this.props;
@@ -65,7 +60,9 @@ export default class Speakers extends React.Component {
           stickySectionHeadersEnabled={true}
           renderItem={this._renderItem}
           renderSectionHeader={this._renderSectionHeader}
-          sections={SpeakersData}
+          sections={[
+            {data: this.props.screenProps.event.speakers, title: 'Speakers'},
+          ]}
           keyExtractor={(item, index) => index.toString()}
         />
       </LoadingPlaceholder>

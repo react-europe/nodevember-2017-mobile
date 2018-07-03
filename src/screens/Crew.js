@@ -16,10 +16,6 @@ import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
 
-export const Schedule = require('../data/schedule.json');
-
-const CrewData = Schedule.events[0].collaborators;
-
 class CrewRow extends React.Component {
   render() {
     const {item: crew} = this.props;
@@ -63,6 +59,11 @@ export default class Crews extends React.Component {
   static navigationOptions = {
     title: 'Crew',
   };
+  constructor(props) {
+    super(props);
+    const event = this.props.screenProps.event;
+    this.CrewData = event.collaborators;
+  }
 
   render() {
     return (
@@ -70,7 +71,7 @@ export default class Crews extends React.Component {
         <FlatList
           renderScrollComponent={props => <ScrollView {...props} />}
           renderItem={this._renderItem}
-          data={CrewData}
+          data={this.CrewData}
           keyExtractor={(item, index) => index.toString()}
         />
       </LoadingPlaceholder>

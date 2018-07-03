@@ -11,9 +11,6 @@ import MenuButton from '../components/MenuButton';
 import SaveIconWhenSaved from '../components/SaveIconWhenSaved';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
 
-import Schedule from '../data/schedule.json';
-const FullSchedule = Schedule.events[0].groupedSchedule;
-
 class ScheduleRow extends React.Component {
   render() {
     const {item} = this.props;
@@ -53,17 +50,22 @@ class ScheduleRow extends React.Component {
 
 export default function ScheduleDay(options) {
   // const schedule = FullSchedule[0]
-  const schedule = _.find(
-    FullSchedule,
-    schedule => schedule.title === options.day
-  );
-
-  const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
-  const slotsData = _.map(slotsByTime, (data, time) => {
-    return {data, title: convertUtcDateToEventTimezoneHour(time)};
-  });
-
   class ScheduleDayComponent extends React.Component {
+    constructor(props) {
+      super(props);
+
+      const event = this.props.screenProps.event;
+      const FullSchedule = event.groupedSchedule;
+      const schedule = _.find(
+        FullSchedule,
+        schedule => schedule.title === options.day
+      );
+
+      const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
+      this.slotsData = _.map(slotsByTime, (data, time) => {
+        return {data, title: convertUtcDateToEventTimezoneHour(time)};
+      });
+    }
     render() {
       return (
         <LoadingPlaceholder>
@@ -72,7 +74,7 @@ export default function ScheduleDay(options) {
             stickySectionHeadersEnabled={true}
             renderItem={this._renderItem}
             renderSectionHeader={this._renderSectionHeader}
-            sections={slotsData}
+            sections={this.slotsData}
             keyExtractor={item => _.snakeCase(item.title)}
             initialNumToRender={10}
           />

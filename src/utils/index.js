@@ -1,3 +1,4 @@
+import React from 'react';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 import {Platform, Linking} from 'react-native';
@@ -131,6 +132,13 @@ export const addContact = async contact => {
   }
   let stringifiedContacts = JSON.stringify(contacts);
   return AsyncStorage.setItem('@MySuperStore:contacts', stringifiedContacts);
+};
+
+export const saveSchedule = async schedule => {
+  return AsyncStorage.setItem(
+    '@MySuperStore:schedule',
+    JSON.stringify(schedule)
+  );
 };
 
 export const getContactTwitter = contact => {

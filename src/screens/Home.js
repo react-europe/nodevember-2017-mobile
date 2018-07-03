@@ -24,8 +24,6 @@ import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
-export const Schedule = require('../data/schedule.json');
-const Event = Schedule.events[0];
 
 class Home extends React.Component {
   state = {
@@ -89,7 +87,7 @@ class Home extends React.Component {
             </View>
           </View>
 
-          <DeferredHomeContent />
+          <DeferredHomeContent event={this.props.screenProps.event} />
           <OverscrollView />
         </AnimatedScrollView>
 
@@ -99,7 +97,7 @@ class Home extends React.Component {
   }
 
   _openTickets = () => {
-    Linking.openURL(Event.websiteUrl + '#tickets');
+    Linking.openURL(this.state.event.websiteUrl + '#tickets');
   };
 }
 
@@ -110,6 +108,7 @@ class DeferredHomeContent extends React.Component {
     hasCameraPermission: null,
     Notification: {},
     tickets: [],
+    event: this.props.event,
   };
 
   async getTickets() {
@@ -300,7 +299,7 @@ class DeferredHomeContent extends React.Component {
               }}
             />
             <SemiBoldText style={styles.bigButtonText}>
-              @{Event.twitterHandle}
+              @{this.state.event.twitterHandle}
             </SemiBoldText>
           </RectButton>
         </ClipBorderRadius>
@@ -317,7 +316,7 @@ class DeferredHomeContent extends React.Component {
   };
 
   _handlePressCOCButton = () => {
-    WebBrowser.openBrowserAsync(Event.cocUrl);
+    WebBrowser.openBrowserAsync(this.state.event.cocUrl);
   };
 
   _handlePressQRButton = () => {
@@ -335,16 +334,21 @@ class DeferredHomeContent extends React.Component {
   _handlePressTwitterButton = async () => {
     try {
       await Linking.openURL(
-        `twitter://user?screen_name=` + Event.twitterHandle
+        `twitter://user?screen_name=` + this.state.event.twitterHandle
       );
     } catch (e) {
-      WebBrowser.openBrowserAsync('https://twitter.com/' + Event.twitterHandle);
+      WebBrowser.openBrowserAsync(
+        'https://twitter.com/' + this.state.event.twitterHandle
+      );
     }
   };
 
   _handlePressMapButton = () => {
     const params = encodeURIComponent(
-      Event.venueName + Event.venueCity + ',' + Event.venueCountry
+      this.state.event.venueName +
+        this.state.event.venueCity +
+        ',' +
+        this.state.event.venueCountry
     );
     WebBrowser.openBrowserAsync('https://www.google.com/maps/search/' + params);
   };

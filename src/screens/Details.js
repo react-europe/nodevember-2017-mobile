@@ -22,7 +22,6 @@ import SaveButton from '../components/SaveButton';
 import CachedImage from '../components/CachedImage';
 import CloseButton from '../components/CloseButton';
 import Markdown from 'react-native-simple-markdown';
-export const Schedule = require('../data/schedule.json');
 
 class SavedButtonNavigationItem extends React.Component {
   render() {

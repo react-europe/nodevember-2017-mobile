@@ -18,8 +18,6 @@ import Tickets from '../components/Tickets';
 import MenuButton from '../components/MenuButton';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
-export const Schedule = require('../data/schedule.json');
-const Event = Schedule.events[0];
 
 class Profile extends React.Component {
   state = {
@@ -35,10 +33,6 @@ class Profile extends React.Component {
       </View>
     );
   }
-
-  _openTickets = () => {
-    Linking.openURL(Event.websiteUrl + '#tickets');
-  };
 }
 
 @withNavigation

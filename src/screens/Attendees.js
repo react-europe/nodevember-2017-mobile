@@ -31,9 +31,11 @@ class Attendees extends React.Component {
   state = {
     scrollY: new Animated.Value(0),
     attendees: [],
-    query: '',
+    aquery: '',
   };
-
+  constructor(props) {
+    super(props);
+  }
   throttleDelayMs = 200;
   throttleTimeout = null;
   queryThrottle = text => {
@@ -41,7 +43,7 @@ class Attendees extends React.Component {
 
     this.throttleTimeout = setTimeout(() => {
       LayoutAnimation.easeInEaseOut();
-      this.setState({query: text});
+      this.setState({aquery: text});
     }, this.throttleDelayMs);
   };
 
@@ -62,7 +64,10 @@ class Attendees extends React.Component {
           autoCorrect={false}
           clearButtonMode="while-editing"
         />
-        <DeferredAttendeesContent query={this.state.query} />
+        <DeferredAttendeesContent
+          aquery={this.state.aquery}
+          event={this.props.screenProps.event}
+        />
         <OverscrollView />
       </View>
     );
@@ -110,8 +115,8 @@ class DeferredAttendeesContent extends React.Component {
     if (!this.state.ready) {
       return null;
     }
-    const {query} = this.props;
-    const cleanedQuery = query.toLowerCase().trim();
+    const {aquery} = this.props;
+    const cleanedQuery = aquery.toLowerCase().trim();
     const uuid = this.state.uuid;
     const vars = {slug: GQL.slug, q: 'a', uuid: uuid};
     console.log(GET_ATTENDEES, vars);
@@ -181,6 +186,7 @@ class DeferredAttendeesContent extends React.Component {
                   onPress={this._handlePressRow}
                   searchQuery={cleanedQuery}
                   isLoading={loading}
+                  event={this.props.event}
                 />
               );
             }}

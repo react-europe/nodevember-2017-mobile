@@ -10,17 +10,6 @@ import {SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
 
-export const Schedule = require('../data/schedule.json');
-
-const SponsorsData = Schedule.events[0].sponsors;
-
-const SponsorsByLevel = [
-  {title: 'Diamond', data: SponsorsData['diamond']},
-  {title: 'Platinum', data: SponsorsData['platinum']},
-  {title: 'Gold', data: SponsorsData['gold']},
-  {title: 'Partners', data: SponsorsData['partner']},
-];
-
 const ClipBorderRadius = ({children, style}) => {
   return (
     <View
@@ -103,13 +92,27 @@ export default class Sponsors extends React.Component {
     title: 'Sponsors',
   };
 
+  constructor(props) {
+    super(props);
+
+    const event = this.props.screenProps.event;
+    const SponsorsData = event.sponsors;
+
+    this.SponsorsByLevel = [
+      {title: 'Diamond', data: SponsorsData['diamond']},
+      {title: 'Platinum', data: SponsorsData['platinum']},
+      {title: 'Gold', data: SponsorsData['gold']},
+      {title: 'Partners', data: SponsorsData['partner']},
+    ];
+  }
+
   render() {
     return (
       <LoadingPlaceholder>
         <SectionList
           renderScrollComponent={props => <ScrollView {...props} />}
           stickySectionHeadersEnabled={true}
-          sections={SponsorsByLevel}
+          sections={this.SponsorsByLevel}
           renderSectionHeader={this._renderSectionHeader}
           renderItem={this._renderItem}
           keyExtractor={(item, index) => index.toString()}
