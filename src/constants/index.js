@@ -22,7 +22,7 @@ export const Layout = {
 };
 
 export const Colors = {
-  blue: '#4d5fab',
+  blue: '#666',
   faint: '#7a7a7a',
 };
 
