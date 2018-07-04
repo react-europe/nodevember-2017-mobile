@@ -29,6 +29,33 @@ class Home extends React.Component {
   state = {
     scrollY: new Animated.Value(0),
   };
+  checkUuidOnLoad(props) {
+    console.log(
+      'checking props screenprops',
+      props.screenProps.initialLinkingUri
+    );
+    if (props && props.screenProps && props.screenProps.initialLinkingUri) {
+      const url = props.screenProps.initialLinkingUri;
+      console.log('check url from home', url);
+      const uuid = url ? url.split('?uuid=')[1] : '';
+      console.log('check uuid from home', uuid);
+      if (uuid && uuid !== '') {
+        console.log('check uuid from home if', uuid);
+        props.navigation.navigate({
+          routeName: 'QRScanner',
+          key: 'QRScanner',
+          params: {uuid: uuid},
+        });
+      }
+    }
+  }
+  constructor(props) {
+    super(props);
+    this.checkUuidOnLoad(props);
+  }
+  componentDidMount() {
+    this.checkUuidOnLoad(this.props);
+  }
   render() {
     const {scrollY} = this.state;
     const headerOpacity = scrollY.interpolate({
@@ -69,16 +96,13 @@ class Home extends React.Component {
                   Thank you for joining us!
                 </SemiBoldText>
                 <SemiBoldText style={[styles.headerTextSmall, {color: '#fff'}]}>
-                  See you in May, 2019!
+                  See you in July, 2019!
                 </SemiBoldText>
               </ShowWhenConferenceHasEnded>
 
               <HideWhenConferenceHasEnded>
                 <SemiBoldText style={styles.headerText}>
-                  May 17th to 18th (Conference)
-                </SemiBoldText>
-                <SemiBoldText style={styles.headerText}>
-                  May 15th to 16th (Workshops)
+                  July 5th to 6th (Conference)
                 </SemiBoldText>
                 <SemiBoldText style={styles.headerText}>
                   Paris, France
@@ -92,12 +116,37 @@ class Home extends React.Component {
         </AnimatedScrollView>
 
         <NavigationBar animatedBackgroundOpacity={headerOpacity} />
+        {this._addLinkingListener()}
       </View>
     );
   }
 
   _openTickets = () => {
     Linking.openURL(this.state.event.websiteUrl + '#tickets');
+  };
+  _handleRedirect = url => {
+    this.setState({url});
+    let {path, queryParams} = Expo.Linking.parse(url);
+    console.log(url);
+    console.log(path);
+    console.log(queryParams);
+    const uuid = url && url.url ? url.url.split('?uuid=')[1] : '';
+    console.log(
+      `Linked to app with path: ${path} and data: ${JSON.stringify(
+        queryParams
+      )} and uuid is ${uuid}`
+    );
+    if (uuid && uuid !== '') {
+      this.props.navigation.navigate({
+        routeName: 'QRScanner',
+        key: 'QRScanner',
+        params: {uuid: uuid},
+      });
+    }
+  };
+
+  _addLinkingListener = () => {
+    Linking.addEventListener('url', this._handleRedirect);
   };
 }
 
@@ -122,7 +171,6 @@ class DeferredHomeContent extends React.Component {
       return [];
     }
   }
-
   constructor(props) {
     super(props);
     this.getTickets();

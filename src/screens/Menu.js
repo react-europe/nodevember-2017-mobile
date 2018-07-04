@@ -33,12 +33,7 @@ class MenuScreen extends Component {
       <View style={{flex: 1}}>
         <StatusBar barStyle="light-content" />
         <FlatList
-          data={[
-            {key: 'Speakers'},
-            {key: 'Crew'},
-            {key: 'Sponsors'},
-            {key: 'Attendees'},
-          ]}
+          data={[{key: 'Speakers'}, {key: 'Crew'}, {key: 'Sponsors'}]}
           ListHeaderComponent={() => (
             <View
               style={{

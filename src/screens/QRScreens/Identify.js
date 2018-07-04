@@ -60,7 +60,6 @@ export default class QRScannerModalNavigation extends React.Component {
   state = {
     loading: false,
   };
-
   async setTickets(tickets) {
     try {
       await AsyncStorage.setItem('@MySuperStore:tickets', tickets);
@@ -101,6 +100,22 @@ export default class QRScannerModalNavigation extends React.Component {
     console.log('token', token, uuid);
   }
 
+  constructor(props) {
+    super(props);
+    console.log('navigation props params', this.props.navigation.state.params);
+    if (
+      this &&
+      this.props &&
+      this.props.navigation &&
+      this.props.navigation.state &&
+      this.props.navigation.state.params &&
+      this.props.navigation.state.params.uuid &&
+      this.props.navigation.state.params.uuid !== ''
+    ) {
+      this._handleBarCodeRead({data: this.props.navigation.state.params.uuid});
+    }
+  }
+
   _handleBarCodeRead = async data => {
     if (this.state.loading) {
       return;
@@ -108,6 +123,9 @@ export default class QRScannerModalNavigation extends React.Component {
 
     this.setState({loading: true});
 
+    if (!data || !data.data || data.data === '') {
+      let data = {data: this.props.navigation.state.params.uuid};
+    }
     let variables = {slug: GQL.slug, uuid: data.data};
     let navigation = this.props.navigation;
     try {
@@ -177,6 +195,17 @@ export default class QRScannerModalNavigation extends React.Component {
   };
 
   render() {
+    if (
+      this &&
+      this.props &&
+      this.props.navigation &&
+      this.props.navigation.state &&
+      this.props.navigation.state.params &&
+      this.props.navigation.state.params.uuid &&
+      this.props.navigation.state.params.uuid !== ''
+    ) {
+      return null;
+    }
     return (
       <QRScreen
         title="Scan your ticket QR code"

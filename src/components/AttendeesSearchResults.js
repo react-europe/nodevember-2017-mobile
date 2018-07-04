@@ -27,7 +27,11 @@ class AttendeesSearchResultRow extends React.Component {
     const {attendee, searchQuery} = this.props;
 
     let isSpeaker;
-    if (this.SpeakersData && this.SpeakersData.length) {
+    if (
+      this.SpeakersData &&
+      this.SpeakersData.length &&
+      this.SpeakersData.length > 0
+    ) {
       isSpeaker = this.SpeakersData[0].data.filter(speaker => {
         return getContactTwitter(attendee) === speaker.twitter;
       })[0]
