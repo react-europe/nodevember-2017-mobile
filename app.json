@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "ReactEurope",
+    "name": "ElmEurope",
     "description":
-      "Official react-europe app for the May 2018 conference, May 17-18 in Paris, France. Read the source or get the app store and play store links on Github: https://github.com/react-europe/react-europe-2018-mobile. Credits to Brent Vatne and Expo.",
-    "slug": "reacteurope",
+      "Official ElmEurope app for the July 2018 conference, July 5-6 in Paris, France. Read the source or get the app store and play store links on Github: https://github.com/react-europe/react-europe-2018-mobile. Credits to Brent Vatne and Expo.",
+    "slug": "elm-europe",
     "privacy": "public",
     "version": "40.6.9",
     "primaryColor": "#4d5fab",
     "icon": "./src/assets/icon-ios.png",
     "orientation": "portrait",
     "sdkVersion": "28.0.0",
-    "scheme": "reacteurope",
+    "scheme": "elmeurope",
     "assetBundlePatterns": ["**/*"],
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,12 +21,12 @@
       "backgroundColor": "#4d5fab"
     },
     "android": {
-      "package": "hr.apps.n6574",
+      "package": "com.eventlama.elmeurope",
       "icon": "./src/assets/icon-android.png",
       "versionCode": 50
     },
     "ios": {
-      "bundleIdentifier": "reacteurope",
+      "bundleIdentifier": "com.eventlama.elmeurope",
       "supportsTablet": true,
       "loadJSInBackgroundExperimental": true,
       "infoPlist": {
