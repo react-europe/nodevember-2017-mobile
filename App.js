@@ -3,7 +3,7 @@ import {ApolloClient} from 'apollo-client';
 import {ApolloProvider, Query} from 'react-apollo';
 import {HttpLink} from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory';
-import {Asset, AppLoading, Font, Updates} from 'expo';
+import {Asset, AppLoading, Font, Updates, Linking} from 'expo';
 import {Platform, StatusBar, View, AsyncStorage} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {GQL} from './src/constants';
@@ -33,10 +33,15 @@ export default class App extends React.Component {
     super();
     AsyncStorage.getItem('@MySuperStore:schedule').then(schedule => {
       const event = JSON.parse(schedule);
-      if (event.slug) {
+      if (event && event.slug) {
         this.setState({schedule: event});
       }
     });
+  }
+  async componentWillMount() {
+    const initialLinkingUri = await Linking.getInitialURL();
+    console.log(initialLinkingUri);
+    this.setState({initialLinkingUri: initialLinkingUri});
   }
   componentDidMount() {
     client
@@ -45,7 +50,6 @@ export default class App extends React.Component {
         variables: {slug: GQL.slug},
       })
       .then(result => {
-        console.log('RESULT PROPS GQL', result);
         if (
           result &&
           result.data &&
@@ -124,7 +128,12 @@ export default class App extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ApolloProvider client={client}>
-          <AppNavigator screenProps={{event: this.state.schedule}} />
+          <AppNavigator
+            screenProps={{
+              event: this.state.schedule,
+              initialLinkingUri: this.state.initialLinkingUri,
+            }}
+          />
         </ApolloProvider>
         <StatusBar barStyle="light-content" />
       </View>

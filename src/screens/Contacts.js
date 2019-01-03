@@ -96,7 +96,7 @@ class DeferredContactsContent extends React.Component {
               onPress={this._handlePressQRButton}
               underlayColor="#fff">
               <SemiBoldText style={styles.bigButtonText}>
-                {"Scan a contact badge's QR code"}
+                {"Scan a contact's QR code"}
               </SemiBoldText>
             </RectButton>
           </ClipBorderRadius>
