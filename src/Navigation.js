@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {View, Text, StatusBar} from 'react-native';
 import {
+  createAppContainer,
   createBottomTabNavigator,
   createMaterialTopTabNavigator,
   createStackNavigator,
@@ -34,7 +35,7 @@ const ScheduleNavigation = createMaterialTopTabNavigator(navSchedule, {
     style: {backgroundColor: '#333'},
     activeTintColor: '#fff',
   },
-  navigationOptions: ({navigation}) => ({
+  defaultNavigationOptions: ({navigation}) => ({
     tabBarLabel: navigation.state.routeName.substring(0, 3).toUpperCase(),
   }),
 });
@@ -43,7 +44,7 @@ const DefaultStackConfig = {
   cardStyle: {
     backgroundColor: '#fafafa',
   },
-  navigationOptions: ({navigation}) => ({
+  defaultNavigationOptions: ({navigation}) => ({
     title: navigation.state.routeName,
     headerStyle: {
       borderBottomWidth: 0,
@@ -118,18 +119,18 @@ const PrimaryTabNavigator = createBottomTabNavigator(
     Menu: {screen: MenuNavigation},
   },
   {
-    navigationOptions: ({navigation}) => ({
+    defaultNavigationOptions: ({navigation}) => ({
       tabBarIcon: ({focused, tintColor}) => {
         const {routeName} = navigation.state;
         let iconName;
         if (routeName === 'Home') {
           iconName = 'ios-home';
         } else if (routeName === 'Profile') {
-          iconName = `ios-contact${focused ? '' : '-outline'}`;
+          iconName = `ios-contact${focused ? '' : ''}`;
         } else if (routeName === 'Schedule') {
-          iconName = `ios-calendar${focused ? '' : '-outline'}`;
+          iconName = `ios-calendar${focused ? '' : ''}`;
         } else if (routeName === 'Contacts') {
-          iconName = `ios-contacts${focused ? '' : '-outline'}`;
+          iconName = `ios-contacts${focused ? '' : ''}`;
         } else if (routeName === 'Menu') {
           iconName = 'md-menu';
         }
@@ -146,7 +147,7 @@ const PrimaryTabNavigator = createBottomTabNavigator(
   }
 );
 
-export default createStackNavigator(
+const Navigation = createStackNavigator(
   {
     Primary: {screen: PrimaryTabNavigator},
     AttendeeDetail: {screen: Screens.AttendeeDetail},
@@ -166,3 +167,5 @@ export default createStackNavigator(
     mode: 'modal',
   }
 );
+
+export default createAppContainer(Navigation);

@@ -104,7 +104,7 @@ class MenuScreen extends Component {
                   {item.key}
                 </Text>
                 <Ionicons
-                  name="ios-arrow-forward-outline"
+                  name="ios-arrow-forward"
                   size={24}
                   color="#999"
                 />

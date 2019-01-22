@@ -12,6 +12,7 @@ import GET_SCHEDULE from './src/data/schedulequery';
 export const Schedule = require('./src/data/schedule.json');
 //const Event = Schedule.events[0];
 import {saveSchedule} from './src/utils';
+import { Assets as StackAssets } from 'react-navigation-stack';
 
 const client = new ApolloClient({
   // By default, this client will send queries to the
@@ -107,9 +108,7 @@ export default class App extends React.Component {
         ...Ionicons.font,
       }),
       Asset.fromModule(require('./src/assets/logo.png')).downloadAsync(),
-      Asset.fromModule(
-        require('react-navigation/src/views/assets/back-icon.png')
-      ).downloadAsync(),
+      Asset.loadAsync(StackAssets),
     ]);
   };
 
