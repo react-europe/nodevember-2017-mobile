@@ -34,7 +34,7 @@
     "react-native-paper": "^1.2.6",
     "react-native-qrcode": "^0.2.6",
     "react-native-simple-markdown": "1.1.0",
-    "react-navigation": "3.1.0",
+    "react-navigation": "~3.3",
     "urql": "^0.2.0"
   },
   "devDependencies": {
