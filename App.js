@@ -1,7 +1,25 @@
 import React from 'react';
 import {ApolloProvider, Query} from 'react-apollo';
-import {Asset, AppLoading, Font, Updates, Linking} from 'expo';
-import {Platform, StatusBar, View, AsyncStorage} from 'react-native';
+import {
+  Asset,
+  AppLoading,
+  Constants,
+  Font,
+  SplashScreen,
+  Updates,
+  Linking,
+} from 'expo';
+import {
+  Animated,
+  Platform,
+  Image,
+  StatusBar,
+  StyleSheet,
+  View,
+  AsyncStorage,
+  Dimensions,
+  Easing,
+} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {GQL} from './src/constants';
 import {loadSavedTalksAsync} from './src/utils/storage';
@@ -14,15 +32,17 @@ import AppNavigator from './src/Navigation';
 
 export default class App extends React.Component {
   state = {
-    appIsReady: false,
+    isAppReady: false,
+    isSplashReady: false,
+    isSplashAnimationComplete: false,
   };
 
-  async componentWillMount() {}
+  splashVisibility = new Animated.Value(1);
 
   componentDidMount() {
     Updates.addListener(({type}) => {
       if (type === Updates.EventType.DOWNLOAD_FINISHED) {
-        if (this.state.appIsReady) {
+        if (this.state.isAppReady) {
           this._promptForReload();
         } else {
           this._shouldPromptForReload = true;
@@ -32,7 +52,7 @@ export default class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!prevState.appIsReady && this.state.appIsReady) {
+    if (!prevState.isAppReady && this.state.isAppReady) {
       if (this._shouldPromptForReload) {
         this._shouldPromptForReload = false;
         setTimeout(this._promptForReload, 1000);
@@ -51,8 +71,24 @@ export default class App extends React.Component {
     );*/
   };
 
-  _loadResourcesAsync = () => {
-    return Promise.all([this._loadAssetsAsync(), this._loadDataAsync()]);
+  _loadResourcesAsync = async () => {
+    SplashScreen.hide();
+    try {
+      await Promise.all([this._loadAssetsAsync(), this._loadDataAsync()]);
+    } catch (e) {
+      // if we can't load any data we should probably just not load the app
+      // and give people an option to hit reload
+    } finally {
+      this.setState({isAppReady: true}, () => {
+        Animated.timing(this.splashVisibility, {
+          toValue: 0,
+          duration: 400,
+          useNativeDriver: true,
+        }).start(() => {
+          this.setState({ isSplashAnimationComplete: true });
+        });
+      });
+    }
   };
 
   _loadDataAsync = () => {
@@ -126,14 +162,20 @@ export default class App extends React.Component {
     ]);
   };
 
+  _cacheSplashResourcesAsync = async () => {
+    const splash = require('./src/assets/splash-icon.png');
+    return Asset.fromModule(splash).downloadAsync();
+  };
+
   render() {
-    if (!this.state.appIsReady || !this.state.schedule) {
+    if (!this.state.isSplashReady) {
       return (
         <AppLoading
-          startAsync={this._loadResourcesAsync}
+          startAsync={this._cacheSplashResourcesAsync}
+          autoHideSplash={false}
           onError={console.error}
           onFinish={() => {
-            this.setState({appIsReady: true});
+            this.setState({isSplashReady: true});
           }}
         />
       );
@@ -141,14 +183,37 @@ export default class App extends React.Component {
 
     return (
       <View style={{flex: 1}}>
-        <ApolloProvider client={client}>
-          <AppNavigator
-            screenProps={{
-              event: this.state.schedule,
-              initialLinkingUri: this.state.initialLinkingUri,
-            }}
-          />
-        </ApolloProvider>
+        {this.state.isAppReady && this.state.schedule ? (
+          <ApolloProvider client={client}>
+            <AppNavigator
+              screenProps={{
+                event: this.state.schedule,
+                initialLinkingUri: this.state.initialLinkingUri,
+              }}
+            />
+          </ApolloProvider>
+        ) : null}
+
+        {this.state.isSplashAnimationComplete ? null : (
+          <Animated.View
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: Constants.manifest.splash.backgroundColor,
+              opacity: this.splashVisibility,
+            }}>
+            <Animated.Image
+              style={{
+                width: Dimensions.get('window').width,
+                resizeMode: 'contain',
+                transform: [{scale: this.splashVisibility}],
+              }}
+              source={require('./src/assets/splash-icon.png')}
+              onLoad={this._loadResourcesAsync}
+            />
+          </Animated.View>
+        )}
         <StatusBar barStyle="light-content" />
       </View>
     );
