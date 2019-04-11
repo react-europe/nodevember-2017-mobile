@@ -1,27 +1,14 @@
 import React from 'react';
-import {ApolloClient} from 'apollo-client';
 import {ApolloProvider, Query} from 'react-apollo';
-import {HttpLink} from 'apollo-link-http';
-import {InMemoryCache} from 'apollo-cache-inmemory';
 import {Asset, AppLoading, Font, Updates, Linking} from 'expo';
 import {Platform, StatusBar, View, AsyncStorage} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {GQL} from './src/constants';
 import {loadSavedTalksAsync} from './src/utils/storage';
 import GET_SCHEDULE from './src/data/schedulequery';
-export const Schedule = require('./src/data/schedule.json');
-//const Event = Schedule.events[0];
-import {saveSchedule} from './src/utils';
-import { Assets as StackAssets } from 'react-navigation-stack';
-
-const client = new ApolloClient({
-  // By default, this client will send queries to the
-  //  `/graphql` endpoint on the same host
-  // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
-  // to a different host
-  link: new HttpLink({uri: GQL.uri}),
-  cache: new InMemoryCache(),
-});
+import {setEvent, saveSchedule} from './src/utils';
+import client from './src/utils/gqlClient';
+import {Assets as StackAssets} from 'react-navigation-stack';
 
 import AppNavigator from './src/Navigation';
 
@@ -30,36 +17,9 @@ export default class App extends React.Component {
     appIsReady: false,
   };
 
-  constructor() {
-    super();
-    AsyncStorage.getItem('@MySuperStore:schedule').then(schedule => {
-      const event = JSON.parse(schedule);
-      if (event && event.slug) {
-        this.setState({schedule: event});
-      }
-    });
-  }
-  async componentWillMount() {
-    const initialLinkingUri = await Linking.getInitialURL();
-    console.log(initialLinkingUri);
-    this.setState({initialLinkingUri: initialLinkingUri});
-  }
+  async componentWillMount() {}
+
   componentDidMount() {
-    client
-      .query({
-        query: GET_SCHEDULE,
-        variables: {slug: GQL.slug},
-      })
-      .then(result => {
-        if (
-          result &&
-          result.data &&
-          result.data.events &&
-          result.data.events[0]
-        ) {
-          saveSchedule(result.data.events[0]);
-        }
-      });
     Updates.addListener(({type}) => {
       if (type === Updates.EventType.DOWNLOAD_FINISHED) {
         if (this.state.appIsReady) {
@@ -96,7 +56,61 @@ export default class App extends React.Component {
   };
 
   _loadDataAsync = () => {
-    return loadSavedTalksAsync();
+    return Promise.all(
+      loadSavedTalksAsync(),
+      this._loadEventAsync(),
+      this._loadLinkingUrlAsync()
+    );
+  };
+
+  _loadLinkingUrlAsync = async () => {
+    const initialLinkingUri = await Linking.getInitialURL();
+    console.log(initialLinkingUri);
+    this.setState({initialLinkingUri: initialLinkingUri});
+  };
+
+  _loadEventAsync = async () => {
+    let diskFetcher = this._fetchEventFromDiskAsync();
+    let networkFetcher = this._fetchEventFromNetworkAsync();
+    let quickestResult = await Promise.race([diskFetcher, networkFetcher]);
+    if (!quickestResult) {
+      let slowestResult = await networkFetcher;
+      if (!slowestResult) {
+        // alert('oh no! unable to get data');
+      }
+    }
+  };
+
+  _fetchEventFromDiskAsync = async () => {
+    let schedule = await AsyncStorage.getItem('@MySuperStore:schedule');
+    const event = JSON.parse(schedule);
+
+    if (event && event.slug) {
+      this._setEvent(event);
+      return event;
+    } else {
+      return null;
+    }
+  };
+
+  _fetchEventFromNetworkAsync = async () => {
+    let result = await client.query({
+      query: GET_SCHEDULE,
+      variables: {slug: GQL.slug},
+    });
+    if (result && result.data && result.data.events && result.data.events[0]) {
+      let event = result.data.events[0];
+      this._setEvent(event);
+      return event;
+    } else {
+      return null;
+    }
+  };
+
+  _setEvent = event => {
+    setEvent(event);
+    saveSchedule(event);
+    this.setState({schedule: event});
   };
 
   _loadAssetsAsync = async () => {
@@ -113,17 +127,18 @@ export default class App extends React.Component {
   };
 
   render() {
-    if (!this.state.appIsReady) {
+    if (!this.state.appIsReady || !this.state.schedule) {
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
           onError={console.error}
           onFinish={() => {
-            this.setState({appIsReady: true, schedule: Schedule.events[0]});
+            this.setState({appIsReady: true});
           }}
         />
       );
     }
+
     return (
       <View style={{flex: 1}}>
         <ApolloProvider client={client}>

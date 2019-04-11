@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {View, Text, StatusBar} from 'react-native';
+import {createAppContainer, createStackNavigator} from 'react-navigation';
 import {
-  createAppContainer,
   createBottomTabNavigator,
   createMaterialTopTabNavigator,
-  createStackNavigator,
-} from 'react-navigation';
+} from 'react-navigation-tabs';
 
 import Schedule from './data/schedule.json';
 import moment from 'moment';
@@ -19,26 +18,67 @@ import QRCheckinScannerModalNavigation from './screens/QRScreens/CheckIn';
 import QRContactScannerModalNavigation from './screens/QRScreens/Contact';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-const FullSchedule = Schedule.events[0].groupedSchedule;
-let navSchedule = {};
-_.each(FullSchedule, (day, i) => {
-  navSchedule[day.title] = {
-    screen: Screens.ScheduleDay({
-      day: day.title,
-      date: moment(new Date(day.date)).format('ddd'),
-    }),
+class DynamicScheduleNavigation extends React.Component {
+  state = {
+    navigator: null,
   };
-});
 
-const ScheduleNavigation = createMaterialTopTabNavigator(navSchedule, {
-  tabBarOptions: {
-    style: {backgroundColor: '#333'},
-    activeTintColor: '#fff',
-  },
-  defaultNavigationOptions: ({navigation}) => ({
-    tabBarLabel: navigation.state.routeName.substring(0, 3).toUpperCase(),
-  }),
-});
+  componentDidMount() {
+    this.initializeNavigatorFromSchedule();
+  }
+
+  componentDidUpdate() {
+    // @todo: if schedule changes, re-render navigator? probably only if days changed tho
+  }
+
+  initializeNavigatorFromSchedule() {
+    // @todo: get schedule from network or disk
+    const fullSchedule = this.props.screenProps.event.groupedSchedule; // Schedule.events[0].groupedSchedule;
+
+    // Sort schedule
+    let navSchedule = {};
+    _.each(fullSchedule, (day, i) => {
+      navSchedule[day.title] = {
+        screen: Screens.ScheduleDay({
+          day: day.title,
+          date: moment(new Date(day.date)).format('ddd'),
+        }),
+      };
+    });
+
+    const navigator = createAppContainer(
+      createMaterialTopTabNavigator(navSchedule, {
+        tabBarOptions: {
+          style: {backgroundColor: '#333'},
+          activeTintColor: '#fff',
+        },
+        defaultNavigationOptions: ({navigation}) => ({
+          tabBarLabel: navigation.state.routeName.substring(0, 3).toUpperCase(),
+        }),
+      })
+    );
+
+    this.setState({navigator});
+  }
+
+  render() {
+    if (!this.state.navigator) {
+      // @todo: show a loading state
+      return null;
+    }
+
+    let Navigator = this.state.navigator;
+    return (
+      <Navigator
+        detached
+        screenProps={{
+          ...this.props.screenProps,
+          parentNavigation: this.props.navigation,
+        }}
+      />
+    );
+  }
+}
 
 const DefaultStackConfig = {
   cardStyle: {
@@ -73,7 +113,7 @@ const MenuNavigation = createStackNavigator(
 const ScheduleStackNavigator = createStackNavigator(
   {
     Schedule: {
-      screen: ScheduleNavigation,
+      screen: DynamicScheduleNavigation,
     },
   },
   DefaultStackConfig

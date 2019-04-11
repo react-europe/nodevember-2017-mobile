@@ -20,7 +20,8 @@ export default class TalkCard extends React.Component {
       return this._renderPlaceholderForNextYear();
     }
 
-    console.log(speakers);
+    // console.log(speakers);
+
     return (
       <RectButton
         onPress={this._handlePress}

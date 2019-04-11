@@ -5,9 +5,6 @@ import {Platform, Linking} from 'react-native';
 import {WebBrowser} from 'expo';
 import {AsyncStorage} from 'react-native';
 
-export const Schedule = require('../data/schedule.json');
-const Event = Schedule.events[0];
-
 export function getSpeakerTalk(speaker) {
   const talk = _.find(speaker.talks, function(talk) {
     return talk.type === 0;
@@ -16,6 +13,12 @@ export function getSpeakerTalk(speaker) {
     return speaker.talks[0];
   }
   return talk;
+}
+
+let Event;
+
+export function setEvent(event) {
+  Event = event;
 }
 
 export function convertUtcDateToEventTimezone(date) {

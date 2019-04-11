@@ -6,7 +6,7 @@ import {withNavigation} from 'react-navigation';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, Layout} from '../constants';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
-import Markdown from 'react-native-simple-markdown';
+import Markdown from 'react-native-markdown-renderer';
 
 class TicketInstructions extends React.Component {
   state = {

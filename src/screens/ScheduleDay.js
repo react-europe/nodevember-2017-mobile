@@ -95,7 +95,7 @@ export default function ScheduleDay(options) {
     };
 
     _handlePressRow = item => {
-      this.props.navigation.navigate('Details', {scheduleSlot: item});
+      this.props.screenProps.parentNavigation.navigate('Details', {scheduleSlot: item});
     };
   }
 

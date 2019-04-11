@@ -15,7 +15,7 @@ import {Colors, FontSizes, Layout} from '../constants';
 import {Gravatar} from 'react-native-gravatar';
 
 import {Button, Card, CardContent, Title} from 'react-native-paper';
-import Markdown from 'react-native-simple-markdown';
+import Markdown from 'react-native-markdown-renderer';
 
 class CheckedInAttendeeInfo extends React.Component {
   state = {

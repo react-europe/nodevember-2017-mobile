@@ -102,10 +102,10 @@ class Home extends React.Component {
 
               <HideWhenConferenceHasEnded>
                 <SemiBoldText style={styles.headerText}>
-                  May 17th to 18th (Conference)
+                  May 23rd to 24th (Conference)
                 </SemiBoldText>
                 <SemiBoldText style={styles.headerText}>
-                  May 15th to 16th (Workshops)
+                  May 21st to 22nd (Workshops)
                 </SemiBoldText>
                 <SemiBoldText style={styles.headerText}>
                   Paris, France

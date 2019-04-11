@@ -119,7 +119,7 @@ class DeferredAttendeesContent extends React.Component {
     const cleanedQuery = aquery.toLowerCase().trim();
     const uuid = this.state.uuid;
     const vars = {slug: GQL.slug, q: 'a', uuid: uuid};
-    console.log(GET_ATTENDEES, vars);
+    // console.log(GET_ATTENDEES, vars);
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         {uuid != '' ? (

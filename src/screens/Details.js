@@ -21,7 +21,7 @@ import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
 import SaveButton from '../components/SaveButton';
 import CachedImage from '../components/CachedImage';
 import CloseButton from '../components/CloseButton';
-import Markdown from 'react-native-simple-markdown';
+import Markdown from 'react-native-markdown-renderer';
 
 class SavedButtonNavigationItem extends React.Component {
   render() {
@@ -80,7 +80,6 @@ export default class Details extends React.Component {
     });
 
     const videoURL = talk && talk.youtubeId && talk.youtubeId !== '';
-
     return (
       <View style={{flex: 1, backgroundColor: '#fff', overflow: 'hidden'}}>
         {Platform.OS === 'ios' ? (
@@ -320,8 +319,9 @@ export default class Details extends React.Component {
   };
 }
 const markdownStyles = {
-  text: {},
+  // text: {},
 };
+
 const styles = StyleSheet.create({
   container: {},
   avatar: {
