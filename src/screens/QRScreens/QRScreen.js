@@ -58,7 +58,7 @@ export default class QRScreen extends React.Component {
       <View style={{ flex: 1, backgroundColor: "black" }}>
         {this.state.showQRScanner && this.state.hasCameraPermission ? (
           <BarCodeScanner
-            onBarCodeRead={this.props.loading ? null : this._onBarCodeRead}
+            onBarCodeScanned={this.props.loading ? null : this._onBarCodeRead}
             style={{ flex: 1 }}
           />
         ) : null}
