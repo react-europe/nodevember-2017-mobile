@@ -210,7 +210,7 @@ export default class QRScannerModalNavigation extends React.Component {
       <QRScreen
         title="Scan your ticket QR code"
         loading={this.state.loading}
-        onBarCodeRead={this._handleBarCodeRead}
+        onBarCodeScanned={this._handleBarCodeRead}
       />
     );
   }

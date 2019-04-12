@@ -85,7 +85,7 @@ export default class QRContactScannerModalNavigation extends React.Component {
     return (
       <QRScreen
         title="Scan a badge's QR code"
-        onBarCodeRead={this._handleContactBarCodeRead}
+        onBarCodeScanned={this._handleContactBarCodeRead}
       />
     );
   }

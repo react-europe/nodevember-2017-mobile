@@ -1,6 +1,6 @@
 import React from 'react';
-import { Alert, AsyncStorage } from 'react-native';
-import { query } from 'urql';
+import {Alert, AsyncStorage} from 'react-native';
+import {query} from 'urql';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 
@@ -29,7 +29,7 @@ mutation createCheckin($uuid: String!, $checkinListId: Int!, $ref: String!) {
 
 export default class QRCheckinScannerModalNavigation extends React.Component {
   state = {
-    checkinList: { name: '' },
+    checkinList: {name: ''},
     checkRef: true,
     uuid: null,
     loading: false,
@@ -63,7 +63,7 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
       return;
     }
 
-    this.setState({ loading: true });
+    this.setState({loading: true});
     try {
       let lastCheckedInRef = await AsyncStorage.getItem(
         '@MySuperStore:lastCheckedInRef'
@@ -113,7 +113,7 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
     } catch (e) {
       console.log(e);
     } finally {
-      this.setState({ loading: false });
+      this.setState({loading: false});
     }
   };
 
@@ -122,7 +122,7 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
       <QRScreen
         loading={this.state.loading}
         title={`Checking ${this.state.checkinList.name}`}
-        onBarCodeRead={this._handleCheckinBarCodeRead}
+        onBarCodeScanned={this._handleCheckinBarCodeRead}
       />
     );
   }

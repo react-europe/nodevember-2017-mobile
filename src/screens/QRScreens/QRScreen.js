@@ -49,7 +49,7 @@ export default class QRScreen extends React.Component {
 
   _onBarCodeRead = data => {
     this.setState({showQRScanner: false}, () => {
-      this.props.onBarCodeRead(data);
+      this.props.onBarCodeScanned(data);
     });
   };
 
