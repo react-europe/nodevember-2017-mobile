@@ -47,12 +47,24 @@ class DeferredContactsContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
     tickets: [],
+    contacts: [],
   };
 
   async getTickets() {
     try {
+      const value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
+      if (value === null) {
+        value = '[]';
+      }
+      this.setState({contacts: JSON.parse(value)});
+    } catch (err) {
+      console.log(err);
+      this.setState({contacts: []});
+    }
+    try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      console.log('tickets', value);
+
+      console.log('GETTING tickets', value);
       this.setState({tickets: JSON.parse(value)});
       this.tickets = JSON.parse(value);
     } catch (err) {
@@ -67,7 +79,10 @@ class DeferredContactsContent extends React.Component {
   }
 
   componentDidMount() {
-    this.getTickets();
+    this._sub = this.props.navigation.addListener(
+      'didFocus',
+      this.getTickets.bind(this)
+    );
     if (this.state.ready) {
       return;
     }
@@ -76,7 +91,9 @@ class DeferredContactsContent extends React.Component {
       this.setState({ready: true});
     }, 200);
   }
-
+  componentWillUnmount() {
+    this._sub.remove();
+  }
   render() {
     if (!this.state.ready) {
       return null;
@@ -86,6 +103,7 @@ class DeferredContactsContent extends React.Component {
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <MyContacts
+          contacts={this.state.contacts}
           tickets={this.state.tickets}
           style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
         />

@@ -22,7 +22,7 @@ export default class MyContacts extends React.Component {
 
   constructor(props) {
     super(props);
-    this.contacts = [];
+    this.contacts = this.props.contacts;
     this.tickets = this.props.tickets;
     // console.log("tickets from MyContacts", this.tickets);
   }
@@ -30,7 +30,7 @@ export default class MyContacts extends React.Component {
     this.getContacts();
   }
   render() {
-    const contacts = this.state.contacts || [];
+    const contacts = this.props.contacts;
     return (
       <View style={[{marginHorizontal: 10}, this.props.style]}>
         <SemiBoldText style={{fontSize: FontSizes.title}}>
@@ -48,7 +48,7 @@ export default class MyContacts extends React.Component {
             </RectButton>
           </ClipBorderRadius>
         ) : null}
-        {contacts.map(contact => (
+        {this.props.contacts.map(contact => (
           <ContactCard
             key={contact.id + contact.email}
             contact={contact}
@@ -62,7 +62,7 @@ export default class MyContacts extends React.Component {
 
   _handlePressCopyEmails = () => {
     let contacts = 'first name,last name,email,twitter\n';
-    this.state.contacts.map(contact => {
+    this.props.contacts.map(contact => {
       contacts +=
         contact.firstName +
         ',' +
