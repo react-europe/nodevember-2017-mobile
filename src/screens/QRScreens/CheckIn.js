@@ -3,29 +3,7 @@ import {Alert, AsyncStorage} from 'react-native';
 import {query} from 'urql';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
-
-const qrCheckinQuery = `
-mutation createCheckin($uuid: String!, $checkinListId: Int!, $ref: String!) {
-  createCheckin(uuid: $uuid, checkinListId: $checkinListId, ref: $ref) {
-    firstName
-    lastName
-    id
-    type
-    ref
-    ticket {
-      id
-      name
-    }
-    email
-    checkinMessage
-    checkins {
-      checkinListId
-      createdAt
-      id
-    }
-  }
-}
-`;
+import QR_CHECKIN_QUERY from '../../data/qrCheckinQuery';
 
 export default class QRCheckinScannerModalNavigation extends React.Component {
   state = {
@@ -88,10 +66,11 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
       //console.log("checkinlist state is", this.state.checkinList);
 
       console.log('showQRSCanner', this.state.showQRScanner);
-      let value = await client.executeQuery(
-        query(qrCheckinQuery, variables),
-        true
-      );
+      let value = await client.mutate({
+        mutation: QR_CHECKIN_QUERY,
+        variables: variables,
+      });
+
       console.log('checkin mutation value', value);
       if (value && value.data && value.data.createCheckin === null) {
         Alert.alert(

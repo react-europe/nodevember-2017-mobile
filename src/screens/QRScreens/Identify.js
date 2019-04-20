@@ -6,55 +6,8 @@ import {query} from 'urql';
 import {GQL} from '../../constants';
 
 import client from '../../utils/gqlClient';
-
-const qrQuery = `
-query events($slug: String!, $uuid: String!){
-  events(slug: $slug) {
-	me(uuid: $uuid){
-      mobileMessage
-	  answers {
-		id
-        value
-        question {
-          id
-		  title
-        }
-	  }
-	  firstName
-	  lastName
-	  email
-	  ref
-	  shareInfo
-      uuid
-      id
-      type
-      canCheckin
-staffCheckinLists {
-    id
-    name
-    mainEvent
-}
-checkinLists {
-        id
-        name
-        mainEvent
-      }
-	}
-  }
-}
-`;
-
-const updatePushTokenQuery = `
-mutation updateAttendee($uuid: String!, $expoPushToken: String!) {
-  updateAttendee(uuid: $uuid, expoPushToken: $expoPushToken) {
-    firstName
-    lastName
-    id
-    email
-    canCheckin
-  }
-}
-`;
+import QR_QUERY from '../../data/qrQuery';
+import UPDATE_PUSH_TOKEN_QUERY from '../../data/updatePushTokenQuery';
 
 export default class QRScannerModalNavigation extends React.Component {
   state = {
@@ -92,11 +45,15 @@ export default class QRScannerModalNavigation extends React.Component {
     // Get the token that uniquely identifies this device
     let token = await Notifications.getExpoPushTokenAsync();
     const variables = {uuid: uuid, expoPushToken: token};
-    client
-      .executeQuery(query(updatePushTokenQuery, variables), true)
-      .then(function(value) {
-        console.log('updated attendee', value, token, uuid);
-      });
+
+    let value = await client.mutate({
+      mutation: UPDATE_PUSH_TOKEN_QUERY,
+      variables: variables,
+    });
+
+    if (value) {
+      console.log('updated attendee', value, token, uuid);
+    }
     console.log('token', token, uuid);
   }
 
@@ -129,8 +86,11 @@ export default class QRScannerModalNavigation extends React.Component {
     let variables = {slug: GQL.slug, uuid: data.data};
     let navigation = this.props.navigation;
     try {
-      let result = await client.executeQuery(query(qrQuery, variables), true);
-
+      let result = await client.query({
+        query: QR_QUERY,
+        variables: variables,
+      });
+      console.log('slug', GQL.slug);
       let me;
       if (
         result &&
@@ -188,6 +148,7 @@ export default class QRScannerModalNavigation extends React.Component {
       }
       // expected output: Array [1, 2, 3]
     } catch (e) {
+      console.log('failed 1');
       console.log(e);
     } finally {
       this.setState({loading: false});

@@ -7,27 +7,7 @@ import {addContact} from '../../utils';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 import {saveNewContact} from '../../utils/storage';
-
-const qrContactQuery = `
-query events($slug: String!, $uuid: String!, $q: String!){
-  events(slug: $slug) {
-    attendees(uuid: $uuid, q: $q){
-      lastName
-      firstName
-      id
-      email
-      answers {
-        id
-        question{
-          id
-          title
-        }
-        value
-      }
-    }
-  }
-}
-`;
+import QR_CONTACT_QUERY from '../../data/qrContactQuery';
 
 export default class QRContactScannerModalNavigation extends React.Component {
   _handleContactBarCodeRead = async data => {
@@ -36,37 +16,38 @@ export default class QRContactScannerModalNavigation extends React.Component {
     let tickets = JSON.parse(value) || [];
     let uuid = '';
     let contactRef = data.data;
-    tickets.map(ticket => {
+    tickets.map(async ticket => {
       ticket.checkinLists.map(ch => {
         if (ch.mainEvent) {
           uuid = ticket.uuid;
         }
       });
       let variables = {slug: GQL.slug, uuid: uuid, q: contactRef};
-      client
-        .executeQuery(query(qrContactQuery, variables), true)
-        .then(function(scannedContact) {
-          if (
-            scannedContact &&
-            scannedContact.data &&
-            scannedContact.data.events &&
-            scannedContact.data.events[0] &&
-            scannedContact.data.events[0].attendees &&
-            scannedContact.data.events[0].attendees[0]
-          ) {
-            let contact = scannedContact.data.events[0].attendees[0];
-            console.log('new contact', contact);
-            console.log('new contact query', qrContactQuery);
-            console.log('new contact query variables', variables);
-            saveNewContact(contact, navigation);
-          }
-        });
+
+      let scannedContact = await client.query({
+        query: QR_CONTACT_QUERY,
+        variables: variables,
+      });
+      if (
+        scannedContact &&
+        scannedContact.data &&
+        scannedContact.data.events &&
+        scannedContact.data.events[0] &&
+        scannedContact.data.events[0].attendees &&
+        scannedContact.data.events[0].attendees[0]
+      ) {
+        let contact = scannedContact.data.events[0].attendees[0];
+        console.log('new contact', contact);
+        console.log('new contact query', QR_CONTACT_QUERY);
+        console.log('new contact query variables', variables);
+        saveNewContact(contact, navigation);
+      }
     });
     let variables = {slug: GQL.slug, uuid: uuid, q: contactRef};
-    const scannedContact = await client.executeQuery(
-      query(qrContactQuery, variables),
-      true
-    );
+    let scannedContact = await client.query({
+      query: QR_CONTACT_QUERY,
+      variables: variables,
+    });
     if (
       scannedContact &&
       scannedContact.data &&
