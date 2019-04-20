@@ -100,7 +100,9 @@ export const openTwitter = async twitter => {
 };
 
 export const addContact = async contact => {
-  const storedContacts = await AsyncStorage.getItem('@MySuperStore:contacts');
+  const storedContacts = await AsyncStorage.getItem(
+    '@MySuperStore2019:contacts'
+  );
 
   let contacts = null;
   let newContacts = [];
@@ -134,12 +136,15 @@ export const addContact = async contact => {
     contacts = [];
   }
   let stringifiedContacts = JSON.stringify(contacts);
-  return AsyncStorage.setItem('@MySuperStore:contacts', stringifiedContacts);
+  return AsyncStorage.setItem(
+    '@MySuperStore2019:contacts',
+    stringifiedContacts
+  );
 };
 
 export const saveSchedule = async schedule => {
   return AsyncStorage.setItem(
-    '@MySuperStore:schedule',
+    '@MySuperStore2019:schedule',
     JSON.stringify(schedule)
   );
 };

@@ -13,7 +13,7 @@ export default class MyContacts extends React.Component {
   };
   async getContacts() {
     try {
-      const value = await AsyncStorage.getItem('@MySuperStore:contacts');
+      const value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
       this.setState({contacts: JSON.parse(value)});
     } catch (err) {
       return [];

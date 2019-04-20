@@ -77,7 +77,7 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
   };
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
       this.setState({tickets: JSON.parse(value)});
     } catch (err) {
       console.log(err);
@@ -97,7 +97,7 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
 
     setTimeout(() => {
       this.setState({ready: true});
-      AsyncStorage.removeItem('@MySuperStore:lastCheckedInRef');
+      AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef');
     }, 200);
   }
 
@@ -135,8 +135,8 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
         <Button
           raised
           onPress={() => {
-            AsyncStorage.removeItem('@MySuperStore:lastCheckedInRef').then(() =>
-              this.props.navigation.goBack()
+            AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef').then(
+              () => this.props.navigation.goBack()
             );
           }}>
           Close

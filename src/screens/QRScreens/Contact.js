@@ -12,7 +12,7 @@ import QR_CONTACT_QUERY from '../../data/qrContactQuery';
 export default class QRContactScannerModalNavigation extends React.Component {
   _handleContactBarCodeRead = async data => {
     let navigation = this.props.navigation;
-    const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+    const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
     let tickets = JSON.parse(value) || [];
     let uuid = '';
     let contactRef = data.data;

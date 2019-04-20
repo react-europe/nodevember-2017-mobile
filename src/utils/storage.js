@@ -88,7 +88,7 @@ export function withSaveState(WrappedComponent) {
 }
 
 export function saveNewContact(contact, navigation) {
-  AsyncStorage.getItem('@MySuperStore:contacts').then(storedContacts => {
+  AsyncStorage.getItem('@MySuperStore2019:contacts').then(storedContacts => {
     let contacts = null;
     let newContacts = [];
     let found = false;
@@ -121,8 +121,8 @@ export function saveNewContact(contact, navigation) {
       contacts = [];
     }
     let stringifiedContacts = JSON.stringify(contacts);
-    AsyncStorage.setItem('@MySuperStore:contacts', stringifiedContacts)
-      //AsyncStorage.removeItem('@MySuperStore:tickets')
+    AsyncStorage.setItem('@MySuperStore2019:contacts', stringifiedContacts)
+      //AsyncStorage.removeItem('@MySuperStore2019:tickets')
       .then(() => {
         navigation.navigate('Contacts');
       });

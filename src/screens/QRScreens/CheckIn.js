@@ -15,7 +15,7 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
 
   constructor(props) {
     super(props);
-    AsyncStorage.removeItem('@MySuperStore:lastCheckedInRef');
+    AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef');
   }
 
   _delay = async time => {
@@ -44,9 +44,12 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
     this.setState({loading: true});
     try {
       let lastCheckedInRef = await AsyncStorage.getItem(
-        '@MySuperStore:lastCheckedInRef'
+        '@MySuperStore2019:lastCheckedInRef'
       );
-      await AsyncStorage.setItem('@MySuperStore:lastCheckedInRef', data.data);
+      await AsyncStorage.setItem(
+        '@MySuperStore2019:lastCheckedInRef',
+        data.data
+      );
 
       if (data.data === lastCheckedInRef) {
         // bail out

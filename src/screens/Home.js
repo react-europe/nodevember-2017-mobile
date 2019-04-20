@@ -165,7 +165,7 @@ class DeferredHomeContent extends React.Component {
 
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
       // console.log("tickets", value);
       this.setState({tickets: JSON.parse(value)});
       this.tickets = JSON.parse(value);

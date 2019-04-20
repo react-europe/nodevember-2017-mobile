@@ -15,7 +15,7 @@ export default class QRScannerModalNavigation extends React.Component {
   };
   async setTickets(tickets) {
     try {
-      await AsyncStorage.setItem('@MySuperStore:tickets', tickets);
+      await AsyncStorage.setItem('@MySuperStore2019:tickets', tickets);
     } catch (err) {
       console.log(err);
       return [];
@@ -108,7 +108,7 @@ export default class QRScannerModalNavigation extends React.Component {
         return;
       }
 
-      let value = await AsyncStorage.getItem('@MySuperStore:tickets');
+      let value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
       let tickets = null;
       let newTickets = [];
       let found = false;
@@ -139,8 +139,8 @@ export default class QRScannerModalNavigation extends React.Component {
       if (tickets && tickets !== null && tickets !== []) {
         let stringifiedTickets = JSON.stringify(tickets);
         this.setTickets(stringifiedTickets);
-        //AsyncStorage.setItem("@MySuperStore:tickets", stringifiedTickets)
-        //AsyncStorage.removeItem('@MySuperStore:tickets')
+        //AsyncStorage.setItem("@MySuperStore2019:tickets", stringifiedTickets)
+        //AsyncStorage.removeItem('@MySuperStore2019:tickets')
         //.then(value => {
         this.registerForPushNotificationsAsync(variables.uuid);
         navigation.navigate('Profile');

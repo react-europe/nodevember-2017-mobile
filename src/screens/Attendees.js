@@ -87,7 +87,7 @@ class DeferredAttendeesContent extends React.Component {
   }
 
   async _getUuid() {
-    const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+    const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
     let tickets = JSON.parse(value) || [];
     let uuid = '';
     tickets.map(ticket => {

@@ -16,7 +16,7 @@ export default class Tickets extends React.Component {
   };
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
       this.setState({tickets: JSON.parse(value)});
     } catch (err) {
       return [];
@@ -33,15 +33,14 @@ export default class Tickets extends React.Component {
     return (
       <View style={[{marginHorizontal: 10}, this.props.style]}>
         <Title>My Tickets</Title>
-        {tix.map(
-          ticket =>
-            ticket ? (
-              <TicketCard
-                key={ticket.ref}
-                ticket={ticket}
-                style={{marginTop: 10, marginBottom: 10}}
-              />
-            ) : null
+        {tix.map(ticket =>
+          ticket ? (
+            <TicketCard
+              key={ticket.ref}
+              ticket={ticket}
+              style={{marginTop: 10, marginBottom: 10}}
+            />
+          ) : null
         )}
       </View>
     );

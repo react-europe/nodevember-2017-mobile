@@ -58,7 +58,7 @@ export default class StaffCheckinLists extends React.Component {
 
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem('@MySuperStore:tickets');
+      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
       console.log('tickets', value);
       const json = JSON.parse(value) || [];
       let staffCheckinListsArray = [];
