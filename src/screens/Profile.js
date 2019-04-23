@@ -41,19 +41,23 @@ class DeferredProfileContent extends React.Component {
     tickets: [],
     ready: Platform.OS === 'android' ? false : true,
   };
-  async getTickets() {
+
+  getTickets = async () => {
     try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      console.log('value', value);
-      this.setState({tickets: JSON.parse(value)});
+      const tickets = JSON.parse(value);
+      this.setState({tickets});
     } catch (err) {
       console.log(err);
       return [];
     }
-  }
+  };
 
   constructor(props) {
     super(props);
+    props.navigation.addListener('didFocus', () => {
+      this.getTickets();
+    });
     this.getTickets();
   }
 
@@ -75,6 +79,7 @@ class DeferredProfileContent extends React.Component {
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         <Tickets
+          tickets={this.state.tickets}
           style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
         />
 
@@ -94,28 +99,23 @@ class DeferredProfileContent extends React.Component {
     );
   }
   _requestCameraPermission = async () => {
-    console.log(1);
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
-    console.log(2);
-    this.setState({
-      hasCameraPermission: status === 'granted',
-    });
+    let hasCameraPermission = status === 'granted';
+    this.setState({hasCameraPermission});
+    return hasCameraPermission;
   };
 
-  _handlePressQRButton = () => {
-    console.log(0);
-    this._requestCameraPermission();
-    console.log(3);
-    let that = this;
-    Permissions.askAsync(Permissions.CAMERA).then(() => {
-      console.log(4);
-      that.props.navigation.navigate({
+  _handlePressQRButton = async () => {
+    if (await this._requestCameraPermission()) {
+      this.props.navigation.navigate({
         routeName: 'QRScanner',
         key: 'QRScanner',
       });
-      console.log(5);
-      return;
-    });
+    } else {
+      alert(
+        'You need to manually enable camera permissions in your operating system settings app'
+      );
+    }
   };
 }
 

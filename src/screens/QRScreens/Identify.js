@@ -16,6 +16,8 @@ export default class QRScannerModalNavigation extends React.Component {
   async setTickets(tickets) {
     try {
       await AsyncStorage.setItem('@MySuperStore2019:tickets', tickets);
+      console.log('set tickets to tickets:')
+      console.log(tickets)
     } catch (err) {
       console.log(err);
       return [];
@@ -60,15 +62,7 @@ export default class QRScannerModalNavigation extends React.Component {
   constructor(props) {
     super(props);
     console.log('navigation props params', this.props.navigation.state.params);
-    if (
-      this &&
-      this.props &&
-      this.props.navigation &&
-      this.props.navigation.state &&
-      this.props.navigation.state.params &&
-      this.props.navigation.state.params.uuid &&
-      this.props.navigation.state.params.uuid !== ''
-    ) {
+    if (props.navigation.getParam('uuid')) {
       this._handleBarCodeRead({data: this.props.navigation.state.params.uuid});
     }
   }
@@ -92,12 +86,7 @@ export default class QRScannerModalNavigation extends React.Component {
       });
       console.log('slug', GQL.slug);
       let me;
-      if (
-        result &&
-        result.data &&
-        result.data.events &&
-        result.data.events[0]
-      ) {
+      if (result?.data?.events?.[0]) {
         me = result.data.events[0].me;
         if (me === null) {
           Alert.alert('Ticket not found!');
@@ -138,13 +127,10 @@ export default class QRScannerModalNavigation extends React.Component {
 
       if (tickets && tickets !== null && tickets !== []) {
         let stringifiedTickets = JSON.stringify(tickets);
-        this.setTickets(stringifiedTickets);
-        //AsyncStorage.setItem("@MySuperStore2019:tickets", stringifiedTickets)
-        //AsyncStorage.removeItem('@MySuperStore2019:tickets')
-        //.then(value => {
+        console.log(stringifiedTickets);
+        await this.setTickets(stringifiedTickets);
         this.registerForPushNotificationsAsync(variables.uuid);
         navigation.navigate('Profile');
-        //});
       }
       // expected output: Array [1, 2, 3]
     } catch (e) {

@@ -11,25 +11,8 @@ import {
 import {Title} from 'react-native-paper';
 
 export default class Tickets extends React.Component {
-  state = {
-    tickets: [],
-  };
-  async getTickets() {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      this.setState({tickets: JSON.parse(value)});
-    } catch (err) {
-      return [];
-    }
-  }
-
-  constructor(props) {
-    super(props);
-    this.getTickets();
-  }
-  componentDidMount() {}
   render() {
-    let tix = this.state.tickets || [];
+    let tix = this.props.tickets || [];
     return (
       <View style={[{marginHorizontal: 10}, this.props.style]}>
         <Title>My Tickets</Title>
