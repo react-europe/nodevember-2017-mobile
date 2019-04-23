@@ -92,11 +92,11 @@ export default class App extends React.Component {
   };
 
   _loadDataAsync = () => {
-    return Promise.all(
+    return Promise.all([
       loadSavedTalksAsync(),
       this._loadEventAsync(),
       this._loadLinkingUrlAsync()
-    );
+    ]);
   };
 
   _loadLinkingUrlAsync = async () => {
