@@ -14,28 +14,31 @@ export default class NavigationBar extends React.Component {
 
   _renderAnimated = () => {
     return (
-      <View style={[styles.navigationBarContainer, this.props.style]}>
-        <Animated.View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: Colors.blue,
-              opacity: this.props.animatedBackgroundOpacity,
-            },
-          ]}
-        />
+      <>
+        <View style={[styles.navigationBarContainer, this.props.style]} pointerEvents="none">
+          <Animated.View
+            style={[
+              StyleSheet.absoluteFill,
+              {
+                backgroundColor: Colors.blue,
+                opacity: this.props.animatedBackgroundOpacity,
+              },
+            ]}
+          />
+        </View>
+
         <View style={styles.navigationBarLeftButton}>
           {this.props.renderLeftButton && this.props.renderLeftButton()}
         </View>
 
-        <View style={styles.navigationBarTitleContainer}>
+        <View style={styles.navigationBarTitleContainer} pointerEvents="none">
           {this.props.renderTitle && this.props.renderTitle()}
         </View>
 
         <View style={styles.navigationBarRightButton}>
           {this.props.renderRightButton && this.props.renderRightButton()}
         </View>
-      </View>
+      </>
     );
   };
 
@@ -74,14 +77,20 @@ const styles = StyleSheet.create({
     right: 0,
   },
   navigationBarTitleContainer: {
-    flex: 1,
+    left: 0,
+    right: 0,
+    height: Layout.headerHeight,
+    paddingTop: PADDING_TOP,
     flexDirection: 'row',
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-start',
+    position: 'absolute',
   },
   navigationBarLeftButton: {
     width: 80,
+    top: PADDING_TOP,
+    position: 'absolute',
   },
   navigationBarRightButton: {
     top: PADDING_TOP,

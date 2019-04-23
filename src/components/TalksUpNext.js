@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
+import {ActivityIndicator, Platform, StyleSheet, View} from 'react-native';
 import {GQL} from '../constants';
 import NEXT_SCHEDULE_ITEMS from '../data/NextScheduleItems';
 import client from '../utils/gqlClient';
@@ -86,7 +86,7 @@ export default class TalksUpNext extends React.Component {
     if (this.state.fetching) {
       return (
         <View style={{marginLeft: 8, marginTop: 3}}>
-          <ActivityIndicator color={Colors.blue} />
+          <ActivityIndicator color={Platform.OS === 'android' ? Colors.blue : '#888'} />
         </View>
       );
     }

@@ -33,7 +33,7 @@ export default class TalkCard extends React.Component {
               <FadeIn>
                 <CachedImage
                   source={{uri: speaker.avatarUrl}}
-                  style={{width: 50, height: 50, borderRadius: 25}}
+                  style={{width: 40, height: 40, borderRadius: 20}}
                 />
               </FadeIn>
             </View>
@@ -54,7 +54,7 @@ export default class TalkCard extends React.Component {
             <SaveIconWhenSaved talk={talk} />
             {talk.title}
           </RegularText>
-          {conferenceHasEnded() ? null : (
+          {conferenceHasEnded() || !talk.room ? null : (
             <RegularText style={styles.talkLocation}>{talk.room}</RegularText>
           )}
         </View>

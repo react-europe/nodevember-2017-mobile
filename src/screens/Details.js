@@ -9,7 +9,7 @@ import {
   Text,
   WebView,
 } from 'react-native';
-import {Constants, WebBrowser} from 'expo';
+import {Constants, Haptic, WebBrowser} from 'expo';
 import FadeIn from 'react-native-fade-in-image';
 import {View as AnimatableView} from 'react-native-animatable';
 
@@ -51,9 +51,14 @@ export default class Details extends React.Component {
 
   componentDidMount() {
     if (Platform.OS === 'ios') {
-      this.state.scrollY.addListener(({ value }) => {
+      this._listener = this.state.scrollY.addListener(({ value }) => {
         if (value < - 150) {
+          Haptic.impact(Haptic.ImpactFeedbackStyle.Medium);
           this.props.navigation.goBack();
+          if (this._listener) {
+            this.state.scrollY.removeListener(this._listener);
+            this._listener = null;
+          }
         }
       });
     }
