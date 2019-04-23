@@ -41,9 +41,23 @@ class SavedButtonNavigationItem extends React.Component {
 }
 
 export default class Details extends React.Component {
+  static navigationOptions = {
+    gesturesEnabled: false,
+  };
+
   state = {
     scrollY: new Animated.Value(0),
   };
+
+  componentDidMount() {
+    if (Platform.OS === 'ios') {
+      this.state.scrollY.addListener(({ value }) => {
+        if (value < - 150) {
+          this.props.navigation.goBack();
+        }
+      });
+    }
+  }
 
   render() {
     let params = this.props.navigation.state.params || {};
