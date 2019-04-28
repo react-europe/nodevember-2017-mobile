@@ -4,7 +4,7 @@
     "description": "Official HEC Seed app for the April 2019 conference, April 30th in Paris, France. Scan your own ticket so you can scan other people's QR during the conference to exchange contact.",
     "slug": "hecseed",
     "privacy": "public",
-    "version": "2.6.9",
+    "version": "3.6.9",
     "primaryColor": "#4d5fab",
     "icon": "./src/assets/icon-ios.png",
     "orientation": "portrait",
@@ -22,7 +22,7 @@
     "android": {
       "package": "eventlama.apps.hecseed",
       "icon": "./src/assets/icon-android.png",
-      "versionCode": 5
+      "versionCode": 6
     },
     "ios": {
       "bundleIdentifier": "hecseed",
