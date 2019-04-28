@@ -180,6 +180,10 @@ class DeferredHomeContent extends React.Component {
     this._notificationSubscription = Notifications.addListener(
       this._handleNotification
     );
+    this._sub = this.props.navigation.addListener(
+      'didFocus',
+      this.getTickets.bind(this)
+    );
 
     if (this.state.ready) {
       return;
