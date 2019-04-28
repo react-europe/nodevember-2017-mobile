@@ -17,7 +17,7 @@
     "splash": {
       "image": "./src/assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#666"
+      "backgroundColor": "#fff"
     },
     "android": {
       "package": "eventlama.apps.hecseed",
