@@ -1,8 +1,8 @@
 # Nodevember app
 
-- Download [Nodevember on the Apple App Store](https://itunes.apple.com/us/app/nodevember/id1316372562?mt=8)
-- Download [Nodevember on Google Play](https://play.google.com/store/apps/details?id=org.nodevember.app&hl=en)
-- Open November [with the Expo client](https://expo.io/@nodevember/app)
+- Download [on Apple App Store](https://itunes.apple.com/bz/app/reacteurope-official-app/id1230066908?mt=8)
+- Download [on Google Play](https://play.google.com/store/apps/details?id=hr.apps.n6574)
+- Open November [with the Expo client](https://expo.io/@patcito/reacteurope)
 
 ## Get it running on your machine (anybody)
 
