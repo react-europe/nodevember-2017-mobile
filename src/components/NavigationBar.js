@@ -1,7 +1,7 @@
 import React from 'react';
 import {Animated, Platform, View, StyleSheet} from 'react-native';
 import {Constants} from 'expo';
-import {Colors, Layout} from '../constants';
+import {Colors, Layout, FontSizes} from '../constants';
 
 export default class NavigationBar extends React.Component {
   render() {
@@ -31,9 +31,9 @@ export default class NavigationBar extends React.Component {
           {this.props.renderLeftButton && this.props.renderLeftButton()}
         </View>
 
-        <View style={styles.navigationBarTitleContainer} pointerEvents="none">
+        <Animated.View style={[styles.navigationBarTitleContainer, { opacity: this.props.animatedBackgroundOpacity }]} pointerEvents="none">
           {this.props.renderTitle && this.props.renderTitle()}
-        </View>
+        </Animated.View>
 
         <View style={styles.navigationBarRightButton}>
           {this.props.renderRightButton && this.props.renderRightButton()}
@@ -101,4 +101,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
   },
+  navigationBarTitle: {
+    color: Colors.faint,
+    fontSize: FontSizes.title
+  }
 });

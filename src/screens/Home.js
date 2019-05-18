@@ -8,6 +8,7 @@ import {
   StyleSheet,
   AsyncStorage,
   View,
+  Text
 } from 'react-native';
 import {WebBrowser, Notifications} from 'expo';
 import {RectButton} from 'react-native-gesture-handler';
@@ -96,7 +97,7 @@ class Home extends React.Component {
                   Thank you for joining us!
                 </SemiBoldText>
                 <SemiBoldText style={[styles.headerTextSmall, {color: '#fff'}]}>
-                  See you in May, 2019!
+                  See you in May, 2020!
                 </SemiBoldText>
               </ShowWhenConferenceHasEnded>
 
@@ -118,7 +119,7 @@ class Home extends React.Component {
           <OverscrollView />
         </AnimatedScrollView>
 
-        <NavigationBar animatedBackgroundOpacity={headerOpacity} />
+        <NavigationBar animatedBackgroundOpacity={headerOpacity} renderTitle={() => <SemiBoldText style={styles.headerText}>ReactEurope 2019</SemiBoldText>} />
         {this._addLinkingListener()}
       </View>
     );
