@@ -404,10 +404,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   sectionHeader: {
-    fontSize: FontSizes.bodyTitle,
+    fontSize: FontSizes.subtitle,
     paddingTop: 15,
     marginBottom: 4,
-    opacity: 0.7
+    color: Colors.blue
   },
   sectionContent: {
     marginTop: 8

@@ -63,7 +63,7 @@ export default class TalksUpNext extends React.Component {
     const {nextTalks} = this.state;
 
     return (
-      <View style={[{marginHorizontal: 10}, this.props.style]}>
+      <View style={[{marginHorizontal: 10 }, this.props.style]}>
         <View style={{flexDirection: 'row'}}>
           <SemiBoldText style={{fontSize: FontSizes.title}}>
             {conferenceHasEnded() ? 'A great talk from 2019' : 'Coming up next'}

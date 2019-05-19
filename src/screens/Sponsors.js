@@ -102,7 +102,6 @@ export default class Sponsors extends React.Component {
 
   _getSponsors = rawData => {
     delete rawData.__typename;
-
     return Object.keys(rawData).filter(
       key => rawData[key].length > 0
     ).map(key => ({
