@@ -51,8 +51,8 @@ export default class Details extends React.Component {
 
   componentDidMount() {
     if (Platform.OS === 'ios') {
-      this._listener = this.state.scrollY.addListener(({ value }) => {
-        if (value < - 150) {
+      this._listener = this.state.scrollY.addListener(({value}) => {
+        if (value < -150) {
           Haptic.impact(Haptic.ImpactFeedbackStyle.Medium);
           this.props.navigation.goBack();
           if (this._listener) {
@@ -251,7 +251,7 @@ export default class Details extends React.Component {
                 </SemiBoldText>
 
                 {speakers.map(speaker => (
-                  <View key={speaker.id}>
+                  <View key={speaker.id} style={styles.sectionContent}>
                     <SemiBoldText key={speaker.id + talk.title}>
                       {speaker.name}
                     </SemiBoldText>
@@ -263,10 +263,12 @@ export default class Details extends React.Component {
             {talk ? (
               <View>
                 <SemiBoldText style={styles.sectionHeader}>Time</SemiBoldText>
-                <RegularText>
-                  {convertUtcDateToEventTimezoneHour(talk.startDate)}
-                </RegularText>
-                <RegularText>{talk.room}</RegularText>
+                <View style={styles.sectionContent}>
+                  <RegularText>
+                    {convertUtcDateToEventTimezoneHour(talk.startDate)}
+                  </RegularText>
+                  <RegularText>{talk.room}</RegularText>
+                </View>
               </View>
             ) : null}
           </AnimatableView>
@@ -403,8 +405,12 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     fontSize: FontSizes.bodyTitle,
-    marginTop: 15,
-    marginBottom: 3,
+    paddingTop: 15,
+    marginBottom: 4,
+    opacity: 0.7
+  },
+  sectionContent: {
+    marginTop: 8
   },
   videoWrapper: {},
 });
