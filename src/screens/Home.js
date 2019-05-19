@@ -8,7 +8,7 @@ import {
   StyleSheet,
   AsyncStorage,
   View,
-  Text
+  Text,
 } from 'react-native';
 import {WebBrowser, Notifications} from 'expo';
 import {RectButton} from 'react-native-gesture-handler';
@@ -119,7 +119,7 @@ class Home extends React.Component {
           <OverscrollView />
         </AnimatedScrollView>
 
-        <NavigationBar animatedBackgroundOpacity={headerOpacity} renderTitle={() => <SemiBoldText style={styles.headerText}>ReactEurope 2019</SemiBoldText>} />
+        <NavigationBar animatedBackgroundOpacity={headerOpacity} />
         {this._addLinkingListener()}
       </View>
     );

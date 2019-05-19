@@ -31,9 +31,9 @@ export default class NavigationBar extends React.Component {
           {this.props.renderLeftButton && this.props.renderLeftButton()}
         </View>
 
-        <Animated.View style={[styles.navigationBarTitleContainer, { opacity: this.props.animatedBackgroundOpacity }]} pointerEvents="none">
+        <View style={styles.navigationBarTitleContainer]} pointerEvents="none">
           {this.props.renderTitle && this.props.renderTitle()}
-        </Animated.View>
+        </View>
 
         <View style={styles.navigationBarRightButton}>
           {this.props.renderRightButton && this.props.renderRightButton()}
