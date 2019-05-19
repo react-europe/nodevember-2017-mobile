@@ -31,7 +31,7 @@ export default class NavigationBar extends React.Component {
           {this.props.renderLeftButton && this.props.renderLeftButton()}
         </View>
 
-        <View style={styles.navigationBarTitleContainer]} pointerEvents="none">
+        <View style={styles.navigationBarTitleContainer} pointerEvents="none">
           {this.props.renderTitle && this.props.renderTitle()}
         </View>
 
