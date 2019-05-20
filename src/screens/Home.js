@@ -64,6 +64,12 @@ class Home extends React.Component {
       extrapolate: 'clamp',
     });
 
+    const headerLogoOpacity = scrollY.interpolate({
+      inputRange: [100, 150],
+      outputRange: [0, 1],
+      extrapolate: 'clamp',
+    });
+
     return (
       <View style={{flex: 1}}>
         <AnimatedScrollView
@@ -118,7 +124,21 @@ class Home extends React.Component {
           <OverscrollView />
         </AnimatedScrollView>
 
-        <NavigationBar animatedBackgroundOpacity={headerOpacity} />
+        <NavigationBar
+          animatedBackgroundOpacity={headerOpacity}
+          renderTitle={() => (
+            <Animated.Text
+              style={{
+                fontSize: 17,
+                marginTop: -2,
+                fontFamily: 'open-sans-bold',
+                opacity: headerLogoOpacity,
+                color: '#fff',
+              }}>
+              React Europe 2019
+            </Animated.Text>
+          )}
+        />
         {this._addLinkingListener()}
       </View>
     );
