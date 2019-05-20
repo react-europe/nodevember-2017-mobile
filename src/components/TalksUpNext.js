@@ -24,38 +24,24 @@ export default class TalksUpNext extends React.Component {
   };
 
   componentDidMount() {
-    this._fetchTalksAsync();
+    this._fetchTalks();
     this.props.navigation.addListener('didFocus', () => {
-      this._fetchTalksAsync();
+      this._fetchTalks();
     });
   }
 
-  _fetchTalksAsync = async () => {
+  _fetchTalks = () => {
     if (this.state.fetching) {
       return;
     }
 
-    this.setState({fetching: true});
-    try {
-      let res = await client.query({
-        query: NEXT_SCHEDULE_ITEMS,
-        variables: {slug: GQL.slug},
-        fetchPolicy: 'network-only',
+    let nextTalks = findNextTalksAfterDate(this.props.event);
+    if (nextTalks) {
+      this.setState({
+        nextTalks: nextTalks.slice(0, 3),
+        dateTime: nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
+        time: nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
       });
-      if (res?.data?.events?.[0]?.status?.nextFiveScheduledItems?.length > 0) {
-        let nextTalks = res.data.events[0].status.nextFiveScheduledItems;
-        this.setState({
-          nextTalks: nextTalks.slice(0, 3),
-          dateTime: nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
-          time: nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
-        });
-      } else {
-        // set error state?
-      }
-    } catch (e) {
-      // uh oh
-    } finally {
-      this.setState({fetching: false});
     }
   };
 
@@ -110,40 +96,6 @@ export default class TalksUpNext extends React.Component {
     }
   }
 }
-
-const q =
-  `{
-  events(slug: "` +
-  GQL.slug +
-  `") {
-    id
-    status {
-      hasEnded
-      hasStarted
-      onGoing
-      nextFiveScheduledItems {
-        id
-        title
-        description
-        startDate
-        speakers {
-          id
-          name
-          twitter
-          avatarUrl
-          bio
-          talks {
-            id
-            description
-            title
-            startDate
-          }
-        }
-      }
-    }
-  }
-}
-`;
 
 const styles = StyleSheet.create({
   time: {

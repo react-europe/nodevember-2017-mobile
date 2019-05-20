@@ -1,12 +1,18 @@
 import _ from 'lodash';
+import moment from 'moment-timezone';
 
-export const Schedule = require('../data/schedule.json');
+export function findNextTalksAfterDate(event, date = new Date()) {
+  let flattenedTalks = event.groupedSchedule.reduce((result, group) => {
+    result = [...result, ...group.slots];
+    return result;
+  }, []);
 
-const Event = Schedule.events[0];
-export const Talks = Schedule.events[0].schedule;
-
-export function findNextTalksAfterDate() {
-  let talks = Event.status.nextFiveScheduledItems;
+  let talks = _.filter(
+    flattenedTalks,
+    talk =>
+      (talk.type === 0 || talk.type === 1) &&
+      true
+  );
   return talks.slice(0, 3);
 }
 

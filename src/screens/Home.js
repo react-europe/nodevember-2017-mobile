@@ -96,7 +96,7 @@ class Home extends React.Component {
                   Thank you for joining us!
                 </SemiBoldText>
                 <SemiBoldText style={[styles.headerTextSmall, {color: '#fff'}]}>
-                  See you in May, 2019!
+                  See you in May, 2020!
                 </SemiBoldText>
               </ShowWhenConferenceHasEnded>
 
@@ -127,6 +127,7 @@ class Home extends React.Component {
   _openTickets = () => {
     Linking.openURL(this.state.event.websiteUrl + '#tickets');
   };
+
   _handleRedirect = url => {
     this.setState({url});
     let {path, queryParams} = Expo.Linking.parse(url);
@@ -264,6 +265,7 @@ class DeferredHomeContent extends React.Component {
         ) : null}
         <HideWhenConferenceHasEnded>
           <TalksUpNext
+            event={this.props.event}
             style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
           />
         </HideWhenConferenceHasEnded>
