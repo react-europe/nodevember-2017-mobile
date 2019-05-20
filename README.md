@@ -6,7 +6,7 @@
 
 ## Get it running on your machine
 
-- `yarn global add exp`
+- `yarn global add expo-cli`
 - Clone this repo, cd into it, run `yarn`
-- `exp start`
-- Scan the QR code from your phone. Alternatively, in another terminal window run `exp ios` and/or `exp android` to open in simulator.
+- `expo start`
+- Scan the QR code from your phone. Alternatively, in another terminal window run `expo ios` and/or `expo android` to open in simulator.
