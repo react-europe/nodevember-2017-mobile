@@ -1,45 +1,18 @@
 import React from 'react';
-import {
-  Animated,
-  Linking,
-  Platform,
-  StyleSheet,
-  ScrollView,
-  AsyncStorage,
-  View,
-} from 'react-native';
-import {Asset, LinearGradient, WebBrowser, Video} from 'expo';
-import {BorderlessButton, RectButton} from 'react-native-gesture-handler';
-import {NavigationActions} from 'react-navigation';
-import FadeIn from 'react-native-fade-in-image';
+import {Platform, ScrollView, AsyncStorage, View} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import {Ionicons} from '@expo/vector-icons';
 import {withNavigation} from 'react-navigation';
-
 import MyContacts from '../components/MyContacts';
-import NavigationBar from '../components/NavigationBar';
-import MenuButton from '../components/MenuButton';
-import VideoBackground from '../components/VideoBackground';
-import {BoldText, SemiBoldText} from '../components/StyledText';
-import {connectDrawerButton} from '../Navigation';
-import {Colors, FontSizes, Layout} from '../constants';
-import {Speakers, Talks} from '../data';
-import {
-  HideWhenConferenceHasStarted,
-  HideWhenConferenceHasEnded,
-  ShowWhenConferenceHasEnded,
-} from '../utils';
+import BigButton from '../components/BigButton';
 
-class Contacts extends React.Component {
-  render() {
-    return (
-      <View style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}>
-          <DeferredContactsContent />
-        </ScrollView>
-      </View>
-    );
-  }
+function Contacts() {
+  return (
+    <View style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
+        <DeferredContactsContent />
+      </ScrollView>
+    </View>
+  );
 }
 
 @withNavigation
@@ -108,27 +81,13 @@ class DeferredContactsContent extends React.Component {
           style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
         />
         {tix && tix.length > 0 ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressQRButton}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                {"Scan a contact's QR code"}
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressQRButton}>
+            Scan a contact's QR code
+          </BigButton>
         ) : (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressProfileQRButton}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                You need to scan your ticket first
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressProfileQRButton}>
+            You need to scan your ticket first
+          </BigButton>
         )}
       </AnimatableView>
     );
@@ -148,50 +107,5 @@ class DeferredContactsContent extends React.Component {
     });
   };
 }
-
-const ClipBorderRadius = ({children, style}) => {
-  return (
-    <View style={[{borderRadius: BORDER_RADIUS, overflow: 'hidden'}, style]}>
-      {children}
-    </View>
-  );
-};
-
-const BORDER_RADIUS = 3;
-
-const styles = StyleSheet.create({
-  headerText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 17,
-    lineHeight: 17 * 1.5,
-  },
-  headerSmallText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 7,
-    lineHeight: 7 * 1.5,
-  },
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
-  seeAllTalks: {
-    fontSize: FontSizes.normalButton,
-    color: Colors.blue,
-  },
-});
 
 export default Contacts;

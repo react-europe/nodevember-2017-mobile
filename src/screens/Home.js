@@ -25,6 +25,7 @@ import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
+import BigButton from '../components/BigButton';
 
 class Home extends React.Component {
   state = {
@@ -228,40 +229,19 @@ class DeferredHomeContent extends React.Component {
     return (
       <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
         {isStaff ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressStaffCheckinListsButton}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                Go to checkin
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressStaffCheckinListsButton}>
+            Go to checkin
+          </BigButton>
         ) : null}
         {tix && tix.length === 0 ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressQRButton}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                Scan your conference ticket QR code
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressQRButton}>
+            Scan your conference ticket QR code
+          </BigButton>
         ) : null}
         {tix && tix.length > 0 && !isStaff ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={() => this.props.navigation.navigate('Profile')}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                My tickets
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={() => this.props.navigation.navigate('Profile')}>
+            My tickets
+          </BigButton>
         ) : null}
         <HideWhenConferenceHasEnded>
           <TalksUpNext
@@ -281,69 +261,30 @@ class DeferredHomeContent extends React.Component {
           </TouchableOpacity>
         </View>
         {tix && tix.length > 0 ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={() => this.props.navigation.navigate('Profile')}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                My Tickets
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={() => this.props.navigation.navigate('Profile')}>
+            My Tickets
+          </BigButton>
         ) : null}
         {tix && tix.length === 0 ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressQRButton}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                Scan your conference ticket QR code
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressQRButton}>
+            Scan your conference ticket QR code
+          </BigButton>
         ) : null}
         {tix && tix.length > 0 ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressQRButton}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                Scan another ticket QR code
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressQRButton}>
+            Scan another ticket QR code
+          </BigButton>
         ) : null}
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={this._handlePressCOCButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              Read the code of conduct
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <BigButton onPress={this._handlePressCOCButton}>
+          Read the code of conduct
+        </BigButton>
+        <BigButton onPress={this._handlePressMapButton}>
+          {Platform.OS === 'android' ? 'Download' : 'Open'} the conference map
+        </BigButton>
 
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={this._handlePressMapButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              {Platform.OS === 'android' ? 'Download' : 'Open'} the conference
-              map
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
-
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={this._handlePressTwitterButton}
-            underlayColor="#fff">
+        <BigButton
+          onPress={this._handlePressTwitterButton}
+          icon={
             <Ionicons
               name="logo-twitter"
               size={23}
@@ -354,11 +295,9 @@ class DeferredHomeContent extends React.Component {
                 marginRight: 5,
               }}
             />
-            <SemiBoldText style={styles.bigButtonText}>
-              @{this.state.event.twitterHandle}
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+          }>
+          @{this.state.event.twitterHandle}
+        </BigButton>
       </AnimatableView>
     );
   }
@@ -462,22 +401,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 7,
     lineHeight: 7 * 1.5,
-  },
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
   },
   seeAllTalks: {
     fontSize: FontSizes.normalButton,

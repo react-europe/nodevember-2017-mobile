@@ -39,6 +39,8 @@ export const FontSizes = {
   normalButton: isSmallDevice ? 15 : 16,
 };
 
+export const BORDER_RADIUS = 3;
+
 export const GQL = {
   uri: 'https://www.react-europe.org/gql',
   slug: 'reacteurope-2019',

@@ -5,11 +5,11 @@ import {WebBrowser} from 'expo';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import {Layout, FontSizes, Colors} from '../constants';
-import MenuButton from '../components/MenuButton';
-import {SemiBoldText, RegularText} from '../components/StyledText';
+import {RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
 import {Capitalize} from '../utils';
+import BigButton from '../components/BigButton';
 
 const ClipBorderRadius = ({children, style}) => {
   return (
@@ -64,16 +64,7 @@ class SponsorRow extends React.Component {
               </RegularText>
             </View>
           ) : null}
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressJobUrl}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                Work with {sponsor.name}
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressJobUrl}>Work with {sponsor.name}</BigButton>
         </View>
       </RectButton>
     );
@@ -140,22 +131,6 @@ export default class Sponsors extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
   row: {
     flex: 1,
     padding: 10,
