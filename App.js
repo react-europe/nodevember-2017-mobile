@@ -11,11 +11,13 @@ import {
 } from 'expo';
 import {
   Animated,
+  Button,
   Platform,
   Image,
   StatusBar,
   StyleSheet,
   View,
+  Text,
   AsyncStorage,
   Dimensions,
   Easing,
@@ -32,6 +34,7 @@ import AppNavigator from './src/Navigation';
 
 export default class App extends React.Component {
   state = {
+    error: false,
     isAppReady: false,
     isSplashReady: false,
     isSplashAnimationComplete: false,
@@ -85,7 +88,7 @@ export default class App extends React.Component {
           duration: 400,
           useNativeDriver: true,
         }).start(() => {
-          this.setState({ isSplashAnimationComplete: true });
+          this.setState({isSplashAnimationComplete: true});
         });
       });
     }
@@ -95,7 +98,7 @@ export default class App extends React.Component {
     return Promise.all([
       loadSavedTalksAsync(),
       this._loadEventAsync(),
-      this._loadLinkingUrlAsync()
+      this._loadLinkingUrlAsync(),
     ]);
   };
 
@@ -110,9 +113,14 @@ export default class App extends React.Component {
     let networkFetcher = this._fetchEventFromNetworkAsync();
     let quickestResult = await Promise.race([diskFetcher, networkFetcher]);
     if (!quickestResult) {
-      let slowestResult = await networkFetcher;
+      let slowestResult = await networkFetcher; // probably the network is slower?
       if (!slowestResult) {
-        // alert('oh no! unable to get data');
+        slowestResult = await diskFetcher; // but it's possible that it's disk too
+        if (!slowestResult) {
+          // ok seriously we have no data, this is not good. we can't really do
+          // anything here, so let's display an error message
+          this.setState({error: true});
+        }
       }
     }
   };
@@ -130,15 +138,24 @@ export default class App extends React.Component {
   };
 
   _fetchEventFromNetworkAsync = async () => {
-    let result = await client.query({
-      query: GET_SCHEDULE,
-      variables: {slug: GQL.slug},
-    });
-    if (result && result.data && result.data.events && result.data.events[0]) {
-      let event = result.data.events[0];
-      this._setEvent(event);
-      return event;
-    } else {
+    try {
+      let result = await client.query({
+        query: GET_SCHEDULE,
+        variables: {slug: GQL.slug},
+      });
+      if (
+        result &&
+        result.data &&
+        result.data.events &&
+        result.data.events[0]
+      ) {
+        let event = result.data.events[0];
+        this._setEvent(event);
+        return event;
+      } else {
+        return null;
+      }
+    } catch (e) {
       return null;
     }
   };
@@ -168,6 +185,36 @@ export default class App extends React.Component {
   };
 
   render() {
+    if (this.state.error) {
+      return (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Text style={{fontSize: 30, marginBottom: 15, fontWeight: 'bold'}}>
+            Bad news
+          </Text>
+          <Text
+            style={{
+              color: '#888',
+              marginHorizontal: 20,
+              marginBottom: 20,
+              fontSize: 16,
+              textAlign: 'center',
+            }}>
+            We can't get the React Europe schedule data. We tried to grab it
+            from the website and from the disk cache and neither are available.{' '}
+            <Text style={{fontWeight: 'bold'}}>
+              Try to open the app again when you have a network connection
+            </Text>{' '}
+            and if it loads we will stash that sweet sweet schedule data away to
+            disk so this will never happen again.
+          </Text>
+          <Button
+            title="I'm feeling lucky, try again"
+            onPress={() => Updates.reload()}
+          />
+        </View>
+      );
+    }
+
     if (!this.state.isSplashReady) {
       return (
         <AppLoading
