@@ -118,7 +118,7 @@ export default class App extends React.Component {
   };
 
   _fetchEventFromDiskAsync = async () => {
-    let schedule = await AsyncStorage.getItem('@MySuperStore:schedule');
+    let schedule = await AsyncStorage.getItem('@MySuperStore2019:schedule');
     const event = JSON.parse(schedule);
 
     if (event && event.slug) {
