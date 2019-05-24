@@ -2,10 +2,12 @@ import React from 'react';
 import {Alert, Clipboard, View, AsyncStorage, StyleSheet} from 'react-native';
 import {BorderlessButton, RectButton} from 'react-native-gesture-handler';
 import {sendEmail, openTwitter, getContactTwitter} from '../utils';
+import {Title} from 'react-native-paper';
 
 import {SemiBoldText} from './StyledText';
 import ContactCard from './ContactCard';
 import {FontSizes, Colors} from '../constants';
+import BigButton from './BigButton';
 
 export default class MyContacts extends React.Component {
   state = {
@@ -33,20 +35,9 @@ export default class MyContacts extends React.Component {
     const contacts = this.props.contacts;
     return (
       <View style={[{marginHorizontal: 10}, this.props.style]}>
-        <SemiBoldText style={{fontSize: FontSizes.title}}>
-          My Contacts
-        </SemiBoldText>
+          <Title>My Contacts</Title>
         {contacts && contacts.length > 0 ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressCopyEmails}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                {'Copy all emails to clipboard'}
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressCopyEmails}>Copy all emails to clipboard</BigButton>
         ) : null}
         {this.props.contacts.map(contact => (
           <ContactCard
@@ -81,32 +72,3 @@ export default class MyContacts extends React.Component {
     );
   };
 }
-
-const ClipBorderRadius = ({children, style}) => {
-  return (
-    <View style={[{borderRadius: BORDER_RADIUS, overflow: 'hidden'}, style]}>
-      {children}
-    </View>
-  );
-};
-
-const BORDER_RADIUS = 3;
-
-const styles = StyleSheet.create({
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
-});

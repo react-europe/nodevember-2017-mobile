@@ -126,22 +126,6 @@ export default class StaffCheckinLists extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
   row: {
     flex: 1,
     padding: 10,

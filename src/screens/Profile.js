@@ -18,6 +18,7 @@ import Tickets from '../components/Tickets';
 import MenuButton from '../components/MenuButton';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
+import BigButton from '../components/BigButton';
 
 class Profile extends React.Component {
   state = {
@@ -82,19 +83,11 @@ class DeferredProfileContent extends React.Component {
           tickets={this.state.tickets}
           style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
         />
-
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={this._handlePressQRButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              {tickets.length > 0
+        <BigButton onPress={this._handlePressQRButton}>
+        {tickets.length > 0
                 ? 'Scan another ticket QR code'
                 : 'Scan your ticket QR code'}
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        </BigButton>
       </AnimatableView>
     );
   }
@@ -131,18 +124,6 @@ const OverscrollView = () => (
   />
 );
 
-const ClipBorderRadius = ({children, style}) => {
-  return (
-    <View
-      style={[
-        {borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10},
-        style,
-      ]}>
-      {children}
-    </View>
-  );
-};
-
 const BORDER_RADIUS = 3;
 
 const styles = StyleSheet.create({
@@ -170,22 +151,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 7,
     lineHeight: 7 * 1.5,
-  },
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
   },
   seeAllTalks: {
     fontSize: FontSizes.normalButton,

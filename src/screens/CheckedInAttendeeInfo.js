@@ -204,22 +204,6 @@ const styles = StyleSheet.create({
     fontSize: 7,
     lineHeight: 7 * 1.5,
   },
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
   seeAllTalks: {
     fontSize: FontSizes.normalButton,
     color: Colors.blue,

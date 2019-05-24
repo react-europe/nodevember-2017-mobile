@@ -27,6 +27,16 @@ export default class TalkCard extends React.Component {
         onPress={this._handlePress}
         style={[styles.button, this.props.style]}
         activeOpacity={0.05}>
+
+        <View style={styles.talkInfoRow}>
+          <SemiBoldText style={styles.talkTitle}>
+            <SaveIconWhenSaved talk={talk} />
+            {talk.title}
+          </SemiBoldText>
+          {conferenceHasEnded() || !talk.room ? null : (
+            <RegularText style={styles.talkLocation}>{talk.room}</RegularText>
+          )}
+        </View>
         {speakers.map(speaker => (
           <View style={styles.headerRow} key={speaker.id}>
             <View style={styles.headerRowAvatarContainer}>
@@ -49,15 +59,6 @@ export default class TalkCard extends React.Component {
             </View>
           </View>
         ))}
-        <View style={styles.talkInfoRow}>
-          <RegularText style={styles.talkTitle}>
-            <SaveIconWhenSaved talk={talk} />
-            {talk.title}
-          </RegularText>
-          {conferenceHasEnded() || !talk.room ? null : (
-            <RegularText style={styles.talkLocation}>{talk.room}</RegularText>
-          )}
-        </View>
       </RectButton>
     );
   }
@@ -78,6 +79,7 @@ export default class TalkCard extends React.Component {
 const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
+    marginBottom: 8
   },
   headerRowAvatarContainer: {
     paddingRight: 10,
@@ -96,7 +98,7 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.bodyLarge,
   },
   talkInfoRow: {
-    paddingTop: 10,
+    paddingBottom: 8,
   },
   talkTitle: {
     fontSize: FontSizes.bodyLarge,
@@ -118,14 +120,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: '#fff',
         shadowColor: '#000',
-        shadowOpacity: 0.1,
+        shadowOpacity: 1,
         shadowRadius: 4,
-        shadowOffset: {width: 2, height: 2},
+        shadowOffset: {width: 8, height: 8},
       },
       android: {
         backgroundColor: '#fff',
         elevation: 2,
       },
-    }),
+    })
   },
 });

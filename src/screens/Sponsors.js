@@ -5,10 +5,11 @@ import {WebBrowser} from 'expo';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import {Layout, FontSizes, Colors} from '../constants';
-import MenuButton from '../components/MenuButton';
-import {SemiBoldText, RegularText} from '../components/StyledText';
+import {RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
+import {Capitalize} from '../utils';
+import BigButton from '../components/BigButton';
 
 const ClipBorderRadius = ({children, style}) => {
   return (
@@ -63,16 +64,7 @@ class SponsorRow extends React.Component {
               </RegularText>
             </View>
           ) : null}
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressJobUrl}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                Work with {sponsor.name}
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+          <BigButton onPress={this._handlePressJobUrl}>Work with {sponsor.name}</BigButton>
         </View>
       </RectButton>
     );
@@ -96,15 +88,18 @@ export default class Sponsors extends React.Component {
     super(props);
 
     const event = this.props.screenProps.event;
-    const SponsorsData = event.sponsors;
-
-    this.SponsorsByLevel = [
-      {title: 'Diamond', data: SponsorsData['diamond']},
-      {title: 'Platinum', data: SponsorsData['platinum']},
-      {title: 'Gold', data: SponsorsData['gold']},
-      {title: 'Partners', data: SponsorsData['partner']},
-    ];
+    this.SponsorsByLevel = this._getSponsors(event.sponsors);
   }
+
+  _getSponsors = rawData => {
+    delete rawData.__typename;
+    return Object.keys(rawData).filter(
+      key => rawData[key].length > 0
+    ).map(key => ({
+      title: Capitalize(key),
+      data: rawData[key],
+    }));
+  };
 
   render() {
     return (
@@ -136,22 +131,6 @@ export default class Sponsors extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
   row: {
     flex: 1,
     padding: 10,
