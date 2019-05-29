@@ -1,7 +1,7 @@
 import React from 'react';
 import {Animated, Platform, View, StyleSheet} from 'react-native';
 import {Constants} from 'expo';
-import {Colors, Layout} from '../constants';
+import {Colors, Layout, FontSizes} from '../constants';
 
 export default class NavigationBar extends React.Component {
   render() {
@@ -101,4 +101,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
   },
+  navigationBarTitle: {
+    color: Colors.faint,
+    fontSize: FontSizes.title
+  }
 });

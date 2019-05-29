@@ -8,6 +8,7 @@ import {
   StyleSheet,
   AsyncStorage,
   View,
+  Text,
 } from 'react-native';
 import {WebBrowser, Notifications} from 'expo';
 import {RectButton} from 'react-native-gesture-handler';

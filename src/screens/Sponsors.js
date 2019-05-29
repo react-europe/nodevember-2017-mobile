@@ -9,6 +9,7 @@ import MenuButton from '../components/MenuButton';
 import {SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
+import {Capitalize} from '../utils';
 
 const ClipBorderRadius = ({children, style}) => {
   return (
@@ -96,15 +97,18 @@ export default class Sponsors extends React.Component {
     super(props);
 
     const event = this.props.screenProps.event;
-    const SponsorsData = event.sponsors;
-
-    this.SponsorsByLevel = [
-      {title: 'Diamond', data: SponsorsData['diamond']},
-      {title: 'Platinum', data: SponsorsData['platinum']},
-      {title: 'Gold', data: SponsorsData['gold']},
-      {title: 'Partners', data: SponsorsData['partner']},
-    ];
+    this.SponsorsByLevel = this._getSponsors(event.sponsors);
   }
+
+  _getSponsors = rawData => {
+    delete rawData.__typename;
+    return Object.keys(rawData).filter(
+      key => rawData[key].length > 0
+    ).map(key => ({
+      title: Capitalize(key),
+      data: rawData[key],
+    }));
+  };
 
   render() {
     return (
