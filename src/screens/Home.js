@@ -296,7 +296,7 @@ class DeferredHomeContent extends React.Component {
                 See all talks →
               </HideWhenConferenceHasEnded>
               <ShowWhenConferenceHasEnded>
-                See all 2018 talks →
+                See all 2019 talks →
               </ShowWhenConferenceHasEnded>
             </SemiBoldText>
           </TouchableOpacity>
