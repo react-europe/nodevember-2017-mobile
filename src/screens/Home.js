@@ -111,7 +111,7 @@ class Home extends React.Component {
                   June 27th to 28th (Conference)
                 </SemiBoldText>
                 <SemiBoldText style={styles.headerText}>
-                  May 26th (Workshop)
+                  June 26th (Workshop)
                 </SemiBoldText>
                 <SemiBoldText style={styles.headerText}>
                   Paris, France
