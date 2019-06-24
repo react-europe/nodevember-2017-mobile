@@ -135,7 +135,7 @@ class Home extends React.Component {
                 opacity: headerLogoOpacity,
                 color: '#fff',
               }}>
-              React Europe 2019
+              ElmEurope 2019
             </Animated.Text>
           )}
         />
