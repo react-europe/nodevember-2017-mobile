@@ -8,7 +8,7 @@
     "primaryColor": "#4d5fab",
     "icon": "./src/assets/icon-ios.png",
     "orientation": "portrait",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "36.0.0",
     "scheme": "reacteurope",
     "assetBundlePatterns": ["**/*"],
     "updates": {
