@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Button} from 'react-native-paper';
-import {Constants} from 'expo';
+import Constants from 'expo-constants';
 import FadeIn from 'react-native-fade-in-image';
 import _ from 'lodash';
 

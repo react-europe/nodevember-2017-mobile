@@ -1,7 +1,7 @@
 import React from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
-import {WebBrowser} from 'expo';
+import * as WebBrowser from 'expo-web-browser';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import {Layout, FontSizes, Colors} from '../constants';

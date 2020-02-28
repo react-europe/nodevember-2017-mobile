@@ -69,7 +69,6 @@ class CheckinCard extends React.Component {
   }
 }
 
-@withNavigation
 class DeferredCheckedInAttendeeInfoContent extends React.Component {
   state = {
     tickets: [],
@@ -226,4 +225,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CheckedInAttendeeInfo;
+export default withNavigation(CheckedInAttendeeInfo);

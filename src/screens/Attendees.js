@@ -64,7 +64,7 @@ class Attendees extends React.Component {
           autoCorrect={false}
           clearButtonMode="while-editing"
         />
-        <DeferredAttendeesContent
+        <DeferredAttendeesContentWithNavigation
           aquery={this.state.aquery}
           event={this.props.screenProps.event}
         />
@@ -74,7 +74,6 @@ class Attendees extends React.Component {
   }
 }
 
-@withNavigation
 class DeferredAttendeesContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
@@ -196,6 +195,10 @@ class DeferredAttendeesContent extends React.Component {
     );
   }
 }
+
+const DeferredAttendeesContentWithNavigation = withNavigation(
+  DeferredAttendeesContent
+);
 
 const OverscrollView = () => (
   <View

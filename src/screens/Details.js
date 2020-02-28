@@ -6,10 +6,11 @@ import {
   TouchableOpacity,
   View,
   Linking,
-  Text,
-  WebView,
 } from 'react-native';
-import {Constants, Haptic, WebBrowser} from 'expo';
+import WebView from 'react-native-webview';
+import * as WebBrowser from 'expo-web-browser';
+import * as Haptic from 'expo-haptics';
+import Constants from 'expo-constants';
 import FadeIn from 'react-native-fade-in-image';
 import {View as AnimatableView} from 'react-native-animatable';
 
@@ -51,8 +52,8 @@ export default class Details extends React.Component {
 
   componentDidMount() {
     if (Platform.OS === 'ios') {
-      this._listener = this.state.scrollY.addListener(({ value }) => {
-        if (value < - 150) {
+      this._listener = this.state.scrollY.addListener(({value}) => {
+        if (value < -150) {
           Haptic.impact(Haptic.ImpactFeedbackStyle.Medium);
           this.props.navigation.goBack();
           if (this._listener) {

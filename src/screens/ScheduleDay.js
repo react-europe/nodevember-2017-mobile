@@ -1,13 +1,10 @@
 import React from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
-import {StackNavigator} from 'react-navigation';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 import _ from 'lodash';
 
 import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
-import {Colors, Layout} from '../constants';
-import MenuButton from '../components/MenuButton';
 import SaveIconWhenSaved from '../components/SaveIconWhenSaved';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
 
@@ -95,7 +92,9 @@ export default function ScheduleDay(options) {
     };
 
     _handlePressRow = item => {
-      this.props.screenProps.parentNavigation.navigate('Details', {scheduleSlot: item});
+      this.props.screenProps.parentNavigation.navigate('Details', {
+        scheduleSlot: item,
+      });
     };
   }
 

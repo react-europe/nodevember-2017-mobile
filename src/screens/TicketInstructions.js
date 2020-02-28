@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {Animated, Platform, View, AsyncStorage} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {withNavigation} from 'react-navigation';
@@ -40,7 +40,7 @@ class TicketInstructions extends React.Component {
             }}
           />
 
-          <DeferredTicketInstructionsContent />
+          <DeferredTicketInstructionsContentWithNavigation />
           <OverscrollView />
         </AnimatedScrollView>
       </View>
@@ -48,7 +48,6 @@ class TicketInstructions extends React.Component {
   }
 }
 
-@withNavigation
 class DeferredTicketInstructionsContent extends React.Component {
   state = {
     tickets: [],
@@ -103,6 +102,10 @@ class DeferredTicketInstructionsContent extends React.Component {
     );
   }
 }
+
+const DeferredTicketInstructionsContentWithNavigation = withNavigation(
+  DeferredTicketInstructionsContent
+);
 
 const OverscrollView = () => (
   <View

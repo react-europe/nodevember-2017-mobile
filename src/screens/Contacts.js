@@ -8,7 +8,10 @@ import {
   AsyncStorage,
   View,
 } from 'react-native';
-import {Asset, LinearGradient, WebBrowser, Video} from 'expo';
+import { Video } from 'expo-av';
+import * as WebBrowser from 'expo-web-browser';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Asset } from 'expo-asset';
 import {BorderlessButton, RectButton} from 'react-native-gesture-handler';
 import {NavigationActions} from 'react-navigation';
 import FadeIn from 'react-native-fade-in-image';
@@ -35,14 +38,13 @@ class Contacts extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={{flex: 1}}>
-          <DeferredContactsContent />
+          <DeferredContactsContentWithNavigation />
         </ScrollView>
       </View>
     );
   }
 }
 
-@withNavigation
 class DeferredContactsContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
@@ -148,6 +150,10 @@ class DeferredContactsContent extends React.Component {
     });
   };
 }
+
+const DeferredContactsContentWithNavigation = withNavigation(
+  DeferredContactsContent
+);
 
 const ClipBorderRadius = ({children, style}) => {
   return (

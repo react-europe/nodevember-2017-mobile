@@ -1,6 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Asset, Video} from 'expo';
+import { Video } from 'expo-av';
+import { Asset } from 'expo-asset';
 import {View as AnimatableView} from 'react-native-animatable';
 
 export default class VideoBackground extends React.Component {

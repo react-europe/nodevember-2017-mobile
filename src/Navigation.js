@@ -1,16 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {View, Text, StatusBar} from 'react-native';
-import {createAppContainer, createStackNavigator} from 'react-navigation';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 import {
   createBottomTabNavigator,
   createMaterialTopTabNavigator,
 } from 'react-navigation-tabs';
 
-import Schedule from './data/schedule.json';
 import moment from 'moment';
-import {Colors, FontSizes, Layout} from './constants';
+import {Colors} from './constants';
 
 import Screens from './screens';
 import QRScannerModalNavigation from './screens/QRScreens/Identify';

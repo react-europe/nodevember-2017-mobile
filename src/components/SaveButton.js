@@ -4,8 +4,7 @@ import {Ionicons} from '@expo/vector-icons';
 import {Icons} from '../constants';
 import {toggleSaved, withSaveState} from '../utils/storage';
 
-@withSaveState
-export default class SaveButton extends React.Component {
+class SaveButton extends React.Component {
   render() {
     const {saved} = this.props;
 
@@ -33,3 +32,5 @@ export default class SaveButton extends React.Component {
     toggleSaved(this.props.talk);
   };
 }
+
+export default withSaveState(SaveButton);

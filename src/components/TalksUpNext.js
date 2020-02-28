@@ -14,8 +14,7 @@ import {
   conferenceHasEnded,
 } from '../utils';
 
-@withNavigation
-export default class TalksUpNext extends React.Component {
+class TalksUpNext extends React.Component {
   state = {
     nextTalks: [],
     dateTime: null,
@@ -96,6 +95,8 @@ export default class TalksUpNext extends React.Component {
     }
   }
 }
+
+export default withNavigation(TalksUpNext);
 
 const styles = StyleSheet.create({
   time: {

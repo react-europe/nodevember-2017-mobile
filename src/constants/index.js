@@ -1,5 +1,5 @@
 import {Dimensions, Platform} from 'react-native';
-import {Header} from 'react-navigation';
+import {Header} from 'react-navigation-stack';
 
 const X_WIDTH = 375;
 const X_HEIGHT = 812;

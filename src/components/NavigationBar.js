@@ -1,6 +1,6 @@
 import React from 'react';
 import {Animated, Platform, View, StyleSheet} from 'react-native';
-import {Constants} from 'expo';
+import Constants from 'expo-constants';
 import {Colors, Layout} from '../constants';
 
 export default class NavigationBar extends React.Component {

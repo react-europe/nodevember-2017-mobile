@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, View, StyleSheet} from 'react-native';
-import {Asset, FileSystem} from 'expo';
+import * as FileSystem from 'expo-file-system';
+import { Asset } from 'expo-asset';
 import sha256 from 'crypto-js/sha256';
 
 export default class CachedImage extends React.Component {
@@ -8,7 +9,7 @@ export default class CachedImage extends React.Component {
     source: null,
   };
 
-  unmounting: false;
+  unmounting = false;
 
   async componentDidMount() {
     let source = this.props.source;

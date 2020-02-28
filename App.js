@@ -1,26 +1,18 @@
 import React from 'react';
-import {ApolloProvider, Query} from 'react-apollo';
-import {
-  Asset,
-  AppLoading,
-  Constants,
-  Font,
-  SplashScreen,
-  Updates,
-  Linking,
-} from 'expo';
+import {ApolloProvider} from 'react-apollo';
+import {AppLoading, SplashScreen, Updates, Linking} from 'expo';
+import {Asset} from 'expo-asset';
+import * as Font from 'expo-font';
+import Constants from 'expo-constants';
 import {
   Animated,
   Button,
-  Platform,
-  Image,
   StatusBar,
   StyleSheet,
   View,
   Text,
   AsyncStorage,
   Dimensions,
-  Easing,
 } from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import {GQL} from './src/constants';

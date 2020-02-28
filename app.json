@@ -10,7 +10,9 @@
     "orientation": "portrait",
     "sdkVersion": "36.0.0",
     "scheme": "reacteurope",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -32,6 +34,10 @@
         "NSLocationAlwaysUsageDescription": "We don't track your location but some of the app modules have this feature though they are not used by the app.",
         "NSCameraUsageDescription": "Camera is needed to scan your QRcode."
       }
-    }
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ]
   }
 }

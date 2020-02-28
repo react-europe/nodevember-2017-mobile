@@ -1,14 +1,13 @@
 import React from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import {withNavigation} from 'react-navigation';
-import QRCode from 'react-native-qrcode';
+import QRCode from 'react-native-qrcode-svg';
 
 import {RegularText} from './StyledText';
 import {Colors, FontSizes} from '../constants';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 
-@withNavigation
-export default class TicketCard extends React.Component {
+class TicketCard extends React.Component {
   render() {
     const {ticket} = this.props;
 
@@ -19,13 +18,7 @@ export default class TicketCard extends React.Component {
           {ticket.checkinLists.map(ch => (
             <Title key={ch.id}>✓ {ch.name}</Title>
           ))}
-          <QRCode
-            style={{flex: 1}}
-            value={ticket.ref}
-            size={300}
-            bgColor="black"
-            fgColor="white"
-          />
+          <QRCode style={{flex: 1}} value={ticket.ref} size={300} />
           <Button onPress={this._handlePress}>Read useful info</Button>
         </CardContent>
       </Card>
@@ -45,6 +38,8 @@ export default class TicketCard extends React.Component {
     );
   };
 }
+
+export default withNavigation(TicketCard);
 
 const styles = StyleSheet.create({
   headerRow: {

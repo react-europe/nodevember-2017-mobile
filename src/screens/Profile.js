@@ -8,7 +8,7 @@ import {
   View,
   AsyncStorage,
 } from 'react-native';
-import {Permissions} from 'expo';
+import * as Permissions from 'expo-permissions';
 import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
 import {withNavigation} from 'react-navigation';
@@ -28,14 +28,13 @@ class Profile extends React.Component {
     return (
       <View style={{flex: 1}}>
         <ScrollView style={{flex: 1}}>
-          <DeferredProfileContent />
+          <DeferredProfileContentWithNavigation />
         </ScrollView>
       </View>
     );
   }
 }
 
-@withNavigation
 class DeferredProfileContent extends React.Component {
   state = {
     tickets: [],
@@ -118,6 +117,8 @@ class DeferredProfileContent extends React.Component {
     }
   };
 }
+
+const DeferredProfileContentWithNavigation = withNavigation(DeferredProfileContent);
 
 const OverscrollView = () => (
   <View

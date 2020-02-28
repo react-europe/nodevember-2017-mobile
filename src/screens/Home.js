@@ -9,7 +9,8 @@ import {
   AsyncStorage,
   View,
 } from 'react-native';
-import {WebBrowser, Notifications} from 'expo';
+import { Notifications } from 'expo';
+import * as WebBrowser from 'expo-web-browser';
 import {RectButton} from 'react-native-gesture-handler';
 import {NavigationActions} from 'react-navigation';
 import {View as AnimatableView} from 'react-native-animatable';
@@ -120,7 +121,7 @@ class Home extends React.Component {
             </View>
           </View>
 
-          <DeferredHomeContent event={this.props.screenProps.event} />
+          <DeferredHomeContentWithNavigation event={this.props.screenProps.event} />
           <OverscrollView />
         </AnimatedScrollView>
 
@@ -174,7 +175,6 @@ class Home extends React.Component {
   };
 }
 
-@withNavigation
 class DeferredHomeContent extends React.Component {
   state = {
     ready: Platform.OS === 'android' ? false : true,
@@ -430,6 +430,8 @@ class DeferredHomeContent extends React.Component {
     WebBrowser.openBrowserAsync('https://www.google.com/maps/search/' + params);
   };
 }
+
+const DeferredHomeContentWithNavigation = withNavigation(DeferredHomeContent);
 
 const OverscrollView = () => (
   <View

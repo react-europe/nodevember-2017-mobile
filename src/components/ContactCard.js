@@ -14,8 +14,7 @@ import {
 } from 'react-native-paper';
 import CachedImage from '../components/CachedImage';
 
-@withNavigation
-export default class ContactCard extends React.Component {
+class ContactCard extends React.Component {
   render() {
     let {contact, onPress} = this.props;
     const {email} = contact;
@@ -86,6 +85,9 @@ export default class ContactCard extends React.Component {
     return bio;
   };
 }
+
+export default withNavigation(ContactCard);
+
 const styles = StyleSheet.create({
   avatarImage: {
     width: 64,

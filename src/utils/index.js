@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import _ from 'lodash';
 import {Platform, Linking} from 'react-native';
-import {WebBrowser} from 'expo';
+import * as WebBrowser from 'expo-web-browser';
 import {AsyncStorage} from 'react-native';
 
 export function getSpeakerTalk(speaker) {

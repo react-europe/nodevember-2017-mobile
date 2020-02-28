@@ -10,8 +10,7 @@ import {BoldText, RegularText, SemiBoldText} from './StyledText';
 import {conferenceHasEnded} from '../utils';
 import {Colors, FontSizes} from '../constants';
 
-@withNavigation
-export default class TalkCard extends React.Component {
+class TalkCard extends React.Component {
   render() {
     const {talk} = this.props;
     const speakers = talk.speakers;
@@ -74,6 +73,8 @@ export default class TalkCard extends React.Component {
     );
   };
 }
+
+export default withNavigation(TalkCard);
 
 const styles = StyleSheet.create({
   headerRow: {

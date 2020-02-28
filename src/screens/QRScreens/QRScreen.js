@@ -7,11 +7,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import {BarCodeScanner, Permissions} from 'expo';
+import * as Permissions from 'expo-permissions';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 import {withNavigation, SafeAreaView} from 'react-navigation';
 
-@withNavigation
-export default class QRScreen extends React.Component {
+class QRScreen extends React.Component {
   state = {
     showQRScanner: true,
     hasCameraPermission: null,
@@ -114,3 +114,5 @@ export default class QRScreen extends React.Component {
     );
   }
 }
+
+export default withNavigation(QRScreen);
