@@ -1292,6 +1292,11 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
+"@react-navigation/compat@^5.1.7":
+  version "5.1.7"
+  resolved "https://registry.yarnpkg.com/@react-navigation/compat/-/compat-5.1.7.tgz#7f172a99847521fabafb4c03c38b6d153a6bf049"
+  integrity sha512-YJLHCoBlf0uPgGSUVnWFqtr7+emyXxh+0ccS3hng386g9vG9d9Csa1ZVUs+aTBfhQEwMrzMonGtEqeJTwv9pUg==
+
 "@react-navigation/core@^3.6.1":
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.6.1.tgz#1b8922d9b0e6d74bd9d8802d1eaf21271c90a648"
