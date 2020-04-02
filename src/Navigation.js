@@ -16,7 +16,7 @@ import QRCheckinScannerModalNavigation from './screens/QRScreens/CheckIn';
 import QRContactScannerModalNavigation from './screens/QRScreens/Contact';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-class DynamicScheduleNavigation extends React.Component {
+/* class DynamicScheduleNavigation extends React.Component {
   state = {
     navigator: null,
   };
@@ -76,7 +76,7 @@ class DynamicScheduleNavigation extends React.Component {
       />
     );
   }
-}
+} */
 
 const DefaultStackConfig = {
   cardStyle: {
@@ -96,7 +96,7 @@ const DefaultStackConfig = {
   }),
 };
 
-const MenuNavigation = createStackNavigator(
+/* const MenuNavigation = createStackNavigator(
   {
     Menu: {screen: Screens.Menu},
     Speakers: {screen: Screens.Speakers},
@@ -142,19 +142,19 @@ const StaffCheckinListsNavigation = createStackNavigator(
     },
   },
   DefaultStackConfig
-);
+); */
 
 const PrimaryTabNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: Screens.Home,
     },
-    Profile: {screen: ProfileNavigator},
+    /* Profile: {screen: ProfileNavigator},
     Schedule: {
       screen: ScheduleStackNavigator,
     },
     Contacts: {screen: ContactsNavigator},
-    Menu: {screen: MenuNavigation},
+    Menu: {screen: MenuNavigation}, */
   },
   {
     defaultNavigationOptions: ({navigation}) => ({
@@ -188,7 +188,7 @@ const PrimaryTabNavigator = createBottomTabNavigator(
 const Navigation = createStackNavigator(
   {
     Primary: {screen: PrimaryTabNavigator},
-    AttendeeDetail: {screen: Screens.AttendeeDetail},
+    /* AttendeeDetail: {screen: Screens.AttendeeDetail},
     TicketInstructions: {screen: Screens.TicketInstructions},
 
     CheckedInAttendeeInfo: {screen: Screens.CheckedInAttendeeInfo},
@@ -197,7 +197,7 @@ const Navigation = createStackNavigator(
     QRContactScanner: {screen: QRContactScannerModalNavigation},
     StaffCheckinLists: {screen: StaffCheckinListsNavigation},
 
-    Details: {screen: Screens.Details},
+    Details: {screen: Screens.Details}, */
   },
   {
     ...DefaultStackConfig,
