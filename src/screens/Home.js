@@ -9,7 +9,7 @@ import {
   AsyncStorage,
   View,
 } from 'react-native';
-import { Notifications } from 'expo';
+import {Notifications} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
 import {RectButton} from 'react-native-gesture-handler';
 import {NavigationActions} from 'react-navigation';
@@ -31,10 +31,10 @@ class Home extends React.Component {
     scrollY: new Animated.Value(0),
   };
   checkUuidOnLoad(props) {
-    console.log(
+    /* console.log(
       'checking props screenprops',
       props.screenProps.initialLinkingUri
-    );
+    ); */
     if (props && props.screenProps && props.screenProps.initialLinkingUri) {
       const url = props.screenProps.initialLinkingUri;
       console.log('check url from home', url);
@@ -121,7 +121,9 @@ class Home extends React.Component {
             </View>
           </View>
 
-          <DeferredHomeContentWithNavigation event={this.props.screenProps.event} />
+          {/* <DeferredHomeContentWithNavigation
+            event={this.props.screenProps.event}
+          /> */}
           <OverscrollView />
         </AnimatedScrollView>
 
