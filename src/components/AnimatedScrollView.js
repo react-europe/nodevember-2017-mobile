@@ -1,4 +1,21 @@
-import {ScrollView} from 'react-navigation';
-import {Animated} from 'react-native';
+import React from 'react';
+import {Animated, ScrollView} from 'react-native';
+import {useScrollToTop} from '@react-navigation/native';
 
-export default Animated.createAnimatedComponent(ScrollView);
+class ScrollViewRef extends React.Component {
+  render() {
+    return <ScrollView ref={this.props.scrollRef} {...this.props} />;
+  }
+}
+
+const AnimatedComponent = Animated.createAnimatedComponent(ScrollViewRef);
+
+const AnimatedScrollView = function(props) {
+  const ref = React.useRef(null);
+
+  useScrollToTop(ref);
+
+  return <AnimatedComponent {...props} scrollRef={ref} />;
+};
+
+export default AnimatedScrollView;
