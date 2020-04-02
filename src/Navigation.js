@@ -80,8 +80,8 @@ const DefaultStackConfig = {
   cardStyle: {
     backgroundColor: '#fafafa',
   },
-  defaultNavigationOptions: ({navigation}) => ({
-    title: navigation.state.routeName,
+  defaultNavigationOptions: (/* {navigation} */) => ({
+    title: /* navigation.state.routeName */ 'Title',
     headerStyle: {
       borderBottomWidth: 0,
       shadowRadius: 0,
@@ -157,8 +157,8 @@ const PrimaryTabNavigator = createCompatNavigatorFactory(
     Menu: {screen: MenuNavigation}, */
   },
   {
-    defaultNavigationOptions: ({navigation}) => ({
-      tabBarIcon: ({focused, tintColor}) => {
+    defaultNavigationOptions: (/* {navigation} */) => ({
+      /* tabBarIcon: ({focused, tintColor}) => {
         const {routeName} = navigation.state;
         let iconName;
         if (routeName === 'Home') {
@@ -176,7 +176,7 @@ const PrimaryTabNavigator = createCompatNavigatorFactory(
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
         return <Ionicons name={iconName} size={32} color={tintColor} />;
-      },
+      }, */
     }),
     tabBarOptions: {
       style: {backgroundColor: '#333'},
