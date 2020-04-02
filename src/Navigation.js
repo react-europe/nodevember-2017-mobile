@@ -1,11 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import {
-  createBottomTabNavigator,
-  createMaterialTopTabNavigator,
-} from 'react-navigation-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createCompatNavigatorFactory} from '@react-navigation/compat';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
 
 import moment from 'moment';
 import {Colors} from './constants';
@@ -144,7 +142,9 @@ const StaffCheckinListsNavigation = createStackNavigator(
   DefaultStackConfig
 ); */
 
-const PrimaryTabNavigator = createBottomTabNavigator(
+const PrimaryTabNavigator = createCompatNavigatorFactory(
+  createBottomTabNavigator
+)(
   {
     Home: {
       screen: Screens.Home,
@@ -185,7 +185,7 @@ const PrimaryTabNavigator = createBottomTabNavigator(
   }
 );
 
-const Navigation = createStackNavigator(
+const Navigation = createCompatNavigatorFactory(createStackNavigator)(
   {
     Primary: {screen: PrimaryTabNavigator},
     /* AttendeeDetail: {screen: Screens.AttendeeDetail},
@@ -206,4 +206,4 @@ const Navigation = createStackNavigator(
   }
 );
 
-export default createAppContainer(Navigation);
+export default Navigation;
