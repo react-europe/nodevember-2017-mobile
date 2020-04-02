@@ -21,8 +21,9 @@ import GET_SCHEDULE from './src/data/schedulequery';
 import {setEvent, saveSchedule} from './src/utils';
 import client from './src/utils/gqlClient';
 import {Assets as StackAssets} from 'react-navigation-stack';
+import {NavigationContainer} from '@react-navigation/native';
 
-import AppNavigator from './src/Navigation';
+import Navigation from './src/Navigation';
 
 export default class App extends React.Component {
   state = {
@@ -224,12 +225,15 @@ export default class App extends React.Component {
       <View style={{flex: 1}}>
         {this.state.isAppReady && this.state.schedule ? (
           <ApolloProvider client={client}>
-            <AppNavigator
+            {/* <AppNavigator
               screenProps={{
                 event: this.state.schedule,
                 initialLinkingUri: this.state.initialLinkingUri,
               }}
-            />
+            /> */}
+            <NavigationContainer>
+              <Navigation />
+            </NavigationContainer>
           </ApolloProvider>
         ) : null}
 
