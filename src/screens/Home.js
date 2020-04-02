@@ -8,6 +8,7 @@ import {
   StyleSheet,
   AsyncStorage,
   View,
+  ScrollView,
 } from 'react-native';
 import {Notifications} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
@@ -73,7 +74,7 @@ class Home extends React.Component {
 
     return (
       <View style={{flex: 1}}>
-        <AnimatedScrollView
+        <ScrollView
           style={{flex: 1}}
           contentContainerStyle={{paddingBottom: 20 + Layout.notchHeight / 2}}
           scrollEventThrottle={1}
@@ -125,7 +126,7 @@ class Home extends React.Component {
             event={this.props.screenProps.event}
           /> */}
           <OverscrollView />
-        </AnimatedScrollView>
+        </ScrollView>
 
         <NavigationBar
           animatedBackgroundOpacity={headerOpacity}
