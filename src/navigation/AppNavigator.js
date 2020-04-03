@@ -12,7 +12,7 @@ function AppNavigator() {
       initialRouteName="Home"
       headerMode={'none'}
       mode={'modal'}
-      {...DefaultStackConfig}>
+      screenOptions={route => ({...DefaultStackConfig(route)})}>
       <Stack.Screen name="Home" component={PrimaryTabNavigator} />
     </Stack.Navigator>
   );
