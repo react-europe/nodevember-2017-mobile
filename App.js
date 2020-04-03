@@ -24,6 +24,7 @@ import {Assets as StackAssets} from 'react-navigation-stack';
 import {NavigationContainer} from '@react-navigation/native';
 
 import Navigation from './src/Navigation';
+import DataContext from './src/context/DataContext';
 
 export default class App extends React.Component {
   state = {
@@ -225,14 +226,14 @@ export default class App extends React.Component {
       <View style={{flex: 1}}>
         {this.state.isAppReady && this.state.schedule ? (
           <ApolloProvider client={client}>
-            {/* <AppNavigator
-              screenProps={{
-                event: this.state.schedule,
-                initialLinkingUri: this.state.initialLinkingUri,
-              }}
-            /> */}
             <NavigationContainer>
-              <Navigation />
+              <DataContext.Provider
+                value={{
+                  event: this.state.schedule,
+                  initialLinkingUri: this.state.initialLinkingUri,
+                }}>
+                <Navigation />
+              </DataContext.Provider>
             </NavigationContainer>
           </ApolloProvider>
         ) : null}
