@@ -15,8 +15,8 @@ import {RectButton} from 'react-native-gesture-handler';
 import {NavigationActions} from 'react-navigation';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Ionicons} from '@expo/vector-icons';
-import {withNavigation} from '@react-navigation/compat';
 
+import {withNavigation} from '../utils/withNavigation';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import NavigationBar from '../components/NavigationBar';
 import TalksUpNext from '../components/TalksUpNext';
