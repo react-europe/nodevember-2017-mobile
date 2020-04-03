@@ -13,6 +13,7 @@ import QRScannerModalNavigation from './screens/QRScreens/Identify';
 import QRCheckinScannerModalNavigation from './screens/QRScreens/CheckIn';
 import QRContactScannerModalNavigation from './screens/QRScreens/Contact';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import {withData} from './context/DataContext';
 
 /* class DynamicScheduleNavigation extends React.Component {
   state = {
@@ -147,7 +148,7 @@ const PrimaryTabNavigator = createCompatNavigatorFactory(
 )(
   {
     Home: {
-      screen: Screens.Home,
+      screen: withData(Screens.Home),
     },
     /* Profile: {screen: ProfileNavigator},
     Schedule: {
