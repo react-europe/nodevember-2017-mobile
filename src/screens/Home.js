@@ -15,7 +15,7 @@ import {RectButton} from 'react-native-gesture-handler';
 import {NavigationActions} from 'react-navigation';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Ionicons} from '@expo/vector-icons';
-import {withNavigation} from 'react-navigation';
+import {withNavigation} from '@react-navigation/compat';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import NavigationBar from '../components/NavigationBar';
@@ -31,10 +31,7 @@ class Home extends React.Component {
     scrollY: new Animated.Value(0),
   };
   checkUuidOnLoad(props) {
-    /* console.log(
-      'checking props screenprops',
-      props.screenProps.initialLinkingUri
-    ); */
+    console.log('checking props initialLinkingUri', props.initialLinkingUri);
     if (props && props.screenProps && props.screenProps.initialLinkingUri) {
       const url = props.screenProps.initialLinkingUri;
       console.log('check url from home', url);
@@ -121,9 +118,7 @@ class Home extends React.Component {
             </View>
           </View>
 
-          {/* <DeferredHomeContentWithNavigation
-            event={this.props.screenProps.event}
-          /> */}
+          <DeferredHomeContentWithNavigation event={this.props.event} />
           <OverscrollView />
         </AnimatedScrollView>
 
