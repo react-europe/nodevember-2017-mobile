@@ -8,7 +8,11 @@ const Tab = createBottomTabNavigator();
 
 function PrimaryTabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        style: {backgroundColor: '#333'},
+        activeTintColor: '#fff',
+      }}>
       <Tab.Screen name="Home" component={withData(Screens.Home)} />
     </Tab.Navigator>
   );
