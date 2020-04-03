@@ -12,7 +12,7 @@ import {
 import {Notifications} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
 import {RectButton} from 'react-native-gesture-handler';
-import {NavigationActions} from 'react-navigation';
+import {CommonActions} from '@react-navigation/native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Ionicons} from '@expo/vector-icons';
 
@@ -383,8 +383,8 @@ class DeferredHomeContent extends React.Component {
 
   _handlePressAllTalks = () => {
     this.props.navigation.dispatch(
-      NavigationActions.navigate({
-        routeName: 'Schedule',
+      CommonActions.navigate({
+        name: 'Schedule',
       })
     );
   };
