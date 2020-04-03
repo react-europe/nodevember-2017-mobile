@@ -24,6 +24,7 @@ import {Assets as StackAssets} from 'react-navigation-stack';
 import {NavigationContainer} from '@react-navigation/native';
 
 import Navigation from './src/Navigation';
+import AppNavigator from './src/navigation/AppNavigator';
 import DataContext from './src/context/DataContext';
 
 export default class App extends React.Component {
@@ -232,7 +233,7 @@ export default class App extends React.Component {
                   event: this.state.schedule,
                   initialLinkingUri: this.state.initialLinkingUri,
                 }}>
-                <Navigation />
+                <AppNavigator />
               </DataContext.Provider>
             </NavigationContainer>
           </ApolloProvider>
