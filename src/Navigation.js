@@ -114,9 +114,9 @@ const ScheduleStackNavigator = createStackNavigator(
     },
   },
   DefaultStackConfig
-);
+); */
 
-const ProfileNavigator = createStackNavigator(
+const ProfileNavigator = createCompatNavigatorFactory(createStackNavigator)(
   {
     Profile: {
       screen: Screens.Profile,
@@ -125,7 +125,7 @@ const ProfileNavigator = createStackNavigator(
   DefaultStackConfig
 );
 
-const ContactsNavigator = createStackNavigator(
+/* const ContactsNavigator = createStackNavigator(
   {
     Contacts: {
       screen: Screens.Contacts,
@@ -150,8 +150,8 @@ const PrimaryTabNavigator = createCompatNavigatorFactory(
     Home: {
       screen: withData(Screens.Home),
     },
-    /* Profile: {screen: ProfileNavigator},
-    Schedule: {
+    Profile: {screen: ProfileNavigator},
+    /*Schedule: {
       screen: ScheduleStackNavigator,
     },
     Contacts: {screen: ContactsNavigator},
