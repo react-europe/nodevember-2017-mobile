@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Animated,
-  Linking,
   Platform,
   StyleSheet,
   ScrollView,
@@ -13,11 +11,9 @@ import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
 import {withNavigation} from 'react-navigation';
 
-import NavigationBar from '../components/NavigationBar';
 import Tickets from '../components/Tickets';
-import MenuButton from '../components/MenuButton';
 import {SemiBoldText} from '../components/StyledText';
-import {Colors, FontSizes, Layout} from '../constants';
+import {Colors, FontSizes} from '../constants';
 
 class Profile extends React.Component {
   state = {
@@ -118,7 +114,9 @@ class DeferredProfileContent extends React.Component {
   };
 }
 
-const DeferredProfileContentWithNavigation = withNavigation(DeferredProfileContent);
+const DeferredProfileContentWithNavigation = withNavigation(
+  DeferredProfileContent
+);
 
 const OverscrollView = () => (
   <View
