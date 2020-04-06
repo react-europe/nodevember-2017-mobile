@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, AsyncStorage} from 'react-native';
-import { Notifications } from 'expo';
+import {Notifications} from 'expo';
 import * as Permissions from 'expo-permissions';
 import QRScreen from './QRScreen';
 import {query} from 'urql';
@@ -17,8 +17,8 @@ export default class QRScannerModalNavigation extends React.Component {
   async setTickets(tickets) {
     try {
       await AsyncStorage.setItem('@MySuperStore2019:tickets', tickets);
-      console.log('set tickets to tickets:')
-      console.log(tickets)
+      console.log('set tickets to tickets:');
+      console.log(tickets);
     } catch (err) {
       console.log(err);
       return [];
@@ -62,9 +62,9 @@ export default class QRScannerModalNavigation extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('navigation props params', this.props.navigation.state.params);
-    if (props.navigation.getParam('uuid')) {
-      this._handleBarCodeRead({data: this.props.navigation.state.params.uuid});
+    console.log('navigation props params', this.props.route.params);
+    if (this.props.route.params?.uuid) {
+      this._handleBarCodeRead({data: this.props.route.params.uuid});
     }
   }
 
@@ -143,15 +143,7 @@ export default class QRScannerModalNavigation extends React.Component {
   };
 
   render() {
-    if (
-      this &&
-      this.props &&
-      this.props.navigation &&
-      this.props.navigation.state &&
-      this.props.navigation.state.params &&
-      this.props.navigation.state.params.uuid &&
-      this.props.navigation.state.params.uuid !== ''
-    ) {
+    if (this.props.route.params?.uuid && this.props.route.params?.uuid !== '') {
       return null;
     }
     return (

@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import PrimaryTabNavigator from './PrimaryTabNavigator';
 import DefaultStackConfig from '../utils/defaultNavConfig';
+import QRScannerModalNavigation from '../screens/QRScreens/Identify';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ function AppNavigator() {
       mode={'modal'}
       screenOptions={route => ({...DefaultStackConfig(route)})}>
       <Stack.Screen name="Home" component={PrimaryTabNavigator} />
+      <Stack.Screen name="QRScanner" component={QRScannerModalNavigation} />
     </Stack.Navigator>
   );
 }
