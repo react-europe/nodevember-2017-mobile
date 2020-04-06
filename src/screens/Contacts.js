@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
-import {withNavigation} from 'react-navigation';
 
+import {withNavigation} from '../utils/withNavigation';
 import MyContacts from '../components/MyContacts';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes} from '../constants';
