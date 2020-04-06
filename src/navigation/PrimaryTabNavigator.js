@@ -4,6 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import Screens from '../screens';
 import {withData} from '../context/DataContext';
+import ProfileNavigator from './ProfileNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,6 +33,7 @@ function PrimaryTabNavigator() {
         activeTintColor: '#fff',
       }}>
       <Tab.Screen name="Home" component={withData(Screens.Home)} />
+      <Tab.Screen name="Profile" component={ProfileNavigator} />
     </Tab.Navigator>
   );
 }
