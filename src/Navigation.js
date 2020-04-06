@@ -125,7 +125,7 @@ const ProfileNavigator = createCompatNavigatorFactory(createStackNavigator)(
   DefaultStackConfig
 );
 
-/* const ContactsNavigator = createStackNavigator(
+const ContactsNavigator = createCompatNavigatorFactory(createStackNavigator)(
   {
     Contacts: {
       screen: Screens.Contacts,
@@ -134,7 +134,7 @@ const ProfileNavigator = createCompatNavigatorFactory(createStackNavigator)(
   DefaultStackConfig
 );
 
-const StaffCheckinListsNavigation = createStackNavigator(
+/*const StaffCheckinListsNavigation = createStackNavigator(
   {
     StaffCheckinListsList: {
       screen: Screens.StaffCheckinLists,
@@ -153,9 +153,9 @@ const PrimaryTabNavigator = createCompatNavigatorFactory(
     Profile: {screen: ProfileNavigator},
     /*Schedule: {
       screen: ScheduleStackNavigator,
-    },
+    },*/
     Contacts: {screen: ContactsNavigator},
-    Menu: {screen: MenuNavigation}, */
+    /*Menu: {screen: MenuNavigation}, */
   },
   {
     defaultNavigationOptions: (/* {navigation} */) => ({
