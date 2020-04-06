@@ -5,6 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Screens from '../screens';
 import {withData} from '../context/DataContext';
 import ProfileNavigator from './ProfileNavigator';
+import ContactsNavigator from './ContactsNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +35,7 @@ function PrimaryTabNavigator() {
       }}>
       <Tab.Screen name="Home" component={withData(Screens.Home)} />
       <Tab.Screen name="Profile" component={ProfileNavigator} />
+      <Tab.Screen name="Contacts" component={ContactsNavigator} />
     </Tab.Navigator>
   );
 }
