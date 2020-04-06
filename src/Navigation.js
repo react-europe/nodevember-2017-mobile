@@ -193,9 +193,9 @@ const Navigation = createCompatNavigatorFactory(createStackNavigator)(
     /* AttendeeDetail: {screen: Screens.AttendeeDetail},
     TicketInstructions: {screen: Screens.TicketInstructions},
 
-    CheckedInAttendeeInfo: {screen: Screens.CheckedInAttendeeInfo},
+    CheckedInAttendeeInfo: {screen: Screens.CheckedInAttendeeInfo}, */
     QRScanner: {screen: QRScannerModalNavigation},
-    QRCheckinScanner: {screen: QRCheckinScannerModalNavigation},
+    /* QRCheckinScanner: {screen: QRCheckinScannerModalNavigation},
     QRContactScanner: {screen: QRContactScannerModalNavigation},
     StaffCheckinLists: {screen: StaffCheckinListsNavigation},
 
