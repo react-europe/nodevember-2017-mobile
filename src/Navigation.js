@@ -95,7 +95,7 @@ const DefaultStackConfig = {
   }),
 };
 
-/* const MenuNavigation = createStackNavigator(
+const MenuNavigation = createCompatNavigatorFactory(createStackNavigator)(
   {
     Menu: {screen: Screens.Menu},
     Speakers: {screen: Screens.Speakers},
@@ -107,6 +107,7 @@ const DefaultStackConfig = {
   DefaultStackConfig
 );
 
+/*
 const ScheduleStackNavigator = createStackNavigator(
   {
     Schedule: {
@@ -155,7 +156,7 @@ const PrimaryTabNavigator = createCompatNavigatorFactory(
       screen: ScheduleStackNavigator,
     },*/
     Contacts: {screen: ContactsNavigator},
-    /*Menu: {screen: MenuNavigation}, */
+    Menu: {screen: MenuNavigation},
   },
   {
     defaultNavigationOptions: (/* {navigation} */) => ({
