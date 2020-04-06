@@ -59,7 +59,7 @@ export default class Crews extends React.Component {
   };
   constructor(props) {
     super(props);
-    const event = this.props.screenProps.event;
+    const event = this.props.event;
     this.CrewData = event.collaborators;
   }
 

@@ -95,7 +95,7 @@ export default class Sponsors extends React.Component {
   constructor(props) {
     super(props);
 
-    const event = this.props.screenProps.event;
+    const event = this.props.event;
     const SponsorsData = event.sponsors;
 
     this.SponsorsByLevel = [
