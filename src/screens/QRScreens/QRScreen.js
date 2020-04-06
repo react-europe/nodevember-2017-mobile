@@ -6,38 +6,29 @@ import {
   StyleSheet,
   Text,
   View,
+  InteractionManager,
 } from 'react-native';
 import * as Permissions from 'expo-permissions';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import {withNavigation, SafeAreaView} from 'react-navigation';
+import {BarCodeScanner} from 'expo-barcode-scanner';
+import {SafeAreaView} from 'react-navigation';
+
+import withNavigation from '../../utils/withNavigation';
 
 class QRScreen extends React.Component {
   state = {
-    showQRScanner: true,
+    showQRScanner: false,
     hasCameraPermission: null,
   };
 
   componentDidMount() {
     this._requestCameraPermission();
-    this.didBlurSubscription = this.props.navigation.addListener(
-      'didBlur',
-      payload => {
-        console.debug('didBlur', payload);
-        this.setState({showQRScanner: false});
-      }
-    );
-    this.didFocusSubscription = this.props.navigation.addListener(
-      'didFocus',
-      payload => {
-        console.debug('didfocus', payload);
-        this.setState({showQRScanner: true});
-      }
-    );
+    this.didFocus = InteractionManager.runAfterInteractions(() => {
+      this.setState({showQRScanner: true});
+    });
   }
 
   componentWillUnmount() {
-    this.didBlurSubscription && this.didBlurSubscription.remove();
-    this.didFocusSubscription && this.didFocusSubscription.remove();
+    this.didFocus && this.didFocus.cancel();
   }
 
   _requestCameraPermission = async () => {
