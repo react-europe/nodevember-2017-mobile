@@ -98,10 +98,10 @@ const DefaultStackConfig = {
 const MenuNavigation = createCompatNavigatorFactory(createStackNavigator)(
   {
     Menu: {screen: Screens.Menu},
-    Speakers: {screen: Screens.Speakers},
-    Crew: {screen: Screens.Crew},
-    Sponsors: {screen: Screens.Sponsors},
-    Attendees: {screen: Screens.Attendees},
+    Speakers: {screen: withData(Screens.Speakers)},
+    Crew: {screen: withData(Screens.Crew)},
+    Sponsors: {screen: withData(Screens.Sponsors)},
+    Attendees: {screen: withData(Screens.Attendees)},
     AttendeeDetail: {screen: Screens.AttendeeDetail},
   },
   DefaultStackConfig

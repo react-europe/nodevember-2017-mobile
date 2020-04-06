@@ -10,10 +10,10 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Searchbar} from 'react-native-paper';
-import {withNavigation} from 'react-navigation';
 import {Query} from 'react-apollo';
 import _ from 'lodash';
 
+import {withNavigation} from '../utils/withNavigation';
 import NavigationBar from '../components/NavigationBar';
 import MenuButton from '../components/MenuButton';
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
@@ -66,7 +66,7 @@ class Attendees extends React.Component {
         />
         <DeferredAttendeesContentWithNavigation
           aquery={this.state.aquery}
-          event={this.props.screenProps.event}
+          event={this.props.event}
         />
         <OverscrollView />
       </View>

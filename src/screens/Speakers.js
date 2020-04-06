@@ -60,9 +60,7 @@ export default class Speakers extends React.Component {
           stickySectionHeadersEnabled={true}
           renderItem={this._renderItem}
           renderSectionHeader={this._renderSectionHeader}
-          sections={[
-            {data: this.props.screenProps.event.speakers, title: 'Speakers'},
-          ]}
+          sections={[{data: this.props.event.speakers, title: 'Speakers'}]}
           keyExtractor={(item, index) => index.toString()}
         />
       </LoadingPlaceholder>
