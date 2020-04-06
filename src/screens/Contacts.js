@@ -1,37 +1,18 @@
 import React from 'react';
 import {
-  Animated,
-  Linking,
   Platform,
   StyleSheet,
   ScrollView,
   AsyncStorage,
   View,
 } from 'react-native';
-import { Video } from 'expo-av';
-import * as WebBrowser from 'expo-web-browser';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Asset } from 'expo-asset';
-import {BorderlessButton, RectButton} from 'react-native-gesture-handler';
-import {NavigationActions} from 'react-navigation';
-import FadeIn from 'react-native-fade-in-image';
+import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
-import {Ionicons} from '@expo/vector-icons';
 import {withNavigation} from 'react-navigation';
 
 import MyContacts from '../components/MyContacts';
-import NavigationBar from '../components/NavigationBar';
-import MenuButton from '../components/MenuButton';
-import VideoBackground from '../components/VideoBackground';
-import {BoldText, SemiBoldText} from '../components/StyledText';
-import {connectDrawerButton} from '../Navigation';
-import {Colors, FontSizes, Layout} from '../constants';
-import {Speakers, Talks} from '../data';
-import {
-  HideWhenConferenceHasStarted,
-  HideWhenConferenceHasEnded,
-  ShowWhenConferenceHasEnded,
-} from '../utils';
+import {SemiBoldText} from '../components/StyledText';
+import {Colors, FontSizes} from '../constants';
 
 class Contacts extends React.Component {
   render() {
