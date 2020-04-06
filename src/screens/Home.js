@@ -386,9 +386,7 @@ class DeferredHomeContent extends React.Component {
   };
 
   _handlePressQRButton = () => {
-    this.props.navigation.navigate({
-      name: 'QRScanner',
-    });
+    this.props.navigation.navigate('QRScanner');
   };
 
   _handlePressStaffCheckinListsButton = () => {
