@@ -6,6 +6,7 @@ import Screens from '../screens';
 import {withData} from '../context/DataContext';
 import ProfileNavigator from './ProfileNavigator';
 import ContactsNavigator from './ContactsNavigator';
+import MenuNavigator from './MenuNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,6 +37,7 @@ function PrimaryTabNavigator() {
       <Tab.Screen name="Home" component={withData(Screens.Home)} />
       <Tab.Screen name="Profile" component={ProfileNavigator} />
       <Tab.Screen name="Contacts" component={ContactsNavigator} />
+      <Tab.Screen name="Menu" component={MenuNavigator} />
     </Tab.Navigator>
   );
 }
