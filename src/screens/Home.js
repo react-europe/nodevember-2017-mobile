@@ -39,11 +39,7 @@ class Home extends React.Component {
       console.log('check uuid from home', uuid);
       if (uuid && uuid !== '') {
         console.log('check uuid from home if', uuid);
-        props.navigation.navigate({
-          routeName: 'QRScanner',
-          key: 'QRScanner',
-          params: {uuid: uuid},
-        });
+        props.navigation.navigate('QRScanner', {uuid: uuid});
       }
     }
   }
@@ -159,11 +155,7 @@ class Home extends React.Component {
       )} and uuid is ${uuid}`
     );
     if (uuid && uuid !== '') {
-      this.props.navigation.navigate({
-        routeName: 'QRScanner',
-        key: 'QRScanner',
-        params: {uuid: uuid},
-      });
+      this.props.navigation.navigate('QRScanner', {uuid: uuid});
     }
   };
 
@@ -395,8 +387,7 @@ class DeferredHomeContent extends React.Component {
 
   _handlePressQRButton = () => {
     this.props.navigation.navigate({
-      routeName: 'QRScanner',
-      key: 'QRScanner',
+      name: 'QRScanner',
     });
   };
 
