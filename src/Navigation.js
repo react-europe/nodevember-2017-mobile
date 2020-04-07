@@ -135,14 +135,16 @@ const ContactsNavigator = createCompatNavigatorFactory(createStackNavigator)(
   DefaultStackConfig
 );
 
-/*const StaffCheckinListsNavigation = createStackNavigator(
+const StaffCheckinListsNavigation = createCompatNavigatorFactory(
+  createStackNavigator
+)(
   {
     StaffCheckinListsList: {
       screen: Screens.StaffCheckinLists,
     },
   },
   DefaultStackConfig
-); */
+);
 
 const PrimaryTabNavigator = createCompatNavigatorFactory(
   createBottomTabNavigator
@@ -190,16 +192,16 @@ const PrimaryTabNavigator = createCompatNavigatorFactory(
 const Navigation = createCompatNavigatorFactory(createStackNavigator)(
   {
     Primary: {screen: PrimaryTabNavigator},
-    /* AttendeeDetail: {screen: Screens.AttendeeDetail},
+    AttendeeDetail: {screen: Screens.AttendeeDetail},
     TicketInstructions: {screen: Screens.TicketInstructions},
 
-    CheckedInAttendeeInfo: {screen: Screens.CheckedInAttendeeInfo}, */
+    /* CheckedInAttendeeInfo: {screen: Screens.CheckedInAttendeeInfo}, */
     QRScanner: {screen: QRScannerModalNavigation},
     /* QRCheckinScanner: {screen: QRCheckinScannerModalNavigation},
-    QRContactScanner: {screen: QRContactScannerModalNavigation},
+    QRContactScanner: {screen: QRContactScannerModalNavigation}, */
     StaffCheckinLists: {screen: StaffCheckinListsNavigation},
 
-    Details: {screen: Screens.Details}, */
+    Details: {screen: Screens.Details},
   },
   {
     ...DefaultStackConfig,
