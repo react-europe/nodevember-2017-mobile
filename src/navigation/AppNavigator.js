@@ -6,6 +6,7 @@ import StaffCheckinListsNavigator from './StaffCheckinListsNavigator';
 import DefaultStackConfig from '../utils/defaultNavConfig';
 import QRScannerModalNavigation from '../screens/QRScreens/Identify';
 import QRContactScannerModalNavigation from '../screens/QRScreens/Contact';
+import QRCheckinScannerModalNavigation from '../screens/QRScreens/CheckIn';
 import Screen from '../screens';
 
 const Stack = createStackNavigator();
@@ -24,6 +25,10 @@ function AppNavigator() {
         component={Screen.TicketInstructions}
       />
       <Stack.Screen name="QRScanner" component={QRScannerModalNavigation} />
+      <Stack.Screen
+        name="QRCheckinScanner"
+        component={QRCheckinScannerModalNavigation}
+      />
       <Stack.Screen
         name="QRContactScanner"
         component={QRContactScannerModalNavigation}
