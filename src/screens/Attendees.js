@@ -14,8 +14,6 @@ import {Query} from 'react-apollo';
 import _ from 'lodash';
 
 import {withNavigation} from '../utils/withNavigation';
-import NavigationBar from '../components/NavigationBar';
-import MenuButton from '../components/MenuButton';
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 
 import {GQL} from '../constants';
@@ -49,11 +47,6 @@ class Attendees extends React.Component {
 
   render() {
     const {scrollY} = this.state;
-    const headerOpacity = scrollY.interpolate({
-      inputRange: [0, 150],
-      outputRange: [0, 1],
-      extrapolate: 'clamp',
-    });
     return (
       <View style={{flex: 1}}>
         <Searchbar

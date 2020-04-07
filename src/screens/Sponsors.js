@@ -5,7 +5,6 @@ import * as WebBrowser from 'expo-web-browser';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import {Layout, FontSizes, Colors} from '../constants';
-import MenuButton from '../components/MenuButton';
 import {SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';

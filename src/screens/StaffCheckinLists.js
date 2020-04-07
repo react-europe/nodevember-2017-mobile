@@ -9,7 +9,6 @@ import {
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import {FontSizes, Colors} from '../constants';
-import MenuButton from '../components/MenuButton';
 import {RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 
