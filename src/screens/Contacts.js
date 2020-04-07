@@ -118,17 +118,11 @@ class DeferredContactsContent extends React.Component {
   }
 
   _handlePressQRButton = () => {
-    this.props.navigation.navigate({
-      routeName: 'QRContactScanner',
-      key: 'QRContactScanner',
-    });
+    this.props.navigation.navigate('QRContactScanner');
   };
 
   _handlePressProfileQRButton = () => {
-    this.props.navigation.navigate({
-      routeName: 'QRScanner',
-      key: 'QRScanner',
-    });
+    this.props.navigation.navigate('QRScanner');
   };
 }
 
