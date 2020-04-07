@@ -67,13 +67,7 @@ class DynamicScheduleNavigation extends React.Component {
     }
 
     let Navigator = this.state.navigator;
-    return (
-      <Navigator
-        detached
-        {...this.props}
-        parentNavigation={this.props.navigation}
-      />
-    );
+    return <Navigator detached {...this.props} />;
   }
 }
 
