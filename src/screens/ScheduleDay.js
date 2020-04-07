@@ -45,78 +45,55 @@ class ScheduleRow extends React.Component {
   };
 }
 
-export default function ScheduleDay(options) {
-  // const schedule = FullSchedule[0]
-  class ScheduleDayComponent extends React.Component {
-    constructor(props) {
-      super(props);
+export default class ScheduleDay extends React.Component {
+  constructor(props) {
+    super(props);
 
-      const event = this.props.event;
-      const FullSchedule = event.groupedSchedule;
-      const schedule = _.find(
-        FullSchedule,
-        schedule => schedule.title === options.day
-      );
+    const event = this.props.event;
+    const FullSchedule = event.groupedSchedule;
+    const schedule = _.find(
+      FullSchedule,
+      schedule => schedule.title === this.props.route.params.day
+    );
 
-      const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
-      this.slotsData = _.map(slotsByTime, (data, time) => {
-        return {data, title: convertUtcDateToEventTimezoneHour(time)};
-      });
-    }
-    render() {
-      return (
-        <LoadingPlaceholder>
-          <SectionList
-            renderScrollComponent={props => <ScrollView {...props} />}
-            stickySectionHeadersEnabled={true}
-            renderItem={this._renderItem}
-            renderSectionHeader={this._renderSectionHeader}
-            sections={this.slotsData}
-            keyExtractor={item => _.snakeCase(item.title)}
-            initialNumToRender={10}
-          />
-        </LoadingPlaceholder>
-      );
-    }
-
-    _renderSectionHeader = ({section}) => {
-      return (
-        <View style={styles.sectionHeader}>
-          <RegularText>{section.title}</RegularText>
-        </View>
-      );
-    };
-
-    _renderItem = ({item}) => {
-      return <ScheduleRow item={item} onPress={this._handlePressRow} />;
-    };
-
-    _handlePressRow = item => {
-      this.props.navigation.navigate('Details', {
-        scheduleSlot: item,
-      });
-    };
+    const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
+    this.slotsData = _.map(slotsByTime, (data, time) => {
+      return {data, title: convertUtcDateToEventTimezoneHour(time)};
+    });
+  }
+  render() {
+    return (
+      <LoadingPlaceholder>
+        <SectionList
+          renderScrollComponent={props => <ScrollView {...props} />}
+          stickySectionHeadersEnabled={true}
+          renderItem={this._renderItem}
+          renderSectionHeader={this._renderSectionHeader}
+          sections={this.slotsData}
+          keyExtractor={item => _.snakeCase(item.title)}
+          initialNumToRender={10}
+        />
+      </LoadingPlaceholder>
+    );
   }
 
-  return ScheduleDayComponent;
+  _renderSectionHeader = ({section}) => {
+    return (
+      <View style={styles.sectionHeader}>
+        <RegularText>{section.title}</RegularText>
+      </View>
+    );
+  };
 
-  // return StackNavigator(
-  //   {
-  //     Day: {
-  //       screen: ScheduleDayComponent
-  //     }
-  //   },
-  //   {
-  //     cardStyle: {
-  //       backgroundColor: '#fafafa'
-  //     },
-  //     navigationOptions: {
-  //       headerTitleStyle: {
-  //         fontFamily: 'open-sans-bold'
-  //       }
-  //     }
-  //   }
-  // )
+  _renderItem = ({item}) => {
+    return <ScheduleRow item={item} onPress={this._handlePressRow} />;
+  };
+
+  _handlePressRow = item => {
+    this.props.navigation.navigate('Details', {
+      scheduleSlot: item,
+    });
+  };
 }
 
 const styles = StyleSheet.create({
