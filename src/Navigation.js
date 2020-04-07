@@ -15,7 +15,7 @@ import QRContactScannerModalNavigation from './screens/QRScreens/Contact';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {withData} from './context/DataContext';
 
-/* class DynamicScheduleNavigation extends React.Component {
+class DynamicScheduleNavigation extends React.Component {
   state = {
     navigator: null,
   };
@@ -30,20 +30,20 @@ import {withData} from './context/DataContext';
 
   initializeNavigatorFromSchedule() {
     // @todo: get schedule from network or disk
-    const fullSchedule = this.props.screenProps.event.groupedSchedule; // Schedule.events[0].groupedSchedule;
+    const fullSchedule = this.props.event.groupedSchedule; // Schedule.events[0].groupedSchedule;
 
     // Sort schedule
     let navSchedule = {};
     _.each(fullSchedule, (day, i) => {
       navSchedule[day.title] = {
-        screen: Screens.ScheduleDay({
+        screen: withData(Screens.ScheduleDay)({
           day: day.title,
           date: moment(new Date(day.date)).format('ddd'),
         }),
       };
     });
 
-    const navigator = createAppContainer(
+    /* const navigator = createAppContainer(
       createMaterialTopTabNavigator(navSchedule, {
         tabBarOptions: {
           style: {backgroundColor: '#333'},
@@ -55,7 +55,7 @@ import {withData} from './context/DataContext';
       })
     );
 
-    this.setState({navigator});
+    this.setState({navigator}); */
   }
 
   render() {
@@ -68,14 +68,12 @@ import {withData} from './context/DataContext';
     return (
       <Navigator
         detached
-        screenProps={{
-          ...this.props.screenProps,
-          parentNavigation: this.props.navigation,
-        }}
+        {...this.props}
+        parentNavigation={this.props.navigation}
       />
     );
   }
-} */
+}
 
 const DefaultStackConfig = {
   cardStyle: {
@@ -107,15 +105,16 @@ const MenuNavigation = createCompatNavigatorFactory(createStackNavigator)(
   DefaultStackConfig
 );
 
-/*
-const ScheduleStackNavigator = createStackNavigator(
+const ScheduleStackNavigator = createCompatNavigatorFactory(
+  createStackNavigator
+)(
   {
     Schedule: {
-      screen: DynamicScheduleNavigation,
+      screen: withData(DynamicScheduleNavigation),
     },
   },
   DefaultStackConfig
-); */
+);
 
 const ProfileNavigator = createCompatNavigatorFactory(createStackNavigator)(
   {
@@ -154,9 +153,9 @@ const PrimaryTabNavigator = createCompatNavigatorFactory(
       screen: withData(Screens.Home),
     },
     Profile: {screen: ProfileNavigator},
-    /*Schedule: {
+    Schedule: {
       screen: ScheduleStackNavigator,
-    },*/
+    },
     Contacts: {screen: ContactsNavigator},
     Menu: {screen: MenuNavigation},
   },
@@ -197,8 +196,8 @@ const Navigation = createCompatNavigatorFactory(createStackNavigator)(
 
     /* CheckedInAttendeeInfo: {screen: Screens.CheckedInAttendeeInfo}, */
     QRScanner: {screen: QRScannerModalNavigation},
-    /* QRCheckinScanner: {screen: QRCheckinScannerModalNavigation},
-    QRContactScanner: {screen: QRContactScannerModalNavigation}, */
+    QRCheckinScanner: {screen: QRCheckinScannerModalNavigation},
+    QRContactScanner: {screen: QRContactScannerModalNavigation},
     StaffCheckinLists: {screen: StaffCheckinListsNavigation},
 
     Details: {screen: Screens.Details},
