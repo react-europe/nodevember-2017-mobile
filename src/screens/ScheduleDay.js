@@ -51,7 +51,7 @@ export default function ScheduleDay(options) {
     constructor(props) {
       super(props);
 
-      const event = this.props.screenProps.event;
+      const event = this.props.event;
       const FullSchedule = event.groupedSchedule;
       const schedule = _.find(
         FullSchedule,
@@ -92,7 +92,7 @@ export default function ScheduleDay(options) {
     };
 
     _handlePressRow = item => {
-      this.props.screenProps.parentNavigation.navigate('Details', {
+      this.props.parentNavigation.navigate('Details', {
         scheduleSlot: item,
       });
     };
