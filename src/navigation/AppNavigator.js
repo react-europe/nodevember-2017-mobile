@@ -17,6 +17,10 @@ function AppNavigator() {
       screenOptions={route => ({...DefaultStackConfig(route)})}>
       <Stack.Screen name="Home" component={PrimaryTabNavigator} />
       <Stack.Screen name="AttendeeDetail" component={Screen.AttendeeDetail} />
+      <Stack.Screen
+        name="TicketInstructions"
+        component={Screen.TicketInstructions}
+      />
       <Stack.Screen name="QRScanner" component={QRScannerModalNavigation} />
       <Stack.Screen name="Details" component={Screen.Details} />
     </Stack.Navigator>
