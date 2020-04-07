@@ -25,7 +25,7 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
   };
 
   componentDidMount() {
-    const params = this.props.navigation.state.params || {};
+    const params = this.props.route.params || {};
     const checkinList = params.checkinList;
     const uuid = params.uuid;
     console.log('uuid is', uuid);
