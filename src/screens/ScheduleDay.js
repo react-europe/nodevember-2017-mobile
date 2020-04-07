@@ -92,7 +92,7 @@ export default function ScheduleDay(options) {
     };
 
     _handlePressRow = item => {
-      this.props.parentNavigation.navigate('Details', {
+      this.props.navigation.navigate('Details', {
         scheduleSlot: item,
       });
     };

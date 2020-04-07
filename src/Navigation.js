@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createCompatNavigatorFactory} from '@react-navigation/compat';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import moment from 'moment';
 import {Colors} from './constants';
@@ -36,26 +36,28 @@ class DynamicScheduleNavigation extends React.Component {
     let navSchedule = {};
     _.each(fullSchedule, (day, i) => {
       navSchedule[day.title] = {
-        screen: withData(Screens.ScheduleDay)({
-          day: day.title,
-          date: moment(new Date(day.date)).format('ddd'),
-        }),
+        screen: withData(
+          Screens.ScheduleDay({
+            day: day.title,
+            date: moment(new Date(day.date)).format('ddd'),
+          })
+        ),
       };
     });
 
-    /* const navigator = createAppContainer(
-      createMaterialTopTabNavigator(navSchedule, {
-        tabBarOptions: {
-          style: {backgroundColor: '#333'},
-          activeTintColor: '#fff',
-        },
-        defaultNavigationOptions: ({navigation}) => ({
-          tabBarLabel: navigation.state.routeName.substring(0, 3).toUpperCase(),
-        }),
-      })
-    );
+    const navigator = createCompatNavigatorFactory(
+      createMaterialTopTabNavigator
+    )(navSchedule, {
+      tabBarOptions: {
+        style: {backgroundColor: '#333'},
+        activeTintColor: '#fff',
+      },
+      defaultNavigationOptions: ({route}) => ({
+        tabBarLabel: route.name.substring(0, 3).toUpperCase(),
+      }),
+    });
 
-    this.setState({navigator}); */
+    this.setState({navigator});
   }
 
   render() {
