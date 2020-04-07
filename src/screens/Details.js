@@ -66,7 +66,7 @@ export default class Details extends React.Component {
   }
 
   render() {
-    let params = this.props.navigation.state.params || {};
+    let params = this.props.route.params || {};
     let speaker;
     let speakers;
     let talk;
