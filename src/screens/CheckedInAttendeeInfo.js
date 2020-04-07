@@ -8,8 +8,8 @@ import {
   AsyncStorage,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import {withNavigation} from 'react-navigation';
 
+import {withNavigation} from '../utils/withNavigation';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, FontSizes, Layout} from '../constants';
 import {Gravatar} from 'react-native-gravatar';
@@ -101,7 +101,7 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
   }
 
   render() {
-    const params = this.props.navigation.state.params || {};
+    const params = this.props.route.params || {};
     const checkedInAttendee = params.checkedInAttendee;
     console.log('params', params);
     if (!this.state.ready) {
@@ -134,9 +134,9 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
         <Button
           raised
           onPress={() => {
-            AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef').then(
-              () => this.props.navigation.goBack()
-            );
+            AsyncStorage.removeItem(
+              '@MySuperStore2019:lastCheckedInRef'
+            ).then(() => this.props.navigation.goBack());
           }}>
           Close
         </Button>
