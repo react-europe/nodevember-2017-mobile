@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import PrimaryTabNavigator from './PrimaryTabNavigator';
+import StaffCheckinListsNavigator from './StaffCheckinListsNavigator';
 import DefaultStackConfig from '../utils/defaultNavConfig';
 import QRScannerModalNavigation from '../screens/QRScreens/Identify';
 import Screen from '../screens';
@@ -22,6 +23,10 @@ function AppNavigator() {
         component={Screen.TicketInstructions}
       />
       <Stack.Screen name="QRScanner" component={QRScannerModalNavigation} />
+      <Stack.Screen
+        name="StaffCheckinLists"
+        component={StaffCheckinListsNavigator}
+      />
       <Stack.Screen name="Details" component={Screen.Details} />
     </Stack.Navigator>
   );
