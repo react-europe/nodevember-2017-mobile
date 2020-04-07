@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import {BarCodeScanner} from 'expo-barcode-scanner';
-import {SafeAreaView} from 'react-navigation';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import withNavigation from '../../utils/withNavigation';
 

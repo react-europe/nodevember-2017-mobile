@@ -22,6 +22,7 @@ import {setEvent, saveSchedule} from './src/utils';
 import client from './src/utils/gqlClient';
 import {Assets as StackAssets} from 'react-navigation-stack';
 import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import Navigation from './src/Navigation';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -224,43 +225,45 @@ export default class App extends React.Component {
     }
 
     return (
-      <View style={{flex: 1}}>
-        {this.state.isAppReady && this.state.schedule ? (
-          <ApolloProvider client={client}>
-            <NavigationContainer>
-              <DataContext.Provider
-                value={{
-                  event: this.state.schedule,
-                  initialLinkingUri: this.state.initialLinkingUri,
-                }}>
-                <AppNavigator />
-              </DataContext.Provider>
-            </NavigationContainer>
-          </ApolloProvider>
-        ) : null}
+      <SafeAreaProvider>
+        <View style={{flex: 1}}>
+          {this.state.isAppReady && this.state.schedule ? (
+            <ApolloProvider client={client}>
+              <NavigationContainer>
+                <DataContext.Provider
+                  value={{
+                    event: this.state.schedule,
+                    initialLinkingUri: this.state.initialLinkingUri,
+                  }}>
+                  <AppNavigator />
+                </DataContext.Provider>
+              </NavigationContainer>
+            </ApolloProvider>
+          ) : null}
 
-        {this.state.isSplashAnimationComplete ? null : (
-          <Animated.View
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: Constants.manifest.splash.backgroundColor,
-              opacity: this.splashVisibility,
-            }}>
-            <Animated.Image
+          {this.state.isSplashAnimationComplete ? null : (
+            <Animated.View
               style={{
-                width: Dimensions.get('window').width,
-                resizeMode: 'contain',
-                transform: [{scale: this.splashVisibility}],
-              }}
-              source={require('./src/assets/splash-icon.png')}
-              onLoad={this._loadResourcesAsync}
-            />
-          </Animated.View>
-        )}
-        <StatusBar barStyle="light-content" />
-      </View>
+                ...StyleSheet.absoluteFillObject,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: Constants.manifest.splash.backgroundColor,
+                opacity: this.splashVisibility,
+              }}>
+              <Animated.Image
+                style={{
+                  width: Dimensions.get('window').width,
+                  resizeMode: 'contain',
+                  transform: [{scale: this.splashVisibility}],
+                }}
+                source={require('./src/assets/splash-icon.png')}
+                onLoad={this._loadResourcesAsync}
+              />
+            </Animated.View>
+          )}
+          <StatusBar barStyle="light-content" />
+        </View>
+      </SafeAreaProvider>
     );
   }
 }
