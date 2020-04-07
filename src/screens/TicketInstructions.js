@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {Animated, Platform, View, AsyncStorage} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import {withNavigation} from 'react-navigation';
 
+import {withNavigation} from '../utils/withNavigation';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, Layout} from '../constants';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
@@ -40,7 +40,9 @@ class TicketInstructions extends React.Component {
             }}
           />
 
-          <DeferredTicketInstructionsContentWithNavigation />
+          <DeferredTicketInstructionsContentWithNavigation
+            ticketParams={this.props.route.params}
+          />
           <OverscrollView />
         </AnimatedScrollView>
       </View>
@@ -79,7 +81,7 @@ class DeferredTicketInstructionsContent extends React.Component {
   }
 
   render() {
-    const params = this.props.navigation.state.params || {};
+    const params = this.props.ticketParams || {};
     const ticket = params.ticket;
     console.log('params', params);
     if (!this.state.ready) {
