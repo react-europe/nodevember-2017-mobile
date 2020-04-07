@@ -32,8 +32,8 @@ class Home extends React.Component {
   };
   checkUuidOnLoad(props) {
     console.log('checking props initialLinkingUri', props.initialLinkingUri);
-    if (props && props.screenProps && props.screenProps.initialLinkingUri) {
-      const url = props.screenProps.initialLinkingUri;
+    if (props.initialLinkingUri) {
+      const url = props.initialLinkingUri;
       console.log('check url from home', url);
       const uuid = url ? url.split('?uuid=')[1] : '';
       console.log('check uuid from home', uuid);
