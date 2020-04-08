@@ -6,15 +6,10 @@ import {
   View,
   InteractionManager,
 } from 'react-native';
-import {GQL} from '../constants';
-import NEXT_SCHEDULE_ITEMS from '../data/NextScheduleItems';
-import client from '../utils/gqlClient';
 import {RegularText, SemiBoldText} from './StyledText';
 import TalkCard from './TalkCard';
 import {Colors, FontSizes} from '../constants';
-import {findRandomTalk, findNextTalksAfterDate} from '../data';
-import _ from 'lodash';
-import {withNavigation} from 'react-navigation';
+import {findNextTalksAfterDate} from '../data';
 import {
   convertUtcDateToEventTimezoneDaytime,
   conferenceHasEnded,
@@ -104,7 +99,7 @@ class TalksUpNext extends React.Component {
   }
 }
 
-export default withNavigation(TalksUpNext);
+export default TalksUpNext;
 
 const styles = StyleSheet.create({
   time: {
