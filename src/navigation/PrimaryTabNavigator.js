@@ -35,7 +35,7 @@ function PrimaryTabNavigator() {
         style: {backgroundColor: '#333'},
         activeTintColor: '#fff',
       }}>
-      <Tab.Screen name="Home" component={withData(Screens.Home)} />
+      <Tab.Screen name="Home" component={Screens.Home} />
       <Tab.Screen name="Profile" component={ProfileNavigator} />
       <Tab.Screen name="Schedule" component={ScheduleNavigator} />
       <Tab.Screen name="Contacts" component={ContactsNavigator} />

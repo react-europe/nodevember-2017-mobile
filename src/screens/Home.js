@@ -24,6 +24,7 @@ import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
+import {withData} from '../context/DataContext';
 
 class Home extends React.Component {
   state = {
@@ -112,7 +113,6 @@ class Home extends React.Component {
               </HideWhenConferenceHasEnded>
             </View>
           </View>
-
           <DeferredHomeContentWithNavigation event={this.props.event} />
           <OverscrollView />
         </AnimatedScrollView>
@@ -493,4 +493,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default withData(Home);

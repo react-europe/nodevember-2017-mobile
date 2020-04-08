@@ -7,6 +7,7 @@ import {getSpeakerTalk} from '../utils';
 import CachedImage from '../components/CachedImage';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
+import {withData} from '../context/DataContext';
 
 class SpeakerRow extends React.Component {
   render() {
@@ -45,7 +46,7 @@ class SpeakerRow extends React.Component {
   };
 }
 
-export default class Speakers extends React.Component {
+class Speakers extends React.Component {
   static navigationOptions = {
     title: 'Speakers',
   };
@@ -107,3 +108,5 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
 });
+
+export default withData(Speakers);

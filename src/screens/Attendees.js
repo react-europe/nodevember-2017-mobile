@@ -20,6 +20,7 @@ import {GQL} from '../constants';
 import {Colors, Layout} from '../constants';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {getContactTwitter} from '../utils';
+import {withData} from '../context/DataContext';
 
 class Attendees extends React.Component {
   static navigationOptions = {
@@ -224,4 +225,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Attendees;
+export default withData(Attendees);

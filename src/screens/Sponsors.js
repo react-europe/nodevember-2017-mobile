@@ -8,6 +8,7 @@ import {Layout, FontSizes, Colors} from '../constants';
 import {SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
+import {withData} from '../context/DataContext';
 
 const ClipBorderRadius = ({children, style}) => {
   return (
@@ -86,7 +87,7 @@ class SponsorRow extends React.Component {
   };
 }
 
-export default class Sponsors extends React.Component {
+class Sponsors extends React.Component {
   static navigationOptions = {
     title: 'Sponsors',
   };
@@ -174,3 +175,5 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
 });
+
+export default withData(Sponsors);
