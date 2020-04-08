@@ -2,8 +2,8 @@ import React from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import FadeIn from 'react-native-fade-in-image';
-import {withNavigation} from 'react-navigation';
 
+import withNavigation from '../utils/withNavigation';
 import SaveIconWhenSaved from './SaveIconWhenSaved';
 import CachedImage from './CachedImage';
 import {BoldText, RegularText, SemiBoldText} from './StyledText';
