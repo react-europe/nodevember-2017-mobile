@@ -49,7 +49,9 @@ class CheckedInAttendeeInfo extends React.Component {
             }}
           />
 
-          <DeferredCheckedInAttendeeInfoContent />
+          <DeferredCheckedInAttendeeInfoContentWithNavigation
+            route={this.props.route}
+          />
           <OverscrollView />
         </AnimatedScrollView>
       </View>
@@ -151,6 +153,10 @@ class DeferredCheckedInAttendeeInfoContent extends React.Component {
   }
 }
 
+const DeferredCheckedInAttendeeInfoContentWithNavigation = withNavigation(
+  DeferredCheckedInAttendeeInfoContent
+);
+
 const OverscrollView = () => (
   <View
     style={{
@@ -225,4 +231,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(CheckedInAttendeeInfo);
+export default CheckedInAttendeeInfo;

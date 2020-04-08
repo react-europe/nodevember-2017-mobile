@@ -24,6 +24,10 @@ function AppNavigator() {
         name="TicketInstructions"
         component={Screen.TicketInstructions}
       />
+      <Stack.Screen
+        name="CheckedInAttendeeInfo"
+        component={Screen.CheckedInAttendeeInfo}
+      />
       <Stack.Screen name="QRScanner" component={QRScannerModalNavigation} />
       <Stack.Screen
         name="QRCheckinScanner"
