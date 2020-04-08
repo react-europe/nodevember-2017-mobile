@@ -3,7 +3,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import Screens from '../screens';
-import {withData} from '../context/DataContext';
 import ProfileNavigator from './ProfileNavigator';
 import ContactsNavigator from './ContactsNavigator';
 import MenuNavigator from './MenuNavigator';
