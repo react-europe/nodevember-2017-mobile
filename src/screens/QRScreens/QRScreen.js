@@ -22,13 +22,9 @@ class QRScreen extends React.Component {
 
   componentDidMount() {
     this._requestCameraPermission();
-    this.didFocus = InteractionManager.runAfterInteractions(() => {
+    InteractionManager.runAfterInteractions(() => {
       this.setState({showQRScanner: true});
     });
-  }
-
-  componentWillUnmount() {
-    this.didFocus && this.didFocus.cancel();
   }
 
   _requestCameraPermission = async () => {

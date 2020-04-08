@@ -8,6 +8,7 @@ import {
   StyleSheet,
   AsyncStorage,
   View,
+  InteractionManager,
 } from 'react-native';
 import {Notifications} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
@@ -183,6 +184,7 @@ class DeferredHomeContent extends React.Component {
       return [];
     }
   }
+
   constructor(props) {
     super(props);
     this.getTickets();
@@ -192,18 +194,18 @@ class DeferredHomeContent extends React.Component {
     this._notificationSubscription = Notifications.addListener(
       this._handleNotification
     );
-    this._sub = this.props.navigation.addListener(
-      'didFocus',
-      this.getTickets.bind(this)
-    );
+    InteractionManager.runAfterInteractions(() => {
+      this.getTickets.bind(this);
+    });
 
     if (this.state.ready) {
       return;
     }
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.setState({ready: true});
     }, 200);
   }
+
   _handleNotification = notification => {
     let navigation = this.props.navigation;
     this.setState({notification: notification});
@@ -222,6 +224,17 @@ class DeferredHomeContent extends React.Component {
       }
     }
   };
+
+  componentWillUnmount() {
+    if (this._notificationSubscription) {
+      this._notificationSubscription.remove();
+    }
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = 0;
+    }
+  }
+
   render() {
     if (!this.state.ready) {
       return null;
