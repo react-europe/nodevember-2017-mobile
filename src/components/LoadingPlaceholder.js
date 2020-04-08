@@ -11,9 +11,19 @@ export default class LoadingPlaceholder extends React.Component {
 
   componentDidMount() {
     if (!this.state.isReady) {
-      setTimeout(() => {
-        this.setState({isReady: true});
-      }, Platform.OS === 'ios' ? 250 : 500);
+      this.timer = setTimeout(
+        () => {
+          this.setState({isReady: true});
+        },
+        Platform.OS === 'ios' ? 250 : 500
+      );
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = 0;
     }
   }
 
