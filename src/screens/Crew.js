@@ -13,6 +13,7 @@ import WebBrowser from 'expo-web-browser';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
+import {withData} from '../context/DataContext';
 
 class CrewRow extends React.Component {
   render() {
@@ -53,7 +54,7 @@ class CrewRow extends React.Component {
   };
 }
 
-export default class Crews extends React.Component {
+class Crews extends React.Component {
   static navigationOptions = {
     title: 'Crew',
   };
@@ -99,3 +100,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default withData(Crews);

@@ -7,6 +7,7 @@ import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import SaveIconWhenSaved from '../components/SaveIconWhenSaved';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
+import {withData} from '../context/DataContext';
 
 class ScheduleRow extends React.Component {
   render() {
@@ -45,7 +46,7 @@ class ScheduleRow extends React.Component {
   };
 }
 
-export default class ScheduleDay extends React.Component {
+class ScheduleDay extends React.Component {
   constructor(props) {
     super(props);
 
@@ -116,3 +117,5 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
 });
+
+export default withData(ScheduleDay);
