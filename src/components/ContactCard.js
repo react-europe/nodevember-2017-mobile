@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, Platform, StyleSheet, View} from 'react-native';
-import {withNavigation} from 'react-navigation';
 import GravatarImage from '../components/GravatarImage';
 import {sendEmail, openTwitter, getContactTwitter} from '../utils';
 import {Colors, FontSizes} from '../constants';
@@ -86,7 +85,7 @@ class ContactCard extends React.Component {
   };
 }
 
-export default withNavigation(ContactCard);
+export default ContactCard;
 
 const styles = StyleSheet.create({
   avatarImage: {
