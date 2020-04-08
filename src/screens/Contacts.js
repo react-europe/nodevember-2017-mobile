@@ -5,6 +5,7 @@ import {
   ScrollView,
   AsyncStorage,
   View,
+  InteractionManager,
 } from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
@@ -62,20 +63,22 @@ class DeferredContactsContent extends React.Component {
   }
 
   componentDidMount() {
-    this._sub = this.props.navigation.addListener(
-      'didFocus',
-      this.getTickets.bind(this)
-    );
+    InteractionManager.runAfterInteractions(() => {
+      this.getTickets.bind(this);
+    });
     if (this.state.ready) {
       return;
     }
 
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.setState({ready: true});
     }, 200);
   }
   componentWillUnmount() {
-    this._sub.remove();
+    if (this.timer) {
+      clearTimeout(this.timer);
+      this.timer = 0;
+    }
   }
   render() {
     if (!this.state.ready) {

@@ -1,5 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, Platform, StyleSheet, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Platform,
+  StyleSheet,
+  View,
+  InteractionManager,
+} from 'react-native';
 import {GQL} from '../constants';
 import NEXT_SCHEDULE_ITEMS from '../data/NextScheduleItems';
 import client from '../utils/gqlClient';
@@ -24,7 +30,7 @@ class TalksUpNext extends React.Component {
 
   componentDidMount() {
     this._fetchTalks();
-    this.props.navigation.addListener('didFocus', () => {
+    InteractionManager.runAfterInteractions(() => {
       this._fetchTalks();
     });
   }
@@ -71,7 +77,9 @@ class TalksUpNext extends React.Component {
     if (this.state.fetching) {
       return (
         <View style={{marginLeft: 8, marginTop: 3}}>
-          <ActivityIndicator color={Platform.OS === 'android' ? Colors.blue : '#888'} />
+          <ActivityIndicator
+            color={Platform.OS === 'android' ? Colors.blue : '#888'}
+          />
         </View>
       );
     }

@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   AsyncStorage,
+  InteractionManager,
 } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import {RectButton} from 'react-native-gesture-handler';
@@ -50,7 +51,7 @@ class DeferredProfileContent extends React.Component {
 
   constructor(props) {
     super(props);
-    props.navigation.addListener('didFocus', () => {
+    InteractionManager.runAfterInteractions(() => {
       this.getTickets();
     });
     this.getTickets();
