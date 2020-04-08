@@ -229,15 +229,15 @@ export default class App extends React.Component {
         <View style={{flex: 1}}>
           {this.state.isAppReady && this.state.schedule ? (
             <ApolloProvider client={client}>
-              <NavigationContainer>
-                <DataContext.Provider
-                  value={{
-                    event: this.state.schedule,
-                    initialLinkingUri: this.state.initialLinkingUri,
-                  }}>
+              <DataContext.Provider
+                value={{
+                  event: this.state.schedule,
+                  initialLinkingUri: this.state.initialLinkingUri,
+                }}>
+                <NavigationContainer>
                   <AppNavigator />
-                </DataContext.Provider>
-              </NavigationContainer>
+                </NavigationContainer>
+              </DataContext.Provider>
             </ApolloProvider>
           ) : null}
 
