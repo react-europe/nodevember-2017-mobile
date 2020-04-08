@@ -24,7 +24,6 @@ import {Assets as StackAssets} from 'react-navigation-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import Navigation from './src/Navigation';
 import AppNavigator from './src/navigation/AppNavigator';
 import DataContext from './src/context/DataContext';
 
