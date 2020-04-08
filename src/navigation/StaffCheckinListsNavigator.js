@@ -10,7 +10,7 @@ function StaffCheckinListsNavigator() {
   return (
     <Stack.Navigator screenOptions={route => ({...DefaultStackConfig(route)})}>
       <Stack.Screen
-        name="StaffCheckinListsList"
+        name="StaffCheckinLists"
         component={Screens.StaffCheckinLists}
       />
     </Stack.Navigator>
