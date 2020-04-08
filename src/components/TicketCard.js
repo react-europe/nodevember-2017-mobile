@@ -1,8 +1,8 @@
 import React from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
-import {withNavigation} from 'react-navigation';
 import QRCode from 'react-native-qrcode-svg';
 
+import withNavigation from '../utils/withNavigation';
 import {RegularText} from './StyledText';
 import {Colors, FontSizes} from '../constants';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
