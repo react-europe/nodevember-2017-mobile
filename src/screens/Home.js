@@ -145,7 +145,7 @@ class Home extends React.Component {
 
   _handleRedirect = url => {
     this.setState({url});
-    let {path, queryParams} = Expo.Linking.parse(url);
+    let {path, queryParams} = Linking.parse(url);
     console.log(url);
     console.log(path);
     console.log(queryParams);
@@ -163,6 +163,10 @@ class Home extends React.Component {
   _addLinkingListener = () => {
     Linking.addEventListener('url', this._handleRedirect);
   };
+
+  componentWillUnmount() {
+    Linking.removeEventListener('url', this._handleRedirect);
+  }
 }
 
 class DeferredHomeContent extends React.Component {
