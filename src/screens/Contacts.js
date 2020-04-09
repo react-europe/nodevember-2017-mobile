@@ -36,7 +36,7 @@ class DeferredContactsContent extends React.Component {
 
   async getTickets() {
     try {
-      const value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
+      let value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
       if (value === null) {
         value = '[]';
       }
@@ -60,11 +60,12 @@ class DeferredContactsContent extends React.Component {
   constructor(props) {
     super(props);
     this.tickets = [];
+    this.getTickets.bind(this);
   }
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this.getTickets.bind(this);
+      this.getTickets();
     });
     if (this.state.ready) {
       return;
