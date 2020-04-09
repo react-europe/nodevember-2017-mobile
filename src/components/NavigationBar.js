@@ -19,8 +19,8 @@ class NavigationBar extends React.Component {
         <View
           style={[
             styles.navigationBarContainer,
-            this.props.style,
             {height: this.props.headerHeight},
+            this.props.style,
           ]}
           pointerEvents="none">
           <Animated.View
