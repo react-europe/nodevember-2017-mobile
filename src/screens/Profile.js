@@ -6,6 +6,7 @@ import {
   View,
   AsyncStorage,
   InteractionManager,
+  Alert,
 } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import {RectButton} from 'react-native-gesture-handler';
@@ -105,7 +106,7 @@ class DeferredProfileContent extends React.Component {
     if (await this._requestCameraPermission()) {
       this.props.navigation.navigate('QRScanner');
     } else {
-      alert(
+      Alert.alert(
         'You need to manually enable camera permissions in your operating system settings app'
       );
     }
