@@ -26,6 +26,7 @@ import {Colors, FontSizes, Layout} from '../constants';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
 import {withData} from '../context/DataContext';
+import withHeaderHeight from '../utils/withHeaderHeight';
 
 class Home extends React.Component {
   state = {
@@ -83,7 +84,7 @@ class Home extends React.Component {
             style={{
               backgroundColor: Colors.blue,
               padding: 10,
-              paddingTop: Layout.headerHeight - 10,
+              paddingTop: this.props.headerHeight - 10,
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -506,4 +507,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withData(Home);
+export default withHeaderHeight(withData(Home));

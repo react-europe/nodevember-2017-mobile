@@ -7,6 +7,7 @@ import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, Layout} from '../constants';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 import Markdown from 'react-native-markdown-renderer';
+import withHeaderHeight from '../utils/withHeaderHeight';
 
 class TicketInstructions extends React.Component {
   state = {
@@ -34,7 +35,7 @@ class TicketInstructions extends React.Component {
             style={{
               backgroundColor: Colors.blue,
               padding: 10,
-              paddingTop: Layout.headerHeight - 10,
+              paddingTop: this.props.headerHeight - 10,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -126,4 +127,4 @@ const markdownStyles = {
   text: {},
 };
 
-export default TicketInstructions;
+export default withHeaderHeight(TicketInstructions);

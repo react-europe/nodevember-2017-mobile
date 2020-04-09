@@ -23,6 +23,7 @@ import SaveButton from '../components/SaveButton';
 import CachedImage from '../components/CachedImage';
 import CloseButton from '../components/CloseButton';
 import Markdown from 'react-native-markdown-renderer';
+import withHeaderHeight from '../utils/withHeaderHeight';
 
 class SavedButtonNavigationItem extends React.Component {
   render() {
@@ -41,7 +42,7 @@ class SavedButtonNavigationItem extends React.Component {
   }
 }
 
-export default class Details extends React.Component {
+class Details extends React.Component {
   static navigationOptions = {
     gesturesEnabled: false,
   };
@@ -272,12 +273,11 @@ export default class Details extends React.Component {
             ) : null}
           </AnimatableView>
         </AnimatedScrollView>
-
         <NavigationBar
           animatedBackgroundOpacity={headerOpacity}
           style={[
             Platform.OS === 'android'
-              ? {height: Layout.headerHeight + Constants.statusBarHeight}
+              ? {height: this.props.headerHeight + Constants.statusBarHeight}
               : null,
           ]}
           renderLeftButton={() => (
@@ -409,3 +409,5 @@ const styles = StyleSheet.create({
   },
   videoWrapper: {},
 });
+
+export default withHeaderHeight(Details);
