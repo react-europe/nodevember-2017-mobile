@@ -13,7 +13,7 @@ import {Searchbar} from 'react-native-paper';
 import {Query} from 'react-apollo';
 import _ from 'lodash';
 
-import {withNavigation} from '../utils/withNavigation';
+import withNavigation from '../utils/withNavigation';
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 
 import {GQL} from '../constants';

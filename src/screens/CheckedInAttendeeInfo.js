@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 
-import {withNavigation} from '../utils/withNavigation';
+import withNavigation from '../utils/withNavigation';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, FontSizes, Layout} from '../constants';
 import {Gravatar} from 'react-native-gravatar';
