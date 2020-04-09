@@ -19,8 +19,9 @@ import {RegularText, SemiBoldText} from '../components/StyledText';
 import GravatarImage from '../components/GravatarImage';
 import CloseButton from '../components/CloseButton';
 import {sendEmail, openTwitter, addContact, getContactTwitter} from '../utils';
+import withHeaderHeight from '../utils/withHeaderHeight';
 
-export default class AttendeeDetail extends React.Component {
+class AttendeeDetail extends React.Component {
   static navigationOptions = {
     title: 'Attendee Details',
   };
@@ -150,7 +151,7 @@ export default class AttendeeDetail extends React.Component {
           animatedBackgroundOpacity={headerOpacity}
           style={[
             Platform.OS === 'android'
-              ? {height: Layout.headerHeight + Constants.statusBarHeight}
+              ? {height: this.props.headerHeight + Constants.statusBarHeight}
               : null,
           ]}
           renderLeftButton={() => (
@@ -195,3 +196,5 @@ const styles = StyleSheet.create({
     fontSize: FontSizes.subtitle,
   },
 });
+
+export default withHeaderHeight(AttendeeDetail);

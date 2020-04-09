@@ -1,11 +1,10 @@
 import {Dimensions, Platform} from 'react-native';
-import {Header} from 'react-navigation-stack';
 
 const X_WIDTH = 375;
 const X_HEIGHT = 812;
 const {height: D_HEIGHT, width: D_WIDTH} = Dimensions.get('window');
 const isIPhoneX =
-  Platform.OS === 'ios' && (D_HEIGHT === X_HEIGHT && D_WIDTH === X_WIDTH);
+  Platform.OS === 'ios' && D_HEIGHT === X_HEIGHT && D_WIDTH === X_WIDTH;
 const notchHeight = isIPhoneX ? 20 : 0;
 
 const isSmallDevice = D_WIDTH < 326;
@@ -17,8 +16,6 @@ export const Layout = {
   },
   notchHeight,
   isSmallDevice,
-  headerHeight:
-    Platform.OS === 'android' ? Header.HEIGHT : Header.HEIGHT + notchHeight,
 };
 
 export const Colors = {

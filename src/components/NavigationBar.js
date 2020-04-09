@@ -1,9 +1,10 @@
 import React from 'react';
 import {Animated, Platform, View, StyleSheet} from 'react-native';
 import Constants from 'expo-constants';
-import {Colors, Layout} from '../constants';
+import {Colors} from '../constants';
+import withHeaderHeight from '../utils/withHeaderHeight';
 
-export default class NavigationBar extends React.Component {
+class NavigationBar extends React.Component {
   render() {
     if (this.props.animatedBackgroundOpacity) {
       return this._renderAnimated();
@@ -15,7 +16,13 @@ export default class NavigationBar extends React.Component {
   _renderAnimated = () => {
     return (
       <>
-        <View style={[styles.navigationBarContainer, this.props.style]} pointerEvents="none">
+        <View
+          style={[
+            styles.navigationBarContainer,
+            this.props.style,
+            {height: this.props.headerHeight},
+          ]}
+          pointerEvents="none">
           <Animated.View
             style={[
               StyleSheet.absoluteFill,
@@ -31,7 +38,12 @@ export default class NavigationBar extends React.Component {
           {this.props.renderLeftButton && this.props.renderLeftButton()}
         </View>
 
-        <View style={styles.navigationBarTitleContainer} pointerEvents="none">
+        <View
+          style={[
+            styles.navigationBarTitleContainer,
+            {height: this.props.headerHeight},
+          ]}
+          pointerEvents="none">
           {this.props.renderTitle && this.props.renderTitle()}
         </View>
 
@@ -44,12 +56,20 @@ export default class NavigationBar extends React.Component {
 
   _renderStatic = () => {
     return (
-      <View style={styles.navigationBarContainer}>
+      <View
+        style={[
+          styles.navigationBarContainer,
+          {height: this.props.headerHeight},
+        ]}>
         <View style={styles.navigationBarLeftButton}>
           {this.props.renderLeftButton && this.props.renderLeftButton()}
         </View>
 
-        <View style={styles.navigationBarTitleContainer}>
+        <View
+          style={[
+            styles.navigationBarTitleContainer,
+            {height: this.props.headerHeight},
+          ]}>
           {this.props.renderTitle && this.props.renderTitle()}
         </View>
 
@@ -69,7 +89,6 @@ const PADDING_TOP =
 const styles = StyleSheet.create({
   navigationBarContainer: {
     backgroundColor: 'transparent',
-    height: Layout.headerHeight,
     position: 'absolute',
     paddingTop: PADDING_TOP,
     top: 0,
@@ -79,7 +98,6 @@ const styles = StyleSheet.create({
   navigationBarTitleContainer: {
     left: 0,
     right: 0,
-    height: Layout.headerHeight,
     paddingTop: PADDING_TOP,
     flexDirection: 'row',
     paddingHorizontal: 20,
@@ -102,3 +120,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+
+export default withHeaderHeight(NavigationBar);

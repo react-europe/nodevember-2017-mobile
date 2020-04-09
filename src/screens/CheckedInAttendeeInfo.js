@@ -16,6 +16,7 @@ import {Gravatar} from 'react-native-gravatar';
 
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 import Markdown from 'react-native-markdown-renderer';
+import withHeaderHeight from '../utils/withHeaderHeight';
 
 class CheckedInAttendeeInfo extends React.Component {
   state = {
@@ -43,7 +44,7 @@ class CheckedInAttendeeInfo extends React.Component {
             style={{
               backgroundColor: Colors.blue,
               padding: 10,
-              paddingTop: Layout.headerHeight - 10,
+              paddingTop: this.props.headerHeight - 10,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -231,4 +232,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CheckedInAttendeeInfo;
+export default withHeaderHeight(CheckedInAttendeeInfo);
