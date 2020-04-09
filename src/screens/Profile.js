@@ -103,10 +103,7 @@ class DeferredProfileContent extends React.Component {
 
   _handlePressQRButton = async () => {
     if (await this._requestCameraPermission()) {
-      this.props.navigation.navigate({
-        routeName: 'QRScanner',
-        key: 'QRScanner',
-      });
+      this.props.navigation.navigate('QRScanner');
     } else {
       alert(
         'You need to manually enable camera permissions in your operating system settings app'
