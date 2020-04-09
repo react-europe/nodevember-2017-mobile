@@ -12,7 +12,7 @@ import * as Permissions from 'expo-permissions';
 import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
 
-import {withNavigation} from '../utils/withNavigation';
+import withNavigation from '../utils/withNavigation';
 import Tickets from '../components/Tickets';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes} from '../constants';
