@@ -20,7 +20,7 @@ import {loadSavedTalksAsync} from './src/utils/storage';
 import GET_SCHEDULE from './src/data/schedulequery';
 import {setEvent, saveSchedule} from './src/utils';
 import client from './src/utils/gqlClient';
-import {Assets as StackAssets} from 'react-navigation-stack';
+import {Assets as StackAssets} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
