@@ -41,7 +41,11 @@ function AppNavigator() {
         name="StaffCheckinLists"
         component={StaffCheckinListsNavigator}
       />
-      <Stack.Screen name="Details" component={Screen.Details} />
+      <Stack.Screen
+        name="Details"
+        component={Screen.Details}
+        options={{gestureEnabled: false}}
+      />
     </Stack.Navigator>
   );
 }
