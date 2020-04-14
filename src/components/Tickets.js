@@ -1,40 +1,18 @@
 import React from 'react';
-import {StyleSheet, View, AsyncStorage} from 'react-native';
-
-import {RegularText} from './StyledText';
-import TicketCard from './TicketCard';
-import {Colors, FontSizes} from '../constants';
-import {
-  convertUtcDateToEventTimezoneDaytime,
-  conferenceHasEnded,
-} from '../utils';
+import {View} from 'react-native';
 import {Title} from 'react-native-paper';
 
-export default class Tickets extends React.Component {
-  render() {
-    let tix = this.props.tickets || [];
-    return (
-      <View style={[{marginHorizontal: 10}, this.props.style]}>
-        <Title>My Tickets</Title>
-        {tix.map(ticket =>
-          ticket ? (
-            <TicketCard
-              key={ticket.ref}
-              ticket={ticket}
-              style={{marginTop: 10, marginBottom: 10}}
-            />
-          ) : null
-        )}
-      </View>
-    );
-  }
+import TicketCard from './TicketCard';
 
-  _renderDateTime() {
+export function Tickets(props) {
+  let tix = props.tickets || [];
+
+  /* function _renderDateTime() {
     if (conferenceHasEnded()) {
       return null;
     }
 
-    const {dateTime} = this.state;
+    const {dateTime} = state;
 
     if (dateTime) {
       return (
@@ -45,12 +23,27 @@ export default class Tickets extends React.Component {
     } else {
       // handle after conf thing
     }
-  }
+  } */
+
+  return (
+    <View style={[{marginHorizontal: 10}, props.style]}>
+      <Title>My Tickets</Title>
+      {tix.map(ticket =>
+        ticket ? (
+          <TicketCard
+            key={ticket.ref}
+            ticket={ticket}
+            style={{marginTop: 10, marginBottom: 10}}
+          />
+        ) : null
+      )}
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({
+/* const styles = StyleSheet.create({
   time: {
     color: Colors.faint,
     fontSize: FontSizes.subtitle,
   },
-});
+}); */

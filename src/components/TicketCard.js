@@ -1,11 +1,11 @@
 import React from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
+import {Button, Card, CardContent, Title} from 'react-native-paper';
 
 import withNavigation from '../utils/withNavigation';
 import {RegularText} from './StyledText';
 import {Colors, FontSizes} from '../constants';
-import {Button, Card, CardContent, Title} from 'react-native-paper';
 
 function TicketCard(props) {
   const {ticket} = props;
