@@ -32,7 +32,7 @@ function SponsorRow(props) {
   };
 
   const _handlePressJobUrl = () => {
-    WebBrowser.openBrowserAsync(rops.item.jobUrl);
+    WebBrowser.openBrowserAsync(props.item.jobUrl);
   };
 
   return (

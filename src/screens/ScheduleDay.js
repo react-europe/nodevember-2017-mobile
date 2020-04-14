@@ -9,76 +9,52 @@ import SaveIconWhenSaved from '../components/SaveIconWhenSaved';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
 import {withData} from '../context/DataContext';
 
-class ScheduleRow extends React.Component {
-  render() {
-    const {item} = this.props;
+function ScheduleRow(props) {
+  const {item} = props;
 
-    const content = (
-      <View style={[styles.row, item.talk && styles.rowStatic]}>
-        <BoldText>
-          <SaveIconWhenSaved talk={item} />
-          {item.title}
-        </BoldText>
-
-        {item.speakers
-          ? item.speakers.map(speaker => (
-              <SemiBoldText key={speaker.id + item.title}>
-                {speaker.name}
-              </SemiBoldText>
-            ))
-          : null}
-        <RegularText>{item.room}</RegularText>
-      </View>
-    );
-
-    return (
-      <RectButton
-        activeOpacity={0.05}
-        onPress={this._handlePress}
-        style={{flex: 1, backgroundColor: '#fff'}}>
-        {content}
-      </RectButton>
-    );
-  }
-
-  _handlePress = () => {
-    this.props.onPress && this.props.onPress(this.props.item);
+  const _handlePress = () => {
+    props.onPress && props.onPress(props.item);
   };
+
+  const content = (
+    <View style={[styles.row, item.talk && styles.rowStatic]}>
+      <BoldText>
+        <SaveIconWhenSaved talk={item} />
+        {item.title}
+      </BoldText>
+
+      {item.speakers
+        ? item.speakers.map(speaker => (
+            <SemiBoldText key={speaker.id + item.title}>
+              {speaker.name}
+            </SemiBoldText>
+          ))
+        : null}
+      <RegularText>{item.room}</RegularText>
+    </View>
+  );
+
+  return (
+    <RectButton
+      activeOpacity={0.05}
+      onPress={_handlePress}
+      style={{flex: 1, backgroundColor: '#fff'}}>
+      {content}
+    </RectButton>
+  );
 }
 
-class ScheduleDay extends React.Component {
-  constructor(props) {
-    super(props);
+function ScheduleDay(props) {
+  const schedule = _.find(
+    props.event.groupedSchedule,
+    schedule => schedule.title === props.route.params.day
+  );
+  const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
+  const slotsData = _.map(slotsByTime, (data, time) => {
+    return {data, title: convertUtcDateToEventTimezoneHour(time)};
+  });
 
-    const event = this.props.event;
-    const FullSchedule = event.groupedSchedule;
-    const schedule = _.find(
-      FullSchedule,
-      schedule => schedule.title === this.props.route.params.day
-    );
-
-    const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
-    this.slotsData = _.map(slotsByTime, (data, time) => {
-      return {data, title: convertUtcDateToEventTimezoneHour(time)};
-    });
-  }
-  render() {
-    return (
-      <LoadingPlaceholder>
-        <SectionList
-          renderScrollComponent={props => <ScrollView {...props} />}
-          stickySectionHeadersEnabled={true}
-          renderItem={this._renderItem}
-          renderSectionHeader={this._renderSectionHeader}
-          sections={this.slotsData}
-          keyExtractor={item => _.snakeCase(item.title)}
-          initialNumToRender={10}
-        />
-      </LoadingPlaceholder>
-    );
-  }
-
-  _renderSectionHeader = ({section}) => {
+  const _renderSectionHeader = ({section}) => {
     return (
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
@@ -86,15 +62,29 @@ class ScheduleDay extends React.Component {
     );
   };
 
-  _renderItem = ({item}) => {
-    return <ScheduleRow item={item} onPress={this._handlePressRow} />;
+  const _renderItem = ({item}) => {
+    return <ScheduleRow item={item} onPress={_handlePressRow} />;
   };
 
-  _handlePressRow = item => {
-    this.props.navigation.navigate('Details', {
+  const _handlePressRow = item => {
+    props.navigation.navigate('Details', {
       scheduleSlot: item,
     });
   };
+
+  return (
+    <LoadingPlaceholder>
+      <SectionList
+        renderScrollComponent={props => <ScrollView {...props} />}
+        stickySectionHeadersEnabled={true}
+        renderItem={_renderItem}
+        renderSectionHeader={_renderSectionHeader}
+        sections={slotsData}
+        keyExtractor={item => _.snakeCase(item.title)}
+        initialNumToRender={10}
+      />
+    </LoadingPlaceholder>
+  );
 }
 
 const styles = StyleSheet.create({
