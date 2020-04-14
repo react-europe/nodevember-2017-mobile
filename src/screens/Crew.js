@@ -15,71 +15,58 @@ import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
 import {withData} from '../context/DataContext';
 
-class CrewRow extends React.Component {
-  render() {
-    const {item: crew} = this.props;
+function CrewRow(props) {
+  const {item: crew} = props;
 
-    return (
-      <View style={styles.row}>
-        <View style={styles.rowAvatarContainer}>
-          <FadeIn>
-            <CachedImage
-              source={{uri: crew.avatarUrl}}
-              style={{width: 50, height: 50, borderRadius: 25}}
-            />
-          </FadeIn>
-        </View>
-        <View style={styles.rowData}>
-          <BoldText>
-            {crew.firstName} {crew.lastName}
-          </BoldText>
-          {crew.role ? <SemiBoldText>{crew.role}</SemiBoldText> : null}
-          {crew.twitter && crew.twitter !== '' ? (
-            <TouchableOpacity
-              onPress={() => this._handlePressCrewTwitter(crew.twitter)}>
-              <RegularText>@{crew.twitter}</RegularText>
-            </TouchableOpacity>
-          ) : null}
-        </View>
-      </View>
-    );
-  }
-
-  _handlePressCrewTwitter = async twitter => {
+  const _handlePressCrewTwitter = async twitter => {
     try {
       await Linking.openURL(`twitter://user?screen_name=` + twitter);
     } catch (e) {
       WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
     }
   };
+
+  return (
+    <View style={styles.row}>
+      <View style={styles.rowAvatarContainer}>
+        <FadeIn>
+          <CachedImage
+            source={{uri: crew.avatarUrl}}
+            style={{width: 50, height: 50, borderRadius: 25}}
+          />
+        </FadeIn>
+      </View>
+      <View style={styles.rowData}>
+        <BoldText>
+          {crew.firstName} {crew.lastName}
+        </BoldText>
+        {crew.role ? <SemiBoldText>{crew.role}</SemiBoldText> : null}
+        {crew.twitter && crew.twitter !== '' ? (
+          <TouchableOpacity
+            onPress={() => _handlePressCrewTwitter(crew.twitter)}>
+            <RegularText>@{crew.twitter}</RegularText>
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    </View>
+  );
 }
 
-class Crews extends React.Component {
-  static navigationOptions = {
-    title: 'Crew',
-  };
-  constructor(props) {
-    super(props);
-    const event = this.props.event;
-    this.CrewData = event.collaborators;
-  }
-
-  render() {
-    return (
-      <LoadingPlaceholder>
-        <FlatList
-          renderScrollComponent={props => <ScrollView {...props} />}
-          renderItem={this._renderItem}
-          data={this.CrewData}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </LoadingPlaceholder>
-    );
-  }
-
-  _renderItem = ({item}) => {
+function Crews(props) {
+  const _renderItem = ({item}) => {
     return <CrewRow item={item} />;
   };
+
+  return (
+    <LoadingPlaceholder>
+      <FlatList
+        renderScrollComponent={props => <ScrollView {...props} />}
+        renderItem={_renderItem}
+        data={props.event.collaborators}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </LoadingPlaceholder>
+  );
 }
 
 const styles = StyleSheet.create({
