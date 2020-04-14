@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Platform,
   StyleSheet,
@@ -15,119 +15,103 @@ import MyContacts from '../components/MyContacts';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes} from '../constants';
 
-class Contacts extends React.Component {
-  render() {
-    return (
-      <View style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}>
-          <DeferredContactsContentWithNavigation />
-        </ScrollView>
-      </View>
-    );
-  }
+function Contacts() {
+  return (
+    <View style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
+        <DeferredContactsContentWithNavigation />
+      </ScrollView>
+    </View>
+  );
 }
 
-class DeferredContactsContent extends React.Component {
-  state = {
-    ready: Platform.OS === 'android' ? false : true,
-    tickets: [],
-    contacts: [],
-  };
+function DeferredContactsContent() {
+  const [ready, setReady] = useState(Platform.OS === 'android' ? false : true);
+  const [tickets, setTickets] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  let timer = undefined;
 
-  async getTickets() {
+  async function getTickets() {
     try {
       let value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
       if (value === null) {
         value = '[]';
       }
-      this.setState({contacts: JSON.parse(value)});
+      setContacts(JSON.parse(value));
     } catch (err) {
       console.log(err);
-      this.setState({contacts: []});
+      setContacts([]);
     }
     try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-
-      console.log('GETTING tickets', value);
-      this.setState({tickets: JSON.parse(value)});
-      this.tickets = JSON.parse(value);
+      setTickets(JSON.parse(value));
     } catch (err) {
       console.log(err);
       return [];
     }
   }
 
-  constructor(props) {
-    super(props);
-    this.tickets = [];
-    this.getTickets.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
-      this.getTickets();
+      getTickets();
     });
-    if (this.state.ready) {
+    if (ready) {
       return;
     }
-
-    this.timer = setTimeout(() => {
-      this.setState({ready: true});
+    timer = setTimeout(() => {
+      setReady(true);
     }, 200);
-  }
-  componentWillUnmount() {
-    if (this.timer) {
-      clearTimeout(this.timer);
-      this.timer = 0;
-    }
-  }
-  render() {
-    if (!this.state.ready) {
-      return null;
-    }
-    console.log('state', this.state);
-    const tix = this.state.tickets || [];
-    return (
-      <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
-        <MyContacts
-          contacts={this.state.contacts}
-          tickets={this.state.tickets}
-          style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
-        />
-        {tix && tix.length > 0 ? (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressQRButton}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                {"Scan a contact's QR code"}
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
-        ) : (
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressProfileQRButton}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                You need to scan your ticket first
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
-        )}
-      </AnimatableView>
-    );
-  }
+    return function unmount() {
+      if (timer) {
+        clearTimeout(timer);
+        timer = 0;
+      }
+    };
+  });
 
-  _handlePressQRButton = () => {
+  const _handlePressQRButton = () => {
     this.props.navigation.navigate('QRContactScanner');
   };
 
-  _handlePressProfileQRButton = () => {
+  const _handlePressProfileQRButton = () => {
     this.props.navigation.navigate('QRScanner');
   };
+
+  if (!ready) {
+    return null;
+  }
+  return (
+    <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
+      <MyContacts
+        contacts={contacts}
+        tickets={tickets}
+        style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
+      />
+      {tickets && tickets.length > 0 ? (
+        <ClipBorderRadius>
+          <RectButton
+            style={styles.bigButton}
+            onPress={_handlePressQRButton}
+            underlayColor="#fff">
+            <SemiBoldText style={styles.bigButtonText}>
+              {"Scan a contact's QR code"}
+            </SemiBoldText>
+          </RectButton>
+        </ClipBorderRadius>
+      ) : (
+        <ClipBorderRadius>
+          <RectButton
+            style={styles.bigButton}
+            onPress={_handlePressProfileQRButton}
+            underlayColor="#fff">
+            <SemiBoldText style={styles.bigButtonText}>
+              You need to scan your ticket first
+            </SemiBoldText>
+          </RectButton>
+        </ClipBorderRadius>
+      )}
+    </AnimatableView>
+  );
 }
 
 const DeferredContactsContentWithNavigation = withNavigation(
