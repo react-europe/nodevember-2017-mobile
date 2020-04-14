@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   TouchableOpacity,
   AsyncStorage,
@@ -13,52 +13,38 @@ import {RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 
 const BORDER_RADIUS = 3;
-export class StaffCheckinListRow extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const {item: item} = this.props;
-    return (
-      <TouchableOpacity onPress={this._handleCheckinListPress}>
-        <RectButton
-          activeOpacity={0.05}
-          style={{flex: 1, backgroundColor: '#fff'}}>
-          <View style={styles.row}>
-            {item.name ? (
-              <View>
-                <RegularText>{item.name}</RegularText>
-              </View>
-            ) : null}
-          </View>
-        </RectButton>
-      </TouchableOpacity>
-    );
-  }
-  _handleCheckinListPress = () => {
-    console.log('checkinlist pressed', this.props.item);
-    console.log('checkinlist pressed uuid', this.props.item, this.props.uuid);
-    this.props.navigation.navigate('QRCheckinScanner', {
-      checkinList: this.props.item,
-      uuid: this.props.uuid,
+export function StaffCheckinListRow(props) {
+  const _handleCheckinListPress = () => {
+    props.navigation.navigate('QRCheckinScanner', {
+      checkinList: props.item,
+      uuid: props.uuid,
     });
   };
+  const {item: item} = props;
+  return (
+    <TouchableOpacity onPress={_handleCheckinListPress}>
+      <RectButton
+        activeOpacity={0.05}
+        style={{flex: 1, backgroundColor: '#fff'}}>
+        <View style={styles.row}>
+          {item.name ? (
+            <View>
+              <RegularText>{item.name}</RegularText>
+            </View>
+          ) : null}
+        </View>
+      </RectButton>
+    </TouchableOpacity>
+  );
 }
 
-export default class StaffCheckinLists extends React.Component {
-  static navigationOptions = {
-    title: 'Staff Checkin Lists',
-  };
-  state = {
-    staffCheckinLists: [],
-    uuid: '',
-  };
+export default function StaffCheckinLists(props) {
+  const [staffCheckinLists, setStaffCheckinLists] = useState([]);
+  const [uuid, setUuid] = useState([]);
 
-  async getTickets() {
+  async function getTickets() {
     try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      console.log('tickets', value);
       const json = JSON.parse(value) || [];
       let staffCheckinListsArray = [];
       let uuid = '';
@@ -72,56 +58,51 @@ export default class StaffCheckinLists extends React.Component {
           uuid = ticket.uuid;
         }
       });
-      this.setState({staffCheckinLists: staffCheckinListsArray, uuid: uuid});
-      this.staffCheckinLists = staffCheckinListsArray;
+      setStaffCheckinLists(staffCheckinListsArray);
+      setUuid(uuid);
     } catch (err) {
       console.log(err);
       return [];
     }
   }
 
-  constructor(props) {
-    super(props);
-    this.getTickets();
-  }
+  useEffect(() => {
+    getTickets();
+  }, []);
 
-  render() {
-    const checkinLists = this.state.staffCheckinLists || [];
-    console.log('tickets', checkinLists);
-    return (
-      <LoadingPlaceholder>
-        <FlatList
-          renderScrollComponent={props => <ScrollView {...props} />}
-          renderSectionHeader={this._renderSectionHeader}
-          stickySectionHeadersEnabled={true}
-          data={checkinLists}
-          renderItem={this._renderItem}
-          //<ListItem title={item.lastName} description="Press here to start checking people" icon="folder" key={item.id}/>}
-
-          /**/
-          keyExtractor={item => item.id && item.id.toString()}
-        />
-      </LoadingPlaceholder>
-    );
-  }
-
-  _renderSectionHeader = ({section}) => {
+  const _renderSectionHeader = ({section}) => {
     return (
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
       </View>
     );
   };
-  _renderItem = ({item}) => {
+  const _renderItem = ({item}) => {
     return (
       <StaffCheckinListRow
         item={item}
         id={item.id}
-        uuid={this.state.uuid}
-        navigation={this.props.navigation}
+        uuid={uuid}
+        navigation={props.navigation}
       />
     );
   };
+  const checkinLists = staffCheckinLists || [];
+  return (
+    <LoadingPlaceholder>
+      <FlatList
+        renderScrollComponent={props => <ScrollView {...props} />}
+        renderSectionHeader={_renderSectionHeader}
+        stickySectionHeadersEnabled={true}
+        data={checkinLists}
+        renderItem={_renderItem}
+        //<ListItem title={item.lastName} description="Press here to start checking people" icon="folder" key={item.id}/>}
+
+        /**/
+        keyExtractor={item => item.id && item.id.toString()}
+      />
+    </LoadingPlaceholder>
+  );
 }
 
 const styles = StyleSheet.create({
