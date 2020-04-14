@@ -7,36 +7,35 @@ import {RegularText} from './StyledText';
 import {Colors, FontSizes} from '../constants';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 
-class TicketCard extends React.Component {
-  render() {
-    const {ticket} = this.props;
+function TicketCard(props) {
+  const {ticket} = props;
 
-    return (
-      <Card key={ticket.id}>
-        <CardContent>
-          <Title>This ticket gives you access to:</Title>
-          {ticket.checkinLists.map(ch => (
-            <Title key={ch.id}>✓ {ch.name}</Title>
-          ))}
-          <QRCode style={{flex: 1}} value={ticket.ref} size={300} />
-          <Button onPress={this._handlePress}>Read useful info</Button>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  _handlePress = () => {
-    this.props.navigation.navigate('TicketInstructions', {
-      ticket: this.props.ticket,
+  const _handlePress = () => {
+    props.navigation.navigate('TicketInstructions', {
+      ticket: props.ticket,
     });
   };
-  _renderPlaceholderForNextYear = () => {
+
+  const _renderPlaceholderForNextYear = () => {
     return (
-      <View style={[styles.button, this.props.style]}>
+      <View style={[styles.button, props.style]}>
         <RegularText style={styles.nextYear}>See you in 2019!</RegularText>
       </View>
     );
   };
+
+  return (
+    <Card key={ticket.id}>
+      <CardContent>
+        <Title>ticket gives you access to:</Title>
+        {ticket.checkinLists.map(ch => (
+          <Title key={ch.id}>✓ {ch.name}</Title>
+        ))}
+        <QRCode style={{flex: 1}} value={ticket.ref} size={300} />
+        <Button onPress={_handlePress}>Read useful info</Button>
+      </CardContent>
+    </Card>
+  );
 }
 
 export default withNavigation(TicketCard);
