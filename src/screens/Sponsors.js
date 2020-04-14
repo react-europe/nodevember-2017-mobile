@@ -24,105 +24,78 @@ const ClipBorderRadius = ({children, style}) => {
 
 const BORDER_RADIUS = 3;
 
-class SponsorRow extends React.Component {
-  render() {
-    const {item: sponsor} = this.props;
+function SponsorRow(props) {
+  const {item: sponsor} = props;
 
-    return (
-      <RectButton
-        onPress={this._handlePress}
-        activeOpacity={0.05}
-        style={{flex: 1, backgroundColor: '#fff'}}>
-        <View style={styles.row}>
-          <View
-            style={[
-              styles.rowData,
-              {
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: sponsor.description ? 15 : 5,
-                marginTop: 10,
-              },
-            ]}>
-            <FadeIn placeholderStyle={{borderRadius: 3}}>
-              <CachedImage
-                source={{uri: sponsor.logoUrl}}
-                style={{
-                  width: Layout.window.width / 2,
-                  height: 80,
-                  borderRadius: 0,
-                  resizeMode: 'contain',
-                }}
-              />
-            </FadeIn>
-          </View>
-          {sponsor.description ? (
-            <View style={styles.rowData}>
-              <RegularText style={{marginBottom: 10}}>
-                {sponsor.description}
-              </RegularText>
-            </View>
-          ) : null}
-          <ClipBorderRadius>
-            <RectButton
-              style={styles.bigButton}
-              onPress={this._handlePressJobUrl}
-              underlayColor="#fff">
-              <SemiBoldText style={styles.bigButtonText}>
-                Work with {sponsor.name}
-              </SemiBoldText>
-            </RectButton>
-          </ClipBorderRadius>
+  const _handlePress = () => {
+    WebBrowser.openBrowserAsync(props.item.url);
+  };
+
+  const _handlePressJobUrl = () => {
+    WebBrowser.openBrowserAsync(rops.item.jobUrl);
+  };
+
+  return (
+    <RectButton
+      onPress={_handlePress}
+      activeOpacity={0.05}
+      style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={styles.row}>
+        <View
+          style={[
+            styles.rowData,
+            {
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: sponsor.description ? 15 : 5,
+              marginTop: 10,
+            },
+          ]}>
+          <FadeIn placeholderStyle={{borderRadius: 3}}>
+            <CachedImage
+              source={{uri: sponsor.logoUrl}}
+              style={{
+                width: Layout.window.width / 2,
+                height: 80,
+                borderRadius: 0,
+                resizeMode: 'contain',
+              }}
+            />
+          </FadeIn>
         </View>
-      </RectButton>
-    );
-  }
-
-  _handlePress = () => {
-    WebBrowser.openBrowserAsync(this.props.item.url);
-  };
-
-  _handlePressJobUrl = () => {
-    WebBrowser.openBrowserAsync(this.props.item.jobUrl);
-  };
+        {sponsor.description ? (
+          <View style={styles.rowData}>
+            <RegularText style={{marginBottom: 10}}>
+              {sponsor.description}
+            </RegularText>
+          </View>
+        ) : null}
+        <ClipBorderRadius>
+          <RectButton
+            style={styles.bigButton}
+            onPress={_handlePressJobUrl}
+            underlayColor="#fff">
+            <SemiBoldText style={styles.bigButtonText}>
+              Work with {sponsor.name}
+            </SemiBoldText>
+          </RectButton>
+        </ClipBorderRadius>
+      </View>
+    </RectButton>
+  );
 }
 
-class Sponsors extends React.Component {
-  static navigationOptions = {
-    title: 'Sponsors',
-  };
+function Sponsors(props) {
+  const event = props.event;
+  const SponsorsData = event.sponsors;
+  const SponsorsByLevel = [
+    {title: 'Diamond', data: SponsorsData['diamond']},
+    {title: 'Platinum', data: SponsorsData['platinum']},
+    {title: 'Gold', data: SponsorsData['gold']},
+    {title: 'Partners', data: SponsorsData['partner']},
+  ];
 
-  constructor(props) {
-    super(props);
-
-    const event = this.props.event;
-    const SponsorsData = event.sponsors;
-
-    this.SponsorsByLevel = [
-      {title: 'Diamond', data: SponsorsData['diamond']},
-      {title: 'Platinum', data: SponsorsData['platinum']},
-      {title: 'Gold', data: SponsorsData['gold']},
-      {title: 'Partners', data: SponsorsData['partner']},
-    ];
-  }
-
-  render() {
-    return (
-      <LoadingPlaceholder>
-        <SectionList
-          renderScrollComponent={props => <ScrollView {...props} />}
-          stickySectionHeadersEnabled={true}
-          sections={this.SponsorsByLevel}
-          renderSectionHeader={this._renderSectionHeader}
-          renderItem={this._renderItem}
-          keyExtractor={(item, index) => index.toString()}
-          initialNumToRender={4}
-        />
-      </LoadingPlaceholder>
-    );
-  }
-
-  _renderSectionHeader = ({section}) => {
+  const _renderSectionHeader = ({section}) => {
     return (
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
@@ -130,9 +103,23 @@ class Sponsors extends React.Component {
     );
   };
 
-  _renderItem = ({item}) => {
+  const _renderItem = ({item}) => {
     return <SponsorRow item={item} />;
   };
+
+  return (
+    <LoadingPlaceholder>
+      <SectionList
+        renderScrollComponent={props => <ScrollView {...props} />}
+        stickySectionHeadersEnabled={true}
+        sections={SponsorsByLevel}
+        renderSectionHeader={_renderSectionHeader}
+        renderItem={_renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        initialNumToRender={4}
+      />
+    </LoadingPlaceholder>
+  );
 }
 
 const styles = StyleSheet.create({
