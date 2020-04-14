@@ -9,64 +9,43 @@ import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {withData} from '../context/DataContext';
 
-class SpeakerRow extends React.Component {
-  render() {
-    const {item: speaker} = this.props;
+function SpeakerRow(props) {
+  const {item: speaker} = props;
 
-    return (
-      <RectButton
-        onPress={this._handlePress}
-        activeOpacity={0.05}
-        style={{flex: 1, backgroundColor: '#fff'}}>
-        <View style={styles.row}>
-          <View style={styles.rowAvatarContainer}>
-            <FadeIn>
-              <CachedImage
-                source={{uri: speaker.avatarUrl}}
-                style={{width: 50, height: 50, borderRadius: 25}}
-              />
-            </FadeIn>
-          </View>
-          <View style={styles.rowData}>
-            <BoldText>{speaker.name}</BoldText>
-            {speaker.twitter ? (
-              <SemiBoldText>@{speaker.twitter}</SemiBoldText>
-            ) : null}
-            {speaker.talks && speaker.talks.length > 0 ? (
-              <RegularText>{getSpeakerTalk(speaker).title}</RegularText>
-            ) : null}
-          </View>
-        </View>
-      </RectButton>
-    );
-  }
-
-  _handlePress = () => {
-    this.props.onPress(this.props.item);
+  const _handlePress = () => {
+    props.onPress(props.item);
   };
+
+  return (
+    <RectButton
+      onPress={_handlePress}
+      activeOpacity={0.05}
+      style={{flex: 1, backgroundColor: '#fff'}}>
+      <View style={styles.row}>
+        <View style={styles.rowAvatarContainer}>
+          <FadeIn>
+            <CachedImage
+              source={{uri: speaker.avatarUrl}}
+              style={{width: 50, height: 50, borderRadius: 25}}
+            />
+          </FadeIn>
+        </View>
+        <View style={styles.rowData}>
+          <BoldText>{speaker.name}</BoldText>
+          {speaker.twitter ? (
+            <SemiBoldText>@{speaker.twitter}</SemiBoldText>
+          ) : null}
+          {speaker.talks && speaker.talks.length > 0 ? (
+            <RegularText>{getSpeakerTalk(speaker).title}</RegularText>
+          ) : null}
+        </View>
+      </View>
+    </RectButton>
+  );
 }
 
-class Speakers extends React.Component {
-  static navigationOptions = {
-    title: 'Speakers',
-  };
-
-  render() {
-    return (
-      <LoadingPlaceholder>
-        <SectionList
-          renderScrollComponent={props => <ScrollView {...props} />}
-          stickySectionHeadersEnabled={true}
-          renderItem={this._renderItem}
-          renderSectionHeader={this._renderSectionHeader}
-          sections={[{data: this.props.event.speakers, title: 'Speakers'}]}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </LoadingPlaceholder>
-    );
-  }
-
-  _renderSectionHeader = ({section}) => {
+function Speakers(props) {
+  const _renderSectionHeader = ({section}) => {
     return (
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
@@ -74,13 +53,26 @@ class Speakers extends React.Component {
     );
   };
 
-  _renderItem = ({item}) => {
-    return <SpeakerRow item={item} onPress={this._handlePressRow} />;
+  const _renderItem = ({item}) => {
+    return <SpeakerRow item={item} onPress={_handlePressRow} />;
   };
 
-  _handlePressRow = speaker => {
-    this.props.navigation.navigate('Details', {speaker});
+  const _handlePressRow = speaker => {
+    props.navigation.navigate('Details', {speaker});
   };
+
+  return (
+    <LoadingPlaceholder>
+      <SectionList
+        renderScrollComponent={props => <ScrollView {...props} />}
+        stickySectionHeadersEnabled={true}
+        renderItem={_renderItem}
+        renderSectionHeader={_renderSectionHeader}
+        sections={[{data: props.event.speakers, title: 'Speakers'}]}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </LoadingPlaceholder>
+  );
 }
 
 const styles = StyleSheet.create({
