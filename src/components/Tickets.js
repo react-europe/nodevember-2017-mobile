@@ -4,7 +4,7 @@ import {Title} from 'react-native-paper';
 
 import TicketCard from './TicketCard';
 
-export function Tickets(props) {
+export default function Tickets(props) {
   let tix = props.tickets || [];
 
   /* function _renderDateTime() {

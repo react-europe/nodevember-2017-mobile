@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Platform,
   StyleSheet,
@@ -17,116 +17,88 @@ import Tickets from '../components/Tickets';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes} from '../constants';
 
-class Profile extends React.Component {
-  state = {
-    hasCameraPermission: null,
-  };
-
-  render() {
-    return (
-      <View style={{flex: 1}}>
-        <ScrollView style={{flex: 1}}>
-          <DeferredProfileContentWithNavigation />
-        </ScrollView>
-      </View>
-    );
-  }
+function Profile() {
+  return (
+    <View style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
+        <DeferredProfileContentWithNavigation />
+      </ScrollView>
+    </View>
+  );
 }
 
-class DeferredProfileContent extends React.Component {
-  state = {
-    tickets: [],
-    ready: Platform.OS === 'android' ? false : true,
-  };
+function DeferredProfileContent(props) {
+  const [tickets, setTickets] = useState([]);
+  const [ready, setReady] = useState(Platform.OS === 'android' ? false : true);
 
-  getTickets = async () => {
+  const getTickets = async () => {
     try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
       const tickets = JSON.parse(value);
-      this.setState({tickets});
+      setTickets(tickets);
     } catch (err) {
       console.log(err);
-      return [];
     }
   };
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
-      this.getTickets();
+      getTickets();
     });
-    this.getTickets();
-  }
 
-  componentDidMount() {
-    if (this.state.ready) {
+    if (ready) {
       return;
     }
 
     setTimeout(() => {
-      this.setState({ready: true});
+      setReady(true);
     }, 200);
-  }
+  }, []);
 
-  render() {
-    let tickets = this.state.tickets || [];
-    if (!this.state.ready) {
-      return null;
-    }
-    return (
-      <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
-        <Tickets
-          tickets={this.state.tickets}
-          style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
-        />
-
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={this._handlePressQRButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              {tickets.length > 0
-                ? 'Scan another ticket QR code'
-                : 'Scan your ticket QR code'}
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
-      </AnimatableView>
-    );
-  }
-  _requestCameraPermission = async () => {
+  const _requestCameraPermission = async () => {
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
     let hasCameraPermission = status === 'granted';
-    this.setState({hasCameraPermission});
     return hasCameraPermission;
   };
 
-  _handlePressQRButton = async () => {
-    if (await this._requestCameraPermission()) {
-      this.props.navigation.navigate('QRScanner');
+  const _handlePressQRButton = async () => {
+    if (await _requestCameraPermission()) {
+      props.navigation.navigate('QRScanner');
     } else {
       Alert.alert(
         'You need to manually enable camera permissions in your operating system settings app'
       );
     }
   };
+
+  if (!ready) {
+    return null;
+  }
+  return (
+    <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
+      <Tickets
+        tickets={tickets}
+        style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
+      />
+
+      <ClipBorderRadius>
+        <RectButton
+          style={styles.bigButton}
+          onPress={_handlePressQRButton}
+          underlayColor="#fff">
+          <SemiBoldText style={styles.bigButtonText}>
+            {tickets.length > 0
+              ? 'Scan another ticket QR code'
+              : 'Scan your ticket QR code'}
+          </SemiBoldText>
+        </RectButton>
+      </ClipBorderRadius>
+    </AnimatableView>
+  );
 }
 
 const DeferredProfileContentWithNavigation = withNavigation(
   DeferredProfileContent
-);
-
-const OverscrollView = () => (
-  <View
-    style={{
-      position: 'absolute',
-      top: -400,
-      height: 400,
-      left: 0,
-      right: 0,
-    }}
-  />
 );
 
 const ClipBorderRadius = ({children, style}) => {
