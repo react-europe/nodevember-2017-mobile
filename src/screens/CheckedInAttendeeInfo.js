@@ -1,12 +1,5 @@
-import React from 'react';
-import {
-  Animated,
-  Platform,
-  Text,
-  StyleSheet,
-  View,
-  AsyncStorage,
-} from 'react-native';
+import React, {useState} from 'react';
+import {Animated, Text, StyleSheet, View, AsyncStorage} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 
 import withNavigation from '../utils/withNavigation';
@@ -18,140 +11,91 @@ import {Button, Card, CardContent, Title} from 'react-native-paper';
 import Markdown from 'react-native-markdown-renderer';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
-class CheckedInAttendeeInfo extends React.Component {
-  state = {
-    scrollY: new Animated.Value(0),
-  };
-
-  render() {
-    const {scrollY} = this.state;
-
-    return (
-      <View style={{flex: 1}}>
-        <AnimatedScrollView
-          style={{flex: 1}}
-          contentContainerStyle={{paddingBottom: 20 + Layout.notchHeight / 2}}
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [
-              {
-                nativeEvent: {contentOffset: {y: scrollY}},
-              },
-            ],
-            {useNativeDriver: true}
-          )}>
-          <View
-            style={{
-              backgroundColor: Colors.blue,
-              padding: 10,
-              paddingTop: this.props.headerHeight - 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          />
-
-          <DeferredCheckedInAttendeeInfoContentWithNavigation
-            route={this.props.route}
-          />
-          <OverscrollView />
-        </AnimatedScrollView>
-      </View>
-    );
-  }
-}
-
-class CheckinCard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const {checkins} = this.props;
-    // console.log("props", this.props);
-    // console.log("checkins", checkins);
-    return <Text>Date: {checkins[0].createdAt}</Text>;
-  }
-}
-
-class DeferredCheckedInAttendeeInfoContent extends React.Component {
-  state = {
-    tickets: [],
-    ready: Platform.OS === 'android' ? false : true,
-  };
-  async getTickets() {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      this.setState({tickets: JSON.parse(value)});
-    } catch (err) {
-      console.log(err);
-      return [];
-    }
-  }
-
-  constructor(props) {
-    super(props);
-    this.getTickets();
-  }
-
-  componentDidMount() {
-    if (this.state.ready) {
-      return;
-    }
-
-    setTimeout(() => {
-      this.setState({ready: true});
-      AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef');
-    }, 200);
-  }
-
-  render() {
-    const params = this.props.route.params || {};
-    const checkedInAttendee = params.checkedInAttendee;
-    console.log('params', params);
-    if (!this.state.ready) {
-      return null;
-    }
-
-    return (
-      <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
-        <Gravatar
-          options={{
-            email: checkedInAttendee.email,
-            parameters: {size: '200', d: 'mm'},
-            secure: true,
+function CheckedInAttendeeInfo(props) {
+  const [scrollY] = useState(new Animated.Value(0));
+  return (
+    <View style={{flex: 1}}>
+      <AnimatedScrollView
+        style={{flex: 1}}
+        contentContainerStyle={{paddingBottom: 20 + Layout.notchHeight / 2}}
+        scrollEventThrottle={1}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {contentOffset: {y: scrollY}},
+            },
+          ],
+          {useNativeDriver: true}
+        )}>
+        <View
+          style={{
+            backgroundColor: Colors.blue,
+            padding: 10,
+            paddingTop: props.headerHeight - 10,
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
-          style={styles.roundedProfileImage}
         />
 
-        <Card>
-          <CardContent>
-            <Title>
-              {checkedInAttendee.firstName + ' ' + checkedInAttendee.lastName}{' '}
-            </Title>
-            <Title>Ticket Name: {checkedInAttendee.ticket.name} </Title>
-            <Title>Ticket Ref: {checkedInAttendee.ref} </Title>
-            <Markdown styles={markdownStyles}>
-              {checkedInAttendee.checkinMessage}
-            </Markdown>
-          </CardContent>
-        </Card>
-        <Button
-          raised
-          onPress={() => {
-            AsyncStorage.removeItem(
-              '@MySuperStore2019:lastCheckedInRef'
-            ).then(() => this.props.navigation.goBack());
-          }}>
-          Close
-        </Button>
-        {checkedInAttendee.checkins && checkedInAttendee.checkins.length > 0 ? (
-          <View>
-            <Title>Previous Checkin</Title>
-            <CheckinCard checkins={checkedInAttendee.checkins} />
-          </View>
-        ) : null}
-      </AnimatableView>
-    );
-  }
+        <DeferredCheckedInAttendeeInfoContentWithNavigation
+          route={props.route}
+        />
+        <OverscrollView />
+      </AnimatedScrollView>
+    </View>
+  );
+}
+
+function CheckinCard({checkins}) {
+  // console.log("props", this.props);
+  // console.log("checkins", checkins);
+  return <Text>Date: {checkins[0].createdAt}</Text>;
+}
+
+function DeferredCheckedInAttendeeInfoContent(props) {
+  const params = props.route.params || {};
+  const checkedInAttendee = params.checkedInAttendee;
+
+  return (
+    <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
+      <Gravatar
+        options={{
+          email: checkedInAttendee.email,
+          parameters: {size: '200', d: 'mm'},
+          secure: true,
+        }}
+        style={styles.roundedProfileImage}
+      />
+
+      <Card>
+        <CardContent>
+          <Title>
+            {checkedInAttendee.firstName + ' ' + checkedInAttendee.lastName}{' '}
+          </Title>
+          <Title>Ticket Name: {checkedInAttendee.ticket.name} </Title>
+          <Title>Ticket Ref: {checkedInAttendee.ref} </Title>
+          <Markdown styles={markdownStyles}>
+            {checkedInAttendee.checkinMessage}
+          </Markdown>
+        </CardContent>
+      </Card>
+      <Button
+        raised
+        onPress={() => {
+          AsyncStorage.removeItem(
+            '@MySuperStore2019:lastCheckedInRef'
+          ).then(() => props.navigation.goBack());
+        }}>
+        Close
+      </Button>
+      {checkedInAttendee.checkins && checkedInAttendee.checkins.length > 0 ? (
+        <View>
+          <Title>Previous Checkin</Title>
+          <CheckinCard checkins={checkedInAttendee.checkins} />
+        </View>
+      ) : null}
+    </AnimatableView>
+  );
 }
 
 const DeferredCheckedInAttendeeInfoContentWithNavigation = withNavigation(
