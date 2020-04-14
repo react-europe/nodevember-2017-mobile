@@ -13,66 +13,25 @@ import {
 } from 'react-native-paper';
 import CachedImage from '../components/CachedImage';
 
-class ContactCard extends React.Component {
-  render() {
-    let {contact, onPress} = this.props;
-    const {email} = contact;
-    const bio = this.getContactBio();
+function ContactCard({contact, tickets}) {
+  const bio = getContactBio();
+  const twitter = getContactTwitter(contact);
+
+  const _handlePressTwitterButton = () => {
     const twitter = getContactTwitter(contact);
-    return (
-      <Card>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <GravatarImage style={styles.avatarImage} email={contact.email} />
-          <View style={{flex: 1}}>
-            <CardContent>
-              <Title>{contact.firstName + ' ' + contact.lastName}</Title>
-              {bio === '' ? null : <Paragraph>{bio}</Paragraph>}
-            </CardContent>
-            <CardActions>
-              {twitter !== '' ? (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <CachedImage
-                    source={require('../assets/twitter.png')}
-                    style={{
-                      tintColor: '#00AAE4',
-                      height: 40,
-                      width: 40,
-                      resizeMode: 'cover',
-                    }}
-                  />
-                  <Button compact onPress={this._handlePressTwitterButton}>
-                    <Text>@{twitter}</Text>
-                  </Button>
-                </View>
-              ) : null}
-              <Button onPress={this._handlePressEmailButton}>EMAIL</Button>
-            </CardActions>
-          </View>
-        </View>
-      </Card>
-    );
-  }
-  _handlePressTwitterButton = () => {
-    const twitter = getContactTwitter(this.props.contact);
     openTwitter(twitter);
   };
 
-  _handlePressEmailButton = () => {
-    const contact = this.props.contact;
+  const _handlePressEmailButton = () => {
     const emailTo = contact.email;
-    const {tickets} = this.props;
     let fromName = {firstName: '', lastName: ''};
     if (tickets && tickets[0] && tickets[0].firstName) {
       fromName = tickets[0];
     }
     sendEmail(emailTo, fromName);
   };
-  getContactBio = () => {
-    let contact = this.props.contact;
+
+  const getContactBio = () => {
     let bio = '';
     if (contact) {
       contact.answers.map(answer => {
@@ -83,6 +42,43 @@ class ContactCard extends React.Component {
     }
     return bio;
   };
+
+  return (
+    <Card>
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <GravatarImage style={styles.avatarImage} email={contact.email} />
+        <View style={{flex: 1}}>
+          <CardContent>
+            <Title>{contact.firstName + ' ' + contact.lastName}</Title>
+            {bio === '' ? null : <Paragraph>{bio}</Paragraph>}
+          </CardContent>
+          <CardActions>
+            {twitter !== '' ? (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <CachedImage
+                  source={require('../assets/twitter.png')}
+                  style={{
+                    tintColor: '#00AAE4',
+                    height: 40,
+                    width: 40,
+                    resizeMode: 'cover',
+                  }}
+                />
+                <Button compact onPress={_handlePressTwitterButton}>
+                  <Text>@{twitter}</Text>
+                </Button>
+              </View>
+            ) : null}
+            <Button onPress={_handlePressEmailButton}>EMAIL</Button>
+          </CardActions>
+        </View>
+      </View>
+    </Card>
+  );
 }
 
 export default ContactCard;
