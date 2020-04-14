@@ -1,18 +1,16 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, View, StyleSheet} from 'react-native';
 import * as FileSystem from 'expo-file-system';
-import { Asset } from 'expo-asset';
+import {Asset} from 'expo-asset';
 import sha256 from 'crypto-js/sha256';
 
-export default class CachedImage extends React.Component {
-  state = {
-    source: null,
-  };
+export default function CachedImage(props) {
+  const [source, setSource] = useState(null);
 
-  unmounting = false;
+  let unmounting = false;
 
-  async componentDidMount() {
-    let source = this.props.source;
+  async function fetchPicture() {
+    let source = props.source;
 
     try {
       if (typeof source === 'number') {
@@ -31,24 +29,25 @@ export default class CachedImage extends React.Component {
     } catch (e) {
       console.log(e);
     } finally {
-      if (!this.unmounting) {
-        this.setState({source});
+      if (!unmounting) {
+        setSource(source);
       }
     }
   }
 
-  componentWillUnmount() {
-    this.unmounting = true;
-  }
+  useEffect(() => {
+    fetchPicture();
+    return function unmount() {
+      unmounting = true;
+    };
+  }, []);
 
-  render() {
-    if (this.state.source) {
-      return <Image {...this.props} source={this.state.source} />;
-    } else {
-      let safeImageStyle = {...StyleSheet.flatten(this.props.style)};
-      delete safeImageStyle.tintColor;
-      delete safeImageStyle.resizeMode;
-      return <View style={[{backgroundColor: '#eee'}, safeImageStyle]} />;
-    }
+  if (source) {
+    return <Image {...props} source={source} />;
+  } else {
+    let safeImageStyle = {...StyleSheet.flatten(props.style)};
+    delete safeImageStyle.tintColor;
+    delete safeImageStyle.resizeMode;
+    return <View style={[{backgroundColor: '#eee'}, safeImageStyle]} />;
   }
 }
