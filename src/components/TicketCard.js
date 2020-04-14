@@ -1,11 +1,8 @@
 import React from 'react';
-import {Platform, StyleSheet, View} from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 
 import withNavigation from '../utils/withNavigation';
-import {RegularText} from './StyledText';
-import {Colors, FontSizes} from '../constants';
 
 function TicketCard(props) {
   const {ticket} = props;
@@ -16,13 +13,13 @@ function TicketCard(props) {
     });
   };
 
-  const _renderPlaceholderForNextYear = () => {
+  /* const _renderPlaceholderForNextYear = () => {
     return (
       <View style={[styles.button, props.style]}>
         <RegularText style={styles.nextYear}>See you in 2019!</RegularText>
       </View>
     );
-  };
+  }; */
 
   return (
     <Card key={ticket.id}>
@@ -40,7 +37,7 @@ function TicketCard(props) {
 
 export default withNavigation(TicketCard);
 
-const styles = StyleSheet.create({
+/* const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
   },
@@ -97,4 +94,4 @@ const styles = StyleSheet.create({
       },
     }),
   },
-});
+}); */
