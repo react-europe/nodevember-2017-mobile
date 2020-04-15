@@ -62,25 +62,24 @@ function _updateAsyncStorage() {
 }
 
 export function withSaveState(WrappedComponent) {
-  class ComponentWithSaveState extends React.Component {
-    state = {
-      saved: getSavedStateForTalk(this.props.talk),
-    };
+  function ComponentWithSaveState(props) {
+    const [saved, setSaved] = useState(getSavedStateForTalk(props.talk))
+    let _subscription= undefined;
 
     componentWillMount() {
-      this._subscription = subscribeToUpdates(this.props.talk, saved => {
-        if (saved !== this.state.saved) {
-          this.setState({saved});
+      _subscription = subscribeToUpdates(props.talk, save => {
+        if (save !== saved) {
+          setSaved(save);
         }
       });
     }
 
     componentWillUnmount() {
-      this._subscription.remove();
+      _subscription.remove();
     }
 
     render() {
-      return <WrappedComponent saved={this.state.saved} {...this.props} />;
+      return <WrappedComponent saved={saved} {...props} />;
     }
   }
 
