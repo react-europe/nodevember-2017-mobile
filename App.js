@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {ApolloProvider} from 'react-apollo';
 import {AppLoading, SplashScreen, Updates, Linking} from 'expo';
 import {Asset} from 'expo-asset';
