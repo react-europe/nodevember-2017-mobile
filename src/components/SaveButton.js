@@ -4,33 +4,29 @@ import {Ionicons} from '@expo/vector-icons';
 import {Icons} from '../constants';
 import {toggleSaved, withSaveState} from '../utils/storage';
 
-class SaveButton extends React.Component {
-  render() {
-    const {saved} = this.props;
-
-    return (
-      <BorderlessButton
-        onPress={this._handlePress}
-        style={{
-          alignSelf: 'flex-start',
-          backgroundColor: 'transparent',
-          paddingLeft: 15,
-          paddingRight: 15,
-        }}
-        hitSlop={{left: 30, top: 30, right: 30, bottom: 30}}>
-        <Ionicons
-          name={saved ? Icons.favoriteActive : Icons.favorite}
-          size={25}
-          color="#fff"
-          style={{backgroundColor: 'transparent'}}
-        />
-      </BorderlessButton>
-    );
-  }
-
-  _handlePress = () => {
-    toggleSaved(this.props.talk);
+function SaveButton(props) {
+  const _handlePress = () => {
+    toggleSaved(props.talk);
   };
+
+  return (
+    <BorderlessButton
+      onPress={_handlePress}
+      style={{
+        alignSelf: 'flex-start',
+        backgroundColor: 'transparent',
+        paddingLeft: 15,
+        paddingRight: 15,
+      }}
+      hitSlop={{left: 30, top: 30, right: 30, bottom: 30}}>
+      <Ionicons
+        name={props.saved ? Icons.favoriteActive : Icons.favorite}
+        size={25}
+        color="#fff"
+        style={{backgroundColor: 'transparent'}}
+      />
+    </BorderlessButton>
+  );
 }
 
 export default withSaveState(SaveButton);
