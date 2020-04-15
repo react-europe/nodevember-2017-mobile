@@ -1,47 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, AsyncStorage} from 'react-native';
-import {query} from 'urql';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 import QR_CHECKIN_QUERY from '../../data/qrCheckinQuery';
 
-export default class QRCheckinScannerModalNavigation extends React.Component {
-  state = {
-    checkinList: {name: ''},
-    checkRef: true,
-    uuid: null,
-    loading: false,
-  };
+export default function QRCheckinScannerModalNavigation(props) {
+  const [loading, setLoading] = useState(false);
+  const params = props.route.params;
 
-  constructor(props) {
-    super(props);
+  useEffect(() => {
     AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef');
-  }
+  }, []);
 
-  _delay = async time => {
-    return new Promise(function(resolve) {
-      setTimeout(() => resolve(), time);
-    });
-  };
-
-  componentDidMount() {
-    const params = this.props.route.params || {};
-    const checkinList = params.checkinList;
-    const uuid = params.uuid;
-    console.log('uuid is', uuid);
-    console.log('checkinList is', checkinList);
-    this.setState({
-      uuid: uuid,
-      checkinList: checkinList,
-    });
-  }
-
-  _handleCheckinBarCodeRead = async data => {
-    if (this.state.loading) {
+  const _handleCheckinBarCodeRead = async data => {
+    if (loading) {
       return;
     }
 
-    this.setState({loading: true});
+    setLoading(true);
     try {
       let lastCheckedInRef = await AsyncStorage.getItem(
         '@MySuperStore2019:lastCheckedInRef'
@@ -58,8 +34,8 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
 
       //{ slug: GQL.slug, uuid: data.data };
       let variables = {
-        uuid: this.state.uuid,
-        checkinListId: this.state.checkinList.id,
+        uuid: params.uuid,
+        checkinListId: params.checkinList.id,
         ref: data.data,
       };
 
@@ -68,7 +44,6 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
       //console.log("uuid state is", this.state.uuid);
       //console.log("checkinlist state is", this.state.checkinList);
 
-      console.log('showQRSCanner', this.state.showQRScanner);
       let value = await client.mutate({
         mutation: QR_CHECKIN_QUERY,
         variables: variables,
@@ -87,7 +62,7 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
             'This reference has already been checked today! The person cannot get in as their ticket has already been used by someone else.'
           );
         }
-        this.props.navigation.navigate('CheckedInAttendeeInfo', {
+        props.navigation.navigate('CheckedInAttendeeInfo', {
           checkedInAttendee: value.data.createCheckin,
         });
       }
@@ -95,17 +70,15 @@ export default class QRCheckinScannerModalNavigation extends React.Component {
     } catch (e) {
       console.log(e);
     } finally {
-      this.setState({loading: false});
+      setLoading(false);
     }
   };
 
-  render() {
-    return (
-      <QRScreen
-        loading={this.state.loading}
-        title={`Checking ${this.state.checkinList.name}`}
-        onBarCodeScanned={this._handleCheckinBarCodeRead}
-      />
-    );
-  }
+  return (
+    <QRScreen
+      loading={loading}
+      title={`Checking ${params.checkinList}`}
+      onBarCodeScanned={_handleCheckinBarCodeRead}
+    />
+  );
 }
