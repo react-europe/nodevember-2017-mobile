@@ -77,7 +77,7 @@ export default function QRCheckinScannerModalNavigation(props) {
   return (
     <QRScreen
       loading={loading}
-      title={`Checking ${params.checkinList}`}
+      title={`Checking ${params.checkinList.name}`}
       onBarCodeScanned={_handleCheckinBarCodeRead}
     />
   );
