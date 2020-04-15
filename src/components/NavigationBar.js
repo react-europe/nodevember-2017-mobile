@@ -4,23 +4,15 @@ import Constants from 'expo-constants';
 import {Colors} from '../constants';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
-class NavigationBar extends React.Component {
-  render() {
-    if (this.props.animatedBackgroundOpacity) {
-      return this._renderAnimated();
-    } else {
-      return this._renderStatic();
-    }
-  }
-
-  _renderAnimated = () => {
+function NavigationBar(props) {
+  const _renderAnimated = () => {
     return (
       <>
         <View
           style={[
             styles.navigationBarContainer,
-            {height: this.props.headerHeight},
-            this.props.style,
+            {height: props.headerHeight},
+            props.style,
           ]}
           pointerEvents="none">
           <Animated.View
@@ -28,57 +20,60 @@ class NavigationBar extends React.Component {
               StyleSheet.absoluteFill,
               {
                 backgroundColor: Colors.blue,
-                opacity: this.props.animatedBackgroundOpacity,
+                opacity: props.animatedBackgroundOpacity,
               },
             ]}
           />
         </View>
 
         <View style={styles.navigationBarLeftButton}>
-          {this.props.renderLeftButton && this.props.renderLeftButton()}
+          {props.renderLeftButton && props.renderLeftButton()}
         </View>
 
         <View
           style={[
             styles.navigationBarTitleContainer,
-            {height: this.props.headerHeight},
+            {height: props.headerHeight},
           ]}
           pointerEvents="none">
-          {this.props.renderTitle && this.props.renderTitle()}
+          {props.renderTitle && props.renderTitle()}
         </View>
 
         <View style={styles.navigationBarRightButton}>
-          {this.props.renderRightButton && this.props.renderRightButton()}
+          {props.renderRightButton && props.renderRightButton()}
         </View>
       </>
     );
   };
 
-  _renderStatic = () => {
+  const _renderStatic = () => {
     return (
       <View
-        style={[
-          styles.navigationBarContainer,
-          {height: this.props.headerHeight},
-        ]}>
+        style={[styles.navigationBarContainer, {height: props.headerHeight}]}>
         <View style={styles.navigationBarLeftButton}>
-          {this.props.renderLeftButton && this.props.renderLeftButton()}
+          {props.renderLeftButton && props.renderLeftButton()}
         </View>
 
         <View
           style={[
             styles.navigationBarTitleContainer,
-            {height: this.props.headerHeight},
+            {height: props.headerHeight},
           ]}>
-          {this.props.renderTitle && this.props.renderTitle()}
+          {props.renderTitle && props.renderTitle()}
         </View>
 
         <View style={styles.navigationBarRightButton}>
-          {this.props.renderRightButton && this.props.renderRightButton()}
+          {props.renderRightButton && props.renderRightButton()}
         </View>
       </View>
     );
   };
+
+  if (props.animatedBackgroundOpacity) {
+    return _renderAnimated();
+  } else {
+    return _renderStatic();
+  }
 }
 
 // Didn't want to investigate why I needed to offset this a bit, surely there is a good reason
