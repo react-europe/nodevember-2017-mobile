@@ -40,20 +40,27 @@ function SavedButtonNavigationItem({talk}) {
 
 function Details(props) {
   const [scrollY] = useState(new Animated.Value(0));
+  let _listener = null;
 
   useEffect(() => {
     if (Platform.OS === 'ios') {
-      this._listener = this.state.scrollY.addListener(({value}) => {
+      _listener = scrollY.addListener(({value}) => {
         if (value < -150) {
           Haptic.impact(Haptic.ImpactFeedbackStyle.Medium);
-          this.props.navigation.goBack();
-          if (this._listener) {
-            this.state.scrollY.removeListener(this._listener);
-            this._listener = null;
+          props.navigation.goBack();
+          if (_listener) {
+            scrollY.removeListener(_listener);
+            _listener = null;
           }
         }
       });
     }
+    return function unmount() {
+      if (_listener) {
+        scrollY.removeListener(_listener);
+        _listener = null;
+      }
+    };
   });
 
   /* const _renderTruncatedFooter = handlePress => {
