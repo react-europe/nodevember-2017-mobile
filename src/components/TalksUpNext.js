@@ -1,11 +1,5 @@
-import React from 'react';
-import {
-  ActivityIndicator,
-  Platform,
-  StyleSheet,
-  View,
-  InteractionManager,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, InteractionManager} from 'react-native';
 import {RegularText, SemiBoldText} from './StyledText';
 import TalkCard from './TalkCard';
 import {Colors, FontSizes} from '../constants';
@@ -15,78 +9,28 @@ import {
   conferenceHasEnded,
 } from '../utils';
 
-class TalksUpNext extends React.Component {
-  state = {
-    nextTalks: [],
-    dateTime: null,
-    time: null,
-    fetching: false,
-  };
+function TalksUpNext(props) {
+  const [dateTime, setDateTime] = useState(null);
+  const [nextTalks, setNextTalks] = useState([]);
 
-  componentDidMount() {
-    this._fetchTalks();
+  useState(() => {
     InteractionManager.runAfterInteractions(() => {
-      this._fetchTalks();
+      _fetchTalks();
     });
+  });
+
+  function _fetchTalks() {
+    let nextTalksData = findNextTalksAfterDate(props.event);
+    if (nextTalksData) {
+      setNextTalks(nextTalksData.slice(0, 3));
+      setDateTime(nextTalksData.length ? nextTalksData[0].startDate : '');
+    }
   }
 
-  _fetchTalks = () => {
-    if (this.state.fetching) {
-      return;
-    }
-
-    let nextTalks = findNextTalksAfterDate(this.props.event);
-    if (nextTalks) {
-      this.setState({
-        nextTalks: nextTalks.slice(0, 3),
-        dateTime: nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
-        time: nextTalks && nextTalks.length ? nextTalks[0].startDate : '',
-      });
-    }
-  };
-
-  render() {
-    const {nextTalks} = this.state;
-
-    return (
-      <View style={[{marginHorizontal: 10}, this.props.style]}>
-        <View style={{flexDirection: 'row'}}>
-          <SemiBoldText style={{fontSize: FontSizes.title}}>
-            {conferenceHasEnded() ? 'A great talk from 2019' : 'Coming up next'}
-          </SemiBoldText>
-          {this._maybeRenderActivityIndicator()}
-        </View>
-        {this._renderDateTime()}
-        {nextTalks.map(talk => (
-          <TalkCard
-            key={talk.title}
-            talk={talk}
-            style={{marginTop: 10, marginBottom: 10}}
-          />
-        ))}
-      </View>
-    );
-  }
-
-  _maybeRenderActivityIndicator = () => {
-    if (this.state.fetching) {
-      return (
-        <View style={{marginLeft: 8, marginTop: 3}}>
-          <ActivityIndicator
-            color={Platform.OS === 'android' ? Colors.blue : '#888'}
-          />
-        </View>
-      );
-    }
-  };
-
-  _renderDateTime() {
+  function _renderDateTime() {
     if (conferenceHasEnded()) {
       return null;
     }
-
-    const {dateTime} = this.state;
-
     if (dateTime) {
       return (
         <RegularText style={styles.time}>
@@ -97,6 +41,24 @@ class TalksUpNext extends React.Component {
       // handle after conf thing
     }
   }
+
+  return (
+    <View style={[{marginHorizontal: 10}, props.style]}>
+      <View style={{flexDirection: 'row'}}>
+        <SemiBoldText style={{fontSize: FontSizes.title}}>
+          {conferenceHasEnded() ? 'A great talk from 2019' : 'Coming up next'}
+        </SemiBoldText>
+      </View>
+      {_renderDateTime()}
+      {nextTalks.map(talk => (
+        <TalkCard
+          key={talk.title}
+          talk={talk}
+          style={{marginTop: 10, marginBottom: 10}}
+        />
+      ))}
+    </View>
+  );
 }
 
 export default TalksUpNext;
