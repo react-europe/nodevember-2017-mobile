@@ -1,31 +1,33 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, AsyncStorage} from 'react-native';
 import {Notifications} from 'expo';
 import * as Permissions from 'expo-permissions';
 import QRScreen from './QRScreen';
-import {query} from 'urql';
 import {GQL} from '../../constants';
 
 import client from '../../utils/gqlClient';
 import QR_QUERY from '../../data/qrQuery';
 import UPDATE_PUSH_TOKEN_QUERY from '../../data/updatePushTokenQuery';
 
-export default class QRScannerModalNavigation extends React.Component {
-  state = {
-    loading: false,
-  };
-  async setTickets(tickets) {
+export default function QRScannerModalNavigation(props) {
+  const [loading, setLoading] = useState(false);
+
+  async function setTickets(tickets) {
     try {
       await AsyncStorage.setItem('@MySuperStore2019:tickets', tickets);
-      console.log('set tickets to tickets:');
-      console.log(tickets);
     } catch (err) {
       console.log(err);
       return [];
     }
   }
 
-  async registerForPushNotificationsAsync(uuid) {
+  useEffect(() => {
+    if (props.route.params?.uuid) {
+      _handleBarCodeRead({data: props.route.params.uuid});
+    }
+  });
+
+  async function registerForPushNotificationsAsync(uuid) {
     const {status: existingStatus} = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );
@@ -60,26 +62,15 @@ export default class QRScannerModalNavigation extends React.Component {
     console.log('token', token, uuid);
   }
 
-  constructor(props) {
-    super(props);
-    console.log('navigation props params', this.props.route.params);
-    if (this.props.route.params?.uuid) {
-      this._handleBarCodeRead({data: this.props.route.params.uuid});
-    }
-  }
-
-  _handleBarCodeRead = async data => {
-    if (this.state.loading) {
+  const _handleBarCodeRead = async data => {
+    if (loading) {
       return;
     }
-
-    this.setState({loading: true});
-
+    setLoading(true);
     if (!data || !data.data || data.data === '') {
-      let data = {data: this.props.navigation.state.params.uuid};
+      let data = {data: props.navigation.state.params.uuid};
     }
     let variables = {slug: GQL.slug, uuid: data.data};
-    let navigation = this.props.navigation;
     try {
       let result = await client.query({
         query: QR_QUERY,
@@ -129,29 +120,27 @@ export default class QRScannerModalNavigation extends React.Component {
       if (tickets && tickets !== null && tickets !== []) {
         let stringifiedTickets = JSON.stringify(tickets);
         console.log(stringifiedTickets);
-        await this.setTickets(stringifiedTickets);
-        this.registerForPushNotificationsAsync(variables.uuid);
-        navigation.navigate('Profile');
+        await setTickets(stringifiedTickets);
+        registerForPushNotificationsAsync(variables.uuid);
+        props.navigation.navigate('Profile');
       }
       // expected output: Array [1, 2, 3]
     } catch (e) {
       console.log('failed 1');
       console.log(e);
     } finally {
-      this.setState({loading: false});
+      setLoading(false);
     }
   };
 
-  render() {
-    if (this.props.route.params?.uuid && this.props.route.params?.uuid !== '') {
-      return null;
-    }
-    return (
-      <QRScreen
-        title="Scan your ticket QR code"
-        loading={this.state.loading}
-        onBarCodeScanned={this._handleBarCodeRead}
-      />
-    );
+  if (props.route.params?.uuid && props.route.params?.uuid !== '') {
+    return null;
   }
+  return (
+    <QRScreen
+      title="Scan your ticket QR code"
+      loading={loading}
+      onBarCodeScanned={_handleBarCodeRead}
+    />
+  );
 }
