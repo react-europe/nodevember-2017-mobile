@@ -1,6 +1,5 @@
 import React from 'react';
 import {AsyncStorage} from 'react-native';
-import {query} from 'urql';
 
 import {GQL} from '../../constants';
 import {addContact} from '../../utils';
@@ -9,9 +8,8 @@ import QRScreen from './QRScreen';
 import {saveNewContact} from '../../utils/storage';
 import QR_CONTACT_QUERY from '../../data/qrContactQuery';
 
-export default class QRContactScannerModalNavigation extends React.Component {
-  _handleContactBarCodeRead = async data => {
-    let navigation = this.props.navigation;
+export default function QRContactScannerModalNavigation(props) {
+  const _handleContactBarCodeRead = async data => {
     const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
     let tickets = JSON.parse(value) || [];
     let uuid = '';
@@ -28,19 +26,12 @@ export default class QRContactScannerModalNavigation extends React.Component {
         query: QR_CONTACT_QUERY,
         variables: variables,
       });
-      if (
-        scannedContact &&
-        scannedContact.data &&
-        scannedContact.data.events &&
-        scannedContact.data.events[0] &&
-        scannedContact.data.events[0].attendees &&
-        scannedContact.data.events[0].attendees[0]
-      ) {
+      if (scannedContact?.data?.events[0]?.attendees[0]) {
         let contact = scannedContact.data.events[0].attendees[0];
         console.log('new contact', contact);
         console.log('new contact query', QR_CONTACT_QUERY);
         console.log('new contact query variables', variables);
-        saveNewContact(contact, navigation);
+        saveNewContact(contact, props.navigation);
       }
     });
     let variables = {slug: GQL.slug, uuid: uuid, q: contactRef};
@@ -48,26 +39,17 @@ export default class QRContactScannerModalNavigation extends React.Component {
       query: QR_CONTACT_QUERY,
       variables: variables,
     });
-    if (
-      scannedContact &&
-      scannedContact.data &&
-      scannedContact.data.events &&
-      scannedContact.data.events[0] &&
-      scannedContact.data.events[0].attendees &&
-      scannedContact.data.events[0].attendees[0]
-    ) {
+    if (scannedContact?.data?.events[0]?.attendees[0]) {
       let contact = scannedContact.data.events[0].attendees[0];
       await addContact(contact);
-      navigation.navigate('Contacts');
+      props.navigation.navigate('Contacts');
     }
   };
 
-  render() {
-    return (
-      <QRScreen
-        title="Scan a badge's QR code"
-        onBarCodeScanned={this._handleContactBarCodeRead}
-      />
-    );
-  }
+  return (
+    <QRScreen
+      title="Scan a badge's QR code"
+      onBarCodeScanned={_handleContactBarCodeRead}
+    />
+  );
 }
