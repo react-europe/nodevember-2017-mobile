@@ -25,7 +25,7 @@ function Contacts() {
   );
 }
 
-function DeferredContactsContent() {
+function DeferredContactsContent(props) {
   const [ready, setReady] = useState(Platform.OS === 'android' ? false : true);
   const [tickets, setTickets] = useState([]);
   const [contacts, setContacts] = useState([]);
@@ -67,14 +67,14 @@ function DeferredContactsContent() {
         timer = 0;
       }
     };
-  });
+  }, []);
 
   const _handlePressQRButton = () => {
-    this.props.navigation.navigate('QRContactScanner');
+    props.navigation.navigate('QRContactScanner');
   };
 
   const _handlePressProfileQRButton = () => {
-    this.props.navigation.navigate('QRScanner');
+    props.navigation.navigate('QRScanner');
   };
 
   if (!ready) {

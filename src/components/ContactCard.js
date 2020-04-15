@@ -31,7 +31,7 @@ function ContactCard({contact, tickets}) {
     sendEmail(emailTo, fromName);
   };
 
-  const getContactBio = () => {
+  function getContactBio() {
     let bio = '';
     if (contact) {
       contact.answers.map(answer => {
@@ -41,7 +41,7 @@ function ContactCard({contact, tickets}) {
       });
     }
     return bio;
-  };
+  }
 
   return (
     <Card>
