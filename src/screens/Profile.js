@@ -87,7 +87,7 @@ function DeferredProfileContent(props) {
           onPress={_handlePressQRButton}
           underlayColor="#fff">
           <SemiBoldText style={styles.bigButtonText}>
-            {tickets.length > 0
+            {tickets && tickets.length > 0
               ? 'Scan another ticket QR code'
               : 'Scan your ticket QR code'}
           </SemiBoldText>

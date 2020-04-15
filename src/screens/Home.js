@@ -246,11 +246,13 @@ function DeferredHomeContent(props) {
     return null;
   }
   let isStaff = false;
-  tickets.map(ticket => {
-    if (ticket && (ticket.type === 4 || ticket.canCheckin)) {
-      isStaff = true;
-    }
-  });
+  if (tickets) {
+    tickets.map(ticket => {
+      if (ticket && (ticket.type === 4 || ticket.canCheckin)) {
+        isStaff = true;
+      }
+    });
+  }
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
       {isStaff ? (
@@ -265,7 +267,7 @@ function DeferredHomeContent(props) {
           </RectButton>
         </ClipBorderRadius>
       ) : null}
-      {tickets && tickets.length === 0 ? (
+      {!tickets ? (
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
@@ -315,7 +317,7 @@ function DeferredHomeContent(props) {
           </RectButton>
         </ClipBorderRadius>
       ) : null}
-      {tickets && tickets.length === 0 ? (
+      {!tickets ? (
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
