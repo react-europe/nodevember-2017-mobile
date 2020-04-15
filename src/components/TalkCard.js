@@ -10,68 +10,65 @@ import {BoldText, RegularText, SemiBoldText} from './StyledText';
 import {conferenceHasEnded} from '../utils';
 import {Colors, FontSizes} from '../constants';
 
-class TalkCard extends React.Component {
-  render() {
-    const {talk} = this.props;
-    const speakers = talk.speakers;
+function TalkCard({style, navigation, talk}) {
+  const speakers = talk.speakers;
 
-    if (conferenceHasEnded() && (!speakers || speakers.length === 0)) {
-      return this._renderPlaceholderForNextYear();
-    }
-
-    // console.log(speakers);
-
-    return (
-      <RectButton
-        onPress={this._handlePress}
-        style={[styles.button, this.props.style]}
-        activeOpacity={0.05}>
-        {speakers.map(speaker => (
-          <View style={styles.headerRow} key={speaker.id}>
-            <View style={styles.headerRowAvatarContainer}>
-              <FadeIn>
-                <CachedImage
-                  source={{uri: speaker.avatarUrl}}
-                  style={{width: 40, height: 40, borderRadius: 20}}
-                />
-              </FadeIn>
-            </View>
-            <View style={styles.headerRowInfoContainer}>
-              <BoldText style={styles.speakerName} numberOfLines={1}>
-                {speaker.name}
-              </BoldText>
-              {speaker.twitter ? (
-                <SemiBoldText style={styles.organizationName} numberOfLines={1}>
-                  @{speaker.twitter}
-                </SemiBoldText>
-              ) : null}
-            </View>
-          </View>
-        ))}
-        <View style={styles.talkInfoRow}>
-          <RegularText style={styles.talkTitle}>
-            <SaveIconWhenSaved talk={talk} />
-            {talk.title}
-          </RegularText>
-          {conferenceHasEnded() || !talk.room ? null : (
-            <RegularText style={styles.talkLocation}>{talk.room}</RegularText>
-          )}
-        </View>
-      </RectButton>
-    );
+  if (conferenceHasEnded() && (!speakers || speakers.length === 0)) {
+    return _renderPlaceholderForNextYear();
   }
 
-  _handlePress = () => {
-    this.props.navigation.navigate('Details', {talk: this.props.talk});
+  // console.log(speakers);
+
+  const _handlePress = () => {
+    navigation.navigate('Details', {talk: talk});
   };
 
-  _renderPlaceholderForNextYear = () => {
+  const _renderPlaceholderForNextYear = () => {
     return (
-      <View style={[styles.button, this.props.style]}>
+      <View style={[styles.button, style]}>
         <RegularText style={styles.nextYear}>See you in 2019!</RegularText>
       </View>
     );
   };
+
+  return (
+    <RectButton
+      onPress={_handlePress}
+      style={[styles.button, style]}
+      activeOpacity={0.05}>
+      {speakers.map(speaker => (
+        <View style={styles.headerRow} key={speaker.id}>
+          <View style={styles.headerRowAvatarContainer}>
+            <FadeIn>
+              <CachedImage
+                source={{uri: speaker.avatarUrl}}
+                style={{width: 40, height: 40, borderRadius: 20}}
+              />
+            </FadeIn>
+          </View>
+          <View style={styles.headerRowInfoContainer}>
+            <BoldText style={styles.speakerName} numberOfLines={1}>
+              {speaker.name}
+            </BoldText>
+            {speaker.twitter ? (
+              <SemiBoldText style={styles.organizationName} numberOfLines={1}>
+                @{speaker.twitter}
+              </SemiBoldText>
+            ) : null}
+          </View>
+        </View>
+      ))}
+      <View style={styles.talkInfoRow}>
+        <RegularText style={styles.talkTitle}>
+          <SaveIconWhenSaved talk={talk} />
+          {talk.title}
+        </RegularText>
+        {conferenceHasEnded() || !talk.room ? null : (
+          <RegularText style={styles.talkLocation}>{talk.room}</RegularText>
+        )}
+      </View>
+    </RectButton>
+  );
 }
 
 export default withNavigation(TalkCard);
