@@ -25,7 +25,7 @@ export default function QRScannerModalNavigation(props) {
     if (props.route.params?.uuid) {
       _handleBarCodeRead({data: props.route.params.uuid});
     }
-  });
+  }, []);
 
   async function registerForPushNotificationsAsync(uuid) {
     const {status: existingStatus} = await Permissions.getAsync(

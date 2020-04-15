@@ -61,7 +61,7 @@ function Details(props) {
         _listener = null;
       }
     };
-  });
+  }, []);
 
   /* const _renderTruncatedFooter = handlePress => {
     return (
