@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {AsyncStorage} from 'react-native';
 import {EventEmitter} from 'fbemitter';
 import _ from 'lodash';
@@ -63,24 +63,21 @@ function _updateAsyncStorage() {
 
 export function withSaveState(WrappedComponent) {
   function ComponentWithSaveState(props) {
-    const [saved, setSaved] = useState(getSavedStateForTalk(props.talk))
-    let _subscription= undefined;
+    const [saved, setSaved] = useState(getSavedStateForTalk(props.talk));
+    let _subscription = undefined;
 
-    componentWillMount() {
+    useEffect(() => {
       _subscription = subscribeToUpdates(props.talk, save => {
         if (save !== saved) {
           setSaved(save);
         }
       });
-    }
+      return function unmount() {
+        _subscription.remove();
+      };
+    }, []);
 
-    componentWillUnmount() {
-      _subscription.remove();
-    }
-
-    render() {
-      return <WrappedComponent saved={saved} {...props} />;
-    }
+    return <WrappedComponent saved={saved} {...props} />;
   }
 
   return ComponentWithSaveState;
