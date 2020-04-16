@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Platform,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
+import {useFocusEffect} from '@react-navigation/native';
 
 import withNavigation from '../utils/withNavigation';
 import MyContacts from '../components/MyContacts';
@@ -29,7 +30,6 @@ function DeferredContactsContent(props) {
   const [ready, setReady] = useState(Platform.OS === 'android' ? false : true);
   const [tickets, setTickets] = useState([]);
   const [contacts, setContacts] = useState([]);
-  let timer = undefined;
 
   async function getTickets() {
     try {
@@ -49,25 +49,18 @@ function DeferredContactsContent(props) {
       console.log(err);
       return [];
     }
+    if (!ready) {
+      setReady(true);
+    }
   }
 
-  useEffect(() => {
-    InteractionManager.runAfterInteractions(() => {
-      getTickets();
-    });
-    if (ready) {
-      return;
-    }
-    timer = setTimeout(() => {
-      setReady(true);
-    }, 200);
-    return function unmount() {
-      if (timer) {
-        clearTimeout(timer);
-        timer = 0;
-      }
-    };
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      InteractionManager.runAfterInteractions(() => {
+        getTickets();
+      });
+    }, [])
+  );
 
   const _handlePressQRButton = () => {
     props.navigation.navigate('QRContactScanner');
