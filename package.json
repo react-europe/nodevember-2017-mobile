@@ -43,7 +43,6 @@
     "moment": "2.21.0",
     "moment-timezone": "^0.5.14",
     "path": "^0.12.7",
-    "prettier": "^1.11.1",
     "react": "16.9.0",
     "react-apollo": "^2.1.4",
     "react-dom": "~16.9.0",
@@ -67,14 +66,18 @@
   "devDependencies": {
     "@types/react": "^16.9.34",
     "@types/react-native": "^0.62.2",
-    "babel-eslint": "^8.1.1",
+    "@typescript-eslint/eslint-plugin": "^2.28.0",
+    "@typescript-eslint/parser": "^2.28.0",
     "babel-plugin-transform-remove-console": "^6.9.1",
-    "eslint": "^4.5.0",
-    "eslint-plugin-react": "^7.3.0",
-    "eslint-plugin-react-native": "^3.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-universe": "^3.0.0",
     "jest-expo": "^36.0.0",
+    "prettier": "^2.0.4",
     "react-devtools": "^3.0.0",
     "react-test-renderer": "16.8.3",
     "typescript": "^3.8.3"
+  },
+  "eslintConfig": {
+    "extends": "universe/native"
   }
 }
