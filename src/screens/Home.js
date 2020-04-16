@@ -13,7 +13,7 @@ import {
 import {Notifications} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
 import {RectButton} from 'react-native-gesture-handler';
-import {CommonActions} from '@react-navigation/native';
+import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Ionicons} from '@expo/vector-icons';
 
@@ -169,11 +169,16 @@ function DeferredHomeContent(props) {
     setReady(true);
   }
 
+  useFocusEffect(
+    React.useCallback(() => {
+      InteractionManager.runAfterInteractions(() => {
+        getTickets();
+      });
+    }, [])
+  );
+
   useEffect(() => {
     _notificationSubscription = Notifications.addListener(_handleNotification);
-    InteractionManager.runAfterInteractions(() => {
-      getTickets();
-    });
     return function unmount() {
       if (_notificationSubscription) {
         _notificationSubscription.remove();
