@@ -65,6 +65,8 @@
     "urql": "^0.2.0"
   },
   "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-native": "^0.62.2",
     "babel-eslint": "^8.1.1",
     "babel-plugin-transform-remove-console": "^6.9.1",
     "eslint": "^4.5.0",
@@ -72,6 +74,7 @@
     "eslint-plugin-react-native": "^3.0.1",
     "jest-expo": "^36.0.0",
     "react-devtools": "^3.0.0",
-    "react-test-renderer": "16.8.3"
+    "react-test-renderer": "16.8.3",
+    "typescript": "^3.8.3"
   }
 }
