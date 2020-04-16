@@ -11,6 +11,7 @@ import {
 import * as Permissions from 'expo-permissions';
 import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
+import {useFocusEffect} from '@react-navigation/native';
 
 import withNavigation from '../utils/withNavigation';
 import Tickets from '../components/Tickets';
@@ -38,22 +39,20 @@ function DeferredProfileContent(props) {
       setTickets(tickets);
     } catch (err) {
       console.log(err);
+    } finally {
+      if (!ready) {
+        setReady(true);
+      }
     }
   };
 
-  useEffect(() => {
-    InteractionManager.runAfterInteractions(() => {
-      getTickets();
-    });
-
-    if (ready) {
-      return;
-    }
-
-    setTimeout(() => {
-      setReady(true);
-    }, 200);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      InteractionManager.runAfterInteractions(() => {
+        getTickets();
+      });
+    }, [])
+  );
 
   const _requestCameraPermission = async () => {
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
