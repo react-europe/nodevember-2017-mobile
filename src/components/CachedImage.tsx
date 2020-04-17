@@ -1,16 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {Image, View, StyleSheet} from 'react-native';
+import {Image, View, StyleSheet, StyleProp, ImageStyle} from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import {Asset} from 'expo-asset';
 import sha256 from 'crypto-js/sha256';
 
-export default function CachedImage(props) {
-  const [source, setSource] = useState(null);
+type Props = {
+  source: {uri: string};
+  style: StyleProp<ImageStyle>;
+};
+
+export default function CachedImage(props: Props) {
+  const [source, setSource] = useState<{uri: string} | null>(null);
 
   let unmounting = false;
 
   async function fetchPicture() {
-    let source = props.source;
+    let source: {uri: string} = props.source;
 
     try {
       if (typeof source === 'number') {
