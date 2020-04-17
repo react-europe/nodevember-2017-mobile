@@ -4,7 +4,11 @@ import {BorderlessButton} from 'react-native-gesture-handler';
 import {Ionicons} from '@expo/vector-icons';
 import {Layout} from '../constants';
 
-export function MenuButton(props) {
+type Props = {
+  openDrawer: () => void;
+};
+
+export function MenuButton(props: Props) {
   return (
     <BorderlessButton
       onPress={props.openDrawer}
