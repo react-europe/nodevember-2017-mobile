@@ -1,10 +1,17 @@
-import React from 'react';
-import {Text} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
-import {withSaveState} from '../utils/storage';
-import {Icons, Colors} from '../constants';
+import React from 'react';
+import {Text, StyleProp, TextStyle} from 'react-native';
 
-function SaveIconWhenSaved(props) {
+import {Icons, Colors} from '../constants';
+import {Talk} from '../data/data';
+import {withSaveState} from '../utils/storage';
+
+type Props = {
+  saved: Talk;
+  style: StyleProp<TextStyle>;
+};
+
+function SaveIconWhenSaved(props: Props) {
   if (!props.saved) {
     return null;
   }
