@@ -1,7 +1,11 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, StyleProp, TextStyle} from 'react-native';
 
-export function RegularText(props) {
+type Props = {
+  style: StyleProp<TextStyle>;
+};
+
+export function RegularText(props: Props) {
   return (
     <Text
       {...props}
@@ -14,7 +18,7 @@ export function RegularText(props) {
   );
 }
 
-export function SemiBoldText(props) {
+export function SemiBoldText(props: Props) {
   return (
     <Text
       {...props}
@@ -27,7 +31,7 @@ export function SemiBoldText(props) {
   );
 }
 
-export function BoldText(props) {
+export function BoldText(props: Props) {
   return (
     <Text
       {...props}
