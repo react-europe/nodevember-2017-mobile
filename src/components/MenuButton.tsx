@@ -1,7 +1,8 @@
+import {Ionicons} from '@expo/vector-icons';
 import React from 'react';
 import {Platform} from 'react-native';
 import {BorderlessButton} from 'react-native-gesture-handler';
-import {Ionicons} from '@expo/vector-icons';
+
 import {Layout} from '../constants';
 
 type Props = {
