@@ -2,11 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {ActivityIndicator, Platform, View} from 'react-native';
 import {Colors} from '../constants';
 
+type Props = {
+  children: React.ReactNode;
+};
+
 // All this does is briefly render a loading indicator when you
 // first mount a component as a child of this component
-export default function LoadingPlaceholder(props) {
+export default function LoadingPlaceholder(props: Props) {
   const [isReady, setIsReady] = useState(false);
-  let timer = undefined;
+  let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
   useEffect(() => {
     if (!isReady) {
@@ -20,7 +24,6 @@ export default function LoadingPlaceholder(props) {
     return function unmount() {
       if (timer) {
         clearTimeout(timer);
-        timer = 0;
       }
     };
   }, []);
