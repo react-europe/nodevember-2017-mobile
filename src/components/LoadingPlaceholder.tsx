@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator, Platform, View} from 'react-native';
+
 import {Colors} from '../constants';
 
 type Props = {
