@@ -1,11 +1,17 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleProp, ViewStyle} from 'react-native';
 import {Title} from 'react-native-paper';
 
+import {User} from '../data/data';
 import TicketCard from './TicketCard';
 
-export default function Tickets(props) {
-  let tix = props.tickets || [];
+type Props = {
+  tickets: User[];
+  style: StyleProp<ViewStyle>;
+};
+
+export default function Tickets(props: Props) {
+  const tix = props.tickets || [];
 
   /* function _renderDateTime() {
     if (conferenceHasEnded()) {
@@ -28,7 +34,7 @@ export default function Tickets(props) {
   return (
     <View style={[{marginHorizontal: 10}, props.style]}>
       <Title>My Tickets</Title>
-      {tix.map(ticket =>
+      {tix.map((ticket) =>
         ticket ? (
           <TicketCard
             key={ticket.ref}
