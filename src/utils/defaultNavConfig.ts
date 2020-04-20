@@ -1,7 +1,6 @@
 import {Colors} from '../constants';
-import {ProfileScreenRouteProp} from '../navigation/types';
 
-function DefaultStackConfig(route: ProfileScreenRouteProp) {
+function DefaultStackConfig(route) {
   return {
     cardStyle: {
       backgroundColor: '#fafafa',
