@@ -1,14 +1,15 @@
-import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import moment from 'moment';
+import React from 'react';
 
-import Screens from '../screens';
 import {withData} from '../context/DataContext';
+import {ScheduleDay} from '../data/data';
+import Screens from '../screens';
 
 const Tab = createMaterialTopTabNavigator();
 
 function DynamicScheduleNavigation(props) {
-  const fullSchedule = props.event.groupedSchedule;
+  const fullSchedule: ScheduleDay[] = props.event.groupedSchedule;
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -18,10 +19,10 @@ function DynamicScheduleNavigation(props) {
       screenOptions={({route}) => ({
         tabBarLabel: route.name.substring(0, 3).toUpperCase(),
       })}>
-      {fullSchedule.map(day => (
+      {fullSchedule.map((day: ScheduleDay, index: number) => (
         <Tab.Screen
-          key={day.title}
-          name={day.title}
+          key={day.title || index}
+          name={day.title || index.toString()}
           component={Screens.ScheduleDay}
           initialParams={{
             day: day.title,
