@@ -5,9 +5,12 @@ export type ProfileStackParamList = {
   Profile: undefined;
 };
 
-type ProfileScreenRouteProp = RouteProp<ProfileStackParamList, 'Profile'>;
+export type ProfileScreenRouteProp = RouteProp<
+  ProfileStackParamList,
+  'Profile'
+>;
 
-type ProfileScreenNavigationProp = StackNavigationProp<
+export type ProfileScreenNavigationProp = StackNavigationProp<
   ProfileStackParamList,
   'Profile'
 >;
