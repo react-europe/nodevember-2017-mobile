@@ -40,6 +40,32 @@ export type AppProps<T extends keyof AppStackParamList> = {
   navigation: AppNavigationProp<T>;
 };
 
+/** Primary Tab */
+
+export type PrimaryTabParamList = {
+  Home: undefined;
+  Profile: undefined;
+  Schedule: undefined;
+  Contacts: undefined;
+  Menu: undefined;
+};
+
+export type PrimaryTabRouteProp<
+  T extends keyof PrimaryTabParamList
+> = RouteProp<PrimaryTabParamList, T>;
+
+type PrimaryTabNavigationProp<
+  T extends keyof PrimaryTabParamList
+> = CompositeNavigationProp<
+  BottomTabNavigationProp<PrimaryTabParamList, T>,
+  StackNavigationProp<AppStackParamList>
+>;
+
+export type PrimaryTabProps<T extends keyof PrimaryTabParamList> = {
+  route: PrimaryTabRouteProp<T>;
+  navigation: PrimaryTabNavigationProp<T>;
+};
+
 /** Profile */
 
 export type ProfileStackParamList = {
@@ -51,12 +77,12 @@ export type ProfileScreenRouteProp = RouteProp<
   'Profile'
 >;
 
-export type ProfileScreenNavigationProp = StackNavigationProp<
-  ProfileStackParamList,
-  'Profile'
+export type ProfileNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<PrimaryTabParamList, 'Profile'>,
+  PrimaryTabNavigationProp<'Profile'>
 >;
 
 export type ProfileProps = {
   route: ProfileScreenRouteProp;
-  navigation: ProfileScreenNavigationProp;
+  navigation: ProfileNavigationProp;
 };
