@@ -72,10 +72,7 @@ export type ProfileStackParamList = {
   Profile: undefined;
 };
 
-export type ProfileScreenRouteProp = RouteProp<
-  ProfileStackParamList,
-  'Profile'
->;
+export type ProfileRouteProp = RouteProp<ProfileStackParamList, 'Profile'>;
 
 export type ProfileNavigationProp = CompositeNavigationProp<
   StackNavigationProp<ProfileStackParamList, 'Profile'>,
@@ -83,7 +80,7 @@ export type ProfileNavigationProp = CompositeNavigationProp<
 >;
 
 export type ProfileProps = {
-  route: ProfileScreenRouteProp;
+  route: ProfileRouteProp;
   navigation: ProfileNavigationProp;
 };
 
@@ -93,10 +90,7 @@ export type ScheduleStackParamList = {
   Schedule: undefined;
 };
 
-export type ScheduleScreenRouteProp = RouteProp<
-  ScheduleStackParamList,
-  'Schedule'
->;
+export type ScheduleRouteProp = RouteProp<ScheduleStackParamList, 'Schedule'>;
 
 export type ScheduleNavigationProp = CompositeNavigationProp<
   StackNavigationProp<ScheduleStackParamList, 'Schedule'>,
@@ -104,7 +98,7 @@ export type ScheduleNavigationProp = CompositeNavigationProp<
 >;
 
 export type ScheduleProps = {
-  route: ScheduleScreenRouteProp;
+  route: ScheduleRouteProp;
   navigation: ScheduleNavigationProp;
 };
 
@@ -114,10 +108,7 @@ export type ContactStackParamList = {
   Contacts: undefined;
 };
 
-export type ContactScreenRouteProp = RouteProp<
-  ContactStackParamList,
-  'Contacts'
->;
+export type ContactRouteProp = RouteProp<ContactStackParamList, 'Contacts'>;
 
 export type ContactNavigationProp = CompositeNavigationProp<
   StackNavigationProp<ContactStackParamList, 'Contacts'>,
@@ -125,7 +116,7 @@ export type ContactNavigationProp = CompositeNavigationProp<
 >;
 
 export type ContactProps = {
-  route: ContactScreenRouteProp;
+  route: ContactRouteProp;
   navigation: ContactNavigationProp;
 };
 
@@ -140,7 +131,7 @@ export type MenuStackParamList = {
   AttendeeDetail: Attendee;
 };
 
-export type MenuTabRouteProp<T extends keyof MenuStackParamList> = RouteProp<
+export type MenuRouteProp<T extends keyof MenuStackParamList> = RouteProp<
   MenuStackParamList,
   T
 >;
@@ -153,6 +144,27 @@ type MenuNavigationProp<
 >;
 
 export type MenuTabProps<T extends keyof MenuStackParamList> = {
-  route: MenuTabRouteProp<T>;
+  route: MenuRouteProp<T>;
   navigation: MenuNavigationProp<T>;
+};
+
+/** StaffCheckinLists */
+
+export type StaffCheckinListsParamList = {
+  StaffCheckinLists: undefined;
+};
+
+export type StaffCheckinListsRouteProp = RouteProp<
+  StaffCheckinListsParamList,
+  'StaffCheckinLists'
+>;
+
+export type StaffCheckinListsNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<StaffCheckinListsParamList>,
+  StackNavigationProp<AppStackParamList>
+>;
+
+export type StaffCheckinListsProps = {
+  route: StaffCheckinListsRouteProp;
+  navigation: StaffCheckinListsNavigationProp;
 };
