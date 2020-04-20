@@ -1,14 +1,15 @@
-import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
 
-import DefaultStackConfig from '../utils/defaultNavConfig';
 import Screens from '../screens';
+import DefaultStackConfig from '../utils/defaultNavConfig';
 
 const Stack = createStackNavigator();
 
 function ContactsNavigator() {
   return (
-    <Stack.Navigator screenOptions={route => ({...DefaultStackConfig(route)})}>
+    <Stack.Navigator
+      screenOptions={({route}) => ({...DefaultStackConfig(route)})}>
       <Stack.Screen name="Contacts" component={Screens.Contacts} />
     </Stack.Navigator>
   );
