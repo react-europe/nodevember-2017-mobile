@@ -86,3 +86,31 @@ export type ProfileProps = {
   route: ProfileScreenRouteProp;
   navigation: ProfileNavigationProp;
 };
+
+/** Menu */
+
+export type MenuStackParamList = {
+  Menu: undefined;
+  Speakers: undefined;
+  Crew: undefined;
+  Sponsors: undefined;
+  Attendees: undefined;
+  AttendeeDetail: Attendee;
+};
+
+export type MenuTabRouteProp<T extends keyof MenuStackParamList> = RouteProp<
+  MenuStackParamList,
+  T
+>;
+
+type MenuNavigationProp<
+  T extends keyof MenuStackParamList
+> = CompositeNavigationProp<
+  StackNavigationProp<MenuStackParamList, T>,
+  PrimaryTabNavigationProp<'Menu'>
+>;
+
+export type MenuTabProps<T extends keyof MenuStackParamList> = {
+  route: MenuTabRouteProp<T>;
+  navigation: MenuNavigationProp<T>;
+};
