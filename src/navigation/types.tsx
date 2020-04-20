@@ -54,7 +54,7 @@ export type PrimaryTabRouteProp<
   T extends keyof PrimaryTabParamList
 > = RouteProp<PrimaryTabParamList, T>;
 
-type PrimaryTabNavigationProp<
+export type PrimaryTabNavigationProp<
   T extends keyof PrimaryTabParamList
 > = CompositeNavigationProp<
   BottomTabNavigationProp<PrimaryTabParamList, T>,
