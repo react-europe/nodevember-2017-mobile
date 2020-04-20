@@ -1,11 +1,11 @@
-import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import React from 'react';
 
 import Screens from '../screens';
-import ProfileNavigator from './ProfileNavigator';
 import ContactsNavigator from './ContactsNavigator';
 import MenuNavigator from './MenuNavigator';
+import ProfileNavigator from './ProfileNavigator';
 import ScheduleNavigator from './ScheduleNavigator';
 
 const Tab = createBottomTabNavigator();
