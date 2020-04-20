@@ -7,8 +7,9 @@ import ContactsNavigator from './ContactsNavigator';
 import MenuNavigator from './MenuNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import ScheduleNavigator from './ScheduleNavigator';
+import {PrimaryTabParamList} from './types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<PrimaryTabParamList>();
 
 function PrimaryTabNavigator() {
   return (

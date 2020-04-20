@@ -3,8 +3,9 @@ import React from 'react';
 
 import Screens from '../screens';
 import DefaultStackConfig from '../utils/defaultNavConfig';
+import {ContactStackParamList} from './types';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<ContactStackParamList>();
 
 function ContactsNavigator() {
   return (

@@ -3,8 +3,9 @@ import React from 'react';
 
 import DefaultStackConfig from '../utils/defaultNavConfig';
 import DynamicScheduleNavigation from './DynamicScheduleNavigation';
+import {ScheduleStackParamList} from './types';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<ScheduleStackParamList>();
 
 export default function ScheduleNavigator() {
   return (
