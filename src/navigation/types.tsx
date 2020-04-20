@@ -78,13 +78,34 @@ export type ProfileScreenRouteProp = RouteProp<
 >;
 
 export type ProfileNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<PrimaryTabParamList, 'Profile'>,
+  StackNavigationProp<ProfileStackParamList, 'Profile'>,
   PrimaryTabNavigationProp<'Profile'>
 >;
 
 export type ProfileProps = {
   route: ProfileScreenRouteProp;
   navigation: ProfileNavigationProp;
+};
+
+/** Contacts */
+
+export type ContactStackParamList = {
+  Contacts: undefined;
+};
+
+export type ContactScreenRouteProp = RouteProp<
+  ContactStackParamList,
+  'Contacts'
+>;
+
+export type ContactNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<ContactStackParamList, 'Contacts'>,
+  PrimaryTabNavigationProp<'Contacts'>
+>;
+
+export type ContactProps = {
+  route: ContactScreenRouteProp;
+  navigation: ContactNavigationProp;
 };
 
 /** Menu */
