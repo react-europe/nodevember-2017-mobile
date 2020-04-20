@@ -87,6 +87,27 @@ export type ProfileProps = {
   navigation: ProfileNavigationProp;
 };
 
+/** Schedule */
+
+export type ScheduleStackParamList = {
+  Schedule: undefined;
+};
+
+export type ScheduleScreenRouteProp = RouteProp<
+  ScheduleStackParamList,
+  'Schedule'
+>;
+
+export type ScheduleNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<ScheduleStackParamList, 'Schedule'>,
+  PrimaryTabNavigationProp<'Schedule'>
+>;
+
+export type ScheduleProps = {
+  route: ScheduleScreenRouteProp;
+  navigation: ScheduleNavigationProp;
+};
+
 /** Contacts */
 
 export type ContactStackParamList = {
