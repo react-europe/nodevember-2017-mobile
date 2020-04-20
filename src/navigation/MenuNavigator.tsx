@@ -3,8 +3,9 @@ import React from 'react';
 
 import Screens from '../screens';
 import DefaultStackConfig from '../utils/defaultNavConfig';
+import {MenuStackParamList} from './types';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<MenuStackParamList>();
 
 function MenuNavigator() {
   return (
