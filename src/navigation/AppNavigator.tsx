@@ -1,23 +1,24 @@
-import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
 
+import Screen from '../screens';
+import QRCheckinScannerModalNavigation from '../screens/QRScreens/CheckIn';
+import QRContactScannerModalNavigation from '../screens/QRScreens/Contact';
+import QRScannerModalNavigation from '../screens/QRScreens/Identify';
+import DefaultStackConfig from '../utils/defaultNavConfig';
 import PrimaryTabNavigator from './PrimaryTabNavigator';
 import StaffCheckinListsNavigator from './StaffCheckinListsNavigator';
-import DefaultStackConfig from '../utils/defaultNavConfig';
-import QRScannerModalNavigation from '../screens/QRScreens/Identify';
-import QRContactScannerModalNavigation from '../screens/QRScreens/Contact';
-import QRCheckinScannerModalNavigation from '../screens/QRScreens/CheckIn';
-import Screen from '../screens';
+import {AppStackParamList} from './types';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<AppStackParamList>();
 
 function AppNavigator() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
-      headerMode={'none'}
-      mode={'modal'}
-      screenOptions={route => ({...DefaultStackConfig(route)})}>
+      headerMode="none"
+      mode="modal"
+      screenOptions={({route}) => ({...DefaultStackConfig(route)})}>
       <Stack.Screen name="Home" component={PrimaryTabNavigator} />
       <Stack.Screen name="AttendeeDetail" component={Screen.AttendeeDetail} />
       <Stack.Screen
