@@ -3,7 +3,8 @@ import _ from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {AsyncStorage} from 'react-native';
 
-import {Talk} from '../data/data';
+import {Talk, Attendee} from '../data/data';
+import {PrimaryTabNavigationProp} from '../navigation/types';
 
 type Talks = {[key: string]: Talk};
 
@@ -103,23 +104,24 @@ export const withSaveState = <P extends object>(
   return <Component saved={saved} {...(props as P)} />;
 };
 
-export function saveNewContact(contact, navigation) {
+export function saveNewContact(
+  contact: Attendee,
+  navigation:
+    | PrimaryTabNavigationProp<'Contacts'>
+    | PrimaryTabNavigationProp<'Home'>
+) {
   AsyncStorage.getItem('@MySuperStore2019:contacts').then((storedContacts) => {
-    let contacts = null;
-    let newContacts = [];
+    let contacts: Attendee[] = [];
+    const newContacts: Attendee[] = [];
     let found = false;
     if (storedContacts === null && contact && contact.firstName) {
       contacts = [contact];
-    } else {
+    } else if (storedContacts) {
       const existingContacts = JSON.parse(storedContacts) || [];
-      console.log('how many existing contacts', existingContacts.length);
       existingContacts.map((existingContact) => {
-        console.log('existing contact', existingContact);
         if (
-          existingContact &&
-          existingContact.id &&
-          contact &&
-          contact.id &&
+          existingContact?.id &&
+          contact?.id &&
           existingContact.id === contact.id
         ) {
           found = true;
@@ -128,13 +130,10 @@ export function saveNewContact(contact, navigation) {
           newContacts.push(existingContact);
         }
       });
-      if (!found && contact && contact.id) {
+      if (!found && contact?.id) {
         newContacts.push(contact);
       }
       contacts = newContacts;
-    }
-    if (contacts === [null]) {
-      contacts = [];
     }
     const stringifiedContacts = JSON.stringify(contacts);
     AsyncStorage.setItem('@MySuperStore2019:contacts', stringifiedContacts)
