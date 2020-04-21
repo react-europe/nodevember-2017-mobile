@@ -1,3 +1,4 @@
+import WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
   FlatList,
@@ -8,17 +9,25 @@ import {
 } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import {ScrollView} from 'react-native-gesture-handler';
-import WebBrowser from 'expo-web-browser';
 
-import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
-import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
+import LoadingPlaceholder from '../components/LoadingPlaceholder';
+import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
+import {Collaborator, Event} from '../data/data';
 
-function CrewRow(props) {
+type CrewRowProps = {
+  item: Collaborator;
+};
+
+type CrewProps = {
+  event: Event;
+};
+
+function CrewRow(props: CrewRowProps) {
   const {item: crew} = props;
 
-  const _handlePressCrewTwitter = async twitter => {
+  const _handlePressCrewTwitter = async (twitter) => {
     try {
       await Linking.openURL(`twitter://user?screen_name=` + twitter);
     } catch (e) {
@@ -30,10 +39,12 @@ function CrewRow(props) {
     <View style={styles.row}>
       <View style={styles.rowAvatarContainer}>
         <FadeIn>
-          <CachedImage
-            source={{uri: crew.avatarUrl}}
-            style={{width: 50, height: 50, borderRadius: 25}}
-          />
+          {crew.avatarUrl && (
+            <CachedImage
+              source={{uri: crew.avatarUrl}}
+              style={{width: 50, height: 50, borderRadius: 25}}
+            />
+          )}
         </FadeIn>
       </View>
       <View style={styles.rowData}>
@@ -52,7 +63,7 @@ function CrewRow(props) {
   );
 }
 
-function Crews(props) {
+function Crews(props: CrewProps) {
   const _renderItem = ({item}) => {
     return <CrewRow item={item} />;
   };
@@ -60,7 +71,7 @@ function Crews(props) {
   return (
     <LoadingPlaceholder>
       <FlatList
-        renderScrollComponent={props => <ScrollView {...props} />}
+        renderScrollComponent={(props) => <ScrollView {...props} />}
         renderItem={_renderItem}
         data={props.event.collaborators}
         keyExtractor={(item, index) => index.toString()}

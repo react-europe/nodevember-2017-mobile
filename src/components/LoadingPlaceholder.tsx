@@ -3,13 +3,9 @@ import {ActivityIndicator, Platform, View} from 'react-native';
 
 import {Colors} from '../constants';
 
-type Props = {
-  children: React.ReactNode;
-};
-
 // All this does is briefly render a loading indicator when you
 // first mount a component as a child of this component
-export default function LoadingPlaceholder(props: Props) {
+export default function LoadingPlaceholder(props) {
   const [isReady, setIsReady] = useState(false);
   let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
