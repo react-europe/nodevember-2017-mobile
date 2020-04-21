@@ -23,7 +23,7 @@ export type AppStackParamList = {
   QRCheckinScanner: {uuid: string; checkinList: CheckinList};
   QRContactScanner: undefined;
   StaffCheckinLists: undefined;
-  Details: {speaker: Speaker; talk: Talk; scheduleSlot: Schedule};
+  Details: {talk: Talk; scheduleSlot: Schedule} | {speaker: Speaker};
 };
 
 export type AppRouteProp<T extends keyof AppStackParamList> = RouteProp<
@@ -136,7 +136,7 @@ export type MenuRouteProp<T extends keyof MenuStackParamList> = RouteProp<
   T
 >;
 
-type MenuNavigationProp<
+export type MenuNavigationProp<
   T extends keyof MenuStackParamList
 > = CompositeNavigationProp<
   StackNavigationProp<MenuStackParamList, T>,
