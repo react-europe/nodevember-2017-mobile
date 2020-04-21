@@ -1,15 +1,27 @@
 import React, {useState} from 'react';
 import {Animated, View} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
+import Markdown from 'react-native-markdown-renderer';
+import {Button, Card, CardContent, Title} from 'react-native-paper';
 
-import withNavigation from '../utils/withNavigation';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, Layout} from '../constants';
-import {Button, Card, CardContent, Title} from 'react-native-paper';
-import Markdown from 'react-native-markdown-renderer';
+import {User} from '../data/data';
+import {AppRouteProp, AppNavigationProp} from '../navigation/types';
 import withHeaderHeight from '../utils/withHeaderHeight';
+import withNavigation from '../utils/withNavigation';
 
-function TicketInstructions(props) {
+type TicketInstructionsProps = {
+  route: AppRouteProp<'TicketInstructions'>;
+  headerHeight: number;
+};
+
+type DeferredTicketInstructionsContentProps = {
+  navigation: AppNavigationProp<'TicketInstructions'>;
+  ticketParams: {ticket: User};
+};
+
+function TicketInstructions(props: TicketInstructionsProps) {
   const [scrollY] = useState(new Animated.Value(0));
   return (
     <View style={{flex: 1}}>
@@ -44,19 +56,21 @@ function TicketInstructions(props) {
   );
 }
 
-function DeferredTicketInstructionsContent(props) {
-  const params = props.ticketParams || {};
-  const ticket = params.ticket;
+function DeferredTicketInstructionsContent({
+  navigation,
+  ticketParams,
+}: DeferredTicketInstructionsContentProps) {
+  const ticket = ticketParams.ticket;
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
       <Card>
         <CardContent>
           <Title>{ticket.firstName + ' ' + ticket.lastName} </Title>
           <Title>Ticket Ref: {ticket.ref} </Title>
-          <Markdown styles={markdownStyles}>{ticket.mobileMessage}</Markdown>
+          <Markdown>{ticket.mobileMessage}</Markdown>
         </CardContent>
       </Card>
-      <Button raised onPress={() => props.navigation.goBack()}>
+      <Button raised onPress={() => navigation.goBack()}>
         Close
       </Button>
     </AnimatableView>
@@ -79,9 +93,5 @@ const OverscrollView = () => (
     }}
   />
 );
-
-const markdownStyles = {
-  text: {},
-};
 
 export default withHeaderHeight(TicketInstructions);
