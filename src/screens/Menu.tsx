@@ -1,3 +1,4 @@
+import {Ionicons} from '@expo/vector-icons';
 import React from 'react';
 import {
   View,
@@ -8,27 +9,33 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
-import {Colors, Layout} from '../constants';
-import CachedImage from '../components/CachedImage';
 
-function MenuScreen(props) {
-  function getIconName(key) {
+import CachedImage from '../components/CachedImage';
+import {Colors, Layout} from '../constants';
+import {MenuNavigationProp, MenuStackParamList} from '../navigation/types';
+
+type Props = {
+  navigation: MenuNavigationProp<'Menu'>;
+};
+
+function MenuScreen(props: Props) {
+  function getIconName(key: keyof MenuStackParamList) {
     if (key === 'Speakers') return 'ios-microphone';
     if (key === 'Crew') return 'ios-information-circle';
     if (key === 'Sponsors') return 'ios-beer';
     if (key === 'Attendees') return 'ios-people';
   }
+  const screens: {key: keyof MenuStackParamList}[] = [
+    {key: 'Speakers'},
+    {key: 'Crew'},
+    {key: 'Sponsors'},
+    {key: 'Attendees'},
+  ];
   return (
     <View style={{flex: 1}}>
       <StatusBar barStyle="light-content" />
       <FlatList
-        data={[
-          {key: 'Speakers'},
-          {key: 'Crew'},
-          {key: 'Sponsors'},
-          {key: 'Attendees'},
-        ]}
+        data={screens}
         ListHeaderComponent={() => (
           <View
             style={{
