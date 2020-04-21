@@ -8,11 +8,19 @@ import {
 } from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
-import {FontSizes, Colors} from '../constants';
-import {RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
+import {RegularText} from '../components/StyledText';
+import {FontSizes, Colors} from '../constants';
+import {Event, User, CheckinList} from '../data/data';
+import {AppNavigationProp} from '../navigation/types';
 
 const BORDER_RADIUS = 3;
+
+type Props = {
+  event: Event;
+  navigation: AppNavigationProp<'StaffCheckinLists'>;
+};
+
 export function StaffCheckinListRow(props) {
   const _handleCheckinListPress = () => {
     props.navigation.navigate('QRCheckinScanner', {
@@ -20,7 +28,7 @@ export function StaffCheckinListRow(props) {
       uuid: props.uuid,
     });
   };
-  const {item: item} = props;
+  const {item} = props;
   return (
     <TouchableOpacity onPress={_handleCheckinListPress}>
       <RectButton
@@ -38,23 +46,24 @@ export function StaffCheckinListRow(props) {
   );
 }
 
-export default function StaffCheckinLists(props) {
-  const [staffCheckinLists, setStaffCheckinLists] = useState([]);
-  const [uuid, setUuid] = useState([]);
+export default function StaffCheckinLists(props: Props) {
+  const [staffCheckinLists, setStaffCheckinLists] = useState<CheckinList[]>([]);
+  const [uuid, setUuid] = useState('');
 
   async function getTickets() {
     try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      const json = JSON.parse(value) || [];
-      let staffCheckinListsArray = [];
+      if (!value) {
+        return;
+      }
+      const json: User[] = JSON.parse(value) || [];
+      let staffCheckinListsArray: CheckinList[] = [];
       let uuid = '';
-      json.map(ticket => {
-        if (
-          ticket &&
-          ticket.staffCheckinLists &&
-          ticket.staffCheckinLists.length > 0
-        ) {
+      json.map((ticket) => {
+        if (ticket?.staffCheckinLists && ticket.staffCheckinLists.length > 0) {
           staffCheckinListsArray = ticket.staffCheckinLists;
+        }
+        if (ticket.uuid) {
           uuid = ticket.uuid;
         }
       });
@@ -90,15 +99,15 @@ export default function StaffCheckinLists(props) {
   return (
     <LoadingPlaceholder>
       <FlatList
-        renderScrollComponent={props => <ScrollView {...props} />}
+        renderScrollComponent={(props) => <ScrollView {...props} />}
         renderSectionHeader={_renderSectionHeader}
-        stickySectionHeadersEnabled={true}
+        stickySectionHeadersEnabled
         data={staffCheckinLists}
         renderItem={_renderItem}
         //<ListItem title={item.lastName} description="Press here to start checking people" icon="folder" key={item.id}/>}
 
         /**/
-        keyExtractor={item => item.id && item.id.toString()}
+        keyExtractor={(item) => item.id && item.id.toString()}
       />
     </LoadingPlaceholder>
   );
