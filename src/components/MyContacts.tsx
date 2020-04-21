@@ -1,18 +1,38 @@
 import React from 'react';
-import {Alert, Clipboard, View, StyleSheet} from 'react-native';
+import {
+  Alert,
+  Clipboard,
+  View,
+  StyleSheet,
+  ViewStyle,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 
-import {getContactTwitter} from '../utils';
-import {SemiBoldText} from './StyledText';
-import ContactCard from './ContactCard';
 import {FontSizes, Colors} from '../constants';
+import {User} from '../data/data';
+import {getContactTwitter} from '../utils';
+import ContactCard from './ContactCard';
+import {SemiBoldText} from './StyledText';
 
-export default function MyContacts(props) {
+type Props = {
+  contacts: User[];
+  tickets: User[];
+  style?: StyleProp<ViewStyle>;
+};
+
+type ClipBorderRadiusProps = {
+  style?: StyleProp<TextStyle>;
+  children: React.ReactNode;
+};
+
+export default function MyContacts(props: Props) {
   const contacts = props.contacts;
 
   const _handlePressCopyEmails = () => {
     let contacts = 'first name,last name,email,twitter\n';
-    props.contacts.map(contact => {
+    props.contacts.map((contact) => {
       contacts +=
         contact.firstName +
         ',' +
@@ -43,24 +63,29 @@ export default function MyContacts(props) {
             onPress={_handlePressCopyEmails}
             underlayColor="#fff">
             <SemiBoldText style={styles.bigButtonText}>
-              {'Copy all emails to clipboard'}
+              Copy all emails to clipboard
             </SemiBoldText>
           </RectButton>
         </ClipBorderRadius>
       ) : null}
-      {contacts.map(contact => (
-        <ContactCard
-          key={contact.id + contact.email}
-          contact={contact}
-          tickets={props.tickets}
-          style={{marginTop: 10, marginBottom: 10}}
-        />
-      ))}
+      {contacts.map((contact) => {
+        return (
+          <>
+            {contact?.id && contact?.email && (
+              <ContactCard
+                key={contact.id + contact.email}
+                contact={contact}
+                tickets={props.tickets}
+              />
+            )}
+          </>
+        );
+      })}
     </View>
   );
 }
 
-const ClipBorderRadius = ({children, style}) => {
+const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
   return (
     <View style={[{borderRadius: BORDER_RADIUS, overflow: 'hidden'}, style]}>
       {children}
