@@ -1,17 +1,22 @@
 import React, {useState} from 'react';
 import {Animated, Text, StyleSheet, View, AsyncStorage} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
+import {Gravatar} from 'react-native-gravatar';
+import Markdown from 'react-native-markdown-renderer';
+import {Button, Card, CardContent, Title} from 'react-native-paper';
 
-import withNavigation from '../utils/withNavigation';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, FontSizes, Layout} from '../constants';
-import {Gravatar} from 'react-native-gravatar';
-
-import {Button, Card, CardContent, Title} from 'react-native-paper';
-import Markdown from 'react-native-markdown-renderer';
+import {AppRouteProp, AppProps} from '../navigation/types';
 import withHeaderHeight from '../utils/withHeaderHeight';
+import withNavigation from '../utils/withNavigation';
 
-function CheckedInAttendeeInfo(props) {
+type CheckedInAttendeeInfoProps = {
+  headerHeight: number;
+  route: AppRouteProp<'CheckedInAttendeeInfo'>;
+};
+
+function CheckedInAttendeeInfo(props: CheckedInAttendeeInfoProps) {
   const [scrollY] = useState(new Animated.Value(0));
   return (
     <View style={{flex: 1}}>
@@ -52,7 +57,9 @@ function CheckinCard({checkins}) {
   return <Text>Date: {checkins[0].createdAt}</Text>;
 }
 
-function DeferredCheckedInAttendeeInfoContent(props) {
+function DeferredCheckedInAttendeeInfoContent(
+  props: AppProps<'CheckedInAttendeeInfo'>
+) {
   const params = props.route.params || {};
   const checkedInAttendee = params.checkedInAttendee;
 
@@ -72,11 +79,11 @@ function DeferredCheckedInAttendeeInfoContent(props) {
           <Title>
             {checkedInAttendee.firstName + ' ' + checkedInAttendee.lastName}{' '}
           </Title>
-          <Title>Ticket Name: {checkedInAttendee.ticket.name} </Title>
+          {checkedInAttendee?.ticket?.name && (
+            <Title>Ticket Name: {checkedInAttendee.ticket.name} </Title>
+          )}
           <Title>Ticket Ref: {checkedInAttendee.ref} </Title>
-          <Markdown styles={markdownStyles}>
-            {checkedInAttendee.checkinMessage}
-          </Markdown>
+          <Markdown>{checkedInAttendee.checkinMessage}</Markdown>
         </CardContent>
       </Card>
       <Button
