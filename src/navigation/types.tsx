@@ -23,7 +23,7 @@ export type AppStackParamList = {
   QRCheckinScanner: {uuid: string; checkinList: CheckinList};
   QRContactScanner: undefined;
   StaffCheckinLists: undefined;
-  Details: {talk: Talk; scheduleSlot: Schedule} | {speaker: Speaker};
+  Details: {talk?: Talk; scheduleSlot?: Schedule; speaker?: Speaker};
 };
 
 export type AppRouteProp<T extends keyof AppStackParamList> = RouteProp<

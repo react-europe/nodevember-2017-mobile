@@ -8,7 +8,7 @@ import {toggleSaved, withSaveState} from '../utils/storage';
 
 type Props = {
   talk: Talk;
-  saved: boolean;
+  saved?: boolean;
 };
 
 function SaveButton(props: Props) {

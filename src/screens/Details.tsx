@@ -1,3 +1,6 @@
+import Constants from 'expo-constants';
+import * as Haptic from 'expo-haptics';
+import * as WebBrowser from 'expo-web-browser';
 import React, {useEffect, useState} from 'react';
 import {
   Animated,
@@ -7,25 +10,28 @@ import {
   View,
   Linking,
 } from 'react-native';
-import WebView from 'react-native-webview';
-import * as WebBrowser from 'expo-web-browser';
-import * as Haptic from 'expo-haptics';
-import Constants from 'expo-constants';
-import FadeIn from 'react-native-fade-in-image';
 import {View as AnimatableView} from 'react-native-animatable';
+import FadeIn from 'react-native-fade-in-image';
+import Markdown from 'react-native-markdown-renderer';
+import WebView from 'react-native-webview';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
-import NavigationBar from '../components/NavigationBar';
-import {Colors, FontSizes, Layout} from '../constants';
-import {RegularText, BoldText, SemiBoldText} from '../components/StyledText';
-import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
-import SaveButton from '../components/SaveButton';
 import CachedImage from '../components/CachedImage';
 import CloseButton from '../components/CloseButton';
-import Markdown from 'react-native-markdown-renderer';
+import NavigationBar from '../components/NavigationBar';
+import SaveButton from '../components/SaveButton';
+import {RegularText, BoldText, SemiBoldText} from '../components/StyledText';
+import {Colors, FontSizes, Layout} from '../constants';
+import {Talk} from '../data/data';
+import {AppProps} from '../navigation/types';
+import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
-function SavedButtonNavigationItem({talk}) {
+type Props = {
+  headerHeight: number;
+};
+
+function SavedButtonNavigationItem(props: {talk: Talk}) {
   return (
     <View
       style={{
@@ -33,14 +39,14 @@ function SavedButtonNavigationItem({talk}) {
         paddingTop: Platform.OS === 'android' ? 30 : 0,
         marginTop: Layout.notchHeight > 0 ? -5 : 0,
       }}>
-      <SaveButton talk={talk} />
+      <SaveButton talk={props.talk} />
     </View>
   );
 }
 
-function Details(props) {
+function Details(props: Props & AppProps<'Details'>) {
   const [scrollY] = useState(new Animated.Value(0));
-  let _listener = null;
+  let _listener: string | null = null;
 
   useEffect(() => {
     if (Platform.OS === 'ios') {
@@ -87,11 +93,11 @@ function Details(props) {
     );
   }; */
 
-  const _handlePressSpeaker = speaker => {
+  const _handlePressSpeaker = (speaker) => {
     props.navigation.navigate('Details', {speaker});
   };
 
-  const _handlePressSpeakerTwitter = async twitter => {
+  const _handlePressSpeakerTwitter = async (twitter) => {
     try {
       await Linking.openURL(`twitter://user?screen_name=` + twitter);
     } catch (e) {
@@ -99,7 +105,7 @@ function Details(props) {
     }
   };
 
-  let params = props.route.params || {};
+  const params = props.route.params || {};
   let speaker;
   let speakers;
   let talk;
@@ -174,7 +180,7 @@ function Details(props) {
               {talkScreen ? (
                 <View style={styles.headerRowSpeaker}>
                   {speakers
-                    ? speakers.map(speaker => (
+                    ? speakers.map((speaker) => (
                         <View
                           key={speaker.id}
                           style={styles.headerColumnSpeaker}>
@@ -252,7 +258,7 @@ function Details(props) {
           {talkScreen ? null : (
             <View>
               <SemiBoldText style={styles.sectionHeader}>Bio</SemiBoldText>
-              <Markdown styles={markdownStyles}>{speaker.bio}</Markdown>
+              <Markdown>{speaker.bio}</Markdown>
             </View>
           )}
           {talk ? (
@@ -266,7 +272,7 @@ function Details(props) {
             </SemiBoldText>
           ) : null}
           {talk ? (
-            <Markdown styles={markdownStyles}>
+            <Markdown>
               {talk.description.replace(
                 '**Click here to see covered subjects**',
                 ''
@@ -279,12 +285,12 @@ function Details(props) {
                 {talk.type === 1 ? 'Trainers' : 'Speakers'}
               </SemiBoldText>
 
-              {speakers.map(speaker => (
+              {speakers.map((speaker) => (
                 <View key={speaker.id}>
                   <SemiBoldText key={speaker.id + talk.title}>
                     {speaker.name}
                   </SemiBoldText>
-                  <Markdown styles={markdownStyles}>{speaker.bio}</Markdown>
+                  <Markdown>{speaker.bio}</Markdown>
                 </View>
               ))}
             </View>
@@ -328,9 +334,6 @@ function Details(props) {
     </View>
   );
 }
-const markdownStyles = {
-  // text: {},
-};
 
 const styles = StyleSheet.create({
   container: {},
