@@ -2,14 +2,26 @@ import React from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
-import {getSpeakerTalk} from '../utils';
 
 import CachedImage from '../components/CachedImage';
-import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
+import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
+import {Event, Speaker} from '../data/data';
+import {MenuNavigationProp} from '../navigation/types';
+import {getSpeakerTalk} from '../utils';
 
-function SpeakerRow(props) {
+type SpeakersProps = {
+  event: Event;
+  navigation: MenuNavigationProp<'Speakers'>;
+};
+
+type SpeakerRowProps = {
+  item: Speaker;
+  onPress: (speaker: Speaker) => void;
+};
+
+function SpeakerRow(props: SpeakerRowProps) {
   const {item: speaker} = props;
 
   const _handlePress = () => {
@@ -24,10 +36,12 @@ function SpeakerRow(props) {
       <View style={styles.row}>
         <View style={styles.rowAvatarContainer}>
           <FadeIn>
-            <CachedImage
-              source={{uri: speaker.avatarUrl}}
-              style={{width: 50, height: 50, borderRadius: 25}}
-            />
+            {speaker.avatarUrl && (
+              <CachedImage
+                source={{uri: speaker.avatarUrl}}
+                style={{width: 50, height: 50, borderRadius: 25}}
+              />
+            )}
           </FadeIn>
         </View>
         <View style={styles.rowData}>
@@ -44,7 +58,7 @@ function SpeakerRow(props) {
   );
 }
 
-function Speakers(props) {
+function Speakers(props: SpeakersProps) {
   const _renderSectionHeader = ({section}) => {
     return (
       <View style={styles.sectionHeader}>
@@ -57,15 +71,15 @@ function Speakers(props) {
     return <SpeakerRow item={item} onPress={_handlePressRow} />;
   };
 
-  const _handlePressRow = speaker => {
+  const _handlePressRow = (speaker: Speaker) => {
     props.navigation.navigate('Details', {speaker});
   };
 
   return (
     <LoadingPlaceholder>
       <SectionList
-        renderScrollComponent={props => <ScrollView {...props} />}
-        stickySectionHeadersEnabled={true}
+        renderScrollComponent={(props) => <ScrollView {...props} />}
+        stickySectionHeadersEnabled
         renderItem={_renderItem}
         renderSectionHeader={_renderSectionHeader}
         sections={[{data: props.event.speakers, title: 'Speakers'}]}
