@@ -1,8 +1,5 @@
 import React from 'react';
 import {Text, Platform, StyleSheet, View} from 'react-native';
-import GravatarImage from '../components/GravatarImage';
-import {sendEmail, openTwitter, getContactTwitter} from '../utils';
-import {Colors, FontSizes} from '../constants';
 import {
   Button,
   CardActions,
@@ -11,11 +8,21 @@ import {
   Paragraph,
   Card,
 } from 'react-native-paper';
-import CachedImage from '../components/CachedImage';
 
-function ContactCard({contact, tickets}) {
-  const bio = getContactBio();
-  const twitter = getContactTwitter(contact);
+import CachedImage from '../components/CachedImage';
+import GravatarImage from '../components/GravatarImage';
+import {Colors, FontSizes} from '../constants';
+import {User} from '../data/data';
+import {sendEmail, openTwitter, getContactTwitter} from '../utils';
+
+type Props = {
+  contact: User;
+  tickets: User[];
+};
+
+function ContactCard({contact, tickets}: Props) {
+  const bio: string | null = getContactBio();
+  const twitter: string | null = getContactTwitter(contact);
 
   const _handlePressTwitterButton = () => {
     const twitter = getContactTwitter(contact);
@@ -24,19 +31,22 @@ function ContactCard({contact, tickets}) {
 
   const _handlePressEmailButton = () => {
     const emailTo = contact.email;
-    let fromName = {firstName: '', lastName: ''};
-    if (tickets && tickets[0] && tickets[0].firstName) {
-      fromName = tickets[0];
+    if (tickets[0]?.firstName && tickets[0]?.lastName) {
+      sendEmail(emailTo, {
+        firstName: tickets[0].firstName,
+        lastName: tickets[0].lastName,
+      });
     }
-    sendEmail(emailTo, fromName);
   };
 
   function getContactBio() {
-    let bio = '';
-    if (contact) {
-      contact.answers.map(answer => {
-        if (answer.question && answer.question.id === 56) {
-          bio = answer.value;
+    let bio: string | null = null;
+    if (contact?.answers) {
+      contact.answers.map((answer) => {
+        if (answer?.question?.id && answer.question.id === 56) {
+          if (answer.value) {
+            bio = answer.value;
+          }
         }
       });
     }
@@ -46,14 +56,16 @@ function ContactCard({contact, tickets}) {
   return (
     <Card>
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <GravatarImage style={styles.avatarImage} email={contact.email} />
+        {contact.email && (
+          <GravatarImage style={styles.avatarImage} email={contact.email} />
+        )}
         <View style={{flex: 1}}>
           <CardContent>
             <Title>{contact.firstName + ' ' + contact.lastName}</Title>
-            {bio === '' ? null : <Paragraph>{bio}</Paragraph>}
+            {bio && <Paragraph>{bio}</Paragraph>}
           </CardContent>
           <CardActions>
-            {twitter !== '' ? (
+            {twitter && (
               <View
                 style={{
                   flexDirection: 'row',
@@ -72,8 +84,10 @@ function ContactCard({contact, tickets}) {
                   <Text>@{twitter}</Text>
                 </Button>
               </View>
-            ) : null}
-            <Button onPress={_handlePressEmailButton}>EMAIL</Button>
+            )}
+            {tickets[0]?.firstName && tickets[0]?.lastName && (
+              <Button onPress={_handlePressEmailButton}>EMAIL</Button>
+            )}
           </CardActions>
         </View>
       </View>
