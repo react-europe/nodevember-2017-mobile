@@ -1,16 +1,36 @@
-import React from 'react';
-import {SectionList, StyleSheet, View} from 'react-native';
-import FadeIn from 'react-native-fade-in-image';
 import * as WebBrowser from 'expo-web-browser';
+import React from 'react';
+import {
+  SectionList,
+  StyleSheet,
+  View,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
+import FadeIn from 'react-native-fade-in-image';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
-import {Layout, FontSizes, Colors} from '../constants';
-import {SemiBoldText, RegularText} from '../components/StyledText';
-import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import CachedImage from '../components/CachedImage';
+import LoadingPlaceholder from '../components/LoadingPlaceholder';
+import {SemiBoldText, RegularText} from '../components/StyledText';
+import {Layout, FontSizes, Colors} from '../constants';
 import {withData} from '../context/DataContext';
+import {Event, Sponsor} from '../data/data';
 
-const ClipBorderRadius = ({children, style}) => {
+type SponsorsProps = {
+  event: Event;
+};
+
+type SponsorRowProps = {
+  item: Sponsor;
+};
+
+type ClipBorderRadiusProps = {
+  style?: StyleProp<TextStyle>;
+  children: React.ReactNode;
+};
+
+const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
   return (
     <View
       style={[
@@ -24,15 +44,19 @@ const ClipBorderRadius = ({children, style}) => {
 
 const BORDER_RADIUS = 3;
 
-function SponsorRow(props) {
+function SponsorRow(props: SponsorRowProps) {
   const {item: sponsor} = props;
 
   const _handlePress = () => {
-    WebBrowser.openBrowserAsync(props.item.url);
+    if (props.item.url) {
+      WebBrowser.openBrowserAsync(props.item.url);
+    }
   };
 
   const _handlePressJobUrl = () => {
-    WebBrowser.openBrowserAsync(props.item.jobUrl);
+    if (props.item.jobUrl) {
+      WebBrowser.openBrowserAsync(props.item.jobUrl);
+    }
   };
 
   return (
@@ -52,15 +76,17 @@ function SponsorRow(props) {
             },
           ]}>
           <FadeIn placeholderStyle={{borderRadius: 3}}>
-            <CachedImage
-              source={{uri: sponsor.logoUrl}}
-              style={{
-                width: Layout.window.width / 2,
-                height: 80,
-                borderRadius: 0,
-                resizeMode: 'contain',
-              }}
-            />
+            {sponsor.logoUrl && (
+              <CachedImage
+                source={{uri: sponsor.logoUrl}}
+                style={{
+                  width: Layout.window.width / 2,
+                  height: 80,
+                  borderRadius: 0,
+                  resizeMode: 'contain',
+                }}
+              />
+            )}
           </FadeIn>
         </View>
         {sponsor.description ? (
@@ -85,15 +111,22 @@ function SponsorRow(props) {
   );
 }
 
-function Sponsors(props) {
+function Sponsors(props: SponsorsProps) {
   const event = props.event;
   const SponsorsData = event.sponsors;
-  const SponsorsByLevel = [
-    {title: 'Diamond', data: SponsorsData['diamond']},
-    {title: 'Platinum', data: SponsorsData['platinum']},
-    {title: 'Gold', data: SponsorsData['gold']},
-    {title: 'Partners', data: SponsorsData['partner']},
+  let SponsorsByLevel: {title: string; data: Sponsor}[] = [];
+  const levels = [
+    {title: 'Diamond', key: 'diamond'},
+    {title: 'Platinum', key: 'Platinium'},
+    {title: 'Gold', key: 'gold'},
+    {title: 'Partners', key: 'partner'},
   ];
+  if (SponsorsData) {
+    const tmp = levels.map(({title, key}) => {
+      return {title, data: SponsorsData[key]};
+    });
+    SponsorsByLevel = tmp.filter((sponsor) => sponsor.data !== undefined);
+  }
 
   const _renderSectionHeader = ({section}) => {
     return (
@@ -109,15 +142,17 @@ function Sponsors(props) {
 
   return (
     <LoadingPlaceholder>
-      <SectionList
-        renderScrollComponent={props => <ScrollView {...props} />}
-        stickySectionHeadersEnabled={true}
-        sections={SponsorsByLevel}
-        renderSectionHeader={_renderSectionHeader}
-        renderItem={_renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        initialNumToRender={4}
-      />
+      {SponsorsByLevel.length && (
+        <SectionList
+          renderScrollComponent={(props) => <ScrollView {...props} />}
+          stickySectionHeadersEnabled
+          sections={SponsorsByLevel}
+          renderSectionHeader={_renderSectionHeader}
+          renderItem={_renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          initialNumToRender={4}
+        />
+      )}
     </LoadingPlaceholder>
   );
 }
