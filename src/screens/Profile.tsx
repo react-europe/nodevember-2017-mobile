@@ -1,3 +1,5 @@
+import {useFocusEffect} from '@react-navigation/native';
+import * as Permissions from 'expo-permissions';
 import React, {useState} from 'react';
 import {
   Platform,
@@ -7,16 +9,27 @@ import {
   AsyncStorage,
   InteractionManager,
   Alert,
+  StyleProp,
+  TextStyle,
 } from 'react-native';
-import * as Permissions from 'expo-permissions';
-import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
-import {useFocusEffect} from '@react-navigation/native';
+import {RectButton} from 'react-native-gesture-handler';
 
-import withNavigation from '../utils/withNavigation';
-import Tickets from '../components/Tickets';
 import {SemiBoldText} from '../components/StyledText';
+import Tickets from '../components/Tickets';
 import {Colors, FontSizes} from '../constants';
+import {User} from '../data/data';
+import {PrimaryTabNavigationProp} from '../navigation/types';
+import withNavigation from '../utils/withNavigation';
+
+type DeferredProfileContentProps = {
+  navigation: PrimaryTabNavigationProp<'Profile'>;
+};
+
+type ClipBorderRadiusProps = {
+  style?: StyleProp<TextStyle>;
+  children: React.ReactNode;
+};
 
 function Profile() {
   return (
@@ -28,15 +41,17 @@ function Profile() {
   );
 }
 
-function DeferredProfileContent(props) {
-  const [tickets, setTickets] = useState([]);
-  const [ready, setReady] = useState(Platform.OS === 'android' ? false : true);
+function DeferredProfileContent(props: DeferredProfileContentProps) {
+  const [tickets, setTickets] = useState<User[]>([]);
+  const [ready, setReady] = useState(Platform.OS !== 'android');
 
   const getTickets = async () => {
     try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      const tickets = JSON.parse(value);
-      setTickets(tickets);
+      if (value) {
+        const tickets: User[] = JSON.parse(value);
+        setTickets(tickets);
+      }
     } catch (err) {
       console.log(err);
     } finally {
@@ -56,7 +71,7 @@ function DeferredProfileContent(props) {
 
   const _requestCameraPermission = async () => {
     const {status} = await Permissions.askAsync(Permissions.CAMERA);
-    let hasCameraPermission = status === 'granted';
+    const hasCameraPermission = status === 'granted';
     return hasCameraPermission;
   };
 
@@ -100,7 +115,7 @@ const DeferredProfileContentWithNavigation = withNavigation(
   DeferredProfileContent
 );
 
-const ClipBorderRadius = ({children, style}) => {
+const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
   return (
     <View
       style={[
