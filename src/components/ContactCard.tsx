@@ -22,7 +22,9 @@ type Props = {
 
 function ContactCard({contact, tickets}: Props) {
   const bio: string | null = getContactBio();
-  const twitter: string | null = getContactTwitter(contact);
+  const twitter:
+    | string
+    | null = null; /* TODO: port to TS getContactTwitter(contact) */
 
   const _handlePressTwitterButton = () => {
     const twitter = getContactTwitter(contact);

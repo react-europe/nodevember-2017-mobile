@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function Tickets(props: Props) {
-  const tix = props.tickets || [];
+  const tix: User[] = props.tickets || [];
 
   /* function _renderDateTime() {
     if (conferenceHasEnded()) {
