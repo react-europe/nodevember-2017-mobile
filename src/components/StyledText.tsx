@@ -2,7 +2,8 @@ import React from 'react';
 import {Text, StyleProp, TextStyle} from 'react-native';
 
 type Props = {
-  style: StyleProp<TextStyle>;
+  style?: StyleProp<TextStyle>;
+  children: React.ReactNode;
 };
 
 export function RegularText(props: Props) {
