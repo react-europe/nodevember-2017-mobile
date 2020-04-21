@@ -1,3 +1,7 @@
+import {Ionicons} from '@expo/vector-icons';
+import {CommonActions, useFocusEffect} from '@react-navigation/native';
+import {Notifications} from 'expo';
+import * as WebBrowser from 'expo-web-browser';
 import React, {useEffect, useState} from 'react';
 import {
   Animated,
@@ -9,27 +13,45 @@ import {
   AsyncStorage,
   View,
   InteractionManager,
+  StyleProp,
+  TextStyle,
+  EventSubscription,
 } from 'react-native';
-import {Notifications} from 'expo';
-import * as WebBrowser from 'expo-web-browser';
-import {RectButton} from 'react-native-gesture-handler';
-import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import {View as AnimatableView} from 'react-native-animatable';
-import {Ionicons} from '@expo/vector-icons';
+import {RectButton} from 'react-native-gesture-handler';
 
-import {withNavigation} from '../utils/withNavigation';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import NavigationBar from '../components/NavigationBar';
-import TalksUpNext from '../components/TalksUpNext';
 import {SemiBoldText} from '../components/StyledText';
+import TalksUpNext from '../components/TalksUpNext';
 import {Colors, FontSizes, Layout} from '../constants';
+import {withData} from '../context/DataContext';
+import {Event, User} from '../data/data';
+import {PrimaryTabNavigationProp} from '../navigation/types';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
-import {withData} from '../context/DataContext';
 import withHeaderHeight from '../utils/withHeaderHeight';
+import {withNavigation} from '../utils/withNavigation';
 
-function Home(props) {
-  const [scrollY, setScrollY] = useState(new Animated.Value(0));
+type HomeProps = {
+  navigation: PrimaryTabNavigationProp<'Home'>;
+  event: Event;
+  initialLinkingUri: string;
+  headerHeight: number;
+};
+
+type DeferredHomeContentProps = {
+  navigation: PrimaryTabNavigationProp<'Home'>;
+  event: Event;
+};
+
+type ClipBorderRadiusProps = {
+  style?: StyleProp<TextStyle>;
+  children: React.ReactNode;
+};
+
+function Home(props: HomeProps) {
+  const [scrollY] = useState(new Animated.Value(0));
 
   function checkUuidOnLoad() {
     console.log('checking props initialLinkingUri', props.initialLinkingUri);
@@ -40,7 +62,7 @@ function Home(props) {
       console.log('check uuid from home', uuid);
       if (uuid && uuid !== '') {
         console.log('check uuid from home if', uuid);
-        props.navigation.navigate('QRScanner', {uuid: uuid});
+        props.navigation.navigate('QRScanner', {uuid});
       }
     }
   }
@@ -53,8 +75,8 @@ function Home(props) {
     };
   }, []);
 
-  const _handleRedirect = url => {
-    let {path, queryParams} = Linking.parse(url);
+  const _handleRedirect = (url) => {
+    const {path, queryParams} = Linking.parse(url);
     const uuid = url && url.url ? url.url.split('?uuid=')[1] : '';
     console.log(
       `Linked to app with path: ${path} and data: ${JSON.stringify(
@@ -62,7 +84,7 @@ function Home(props) {
       )} and uuid is ${uuid}`
     );
     if (uuid && uuid !== '') {
-      props.navigation.navigate('QRScanner', {uuid: uuid});
+      props.navigation.navigate('QRScanner', {uuid});
     }
   };
 
@@ -113,7 +135,7 @@ function Home(props) {
               <SemiBoldText style={styles.headerText}>
                 Thank you for joining us!
               </SemiBoldText>
-              <SemiBoldText style={[styles.headerTextSmall, {color: '#fff'}]}>
+              <SemiBoldText style={{color: '#fff'}}>
                 See you in May, 2020!
               </SemiBoldText>
             </ShowWhenConferenceHasEnded>
@@ -154,15 +176,17 @@ function Home(props) {
   );
 }
 
-function DeferredHomeContent(props) {
-  const [ready, setReady] = useState(Platform.OS === 'android' ? false : true);
-  const [tickets, setTickets] = useState([]);
-  let _notificationSubscription = undefined;
+function DeferredHomeContent(props: DeferredHomeContentProps) {
+  const [ready, setReady] = useState(Platform.OS !== 'android');
+  const [tickets, setTickets] = useState<User[]>([]);
+  let _notificationSubscription: EventSubscription | null = null;
 
   async function getTickets() {
     try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      setTickets(JSON.parse(value));
+      if (value) {
+        setTickets(JSON.parse(value));
+      }
     } catch (err) {
       console.log(err);
     }
@@ -186,8 +210,8 @@ function DeferredHomeContent(props) {
     };
   }, []);
 
-  const _handleNotification = notification => {
-    let navigation = props.navigation;
+  const _handleNotification = (notification) => {
+    const navigation = props.navigation;
     if (notification && notification.data && notification.data.action) {
       switch (notification.data.action) {
         case 'newURL':
@@ -195,7 +219,7 @@ function DeferredHomeContent(props) {
           break;
         case 'newContact':
           console.log(notification);
-          let contact = notification.data.data;
+          const contact = notification.data.data;
           saveNewContact(contact, navigation);
           break;
         default:
@@ -213,7 +237,9 @@ function DeferredHomeContent(props) {
   };
 
   const _handlePressCOCButton = () => {
-    WebBrowser.openBrowserAsync(props.event.cocUrl);
+    if (props.event.cocUrl) {
+      WebBrowser.openBrowserAsync(props.event.cocUrl);
+    }
   };
 
   const _handlePressQRButton = () => {
@@ -238,13 +264,17 @@ function DeferredHomeContent(props) {
   };
 
   const _handlePressMapButton = () => {
-    const params = encodeURIComponent(
-      props.event.venueName +
-        props.event.venueCity +
-        ',' +
-        props.event.venueCountry
-    );
-    WebBrowser.openBrowserAsync('https://www.google.com/maps/search/' + params);
+    if (props.event.venueName && props.event.venueCity) {
+      const params = encodeURIComponent(
+        props.event.venueName +
+          props.event.venueCity +
+          ',' +
+          props.event.venueCountry
+      );
+      WebBrowser.openBrowserAsync(
+        'https://www.google.com/maps/search/' + params
+      );
+    }
   };
 
   if (!ready) {
@@ -252,7 +282,7 @@ function DeferredHomeContent(props) {
   }
   let isStaff = false;
   if (tickets) {
-    tickets.map(ticket => {
+    tickets.map((ticket) => {
       if (ticket && (ticket.type === 4 || ticket.canCheckin)) {
         isStaff = true;
       }
@@ -346,27 +376,32 @@ function DeferredHomeContent(props) {
           </RectButton>
         </ClipBorderRadius>
       ) : null}
-      <ClipBorderRadius>
-        <RectButton
-          style={styles.bigButton}
-          onPress={_handlePressCOCButton}
-          underlayColor="#fff">
-          <SemiBoldText style={styles.bigButtonText}>
-            Read the code of conduct
-          </SemiBoldText>
-        </RectButton>
-      </ClipBorderRadius>
+      {props.event.cocUrl && (
+        <ClipBorderRadius>
+          <RectButton
+            style={styles.bigButton}
+            onPress={_handlePressCOCButton}
+            underlayColor="#fff">
+            <SemiBoldText style={styles.bigButtonText}>
+              Read the code of conduct
+            </SemiBoldText>
+          </RectButton>
+        </ClipBorderRadius>
+      )}
 
-      <ClipBorderRadius>
-        <RectButton
-          style={styles.bigButton}
-          onPress={_handlePressMapButton}
-          underlayColor="#fff">
-          <SemiBoldText style={styles.bigButtonText}>
-            {Platform.OS === 'android' ? 'Download' : 'Open'} the conference map
-          </SemiBoldText>
-        </RectButton>
-      </ClipBorderRadius>
+      {props.event.venueName && props.event.venueCity && (
+        <ClipBorderRadius>
+          <RectButton
+            style={styles.bigButton}
+            onPress={_handlePressMapButton}
+            underlayColor="#fff">
+            <SemiBoldText style={styles.bigButtonText}>
+              {Platform.OS === 'android' ? 'Download' : 'Open'} the conference
+              map
+            </SemiBoldText>
+          </RectButton>
+        </ClipBorderRadius>
+      )}
 
       <ClipBorderRadius>
         <RectButton
@@ -407,7 +442,7 @@ const OverscrollView = () => (
   />
 );
 
-const ClipBorderRadius = ({children, style}) => {
+const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
   return (
     <View
       style={[
