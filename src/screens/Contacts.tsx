@@ -1,3 +1,4 @@
+import {useFocusEffect} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   Platform,
@@ -6,15 +7,27 @@ import {
   AsyncStorage,
   View,
   InteractionManager,
+  StyleProp,
+  TextStyle,
 } from 'react-native';
-import {RectButton} from 'react-native-gesture-handler';
 import {View as AnimatableView} from 'react-native-animatable';
-import {useFocusEffect} from '@react-navigation/native';
+import {RectButton} from 'react-native-gesture-handler';
 
-import withNavigation from '../utils/withNavigation';
 import MyContacts from '../components/MyContacts';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes} from '../constants';
+import {User} from '../data/data';
+import {PrimaryTabNavigationProp} from '../navigation/types';
+import withNavigation from '../utils/withNavigation';
+
+type DeferredContactsContentProps = {
+  navigation: PrimaryTabNavigationProp<'Contacts'>;
+};
+
+type ClipBorderRadiusProps = {
+  style?: StyleProp<TextStyle>;
+  children: React.ReactNode;
+};
 
 function Contacts() {
   return (
@@ -26,25 +39,26 @@ function Contacts() {
   );
 }
 
-function DeferredContactsContent(props) {
-  const [ready, setReady] = useState(Platform.OS === 'android' ? false : true);
-  const [tickets, setTickets] = useState([]);
-  const [contacts, setContacts] = useState([]);
+function DeferredContactsContent(props: DeferredContactsContentProps) {
+  const [ready, setReady] = useState(Platform.OS !== 'android');
+  const [tickets, setTickets] = useState<User[]>([]);
+  const [contacts, setContacts] = useState<User[]>([]);
 
   async function getTickets() {
     try {
-      let value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
-      if (value === null) {
-        value = '[]';
+      const value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
+      if (value) {
+        setContacts(JSON.parse(value));
       }
-      setContacts(JSON.parse(value));
     } catch (err) {
       console.log(err);
       setContacts([]);
     }
     try {
       const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      setTickets(JSON.parse(value));
+      if (value) {
+        setTickets(JSON.parse(value));
+      }
     } catch (err) {
       console.log(err);
       return [];
@@ -87,7 +101,7 @@ function DeferredContactsContent(props) {
             onPress={_handlePressQRButton}
             underlayColor="#fff">
             <SemiBoldText style={styles.bigButtonText}>
-              {"Scan a contact's QR code"}
+              Scan a contact's QR code
             </SemiBoldText>
           </RectButton>
         </ClipBorderRadius>
@@ -111,7 +125,7 @@ const DeferredContactsContentWithNavigation = withNavigation(
   DeferredContactsContent
 );
 
-const ClipBorderRadius = ({children, style}) => {
+const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
   return (
     <View style={[{borderRadius: BORDER_RADIUS, overflow: 'hidden'}, style]}>
       {children}
