@@ -69,17 +69,16 @@ export default function MyContacts(props: Props) {
         </ClipBorderRadius>
       ) : null}
       {contacts.map((contact) => {
-        return (
-          <>
-            {contact?.id && contact?.email && (
-              <ContactCard
-                key={contact.id + contact.email}
-                contact={contact}
-                tickets={props.tickets}
-              />
-            )}
-          </>
-        );
+        if (contact?.id && contact?.email) {
+          return (
+            <ContactCard
+              key={contact.id + contact.email}
+              contact={contact}
+              tickets={props.tickets}
+            />
+          );
+        }
+        return null;
       })}
     </View>
   );

@@ -1,10 +1,17 @@
 import React from 'react';
-import QRCode from 'react-native-qrcode-svg';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
+import QRCode from 'react-native-qrcode-svg';
 
+import {User} from '../data/data';
+import {PrimaryTabNavigationProp} from '../navigation/types';
 import withNavigation from '../utils/withNavigation';
 
-function TicketCard(props) {
+type Props = {
+  ticket: User;
+  navigation: PrimaryTabNavigationProp<'Profile'>;
+};
+
+function TicketCard(props: Props) {
   const {ticket} = props;
 
   const _handlePress = () => {
@@ -24,11 +31,18 @@ function TicketCard(props) {
   return (
     <Card key={ticket.id}>
       <CardContent>
-        <Title>ticket gives you access to:</Title>
-        {ticket.checkinLists.map(ch => (
-          <Title key={ch.id}>✓ {ch.name}</Title>
-        ))}
-        <QRCode style={{flex: 1}} value={ticket.ref} size={300} />
+        {ticket.checkinLists && (
+          <>
+            <Title>ticket gives you access to:</Title>
+            {ticket.checkinLists.map((ch) => {
+              if (ch?.id && ch?.name) {
+                return <Title key={ch.id}>✓ {ch.name}</Title>;
+              }
+              return null;
+            })}
+          </>
+        )}
+        {ticket.ref && <QRCode value={ticket.ref} size={300} />}
         <Button onPress={_handlePress}>Read useful info</Button>
       </CardContent>
     </Card>
