@@ -1,9 +1,10 @@
 import * as WebBrowser from 'expo-web-browser';
 import _ from 'lodash';
 import moment from 'moment-timezone';
+import React from 'react';
 import {Platform, Linking, AsyncStorage} from 'react-native';
 
-import {Speaker, Talk, Event as EventType, User} from '../data/data';
+import {Speaker, Talk, Event as EventType, User, Attendee} from '../data/data';
 
 export function getSpeakerTalk(speaker: Speaker): Talk | null {
   const talk = _.find(speaker.talks, function (talk) {
@@ -69,37 +70,35 @@ export function conferenceHasEnded(): boolean | null {
   return null;
 }
 
-export function HideWhenConferenceHasStarted({
-  children,
-}: {
+type Props = {
   children: React.ReactNode;
-}): React.ReactNode | null {
+};
+
+export function HideWhenConferenceHasStarted(
+  props: Props
+): React.ReactNode | null {
   if (conferenceHasStarted()) {
     return null;
   } else {
-    return children;
+    return props.children as React.ReactElement;
   }
 }
 
-export function HideWhenConferenceHasEnded({
-  children,
-}: {
-  children: React.ReactNode;
-}): React.ReactNode | null {
+export function HideWhenConferenceHasEnded(
+  props: Props
+): React.ReactNode | null {
   if (conferenceHasEnded()) {
     return null;
   } else {
-    return children;
+    return props.children as React.ReactElement;
   }
 }
 
-export function ShowWhenConferenceHasEnded({
-  children,
-}: {
-  children: React.ReactNode;
-}): React.ReactNode | null {
+export function ShowWhenConferenceHasEnded(
+  props: Props
+): React.ReactElement | null {
   if (conferenceHasEnded()) {
-    return children;
+    return props.children as React.ReactElement;
   } else {
     return null;
   }
@@ -185,7 +184,7 @@ export const saveSchedule = async (schedule: EventType): Promise<void> => {
   );
 };
 
-export const getContactTwitter = (contact: User): string => {
+export const getContactTwitter = (contact: User | Attendee): string => {
   let twitter = '';
   if (contact?.answers) {
     contact.answers.map((answer) => {
