@@ -67,7 +67,7 @@ export default function StaffCheckinLists(props: Props) {
       let uuid = '';
       json.map((ticket) => {
         if (ticket?.staffCheckinLists && ticket.staffCheckinLists.length > 0) {
-          staffCheckinListsArray = ticket.staffCheckinLists;
+          staffCheckinListsArray = ticket.staffCheckinLists as CheckinList[];
         }
         if (ticket.uuid) {
           uuid = ticket.uuid;
