@@ -1,3 +1,6 @@
+import {useFocusEffect} from '@react-navigation/native';
+import {BarCodeScanner} from 'expo-barcode-scanner';
+import * as Permissions from 'expo-permissions';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
@@ -8,16 +11,24 @@ import {
   View,
   InteractionManager,
 } from 'react-native';
-import * as Permissions from 'expo-permissions';
-import {BarCodeScanner} from 'expo-barcode-scanner';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useFocusEffect} from '@react-navigation/native';
 
+import {AppNavigationProp} from '../../navigation/types';
 import withNavigation from '../../utils/withNavigation';
 
-function QRScreen(props) {
+type Props = {
+  onBarCodeScanned: (data: any) => void;
+  loading: boolean;
+  title: string;
+  navigation:
+    | AppNavigationProp<'QRCheckinScanner'>
+    | AppNavigationProp<'QRContactScanner'>
+    | AppNavigationProp<'QRScanner'>;
+};
+
+function QRScreen(props: Props) {
   const [showQRScanner, setShowQRScanner] = useState(false);
-  const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -33,7 +44,7 @@ function QRScreen(props) {
     setHasCameraPermission(status === 'granted');
   };
 
-  const _onBarCodeRead = data => {
+  const _onBarCodeRead = (data) => {
     setShowQRScanner(false);
     props.onBarCodeScanned(data);
   };
@@ -42,14 +53,12 @@ function QRScreen(props) {
     <View style={{flex: 1, backgroundColor: 'black'}}>
       {showQRScanner && hasCameraPermission ? (
         <BarCodeScanner
-          onBarCodeScanned={props.loading ? null : _onBarCodeRead}
+          onBarCodeScanned={props.loading ? () => {} : _onBarCodeRead}
           style={{flex: 1}}
         />
       ) : null}
 
-      <SafeAreaView
-        forceInset={{top: 'always'}}
-        style={{position: 'absolute', top: 0, left: 0, right: 0}}>
+      <SafeAreaView style={{position: 'absolute', top: 0, left: 0, right: 0}}>
         <Text
           style={{
             fontSize: 20,
@@ -62,7 +71,6 @@ function QRScreen(props) {
       </SafeAreaView>
 
       <SafeAreaView
-        forceInset={{bottom: 'always'}}
         style={{
           position: 'absolute',
           bottom: 10,
@@ -73,7 +81,7 @@ function QRScreen(props) {
         }}>
         <Button
           onPress={() => props.navigation.goBack()}
-          color={Platform.OS === 'ios' ? '#fff' : null}
+          color={Platform.OS === 'ios' ? '#fff' : ''}
           title="Dismiss"
         />
       </SafeAreaView>
