@@ -130,11 +130,13 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
       {uuid !== '' ? (
         <Query<QueryAttendees> query={GET_ATTENDEES} variables={vars}>
           {({loading, error, data}) => {
+            console.log('DATA: ', data);
             if (error) {
               return <Text>Error ${error}</Text>;
             }
 
-            const attendees = data?.events[0] ? data.events[0].attendees : [];
+            const attendees =
+              data?.events && data.events[0] ? data.events[0].attendees : [];
             let attendeesData;
             if (cleanedQuery === '') {
               attendeesData = _.orderBy(
