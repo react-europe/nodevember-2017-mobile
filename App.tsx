@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
-import {ApolloProvider} from 'react-apollo';
+import {Ionicons} from '@expo/vector-icons';
+import {NavigationContainer} from '@react-navigation/native';
+import {Assets as StackAssets} from '@react-navigation/stack';
 import {AppLoading, SplashScreen, Updates, Linking} from 'expo';
 import {Asset} from 'expo-asset';
-import * as Font from 'expo-font';
 import Constants from 'expo-constants';
+import * as Font from 'expo-font';
+import React, {useState} from 'react';
+import {ApolloProvider} from 'react-apollo';
 import {
   Animated,
   Button,
@@ -14,18 +17,16 @@ import {
   AsyncStorage,
   Dimensions,
 } from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
-import {GQL} from './src/constants';
-import {loadSavedTalksAsync} from './src/utils/storage';
-import GET_SCHEDULE from './src/data/schedulequery';
-import {setEvent, saveSchedule} from './src/utils';
-import client from './src/utils/gqlClient';
-import {Assets as StackAssets} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import AppNavigator from './src/navigation/AppNavigator';
+import {GQL} from './src/constants';
 import DataContext from './src/context/DataContext';
+import {Event} from './src/data/data';
+import GET_SCHEDULE from './src/data/schedulequery';
+import AppNavigator from './src/navigation/AppNavigator';
+import {setEvent, saveSchedule} from './src/utils';
+import client from './src/utils/gqlClient';
+import {loadSavedTalksAsync} from './src/utils/storage';
 
 export default function App() {
   const [error, setError] = useState(false);
@@ -35,7 +36,7 @@ export default function App() {
     false
   );
   const [initialLinkingUri, setInitialLinkingUri] = useState('');
-  const [schedule, setSchedule] = useState();
+  const [schedule, setSchedule] = useState<Event | null>(null);
   const [splashVisibility] = useState(new Animated.Value(1));
 
   /* useEffect(() => {
@@ -100,13 +101,15 @@ export default function App() {
   const _loadLinkingUrlAsync = async () => {
     const uri = await Linking.getInitialURL();
     console.log(uri);
-    setInitialLinkingUri(uri);
+    if (uri) {
+      setInitialLinkingUri(uri);
+    }
   };
 
   const _loadEventAsync = async () => {
-    let diskFetcher = _fetchEventFromDiskAsync();
-    let networkFetcher = _fetchEventFromNetworkAsync();
-    let quickestResult = await Promise.race([diskFetcher, networkFetcher]);
+    const diskFetcher = _fetchEventFromDiskAsync();
+    const networkFetcher = _fetchEventFromNetworkAsync();
+    const quickestResult = await Promise.race([diskFetcher, networkFetcher]);
     if (!quickestResult) {
       let slowestResult = await networkFetcher; // probably the network is slower?
       if (!slowestResult) {
@@ -121,9 +124,11 @@ export default function App() {
   };
 
   const _fetchEventFromDiskAsync = async () => {
-    let schedule = await AsyncStorage.getItem('@MySuperStore2019:schedule');
-    const event = JSON.parse(schedule);
-
+    const schedule = await AsyncStorage.getItem('@MySuperStore2019:schedule');
+    if (!schedule) {
+      return null;
+    }
+    const event: Event = JSON.parse(schedule);
     if (event && event.slug) {
       _setEvent(event);
       return event;
@@ -134,12 +139,12 @@ export default function App() {
 
   const _fetchEventFromNetworkAsync = async () => {
     try {
-      let result = await client.query({
+      const result = await client.query({
         query: GET_SCHEDULE,
         variables: {slug: GQL.slug},
       });
       if (result?.data?.events[0]) {
-        let event = result.data.events[0];
+        const event: Event = result.data.events[0];
         _setEvent(event);
         return event;
       } else {
@@ -150,7 +155,7 @@ export default function App() {
     }
   };
 
-  const _setEvent = event => {
+  const _setEvent = (event: Event) => {
     setEvent(event);
     saveSchedule(event);
     setSchedule(event);
@@ -225,7 +230,7 @@ export default function App() {
             <DataContext.Provider
               value={{
                 event: schedule,
-                initialLinkingUri: initialLinkingUri,
+                initialLinkingUri,
               }}>
               <NavigationContainer>
                 <AppNavigator />
