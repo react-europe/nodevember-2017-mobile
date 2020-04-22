@@ -1,3 +1,5 @@
+import Constants from 'expo-constants';
+import _ from 'lodash';
 import React, {useState} from 'react';
 import {
   Animated,
@@ -7,20 +9,23 @@ import {
   View,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import {Button} from 'react-native-paper';
-import Constants from 'expo-constants';
 import FadeIn from 'react-native-fade-in-image';
-import _ from 'lodash';
+import {Button} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
-import NavigationBar from '../components/NavigationBar';
-import {Colors, FontSizes, Layout} from '../constants';
-import {RegularText, SemiBoldText} from '../components/StyledText';
 import GravatarImage from '../components/GravatarImage';
+import NavigationBar from '../components/NavigationBar';
+import {RegularText, SemiBoldText} from '../components/StyledText';
+import {Colors, FontSizes, Layout} from '../constants';
+import {AppProps} from '../navigation/types';
 import {openTwitter, addContact, getContactTwitter} from '../utils';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
-function AttendeeDetail(props) {
+type Props = {
+  headerHeight: number;
+};
+
+function AttendeeDetail(props: Props & AppProps<'AttendeeDetail'>) {
   const [scrollY] = useState(new Animated.Value(0));
 
   const _handlePressTwitter = () => {
@@ -111,10 +116,12 @@ function AttendeeDetail(props) {
           <Animated.View
             style={{transform: [{scale}, {translateX}, {translateY}]}}>
             <FadeIn placeholderStyle={{backgroundColor: 'transparent'}}>
-              <GravatarImage style={styles.avatar} email={attendee.email} />
+              {attendee.email && (
+                <GravatarImage style={styles.avatar} email={attendee.email} />
+              )}
             </FadeIn>
           </Animated.View>
-          <SemiBoldText style={styles.headerText} key={attendee.id}>
+          <SemiBoldText style={styles.headerText}>
             {attendee.firstName} {attendee.lastName}
           </SemiBoldText>
           {twitter ? (
