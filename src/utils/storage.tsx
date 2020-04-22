@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {AsyncStorage} from 'react-native';
 
 import {Talk, Attendee} from '../data/data';
-import {PrimaryTabNavigationProp} from '../navigation/types';
+import {PrimaryTabNavigationProp, AppNavigationProp} from '../navigation/types';
 
 type Talks = {[key: string]: Talk};
 
@@ -107,7 +107,7 @@ export const withSaveState = <P extends object>(
 export function saveNewContact(
   contact: Attendee,
   navigation:
-    | PrimaryTabNavigationProp<'Contacts'>
+    | AppNavigationProp<'QRContactScanner'>
     | PrimaryTabNavigationProp<'Home'>
 ) {
   AsyncStorage.getItem('@MySuperStore2019:contacts').then((storedContacts) => {
