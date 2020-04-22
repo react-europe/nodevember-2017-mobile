@@ -7,7 +7,7 @@ import CachedImage from '../components/CachedImage';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
-import {Event, Speaker} from '../data/data';
+import {Event, Speaker, Talk} from '../data/data';
 import {MenuNavigationProp} from '../navigation/types';
 import {getSpeakerTalk} from '../utils';
 
@@ -23,6 +23,7 @@ type SpeakerRowProps = {
 
 function SpeakerRow(props: SpeakerRowProps) {
   const {item: speaker} = props;
+  const talk: Talk | null = getSpeakerTalk(speaker);
 
   const _handlePress = () => {
     props.onPress(props.item);
@@ -49,9 +50,7 @@ function SpeakerRow(props: SpeakerRowProps) {
           {speaker.twitter ? (
             <SemiBoldText>@{speaker.twitter}</SemiBoldText>
           ) : null}
-          {speaker.talks && speaker.talks.length > 0 ? (
-            <RegularText>{getSpeakerTalk(speaker).title}</RegularText>
-          ) : null}
+          {talk && <RegularText>{talk.title}</RegularText>}
         </View>
       </View>
     </RectButton>

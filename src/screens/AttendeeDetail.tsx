@@ -17,6 +17,7 @@ import GravatarImage from '../components/GravatarImage';
 import NavigationBar from '../components/NavigationBar';
 import {RegularText, SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
+import {Attendee} from '../data/data';
 import {AppProps} from '../navigation/types';
 import {openTwitter, addContact, getContactTwitter} from '../utils';
 import withHeaderHeight from '../utils/withHeaderHeight';
@@ -29,7 +30,7 @@ function AttendeeDetail(props: Props & AppProps<'AttendeeDetail'>) {
   const [scrollY] = useState(new Animated.Value(0));
 
   const _handlePressTwitter = () => {
-    const {attendee} = props.route.params;
+    const {attendee}: {attendee: Attendee} = props.route.params;
     const twitter = getContactTwitter(attendee);
     openTwitter(twitter);
   };
@@ -47,7 +48,7 @@ function AttendeeDetail(props: Props & AppProps<'AttendeeDetail'>) {
   }; */
 
   const _handleAddToContacts = async () => {
-    const {attendee} = props.route.params;
+    const {attendee}: {attendee: Attendee} = props.route.params;
     await addContact(attendee);
     props.navigation.navigate('Contacts');
   };

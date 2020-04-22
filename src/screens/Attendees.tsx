@@ -149,7 +149,9 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
               const attendeesSearchRankingScore = {};
               if (attendees) {
                 attendees.forEach((attendee) => {
-                  const fullName = `${attendee?.firstName} ${attendee?.lastName}`;
+                  const fullName = `${
+                    attendee?.firstName ? attendee.firstName : ''
+                  } ${attendee?.lastName ? attendee?.lastName : ''}`;
                   const matchesName = fullName
                     .toLowerCase()
                     .trim()
@@ -157,7 +159,7 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
                   const matchesEmail = attendee?.email
                     ? attendee.email.toLowerCase().trim().includes(cleanedQuery)
                     : '';
-                  const matchesTwitter = getContactTwitter(attendee)
+                  const matchesTwitter = getContactTwitter(attendee as Attendee)
                     .toLowerCase()
                     .trim()
                     .includes(cleanedQuery);
