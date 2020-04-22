@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import React, {useState, useEffect} from 'react';
+import {Query} from 'react-apollo';
 import {
   Platform,
   Text,
@@ -9,23 +11,36 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Searchbar} from 'react-native-paper';
-import {Query} from 'react-apollo';
-import _ from 'lodash';
 
-import withNavigation from '../utils/withNavigation';
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
-import {GQL} from '../constants';
-import {Colors, Layout} from '../constants';
-import GET_ATTENDEES from '../data/attendeesquery';
-import {getContactTwitter} from '../utils';
+import {GQL, Colors, Layout} from '../constants';
 import {withData} from '../context/DataContext';
+import GET_ATTENDEES from '../data/attendeesquery';
+import {Event, User, Attendee} from '../data/data';
+import {MenuNavigationProp} from '../navigation/types';
+import {getContactTwitter} from '../utils';
+import withNavigation from '../utils/withNavigation';
 
-function Attendees(props) {
+type AttendeesProps = {
+  event: Event;
+};
+
+type DeferredAttendeesContentProps = {
+  navigation: MenuNavigationProp<'Attendees'>;
+  aquery: string;
+  event: Event;
+};
+
+type QueryAttendees = {
+  events: Event[];
+};
+
+function Attendees(props: AttendeesProps) {
   const [aquery, setAquery] = useState('');
 
   const throttleDelayMs = 200;
-  let throttleTimeout = null;
-  const queryThrottle = text => {
+  let throttleTimeout: NodeJS.Timer;
+  const queryThrottle = (text: string) => {
     if (throttleTimeout) {
       clearTimeout(throttleTimeout);
     }
@@ -36,19 +51,18 @@ function Attendees(props) {
     }, throttleDelayMs);
   };
 
-  useState(() => {
+  useEffect(() => {
     return function unmount() {
       if (throttleTimeout) {
         clearTimeout(throttleTimeout);
-        throttleTimeout = 0;
       }
     };
-  });
+  }, []);
 
   return (
     <View style={{flex: 1}}>
       <Searchbar
-        onChangeText={text => queryThrottle(text)}
+        onChangeText={(text: string) => queryThrottle(text)}
         placeholder="Search for conference attendees"
         style={styles.textInput}
         autoCapitalize="none"
@@ -64,10 +78,10 @@ function Attendees(props) {
   );
 }
 
-function DeferredAttendeesContent(props) {
-  const [ready, setReady] = useState(Platform.OS === 'android' ? false : true);
+function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
+  const [ready, setReady] = useState(Platform.OS !== 'android');
   const [uuid, setUuid] = useState('');
-  let timer = undefined;
+  let timer: NodeJS.Timer;
 
   useEffect(() => {
     _getUuid();
@@ -78,26 +92,28 @@ function DeferredAttendeesContent(props) {
     return function unmount() {
       if (timer) {
         clearTimeout(timer);
-        timer = 0;
       }
     };
   }, []);
 
   async function _getUuid() {
     const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-    let tickets = JSON.parse(value) || [];
-    let uuid = '';
-    tickets.map(ticket => {
-      ticket.checkinLists.map(ch => {
-        if (ch.mainEvent) {
-          uuid = ticket.uuid;
-          setUuid(uuid);
-        }
-      });
+    if (!value) {
+      return null;
+    }
+    const tickets: User[] = JSON.parse(value) || [];
+    tickets.map((ticket) => {
+      if (ticket?.checkinLists) {
+        ticket.checkinLists.map((ch) => {
+          if (ch?.mainEvent) {
+            setUuid(ticket.uuid ? ticket.uuid : '');
+          }
+        });
+      }
     });
   }
 
-  const _handlePressRow = attendee => {
+  const _handlePressRow = (attendee: Attendee) => {
     props.navigation.navigate('AttendeeDetail', {attendee});
   };
 
@@ -106,63 +122,64 @@ function DeferredAttendeesContent(props) {
   }
   const {aquery} = props;
   const cleanedQuery = aquery.toLowerCase().trim();
-  const vars = {slug: GQL.slug, q: 'a', uuid: uuid};
+  const vars = {slug: GQL.slug, q: 'a', uuid};
   // console.log(GET_ATTENDEES, vars);
+
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
-      {uuid != '' ? (
-        <Query query={GET_ATTENDEES} variables={vars}>
+      {uuid !== '' ? (
+        <Query<QueryAttendees> query={GET_ATTENDEES} variables={vars}>
           {({loading, error, data}) => {
             if (error) {
               return <Text>Error ${error}</Text>;
             }
 
-            const attendees =
-              data && data.events && data.events[0]
-                ? data.events[0].attendees
-                : [];
+            const attendees = data?.events[0] ? data.events[0].attendees : [];
             let attendeesData;
             if (cleanedQuery === '') {
               attendeesData = _.orderBy(
                 attendees,
-                attendee => `${attendee.firstName} ${attendee.lastName}`,
+                (attendee) => `${attendee?.firstName} ${attendee?.lastName}`,
                 ['asc']
               );
             } else {
-              const filteredAttendees = [];
+              const filteredAttendees: Attendee[] = [];
               const attendeesSearchRankingScore = {};
-              attendees.forEach(attendee => {
-                const fullName = `${attendee.firstName} ${attendee.lastName}`;
-                const matchesName = fullName
-                  .toLowerCase()
-                  .trim()
-                  .includes(cleanedQuery);
-                const matchesEmail = attendee.email
-                  .toLowerCase()
-                  .trim()
-                  .includes(cleanedQuery);
-                const matchesTwitter = getContactTwitter(attendee)
-                  .toLowerCase()
-                  .trim()
-                  .includes(cleanedQuery);
+              if (attendees) {
+                attendees.forEach((attendee) => {
+                  const fullName = `${attendee?.firstName} ${attendee?.lastName}`;
+                  const matchesName = fullName
+                    .toLowerCase()
+                    .trim()
+                    .includes(cleanedQuery);
+                  const matchesEmail = attendee?.email
+                    ? attendee.email.toLowerCase().trim().includes(cleanedQuery)
+                    : '';
+                  const matchesTwitter = getContactTwitter(attendee)
+                    .toLowerCase()
+                    .trim()
+                    .includes(cleanedQuery);
 
-                attendeesSearchRankingScore[`${attendee.id}`] = 0;
-                if (matchesName || matchesEmail || matchesTwitter) {
-                  filteredAttendees.push(attendee);
-                }
-                if (matchesName) {
-                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
-                }
-                if (matchesEmail) {
-                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
-                }
-                if (matchesTwitter) {
-                  attendeesSearchRankingScore[`${attendee.id}`] += 1;
-                }
-              });
+                  attendeesSearchRankingScore[`${attendee?.id}`] = 0;
+                  if (matchesName || matchesEmail || matchesTwitter) {
+                    if (attendee) {
+                      filteredAttendees.push(attendee);
+                    }
+                  }
+                  if (matchesName) {
+                    attendeesSearchRankingScore[`${attendee?.id}`] += 1;
+                  }
+                  if (matchesEmail) {
+                    attendeesSearchRankingScore[`${attendee?.id}`] += 1;
+                  }
+                  if (matchesTwitter) {
+                    attendeesSearchRankingScore[`${attendee?.id}`] += 1;
+                  }
+                });
+              }
               const sortedFilteredAttendees = _.orderBy(
                 filteredAttendees,
-                attendee => attendeesSearchRankingScore[`${attendee.id}`],
+                (attendee) => attendeesSearchRankingScore[`${attendee.id}`],
                 ['desc']
               );
               attendeesData = sortedFilteredAttendees;
