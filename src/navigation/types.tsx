@@ -127,7 +127,7 @@ export type MenuStackParamList = {
   Speakers: undefined;
   Crew: undefined;
   Sponsors: undefined;
-  Attendees: undefined;
+  Attendees: {attendee: Attendee};
   AttendeeDetail: Attendee;
 };
 
