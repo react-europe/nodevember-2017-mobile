@@ -16,7 +16,7 @@ import {
 
 export type AppStackParamList = {
   Home: undefined;
-  AttendeeDetail: Attendee;
+  AttendeeDetail: {attendee: Attendee};
   TicketInstructions: {ticket: User};
   CheckedInAttendeeInfo: {checkedInAttendee: CheckedinAttendee};
   QRScanner: {uuid: string} | undefined;
