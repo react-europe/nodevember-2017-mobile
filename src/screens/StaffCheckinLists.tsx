@@ -21,7 +21,13 @@ type Props = {
   navigation: AppNavigationProp<'StaffCheckinLists'>;
 };
 
-export function StaffCheckinListRow(props) {
+type StaffCheckinListRowProps = {
+  navigation: AppNavigationProp<'StaffCheckinLists'>;
+  item: CheckinList;
+  uuid: string;
+};
+
+export function StaffCheckinListRow(props: StaffCheckinListRowProps) {
   const _handleCheckinListPress = () => {
     props.navigation.navigate('QRCheckinScanner', {
       checkinList: props.item,
@@ -90,7 +96,6 @@ export default function StaffCheckinLists(props: Props) {
     return (
       <StaffCheckinListRow
         item={item}
-        id={item.id}
         uuid={uuid}
         navigation={props.navigation}
       />
