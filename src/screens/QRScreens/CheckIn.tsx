@@ -16,7 +16,7 @@ export default function QRCheckinScannerModalNavigation(
     AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef');
   }, []);
 
-  const _handleCheckinBarCodeRead = async (data) => {
+  const _handleCheckinBarCodeRead = async (data: any) => {
     if (loading) {
       return;
     }
