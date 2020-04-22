@@ -1,18 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {Alert, AsyncStorage} from 'react-native';
 import {Notifications} from 'expo';
 import * as Permissions from 'expo-permissions';
-import QRScreen from './QRScreen';
-import {GQL} from '../../constants';
+import React, {useEffect, useState} from 'react';
+import {Alert, AsyncStorage} from 'react-native';
 
-import client from '../../utils/gqlClient';
+import {GQL} from '../../constants';
+import {User} from '../../data/data';
 import QR_QUERY from '../../data/qrQuery';
 import UPDATE_PUSH_TOKEN_QUERY from '../../data/updatePushTokenQuery';
+import {AppProps} from '../../navigation/types';
+import client from '../../utils/gqlClient';
+import QRScreen from './QRScreen';
 
-export default function QRScannerModalNavigation(props) {
+export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
   const [loading, setLoading] = useState(false);
 
-  async function setTickets(tickets) {
+  async function setTickets(tickets: string) {
     try {
       await AsyncStorage.setItem('@MySuperStore2019:tickets', tickets);
     } catch (err) {
@@ -27,7 +29,7 @@ export default function QRScannerModalNavigation(props) {
     }
   }, []);
 
-  async function registerForPushNotificationsAsync(uuid) {
+  async function registerForPushNotificationsAsync(uuid: string) {
     const {status: existingStatus} = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
     );
@@ -48,12 +50,12 @@ export default function QRScannerModalNavigation(props) {
     }
 
     // Get the token that uniquely identifies this device
-    let token = await Notifications.getExpoPushTokenAsync();
-    const variables = {uuid: uuid, expoPushToken: token};
+    const token = await Notifications.getExpoPushTokenAsync();
+    const variables = {uuid, expoPushToken: token};
 
-    let value = await client.mutate({
+    const value = await client.mutate({
       mutation: UPDATE_PUSH_TOKEN_QUERY,
-      variables: variables,
+      variables,
     });
 
     if (value) {
@@ -62,22 +64,19 @@ export default function QRScannerModalNavigation(props) {
     console.log('token', token, uuid);
   }
 
-  const _handleBarCodeRead = async data => {
+  const _handleBarCodeRead = async (data: any) => {
     if (loading) {
       return;
     }
     setLoading(true);
-    if (!data || !data.data || data.data === '') {
-      let data = {data: props.navigation.state.params.uuid};
-    }
-    let variables = {slug: GQL.slug, uuid: data.data};
+    const variables = {slug: GQL.slug, uuid: data.data};
     try {
-      let result = await client.query({
+      const result = await client.query({
         query: QR_QUERY,
-        variables: variables,
+        variables,
       });
       console.log('slug', GQL.slug);
-      let me;
+      let me: User;
       if (result?.data?.events?.[0]) {
         me = result.data.events[0].me;
         if (me === null) {
@@ -89,16 +88,16 @@ export default function QRScannerModalNavigation(props) {
         return;
       }
 
-      let value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      let tickets = null;
-      let newTickets = [];
+      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
+      let tickets: User[] | null = null;
+      const newTickets: User[] = [];
       let found = false;
 
       if (value === null && me !== null) {
         tickets = [me];
       } else {
-        let existingTickets = JSON.parse(value) || [];
-        existingTickets.map(ticket => {
+        const existingTickets: User[] = JSON.parse(value ? value : '[]');
+        existingTickets.map((ticket) => {
           if (ticket && me && me.ref && ticket.ref === me.ref) {
             found = true;
             newTickets.push(me);
@@ -118,7 +117,7 @@ export default function QRScannerModalNavigation(props) {
       }
 
       if (tickets && tickets !== null && tickets !== []) {
-        let stringifiedTickets = JSON.stringify(tickets);
+        const stringifiedTickets = JSON.stringify(tickets);
         console.log(stringifiedTickets);
         await setTickets(stringifiedTickets);
         registerForPushNotificationsAsync(variables.uuid);
