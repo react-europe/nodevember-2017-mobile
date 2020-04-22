@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Alert, AsyncStorage} from 'react-native';
+
+import QR_CHECKIN_QUERY from '../../data/qrCheckinQuery';
+import {AppProps} from '../../navigation/types';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
-import QR_CHECKIN_QUERY from '../../data/qrCheckinQuery';
 
-export default function QRCheckinScannerModalNavigation(props) {
+export default function QRCheckinScannerModalNavigation(
+  props: AppProps<'QRCheckinScanner'>
+) {
   const [loading, setLoading] = useState(false);
   const params = props.route.params;
 
@@ -12,14 +16,14 @@ export default function QRCheckinScannerModalNavigation(props) {
     AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef');
   }, []);
 
-  const _handleCheckinBarCodeRead = async data => {
+  const _handleCheckinBarCodeRead = async (data) => {
     if (loading) {
       return;
     }
 
     setLoading(true);
     try {
-      let lastCheckedInRef = await AsyncStorage.getItem(
+      const lastCheckedInRef = await AsyncStorage.getItem(
         '@MySuperStore2019:lastCheckedInRef'
       );
       await AsyncStorage.setItem(
@@ -33,7 +37,7 @@ export default function QRCheckinScannerModalNavigation(props) {
       }
 
       //{ slug: GQL.slug, uuid: data.data };
-      let variables = {
+      const variables = {
         uuid: params.uuid,
         checkinListId: params.checkinList.id,
         ref: data.data,
@@ -44,9 +48,9 @@ export default function QRCheckinScannerModalNavigation(props) {
       //console.log("uuid state is", this.state.uuid);
       //console.log("checkinlist state is", this.state.checkinList);
 
-      let value = await client.mutate({
+      const value = await client.mutate({
         mutation: QR_CHECKIN_QUERY,
-        variables: variables,
+        variables,
       });
 
       console.log('checkin mutation value', value);
