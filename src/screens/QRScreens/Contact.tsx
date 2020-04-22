@@ -2,6 +2,7 @@ import React from 'react';
 import {AsyncStorage} from 'react-native';
 
 import {GQL} from '../../constants';
+import {User} from '../../data/data';
 import QR_CONTACT_QUERY from '../../data/qrContactQuery';
 import {AppNavigationProp} from '../../navigation/types';
 import {addContact} from '../../utils';
@@ -14,20 +15,22 @@ type Props = {
 };
 
 export default function QRContactScannerModalNavigation(props: Props) {
-  const _handleContactBarCodeRead = async (data) => {
+  const _handleContactBarCodeRead = async (data: any) => {
     const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
     if (!value) {
       return;
     }
-    const tickets = JSON.parse(value) || [];
+    const tickets: User[] = JSON.parse(value) || [];
     let uuid = '';
     const contactRef = data.data;
-    tickets.map(async (ticket) => {
-      ticket.checkinLists.map((ch) => {
-        if (ch.mainEvent) {
-          uuid = ticket.uuid;
-        }
-      });
+    tickets.map(async (ticket: User) => {
+      if (ticket.checkinLists) {
+        ticket.checkinLists.map((ch) => {
+          if (ch?.mainEvent && ticket?.uuid) {
+            uuid = ticket.uuid;
+          }
+        });
+      }
       const variables = {slug: GQL.slug, uuid, q: contactRef};
 
       const scannedContact = await client.query({
