@@ -4,9 +4,15 @@ import {Platform} from 'react-native';
 
 import {Layout} from '../constants';
 
-const withHeaderHeight = <P extends object>(
+type InjectedHeaderHeightProps = {
+  headerHeight: number;
+};
+
+const withHeaderHeight = <P extends InjectedHeaderHeightProps>(
   Component: React.ComponentType<P>
-): React.FC<P> => (props) => {
+): React.FC<Pick<P, Exclude<keyof P, keyof InjectedHeaderHeightProps>>> => (
+  props: Pick<P, Exclude<keyof P, keyof InjectedHeaderHeightProps>>
+) => {
   const headerHeight = useHeaderHeight();
   return (
     <Component
