@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Animated, Text, StyleSheet, View, AsyncStorage} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
@@ -7,12 +8,15 @@ import {Button, Card, CardContent, Title} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, FontSizes, Layout} from '../constants';
-import {AppRouteProp, AppProps} from '../navigation/types';
+import {AppRouteProp, AppNavigationProp} from '../navigation/types';
 import withHeaderHeight from '../utils/withHeaderHeight';
-import withNavigation from '../utils/withNavigation';
 
 type CheckedInAttendeeInfoProps = {
   headerHeight: number;
+  route: AppRouteProp<'CheckedInAttendeeInfo'>;
+};
+
+type DeferredCheckedInAttendeeInfoContentProps = {
   route: AppRouteProp<'CheckedInAttendeeInfo'>;
 };
 
@@ -42,9 +46,7 @@ function CheckedInAttendeeInfo(props: CheckedInAttendeeInfoProps) {
           }}
         />
 
-        <DeferredCheckedInAttendeeInfoContentWithNavigation
-          route={props.route}
-        />
+        <DeferredCheckedInAttendeeInfoContent route={props.route} />
         <OverscrollView />
       </AnimatedScrollView>
     </View>
@@ -58,8 +60,11 @@ function CheckinCard({checkins}) {
 }
 
 function DeferredCheckedInAttendeeInfoContent(
-  props: AppProps<'CheckedInAttendeeInfo'>
+  props: DeferredCheckedInAttendeeInfoContentProps
 ) {
+  const navigation = useNavigation<
+    AppNavigationProp<'CheckedInAttendeeInfo'>
+  >();
   const params = props.route.params || {};
   const checkedInAttendee = params.checkedInAttendee;
 
@@ -91,7 +96,7 @@ function DeferredCheckedInAttendeeInfoContent(
         onPress={() => {
           AsyncStorage.removeItem(
             '@MySuperStore2019:lastCheckedInRef'
-          ).then(() => props.navigation.goBack());
+          ).then(() => navigation.goBack());
         }}>
         Close
       </Button>
@@ -104,10 +109,6 @@ function DeferredCheckedInAttendeeInfoContent(
     </AnimatableView>
   );
 }
-
-const DeferredCheckedInAttendeeInfoContentWithNavigation = withNavigation(
-  DeferredCheckedInAttendeeInfoContent
-);
 
 const OverscrollView = () => (
   <View
@@ -123,10 +124,6 @@ const OverscrollView = () => (
 );
 
 const BORDER_RADIUS = 3;
-
-const markdownStyles = {
-  text: {},
-};
 
 const styles = StyleSheet.create({
   roundedProfileImage: {

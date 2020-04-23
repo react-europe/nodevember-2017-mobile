@@ -1,4 +1,4 @@
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import * as Permissions from 'expo-permissions';
 import React, {useState} from 'react';
 import {
@@ -20,11 +20,6 @@ import Tickets from '../components/Tickets';
 import {Colors, FontSizes} from '../constants';
 import {User} from '../data/data';
 import {PrimaryTabNavigationProp} from '../navigation/types';
-import withNavigation from '../utils/withNavigation';
-
-type DeferredProfileContentProps = {
-  navigation: PrimaryTabNavigationProp<'Profile'>;
-};
 
 type ClipBorderRadiusProps = {
   style?: StyleProp<TextStyle>;
@@ -35,13 +30,14 @@ function Profile() {
   return (
     <View style={{flex: 1}}>
       <ScrollView style={{flex: 1}}>
-        <DeferredProfileContentWithNavigation />
+        <DeferredProfileContent />
       </ScrollView>
     </View>
   );
 }
 
-function DeferredProfileContent(props: DeferredProfileContentProps) {
+function DeferredProfileContent() {
+  const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
   const [tickets, setTickets] = useState<User[]>([]);
   const [ready, setReady] = useState(Platform.OS !== 'android');
 
@@ -77,7 +73,7 @@ function DeferredProfileContent(props: DeferredProfileContentProps) {
 
   const _handlePressQRButton = async () => {
     if (await _requestCameraPermission()) {
-      props.navigation.navigate('QRScanner');
+      navigation.navigate('QRScanner');
     } else {
       Alert.alert(
         'You need to manually enable camera permissions in your operating system settings app'
@@ -110,10 +106,6 @@ function DeferredProfileContent(props: DeferredProfileContentProps) {
     </AnimatableView>
   );
 }
-
-const DeferredProfileContentWithNavigation = withNavigation(
-  DeferredProfileContent
-);
 
 const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
   return (

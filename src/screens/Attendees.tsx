@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import _ from 'lodash';
 import React, {useState, useEffect} from 'react';
 import {Query} from 'react-apollo';
@@ -19,14 +20,12 @@ import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../data/data';
 import {MenuNavigationProp} from '../navigation/types';
 import {getContactTwitter} from '../utils';
-import withNavigation from '../utils/withNavigation';
 
 type AttendeesProps = {
   event: Event;
 };
 
 type DeferredAttendeesContentProps = {
-  navigation: MenuNavigationProp<'Attendees'>;
   aquery: string;
   event: Event;
 };
@@ -69,16 +68,14 @@ function Attendees(props: AttendeesProps) {
         autoCorrect={false}
         clearButtonMode="while-editing"
       />
-      <DeferredAttendeesContentWithNavigation
-        aquery={aquery}
-        event={props.event}
-      />
+      <DeferredAttendeesContent aquery={aquery} event={props.event} />
       <OverscrollView />
     </View>
   );
 }
 
 function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
+  const navigation = useNavigation<MenuNavigationProp<'Attendees'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [uuid, setUuid] = useState('');
   let timer: NodeJS.Timer;
@@ -114,7 +111,7 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
   }
 
   const _handlePressRow = (attendee: Attendee) => {
-    props.navigation.navigate('AttendeeDetail', {attendee});
+    navigation.navigate('AttendeeDetail', {attendee});
   };
 
   if (!ready) {
@@ -204,10 +201,6 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
     </AnimatableView>
   );
 }
-
-const DeferredAttendeesContentWithNavigation = withNavigation(
-  DeferredAttendeesContent
-);
 
 const OverscrollView = () => (
   <View

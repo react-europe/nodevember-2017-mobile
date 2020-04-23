@@ -1,21 +1,21 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
 
 import {User} from '../data/data';
 import {PrimaryTabNavigationProp} from '../navigation/types';
-import withNavigation from '../utils/withNavigation';
 
 type Props = {
   ticket: User;
-  navigation: PrimaryTabNavigationProp<'Profile'>;
 };
 
 function TicketCard(props: Props) {
+  const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
   const {ticket} = props;
 
   const _handlePress = () => {
-    props.navigation.navigate('TicketInstructions', {
+    navigation.navigate('TicketInstructions', {
       ticket: props.ticket,
     });
   };
@@ -49,7 +49,7 @@ function TicketCard(props: Props) {
   );
 }
 
-export default withNavigation(TicketCard);
+export default TicketCard;
 
 /* const styles = StyleSheet.create({
   headerRow: {

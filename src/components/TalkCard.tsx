@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Platform, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
@@ -7,21 +8,20 @@ import {Colors, FontSizes} from '../constants';
 import {Schedule} from '../data/data';
 import {PrimaryTabNavigationProp} from '../navigation/types';
 import {conferenceHasEnded} from '../utils';
-import withNavigation from '../utils/withNavigation';
 import CachedImage from './CachedImage';
 import {BoldText, RegularText, SemiBoldText} from './StyledText';
 
 type Props = {
   talk: Schedule;
-  navigation: PrimaryTabNavigationProp<'Home'>;
   style?: StyleProp<ViewStyle>;
 };
 
 function TalkCard(props: Props) {
+  const navigation = useNavigation<PrimaryTabNavigationProp<'Home'>>();
   const speakers = props.talk.speakers;
 
   const _handlePress = () => {
-    props.navigation.navigate('Details', {scheduleSlot: props.talk});
+    navigation.navigate('Details', {scheduleSlot: props.talk});
   };
 
   const _renderPlaceholderForNextYear = () => {
@@ -88,7 +88,7 @@ function TalkCard(props: Props) {
   );
 }
 
-export default withNavigation(TalkCard);
+export default TalkCard;
 
 const styles = StyleSheet.create({
   headerRow: {
