@@ -1,33 +1,51 @@
-import React from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
-import {ScrollView, RectButton} from 'react-native-gesture-handler';
 import {
   Entypo,
   MaterialIcons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import _ from 'lodash';
+import React, {useState} from 'react';
+import {StyleSheet, View, FlatList} from 'react-native';
+import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import {Colors} from '../constants';
-import {BoldText, SemiBoldText, RegularText} from './StyledText';
+import {Attendee, Event} from '../data/data';
+import {getContactTwitter} from '../utils';
 import GravatarImage from './GravatarImage';
 import HighlightableText from './HighlightableText';
+import {BoldText, SemiBoldText, RegularText} from './StyledText';
 
-import {getContactTwitter} from '../utils';
+type AttendeesSearchResultRowProps = {
+  event?: Event;
+  attendee: Attendee;
+  searchQuery: string;
+  onPress: (attendee: Attendee) => void;
+};
 
-function AttendeesSearchResultRow(props) {
+type AttendeesSearchResultsProps = {
+  attendees: Attendee[];
+  isLoading: boolean;
+  onPress: (attendee: Attendee) => void;
+  searchQuery: string;
+};
+
+function AttendeesSearchResultRow(props: AttendeesSearchResultRowProps) {
   const event = props.event;
   const SpeakersAndTalks = event && event.speakers ? event.speakers : [];
   const SpeakersData = [{data: SpeakersAndTalks, title: 'Speakers'}];
   const {attendee, searchQuery} = props;
 
-  let isSpeaker;
+  const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
+
   if (SpeakersData && SpeakersData.length > 0) {
-    isSpeaker = SpeakersData[0].data.filter(speaker => {
-      return getContactTwitter(attendee) === speaker.twitter;
-    })[0]
-      ? true
-      : false;
+    setIsSpeaker(
+      !!SpeakersData[0].data.filter((speaker) => {
+        if (speaker?.twitter) {
+          return getContactTwitter(attendee) === speaker.twitter;
+        }
+        return false;
+      })[0]
+    );
   }
 
   return (
@@ -45,10 +63,15 @@ function AttendeesSearchResultRow(props) {
             />
           </View>
         )}
-        <View
-          style={[styles.rowAvatarContainer, {paddingLeft: isSpeaker ? 0 : 5}]}>
-          <GravatarImage style={styles.avatarImage} email={attendee.email} />
-        </View>
+        {attendee.email && (
+          <View
+            style={[
+              styles.rowAvatarContainer,
+              {paddingLeft: isSpeaker ? 0 : 5},
+            ]}>
+            <GravatarImage style={styles.avatarImage} email={attendee.email} />
+          </View>
+        )}
         <View style={styles.rowData}>
           <HighlightableText
             TextComponent={BoldText}
@@ -59,7 +82,7 @@ function AttendeesSearchResultRow(props) {
           {getContactTwitter(attendee) ? (
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Entypo
-                name={'twitter'}
+                name="twitter"
                 size={16}
                 color="#1da1f2"
                 style={{paddingRight: 3}}
@@ -83,7 +106,7 @@ const AttendeesSearchResultPlaceholderRow = () => (
     <View style={styles.row}>
       <View style={styles.rowAvatarContainer}>
         <MaterialIcons
-          name={'account-circle'}
+          name="account-circle"
           size={48}
           style={styles.placeholderAvatarImage}
         />
@@ -106,7 +129,9 @@ const AttendeesSearchResultPlaceholderRow = () => (
   </RectButton>
 );
 
-export default function AttendeesSearchResults(props) {
+export default function AttendeesSearchResults(
+  props: AttendeesSearchResultsProps
+) {
   const {attendees, isLoading} = props;
 
   const _renderItem = ({item: attendee}) => (
@@ -118,14 +143,16 @@ export default function AttendeesSearchResults(props) {
   );
 
   const _renderItemPlaceholder = () => <AttendeesSearchResultPlaceholderRow />;
-  const maybeAttendees = isLoading ? _.times(10).map(id => ({id})) : attendees;
+  const maybeAttendees = isLoading
+    ? _.times(10).map((id) => ({id}))
+    : attendees;
   const itemRenderer = isLoading ? _renderItemPlaceholder : _renderItem;
   return (
     <FlatList
-      renderScrollComponent={props => <ScrollView {...props} />}
+      renderScrollComponent={(props) => <ScrollView {...props} />}
       renderItem={itemRenderer}
       data={maybeAttendees}
-      keyExtractor={item => `${item.id}`}
+      keyExtractor={(item) => `${item.id}`}
       initialNumToRender={10}
       keyboardDismissMode="on-drag"
       style={styles.list}
