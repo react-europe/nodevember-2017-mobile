@@ -1,26 +1,39 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, InteractionManager} from 'react-native';
-import {RegularText, SemiBoldText} from './StyledText';
-import TalkCard from './TalkCard';
+import React, {useState, useEffect} from 'react';
+import {
+  StyleSheet,
+  View,
+  InteractionManager,
+  ViewStyle,
+  StyleProp,
+} from 'react-native';
+
 import {Colors, FontSizes} from '../constants';
 import {findNextTalksAfterDate} from '../data';
+import {Event, Talk} from '../data/data';
 import {
   convertUtcDateToEventTimezoneDaytime,
   conferenceHasEnded,
 } from '../utils';
+import {RegularText, SemiBoldText} from './StyledText';
+import TalkCard from './TalkCard';
 
-function TalksUpNext(props) {
-  const [dateTime, setDateTime] = useState(null);
-  const [nextTalks, setNextTalks] = useState([]);
+type Props = {
+  event: Event;
+  style?: StyleProp<ViewStyle>;
+};
 
-  useState(() => {
+function TalksUpNext(props: Props) {
+  const [dateTime, setDateTime] = useState<string | null>(null);
+  const [nextTalks, setNextTalks] = useState<Talk[]>([]);
+
+  useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
       _fetchTalks();
     });
-  });
+  }, []);
 
-  function _fetchTalks() {
-    let nextTalksData = findNextTalksAfterDate(props.event);
+  function _fetchTalks(): void {
+    const nextTalksData = findNextTalksAfterDate(props.event);
     if (nextTalksData) {
       setNextTalks(nextTalksData.slice(0, 3));
       setDateTime(nextTalksData.length ? nextTalksData[0].startDate : '');
@@ -50,7 +63,7 @@ function TalksUpNext(props) {
         </SemiBoldText>
       </View>
       {_renderDateTime()}
-      {nextTalks.map(talk => (
+      {nextTalks.map((talk) => (
         <TalkCard
           key={talk.title}
           talk={talk}
