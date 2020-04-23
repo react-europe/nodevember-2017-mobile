@@ -1,7 +1,7 @@
+import {Asset} from 'expo-asset';
+import {Video} from 'expo-av';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {Video} from 'expo-av';
-import {Asset} from 'expo-asset';
 import {View as AnimatableView} from 'react-native-animatable';
 
 export default function VideoBackground() {
@@ -34,7 +34,6 @@ export default function VideoBackground() {
           style={{flex: 1}}
           resizeMode="cover"
           shouldPlay
-          muted
           isLooping
         />
       </AnimatableView>
