@@ -1,7 +1,17 @@
 // Local implementation of 'react-native-highlight-words'
-import React from 'react';
-import {Text} from 'react-native';
 import {findAll} from 'highlight-words-core';
+import React from 'react';
+import {Text, ViewStyle, StyleProp, TextStyle} from 'react-native';
+
+type Props = {
+  TextComponent: React.ComponentType<any>;
+  autoEscape: boolean;
+  highlightStyle: StyleProp<TextStyle>;
+  searchWords: string[];
+  textToHighlight: string;
+  sanitize: () => void;
+  style: StyleProp<ViewStyle>;
+};
 
 /**
  * Highlights all occurrences of search terms (searchText) within a string (textToHighlight).
@@ -16,7 +26,7 @@ export default function Highlighter({
   sanitize,
   style,
   ...props
-}) {
+}: Props) {
   const chunks = findAll({
     textToHighlight,
     searchWords,
