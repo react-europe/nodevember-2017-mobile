@@ -6,10 +6,10 @@ type Props = {
   children: React.ReactNode;
 };
 
-export function RegularText(props: Props) {
+export function RegularText<P extends Props>(props: P) {
   return (
     <Text
-      {...props}
+      {...(props as P)}
       style={[
         {backgroundColor: 'transparent'},
         props.style,
@@ -19,10 +19,10 @@ export function RegularText(props: Props) {
   );
 }
 
-export function SemiBoldText(props: Props) {
+export function SemiBoldText<P extends Props>(props: P) {
   return (
     <Text
-      {...props}
+      {...(props as P)}
       style={[
         {backgroundColor: 'transparent'},
         props.style,
@@ -32,10 +32,10 @@ export function SemiBoldText(props: Props) {
   );
 }
 
-export function BoldText(props: Props) {
+export function BoldText<P extends Props>(props: P) {
   return (
     <Text
-      {...props}
+      {...(props as P)}
       style={[
         {backgroundColor: 'transparent'},
         props.style,
