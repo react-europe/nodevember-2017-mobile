@@ -1,30 +1,17 @@
+import {Ionicons} from '@expo/vector-icons';
 import React from 'react';
 import {View, Platform, StyleSheet} from 'react-native';
-
-import {Ionicons} from '@expo/vector-icons';
 import {BorderlessButton} from 'react-native-gesture-handler';
 
-CloseButton.defaultProps = {
-  pressColorAndroid: 'rgba(0, 0, 0, .32)',
-  tintColor: Platform.select({
-    ios: '#037aff',
-  }),
+type Props = {
+  onPress: () => void;
 };
 
-function CloseButton(props) {
-  const {onPress, pressColorAndroid} = props;
+function CloseButton(props: Props) {
+  const {onPress} = props;
 
   return (
-    <BorderlessButton
-      accessibilityComponentType="button"
-      accessibilityLabel="Close details"
-      accessibilityTraits="button"
-      testID="header-back"
-      delayPressIn={0}
-      onPress={onPress}
-      pressColor={pressColorAndroid}
-      style={styles.container}
-      borderless>
+    <BorderlessButton onPress={onPress} style={styles.container} borderless>
       <View style={styles.container}>
         <Ionicons
           name={Platform.OS === 'ios' ? 'ios-close' : 'md-close'}
