@@ -1,5 +1,9 @@
 import {Ionicons} from '@expo/vector-icons';
-import {CommonActions, useFocusEffect} from '@react-navigation/native';
+import {
+  CommonActions,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native';
 import {Notifications} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
 import React, {useEffect, useState} from 'react';
@@ -31,7 +35,6 @@ import {PrimaryTabNavigationProp} from '../navigation/types';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
 import withHeaderHeight from '../utils/withHeaderHeight';
-import {withNavigation} from '../utils/withNavigation';
 
 type HomeProps = {
   navigation: PrimaryTabNavigationProp<'Home'>;
@@ -41,7 +44,6 @@ type HomeProps = {
 };
 
 type DeferredHomeContentProps = {
-  navigation: PrimaryTabNavigationProp<'Home'>;
   event: Event;
 };
 
@@ -153,7 +155,7 @@ function Home(props: HomeProps) {
             </HideWhenConferenceHasEnded>
           </View>
         </View>
-        <DeferredHomeContentWithNavigation event={props.event} />
+        <DeferredHomeContent event={props.event} />
         <OverscrollView />
       </AnimatedScrollView>
 
@@ -177,6 +179,7 @@ function Home(props: HomeProps) {
 }
 
 function DeferredHomeContent(props: DeferredHomeContentProps) {
+  const navigation = useNavigation<PrimaryTabNavigationProp<'Home'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [tickets, setTickets] = useState<User[]>([]);
   let _notificationSubscription: EventSubscription | null = null;
@@ -211,7 +214,6 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
   }, []);
 
   const _handleNotification = (notification) => {
-    const navigation = props.navigation;
     if (notification && notification.data && notification.data.action) {
       switch (notification.data.action) {
         case 'newURL':
@@ -229,7 +231,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
   };
 
   const _handlePressAllTalks = () => {
-    props.navigation.dispatch(
+    navigation.dispatch(
       CommonActions.navigate({
         name: 'Schedule',
       })
@@ -243,12 +245,12 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
   };
 
   const _handlePressQRButton = () => {
-    props.navigation.navigate('QRScanner');
+    navigation.navigate('QRScanner');
   };
 
   const _handlePressStaffCheckinListsButton = () => {
     // console.log("handle press checkinlists");
-    props.navigation.navigate('StaffCheckinLists');
+    navigation.navigate('StaffCheckinLists');
   };
 
   const _handlePressTwitterButton = async () => {
@@ -318,7 +320,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
-            onPress={() => props.navigation.navigate('Profile')}
+            onPress={() => navigation.navigate('Profile')}
             underlayColor="#fff">
             <SemiBoldText style={styles.bigButtonText}>My tickets</SemiBoldText>
           </RectButton>
@@ -346,7 +348,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
-            onPress={() => props.navigation.navigate('Profile')}
+            onPress={() => navigation.navigate('Profile')}
             underlayColor="#fff">
             <SemiBoldText style={styles.bigButtonText}>My Tickets</SemiBoldText>
           </RectButton>
@@ -426,8 +428,6 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
     </AnimatableView>
   );
 }
-
-const DeferredHomeContentWithNavigation = withNavigation(DeferredHomeContent);
 
 const OverscrollView = () => (
   <View

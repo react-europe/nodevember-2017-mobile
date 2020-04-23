@@ -22,9 +22,7 @@ type Props = {
 
 function ContactCard({contact, tickets}: Props) {
   const bio: string | null = getContactBio();
-  const twitter:
-    | string
-    | null = null; /* TODO: port to TS getContactTwitter(contact) */
+  const twitter: string | null = null;
 
   const _handlePressTwitterButton = () => {
     const twitter = getContactTwitter(contact);
@@ -33,7 +31,7 @@ function ContactCard({contact, tickets}: Props) {
 
   const _handlePressEmailButton = () => {
     const emailTo = contact.email;
-    if (tickets[0]?.firstName && tickets[0]?.lastName) {
+    if (tickets[0]?.firstName && tickets[0]?.lastName && emailTo) {
       sendEmail(emailTo, {
         firstName: tickets[0].firstName,
         lastName: tickets[0].lastName,

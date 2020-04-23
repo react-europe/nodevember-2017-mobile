@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Animated, View} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
@@ -9,7 +10,6 @@ import {Colors, Layout} from '../constants';
 import {User} from '../data/data';
 import {AppRouteProp, AppNavigationProp} from '../navigation/types';
 import withHeaderHeight from '../utils/withHeaderHeight';
-import withNavigation from '../utils/withNavigation';
 
 type TicketInstructionsProps = {
   route: AppRouteProp<'TicketInstructions'>;
@@ -17,7 +17,6 @@ type TicketInstructionsProps = {
 };
 
 type DeferredTicketInstructionsContentProps = {
-  navigation: AppNavigationProp<'TicketInstructions'>;
   ticketParams: {ticket: User};
 };
 
@@ -47,9 +46,7 @@ function TicketInstructions(props: TicketInstructionsProps) {
           }}
         />
 
-        <DeferredTicketInstructionsContentWithNavigation
-          ticketParams={props.route.params}
-        />
+        <DeferredTicketInstructionsContent ticketParams={props.route.params} />
         <OverscrollView />
       </AnimatedScrollView>
     </View>
@@ -57,9 +54,9 @@ function TicketInstructions(props: TicketInstructionsProps) {
 }
 
 function DeferredTicketInstructionsContent({
-  navigation,
   ticketParams,
 }: DeferredTicketInstructionsContentProps) {
+  const navigation = useNavigation<AppNavigationProp<'TicketInstructions'>>();
   const ticket = ticketParams.ticket;
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
@@ -76,10 +73,6 @@ function DeferredTicketInstructionsContent({
     </AnimatableView>
   );
 }
-
-const DeferredTicketInstructionsContentWithNavigation = withNavigation(
-  DeferredTicketInstructionsContent
-);
 
 const OverscrollView = () => (
   <View

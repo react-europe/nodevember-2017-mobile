@@ -1,4 +1,4 @@
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {BarCodeScanner} from 'expo-barcode-scanner';
 import * as Permissions from 'expo-permissions';
 import React, {useState} from 'react';
@@ -13,20 +13,18 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {AppNavigationProp} from '../../navigation/types';
-import withNavigation from '../../utils/withNavigation';
+import {AppNavigationProp, AppStackParamList} from '../../navigation/types';
 
 type Props = {
   onBarCodeScanned: (data: any) => void;
   loading: boolean;
   title: string;
-  navigation:
-    | AppNavigationProp<'QRCheckinScanner'>
-    | AppNavigationProp<'QRContactScanner'>
-    | AppNavigationProp<'QRScanner'>;
 };
 
 function QRScreen(props: Props) {
+  const navigation = useNavigation<
+    AppNavigationProp<keyof AppStackParamList>
+  >();
   const [showQRScanner, setShowQRScanner] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
 
@@ -80,7 +78,7 @@ function QRScreen(props: Props) {
           alignItems: 'center',
         }}>
         <Button
-          onPress={() => props.navigation.goBack()}
+          onPress={() => navigation.goBack()}
           color={Platform.OS === 'ios' ? '#fff' : ''}
           title="Dismiss"
         />
@@ -106,4 +104,4 @@ function QRScreen(props: Props) {
   );
 }
 
-export default withNavigation(QRScreen);
+export default QRScreen;

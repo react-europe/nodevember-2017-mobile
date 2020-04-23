@@ -1,4 +1,4 @@
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
   Platform,
@@ -18,11 +18,6 @@ import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes} from '../constants';
 import {User} from '../data/data';
 import {PrimaryTabNavigationProp} from '../navigation/types';
-import withNavigation from '../utils/withNavigation';
-
-type DeferredContactsContentProps = {
-  navigation: PrimaryTabNavigationProp<'Contacts'>;
-};
 
 type ClipBorderRadiusProps = {
   style?: StyleProp<TextStyle>;
@@ -33,13 +28,14 @@ function Contacts() {
   return (
     <View style={{flex: 1}}>
       <ScrollView style={{flex: 1}}>
-        <DeferredContactsContentWithNavigation />
+        <DeferredContactsContent />
       </ScrollView>
     </View>
   );
 }
 
-function DeferredContactsContent(props: DeferredContactsContentProps) {
+function DeferredContactsContent() {
+  const navigation = useNavigation<PrimaryTabNavigationProp<'Contacts'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [tickets, setTickets] = useState<User[]>([]);
   const [contacts, setContacts] = useState<User[]>([]);
@@ -77,11 +73,11 @@ function DeferredContactsContent(props: DeferredContactsContentProps) {
   );
 
   const _handlePressQRButton = () => {
-    props.navigation.navigate('QRContactScanner');
+    navigation.navigate('QRContactScanner');
   };
 
   const _handlePressProfileQRButton = () => {
-    props.navigation.navigate('QRScanner');
+    navigation.navigate('QRScanner');
   };
 
   if (!ready) {
@@ -120,10 +116,6 @@ function DeferredContactsContent(props: DeferredContactsContentProps) {
     </AnimatableView>
   );
 }
-
-const DeferredContactsContentWithNavigation = withNavigation(
-  DeferredContactsContent
-);
 
 const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
   return (
