@@ -1,10 +1,27 @@
-import React from 'react';
-import {Animated, Platform, View, StyleSheet} from 'react-native';
 import Constants from 'expo-constants';
+import React from 'react';
+import {
+  Animated,
+  Platform,
+  View,
+  StyleSheet,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
+
 import {Colors} from '../constants';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
-function NavigationBar(props) {
+type Props = {
+  headerHeight: number;
+  style?: StyleProp<TextStyle>;
+  animatedBackgroundOpacity?: Animated.AnimatedInterpolation;
+  renderLeftButton?: () => React.ReactNode;
+  renderRightButton?: () => React.ReactNode;
+  renderTitle?: () => React.ReactNode;
+};
+
+function NavigationBar(props: Props) {
   const _renderAnimated = () => {
     return (
       <>
