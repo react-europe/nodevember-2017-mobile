@@ -17,7 +17,7 @@ import {AppNavigationProp, AppStackParamList} from '../../navigation/types';
 
 type Props = {
   onBarCodeScanned: (data: any) => void;
-  loading: boolean;
+  loading?: boolean;
   title: string;
 };
 
