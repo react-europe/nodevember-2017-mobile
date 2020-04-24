@@ -134,13 +134,13 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
 
             const attendees =
               data?.events && data.events[0] ? data.events[0].attendees : [];
-            let attendeesData;
-            if (cleanedQuery === '') {
+            let attendeesData: Attendee[] = [];
+            if (cleanedQuery === '' && attendees) {
               attendeesData = _.orderBy(
                 attendees,
                 (attendee) => `${attendee?.firstName} ${attendee?.lastName}`,
                 ['asc']
-              );
+              ) as Attendee[];
             } else {
               const filteredAttendees: Attendee[] = [];
               const attendeesSearchRankingScore = {};

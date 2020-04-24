@@ -2,7 +2,7 @@ import React from 'react';
 import {AsyncStorage} from 'react-native';
 
 import {GQL} from '../../constants';
-import {User} from '../../data/data';
+import {User, Attendee} from '../../data/data';
 import QR_CONTACT_QUERY from '../../data/qrContactQuery';
 import {AppNavigationProp} from '../../navigation/types';
 import {addContact} from '../../utils';
@@ -51,7 +51,7 @@ export default function QRContactScannerModalNavigation(props: Props) {
       variables,
     });
     if (scannedContact?.data?.events[0]?.attendees[0]) {
-      const contact = scannedContact.data.events[0].attendees[0];
+      const contact: Attendee = scannedContact.data.events[0].attendees[0];
       await addContact(contact);
       props.navigation.navigate('Contacts');
     }
