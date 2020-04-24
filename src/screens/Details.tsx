@@ -320,16 +320,13 @@ function Details(props: Props & AppProps<'Details'>) {
               paddingTop: Platform.OS === 'android' ? 30 : 0,
               marginTop: Layout.notchHeight > 0 ? -5 : 0,
             }}>
-            <CloseButton
-              onPress={() => props.navigation.goBack()}
-              tintColor="#fff"
-              title={null}
-            />
+            <CloseButton onPress={() => props.navigation.goBack()} />
           </View>
         )}
-        renderRightButton={() => {
-          talk ? <SavedButtonNavigationItem talk={talk} /> : null;
-        }}
+        /* TODO (Handle save talk)
+         renderRightButton={() => {
+          talk ? <SavedButtonNavigationItem talk={talk} /> : null; 
+        }} */
       />
     </View>
   );
