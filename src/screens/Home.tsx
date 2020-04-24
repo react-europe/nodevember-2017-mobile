@@ -304,7 +304,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           </RectButton>
         </ClipBorderRadius>
       ) : null}
-      {!tickets ? (
+      {tickets.length <= 0 ? (
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
@@ -316,7 +316,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           </RectButton>
         </ClipBorderRadius>
       ) : null}
-      {tickets && tickets.length > 0 && !isStaff ? (
+      {tickets.length > 0 && !isStaff ? (
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
@@ -344,7 +344,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           </SemiBoldText>
         </TouchableOpacity>
       </View>
-      {tickets && tickets.length > 0 ? (
+      {tickets.length > 0 ? (
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
@@ -354,7 +354,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           </RectButton>
         </ClipBorderRadius>
       ) : null}
-      {!tickets ? (
+      {tickets.length <= 0 ? (
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
@@ -366,7 +366,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           </RectButton>
         </ClipBorderRadius>
       ) : null}
-      {tickets && tickets.length > 0 ? (
+      {tickets.length > 0 ? (
         <ClipBorderRadius>
           <RectButton
             style={styles.bigButton}
