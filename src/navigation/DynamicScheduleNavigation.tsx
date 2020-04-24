@@ -5,12 +5,13 @@ import React from 'react';
 import {withData} from '../context/DataContext';
 import {ScheduleDay, Event} from '../data/data';
 import Screens from '../screens';
+import {ScheduleDayTabParamList} from './types';
 
 type Props = {
   event: Event;
 };
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createMaterialTopTabNavigator<ScheduleDayTabParamList>();
 
 function DynamicScheduleNavigation(props: Props) {
   let fullSchedule: ScheduleDay[] = [];
