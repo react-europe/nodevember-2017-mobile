@@ -127,7 +127,6 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
       {uuid !== '' ? (
         <Query<QueryAttendees> query={GET_ATTENDEES} variables={vars}>
           {({loading, error, data}) => {
-            console.log('DATA: ', data);
             if (error) {
               return <Text>Error ${error}</Text>;
             }
@@ -192,7 +191,6 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
                 onPress={_handlePressRow}
                 searchQuery={cleanedQuery}
                 isLoading={loading}
-                event={props.event}
               />
             );
           }}
