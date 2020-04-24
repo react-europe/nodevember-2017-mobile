@@ -9,7 +9,7 @@ import {
 
 import {Colors, FontSizes} from '../constants';
 import {findNextTalksAfterDate} from '../data';
-import {Event, Talk} from '../data/data';
+import {Event, Schedule} from '../data/data';
 import {
   convertUtcDateToEventTimezoneDaytime,
   conferenceHasEnded,
@@ -24,7 +24,7 @@ type Props = {
 
 function TalksUpNext(props: Props) {
   const [dateTime, setDateTime] = useState<string | null>(null);
-  const [nextTalks, setNextTalks] = useState<Talk[]>([]);
+  const [nextTalks, setNextTalks] = useState<Schedule[]>([]);
 
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
@@ -63,9 +63,9 @@ function TalksUpNext(props: Props) {
         </SemiBoldText>
       </View>
       {_renderDateTime()}
-      {nextTalks.map((talk) => (
+      {nextTalks.map((talk, index) => (
         <TalkCard
-          key={talk.title}
+          key={index}
           talk={talk}
           style={{marginTop: 10, marginBottom: 10}}
         />
