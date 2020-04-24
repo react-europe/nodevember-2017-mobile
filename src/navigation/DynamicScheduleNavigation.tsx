@@ -3,13 +3,20 @@ import moment from 'moment';
 import React from 'react';
 
 import {withData} from '../context/DataContext';
-import {ScheduleDay} from '../data/data';
+import {ScheduleDay, Event} from '../data/data';
 import Screens from '../screens';
+
+type Props = {
+  event: Event;
+};
 
 const Tab = createMaterialTopTabNavigator();
 
-function DynamicScheduleNavigation(props) {
-  const fullSchedule: ScheduleDay[] = props.event.groupedSchedule;
+function DynamicScheduleNavigation(props: Props) {
+  let fullSchedule: ScheduleDay[] = [];
+  if (props.event.groupedSchedule) {
+    fullSchedule = props.event.groupedSchedule as ScheduleDay[];
+  }
   return (
     <Tab.Navigator
       tabBarOptions={{
