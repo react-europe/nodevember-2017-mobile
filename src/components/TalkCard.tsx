@@ -74,7 +74,7 @@ function TalkCard(props: Props) {
           );
         })}
       <View style={styles.talkInfoRow}>
-        {/* <RegularText style={styles.talkTitle}>  // TODO
+        {/* <RegularText style={styles.talkTitle}>  // TODO (Handle save talk)
           <SaveIconWhenSaved talk={props.talk} />
           {props.talk.title}
         </RegularText> */}
