@@ -55,7 +55,7 @@ export function subscribeToUpdates(talk: Talk, onUpdateFn: (t: Talk) => void) {
 }
 
 export const toggleSaved = (talk: Talk) => {
-  if (talk.title && _savedTalks) {
+  /* if (talk.title && _savedTalks) {  TODO (handle save talk)
     const key = _.snakeCase(talk.title);
     const newSavedTalks = {
       ..._savedTalks,
@@ -63,10 +63,10 @@ export const toggleSaved = (talk: Talk) => {
     };
     _updateSavedTalks(newSavedTalks);
   }
-  return null;
+  return null; */
 };
 
-function _updateSavedTalks(savedTalks: Talks) {
+/* function _updateSavedTalks(savedTalks: Talks) {
   _savedTalks = savedTalks;
   _emitter.emit('change');
   _updateAsyncStorage();
@@ -78,7 +78,7 @@ function _updateAsyncStorage() {
   } catch (e) {
     console.warn(e);
   }
-}
+} */
 
 export const withSaveState = <P extends object>(
   Component: React.ComponentType<P>
