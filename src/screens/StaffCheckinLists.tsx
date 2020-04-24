@@ -85,14 +85,7 @@ export default function StaffCheckinLists(props: Props) {
     getTickets();
   }, []);
 
-  const _renderSectionHeader = ({section}) => {
-    return (
-      <View style={styles.sectionHeader}>
-        <RegularText>{section.title}</RegularText>
-      </View>
-    );
-  };
-  const _renderItem = ({item}) => {
+  const _renderItem = ({item}: {item: CheckinList}) => {
     return (
       <StaffCheckinListRow
         item={item}
@@ -105,14 +98,11 @@ export default function StaffCheckinLists(props: Props) {
     <LoadingPlaceholder>
       <FlatList
         renderScrollComponent={(props) => <ScrollView {...props} />}
-        renderSectionHeader={_renderSectionHeader}
-        stickySectionHeadersEnabled
         data={staffCheckinLists}
         renderItem={_renderItem}
         //<ListItem title={item.lastName} description="Press here to start checking people" icon="folder" key={item.id}/>}
 
         /**/
-        keyExtractor={(item) => item.id && item.id.toString()}
       />
     </LoadingPlaceholder>
   );
