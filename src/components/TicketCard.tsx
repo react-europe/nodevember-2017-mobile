@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import {ViewStyle, StyleProp} from 'react-native';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
 
@@ -8,6 +9,7 @@ import {PrimaryTabNavigationProp} from '../navigation/types';
 
 type Props = {
   ticket: User;
+  style?: StyleProp<ViewStyle>;
 };
 
 function TicketCard(props: Props) {
