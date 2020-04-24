@@ -137,7 +137,7 @@ export const openTwitter = async (twitter: string): Promise<any> => {
   }
 };
 
-export const addContact = async (contact: User): Promise<void> => {
+export const addContact = async (contact: Attendee): Promise<void> => {
   const storedContacts = await AsyncStorage.getItem(
     '@MySuperStore2019:contacts'
   );
