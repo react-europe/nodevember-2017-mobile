@@ -1,15 +1,25 @@
+import _ from 'lodash';
 import React from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
-import _ from 'lodash';
 
-import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
-import SaveIconWhenSaved from '../components/SaveIconWhenSaved';
-import {convertUtcDateToEventTimezoneHour} from '../utils';
+import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
+import {Event, Schedule, ScheduleDay as ScheduleDayType} from '../data/data';
+import {ScheduleDayProps} from '../navigation/types';
+import {convertUtcDateToEventTimezoneHour} from '../utils';
 
-function ScheduleRow(props) {
+type Props = {
+  event: Event;
+};
+
+type ScheduleRowProps = {
+  onPress: (item: Schedule) => void;
+  item: Schedule;
+};
+
+function ScheduleRow(props: ScheduleRowProps) {
   const {item} = props;
 
   const _handlePress = () => {
@@ -19,14 +29,14 @@ function ScheduleRow(props) {
   const content = (
     <View style={[styles.row, item.talk && styles.rowStatic]}>
       <BoldText>
-        <SaveIconWhenSaved talk={item} />
+        {/* <SaveIconWhenSaved talk={item} />  TODO (Handle save talk )*/}
         {item.title}
       </BoldText>
 
       {item.speakers
-        ? item.speakers.map(speaker => (
-            <SemiBoldText key={speaker.id + item.title}>
-              {speaker.name}
+        ? item.speakers.map((speaker, index) => (
+            <SemiBoldText key={index}>
+              {speaker?.name ? speaker.name : ''}
             </SemiBoldText>
           ))
         : null}
@@ -44,12 +54,22 @@ function ScheduleRow(props) {
   );
 }
 
-function ScheduleDay(props) {
-  const schedule = _.find(
+function ScheduleDay(props: Props & ScheduleDayProps) {
+  const schedule: ScheduleDayType | null | undefined = _.find(
     props.event.groupedSchedule,
-    schedule => schedule.title === props.route.params.day
+    (schedule) => {
+      if (schedule?.title) {
+        return schedule.title === props.route.params.day;
+      }
+      return false;
+    }
   );
-  const slotsByTime = _.groupBy(schedule.slots, slot => slot.startDate);
+  let slotsByTime: _.Dictionary<Schedule[]> | null = null;
+  if (schedule?.slots) {
+    slotsByTime = _.groupBy(schedule.slots, (slot) =>
+      slot?.startDate ? slot.startDate : ''
+    ) as _.Dictionary<Schedule[]>;
+  }
   const slotsData = _.map(slotsByTime, (data, time) => {
     return {data, title: convertUtcDateToEventTimezoneHour(time)};
   });
@@ -62,11 +82,11 @@ function ScheduleDay(props) {
     );
   };
 
-  const _renderItem = ({item}) => {
+  const _renderItem = ({item}: {item: Schedule}) => {
     return <ScheduleRow item={item} onPress={_handlePressRow} />;
   };
 
-  const _handlePressRow = item => {
+  const _handlePressRow = (item: Schedule) => {
     props.navigation.navigate('Details', {
       scheduleSlot: item,
     });
@@ -75,12 +95,12 @@ function ScheduleDay(props) {
   return (
     <LoadingPlaceholder>
       <SectionList
-        renderScrollComponent={props => <ScrollView {...props} />}
-        stickySectionHeadersEnabled={true}
+        renderScrollComponent={(props) => <ScrollView {...props} />}
+        stickySectionHeadersEnabled
         renderItem={_renderItem}
         renderSectionHeader={_renderSectionHeader}
         sections={slotsData}
-        keyExtractor={item => _.snakeCase(item.title)}
+        keyExtractor={(item) => _.snakeCase(item?.title ? item.title : '')}
         initialNumToRender={10}
       />
     </LoadingPlaceholder>
