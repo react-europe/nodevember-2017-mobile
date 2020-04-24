@@ -5,12 +5,12 @@ import {Text, ViewStyle, StyleProp, TextStyle} from 'react-native';
 
 type Props = {
   TextComponent: React.ComponentType<any>;
-  autoEscape: boolean;
+  autoEscape?: boolean;
   highlightStyle: StyleProp<TextStyle>;
   searchWords: string[];
   textToHighlight: string;
-  sanitize: () => void;
-  style: StyleProp<ViewStyle>;
+  sanitize?: () => void;
+  style?: StyleProp<ViewStyle>;
 };
 
 /**
