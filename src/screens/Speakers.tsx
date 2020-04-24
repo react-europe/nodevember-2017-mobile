@@ -58,6 +58,8 @@ function SpeakerRow(props: SpeakerRowProps) {
 }
 
 function Speakers(props: SpeakersProps) {
+  const speakers = props.event.speakers;
+
   const _renderSectionHeader = ({section}) => {
     return (
       <View style={styles.sectionHeader}>
@@ -81,7 +83,7 @@ function Speakers(props: SpeakersProps) {
         stickySectionHeadersEnabled
         renderItem={_renderItem}
         renderSectionHeader={_renderSectionHeader}
-        sections={[{data: props.event.speakers, title: 'Speakers'}]}
+        sections={[{data: speakers ? speakers : [], title: 'Speakers'}]}
         keyExtractor={(item, index) => index.toString()}
       />
     </LoadingPlaceholder>
