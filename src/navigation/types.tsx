@@ -1,4 +1,5 @@
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -100,6 +101,27 @@ export type ScheduleNavigationProp = CompositeNavigationProp<
 export type ScheduleProps = {
   route: ScheduleRouteProp;
   navigation: ScheduleNavigationProp;
+};
+
+/** ScheduleDay */
+
+export type ScheduleDayTabParamList = {
+  ScheduleDay: undefined;
+};
+
+export type ScheduleDayRouteProp = RouteProp<
+  ScheduleDayTabParamList,
+  'ScheduleDay'
+>;
+
+export type ScheduleDayNavigationProp = CompositeNavigationProp<
+  MaterialTopTabNavigationProp<ScheduleDayTabParamList, 'ScheduleDay'>,
+  StackNavigationProp<ScheduleStackParamList>
+>;
+
+export type ScheduleDayProps = {
+  route: ScheduleDayRouteProp;
+  navigation: ScheduleDayNavigationProp;
 };
 
 /** Contacts */
