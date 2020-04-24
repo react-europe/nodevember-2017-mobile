@@ -45,17 +45,17 @@ const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
 const BORDER_RADIUS = 3;
 
 function SponsorRow(props: SponsorRowProps) {
-  const {item: sponsor} = props;
+  const sponsor = props.item;
 
   const _handlePress = () => {
-    if (props.item.url) {
-      WebBrowser.openBrowserAsync(props.item.url);
+    if (sponsor.url) {
+      WebBrowser.openBrowserAsync(sponsor.url);
     }
   };
 
   const _handlePressJobUrl = () => {
-    if (props.item.jobUrl) {
-      WebBrowser.openBrowserAsync(props.item.jobUrl);
+    if (sponsor.jobUrl) {
+      WebBrowser.openBrowserAsync(sponsor.jobUrl);
     }
   };
 
@@ -114,7 +114,7 @@ function SponsorRow(props: SponsorRowProps) {
 function Sponsors(props: SponsorsProps) {
   const event = props.event;
   const SponsorsData = event.sponsors;
-  let SponsorsByLevel: {title: string; data: Sponsor}[] = [];
+  let SponsorsByLevel: {title: string; data: Sponsor[]}[] = [];
   const levels = [
     {title: 'Diamond', key: 'diamond'},
     {title: 'Platinum', key: 'Platinium'},
@@ -122,10 +122,9 @@ function Sponsors(props: SponsorsProps) {
     {title: 'Partners', key: 'partner'},
   ];
   if (SponsorsData) {
-    const tmp = levels.map(({title, key}) => {
-      return {title, data: SponsorsData[key]};
+    SponsorsByLevel = levels.map(({title, key}) => {
+      return {title, data: SponsorsData[key] ? SponsorsData[key] : []};
     });
-    SponsorsByLevel = tmp.filter((sponsor) => sponsor.data !== undefined);
   }
 
   const _renderSectionHeader = ({section}) => {
