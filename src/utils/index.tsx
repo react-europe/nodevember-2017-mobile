@@ -74,33 +74,27 @@ type Props = {
   children: React.ReactNode;
 };
 
-export function HideWhenConferenceHasStarted(
-  props: Props
-): React.ReactNode | null {
+export function HideWhenConferenceHasStarted(props: Props) {
   if (conferenceHasStarted()) {
-    return null;
+    return <></>;
   } else {
-    return props.children as React.ReactElement;
+    return <>{props.children}</>;
   }
 }
 
-export function HideWhenConferenceHasEnded(
-  props: Props
-): React.ReactNode | null {
+export function HideWhenConferenceHasEnded(props: Props) {
   if (conferenceHasEnded()) {
-    return null;
+    return <></>;
   } else {
-    return props.children as React.ReactElement;
+    return <>{props.children}</>;
   }
 }
 
-export function ShowWhenConferenceHasEnded(
-  props: Props
-): React.ReactElement | null {
+export function ShowWhenConferenceHasEnded(props: Props) {
   if (conferenceHasEnded()) {
-    return props.children as React.ReactElement;
+    return <>{props.children}</>;
   } else {
-    return null;
+    return <></>;
   }
 }
 
@@ -142,15 +136,15 @@ export const addContact = async (contact: Attendee): Promise<void> => {
     '@MySuperStore2019:contacts'
   );
 
-  let contacts: User[] = [];
-  const newContacts: User[] = [];
+  let contacts: Attendee[] = [];
+  const newContacts: Attendee[] = [];
   let found = false;
   if (storedContacts === null && contact && contact.firstName) {
     contacts = [contact];
   } else {
     const existingContacts = JSON.parse(storedContacts ? storedContacts : '[]');
     // console.log('how many existing contacts', existingContacts.length);
-    existingContacts.map((existingContact: User) => {
+    existingContacts.map((existingContact: Attendee) => {
       // console.log('existing contact', existingContact);
       if (
         existingContact &&
