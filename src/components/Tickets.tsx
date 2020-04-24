@@ -34,10 +34,10 @@ export default function Tickets(props: Props) {
   return (
     <View style={[{marginHorizontal: 10}, props.style]}>
       <Title>My Tickets</Title>
-      {tix.map((ticket) =>
+      {tix.map((ticket, index) =>
         ticket ? (
           <TicketCard
-            key={ticket.ref}
+            key={index}
             ticket={ticket}
             style={{marginTop: 10, marginBottom: 10}}
           />
