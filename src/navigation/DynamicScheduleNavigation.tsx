@@ -29,11 +29,11 @@ function DynamicScheduleNavigation(props: Props) {
       })}>
       {fullSchedule.map((day: ScheduleDay, index: number) => (
         <Tab.Screen
-          key={day.title || index}
-          name={day.title || index.toString()}
+          key={index}
+          name="ScheduleDay"
           component={Screens.ScheduleDay}
           initialParams={{
-            day: day.title,
+            day: day?.title ? day.title : '',
             date: moment(new Date(day.date)).format('ddd'),
           }}
         />
