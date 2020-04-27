@@ -14,7 +14,7 @@ class ScrollViewRef extends React.Component<ScrollViewRefProps> {
 
 const AnimatedComponent = Animated.createAnimatedComponent(ScrollViewRef);
 
-const AnimatedScrollView = function (props) {
+const AnimatedScrollView = function (props: any) {
   const ref = React.useRef<ScrollView>(null);
 
   useScrollToTop(ref);
