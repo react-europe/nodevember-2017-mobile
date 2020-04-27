@@ -5,8 +5,8 @@ import {ViewStyle, StyleProp} from 'react-native';
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
 
-import {User} from '../data/data';
-import {PrimaryTabNavigationProp} from '../navigation/types';
+import {User} from '../typings/data';
+import {PrimaryTabNavigationProp} from '../typings/navigation';
 
 type Props = {
   ticket: User;

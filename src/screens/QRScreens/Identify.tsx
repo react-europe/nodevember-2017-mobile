@@ -4,10 +4,10 @@ import React, {useEffect, useState} from 'react';
 import {Alert, AsyncStorage} from 'react-native';
 
 import {GQL} from '../../constants';
-import {User} from '../../data/data';
+import {User} from '../../typings/data';
 import QR_QUERY from '../../data/qrQuery';
 import UPDATE_PUSH_TOKEN_QUERY from '../../data/updatePushTokenQuery';
-import {AppProps} from '../../navigation/types';
+import {AppProps} from '../../typings/navigation';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 

@@ -14,7 +14,7 @@ import CachedImage from '../components/CachedImage';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
-import {Collaborator, Event} from '../data/data';
+import {Collaborator, Event} from '../typings/data';
 
 type CrewRowProps = {
   item: Collaborator;

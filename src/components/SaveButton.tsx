@@ -3,7 +3,7 @@ import React from 'react';
 import {BorderlessButton} from 'react-native-gesture-handler';
 
 import {Icons} from '../constants';
-import {Talk} from '../data/data';
+import {Talk} from '../typings/data';
 import {toggleSaved, withSaveState} from '../utils/storage';
 
 type Props = {

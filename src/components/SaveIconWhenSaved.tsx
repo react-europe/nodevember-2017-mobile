@@ -3,7 +3,7 @@ import React from 'react';
 import {Text, StyleProp, TextStyle} from 'react-native';
 
 import {Icons, Colors} from '../constants';
-import {Talk} from '../data/data';
+import {Talk} from '../typings/data';
 import {withSaveState} from '../utils/storage';
 
 type Props = {

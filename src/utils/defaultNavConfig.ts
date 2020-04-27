@@ -1,6 +1,6 @@
 import {Colors} from '../constants';
 
-function DefaultStackConfig(route) {
+function DefaultStackConfig(route: any) {
   return {
     cardStyle: {
       backgroundColor: '#fafafa',

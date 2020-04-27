@@ -1,9 +1,9 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 
+import {ScheduleStackParamList} from '../typings/navigation';
 import DefaultStackConfig from '../utils/defaultNavConfig';
 import DynamicScheduleNavigation from './DynamicScheduleNavigation';
-import {ScheduleStackParamList} from './types';
 
 const Stack = createStackNavigator<ScheduleStackParamList>();
 

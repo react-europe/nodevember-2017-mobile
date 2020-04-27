@@ -8,8 +8,8 @@ import {Button, Card, CardContent, Title} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, Layout} from '../constants';
-import {User} from '../data/data';
-import {AppRouteProp, AppNavigationProp} from '../navigation/types';
+import {User} from '../typings/data';
+import {AppRouteProp, AppNavigationProp} from '../typings/navigation';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
 type TicketInstructionsProps = {

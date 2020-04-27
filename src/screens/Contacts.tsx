@@ -16,8 +16,8 @@ import {RectButton} from 'react-native-gesture-handler';
 import MyContacts from '../components/MyContacts';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes} from '../constants';
-import {User} from '../data/data';
-import {PrimaryTabNavigationProp} from '../navigation/types';
+import {User} from '../typings/data';
+import {PrimaryTabNavigationProp} from '../typings/navigation';
 
 type ClipBorderRadiusProps = {
   style?: StyleProp<TextStyle>;

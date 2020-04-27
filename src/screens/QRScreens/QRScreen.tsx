@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {AppNavigationProp, AppStackParamList} from '../../navigation/types';
+import {AppNavigationProp, AppStackParamList} from '../../typings/navigation';
 
 type Props = {
   onBarCodeScanned: (data: any) => void;

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment-timezone';
 
 import {convertUtcDateToEventTimezone} from '../utils';
-import {Event, Schedule} from './data';
+import {Event, Schedule} from '../typings/data';
 
 export function findNextTalksAfterDate(event: Event) {
   let flattenedTalks: Schedule[] = [];

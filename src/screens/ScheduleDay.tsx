@@ -6,8 +6,8 @@ import {ScrollView, RectButton} from 'react-native-gesture-handler';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
-import {Event, Schedule, ScheduleDay as ScheduleDayType} from '../data/data';
-import {ScheduleDayProps} from '../navigation/types';
+import {Event, Schedule, ScheduleDay as ScheduleDayType} from '../typings/data';
+import {ScheduleDayProps} from '../typings/navigation';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
 
 type Props = {

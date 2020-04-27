@@ -3,8 +3,11 @@ import _ from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {AsyncStorage} from 'react-native';
 
-import {Talk, Attendee} from '../data/data';
-import {PrimaryTabNavigationProp, AppNavigationProp} from '../navigation/types';
+import {Talk, Attendee} from '../typings/data';
+import {
+  PrimaryTabNavigationProp,
+  AppNavigationProp,
+} from '../typings/navigation';
 
 type Talks = {[key: string]: Talk};
 

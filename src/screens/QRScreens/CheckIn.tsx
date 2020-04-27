@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Alert, AsyncStorage} from 'react-native';
 
 import QR_CHECKIN_QUERY from '../../data/qrCheckinQuery';
-import {AppProps} from '../../navigation/types';
+import {AppProps} from '../../typings/navigation';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 

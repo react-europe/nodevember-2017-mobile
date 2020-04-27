@@ -5,8 +5,8 @@ import FadeIn from 'react-native-fade-in-image';
 import {RectButton} from 'react-native-gesture-handler';
 
 import {Colors, FontSizes} from '../constants';
-import {Schedule} from '../data/data';
-import {PrimaryTabNavigationProp} from '../navigation/types';
+import {Schedule} from '../typings/data';
+import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {conferenceHasEnded} from '../utils';
 import CachedImage from './CachedImage';
 import {BoldText, RegularText, SemiBoldText} from './StyledText';

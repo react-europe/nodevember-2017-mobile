@@ -2,8 +2,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 
 import Screens from '../screens';
+import {ContactStackParamList} from '../typings/navigation';
 import DefaultStackConfig from '../utils/defaultNavConfig';
-import {ContactStackParamList} from './types';
 
 const Stack = createStackNavigator<ContactStackParamList>();
 

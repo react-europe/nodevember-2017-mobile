@@ -2,8 +2,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 
 import Screens from '../screens';
+import {StaffCheckinListsParamList} from '../typings/navigation';
 import DefaultStackConfig from '../utils/defaultNavConfig';
-import {StaffCheckinListsParamList} from './types';
 
 const Stack = createStackNavigator<StaffCheckinListsParamList>();
 

@@ -11,7 +11,7 @@ import {
   Talk,
   Schedule,
   Attendee,
-} from '../data/data';
+} from './data';
 
 /** App */
 

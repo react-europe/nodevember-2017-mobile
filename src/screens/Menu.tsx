@@ -12,7 +12,7 @@ import {
 
 import CachedImage from '../components/CachedImage';
 import {Colors, Layout} from '../constants';
-import {MenuNavigationProp, MenuStackParamList} from '../navigation/types';
+import {MenuNavigationProp, MenuStackParamList} from '../typings/navigation';
 
 type Props = {
   navigation: MenuNavigationProp<'Menu'>;

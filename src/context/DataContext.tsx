@@ -1,6 +1,6 @@
 import React, {createContext} from 'react';
 
-import {Event} from '../data/data';
+import {Event} from '../typings/data';
 
 type DataContext = {
   initialLinkingUri?: string;
