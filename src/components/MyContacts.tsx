@@ -11,7 +11,7 @@ import {
 import {RectButton} from 'react-native-gesture-handler';
 
 import {FontSizes, Colors} from '../constants';
-import {User} from '../data/data';
+import {User} from '../typings/data';
 import {getContactTwitter} from '../utils';
 import ContactCard from './ContactCard';
 import {SemiBoldText} from './StyledText';

@@ -18,8 +18,8 @@ import GravatarImage from '../components/GravatarImage';
 import NavigationBar from '../components/NavigationBar';
 import {RegularText, SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
-import {Attendee} from '../data/data';
-import {AppProps} from '../navigation/types';
+import {Attendee} from '../typings/data';
+import {AppProps} from '../typings/navigation';
 import {openTwitter, addContact, getContactTwitter} from '../utils';
 import withHeaderHeight from '../utils/withHeaderHeight';
 

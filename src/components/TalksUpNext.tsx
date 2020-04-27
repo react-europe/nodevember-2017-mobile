@@ -9,7 +9,7 @@ import {
 
 import {Colors, FontSizes} from '../constants';
 import {findNextTalksAfterDate} from '../data';
-import {Event, Schedule} from '../data/data';
+import {Event, Schedule} from '../typings/data';
 import {
   convertUtcDateToEventTimezoneDaytime,
   conferenceHasEnded,

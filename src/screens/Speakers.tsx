@@ -7,8 +7,8 @@ import CachedImage from '../components/CachedImage';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
-import {Event, Speaker, Talk} from '../data/data';
-import {MenuNavigationProp} from '../navigation/types';
+import {Event, Speaker, Talk} from '../typings/data';
+import {MenuNavigationProp} from '../typings/navigation';
 import {getSpeakerTalk} from '../utils';
 
 type SpeakersProps = {

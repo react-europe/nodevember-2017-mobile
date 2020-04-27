@@ -18,8 +18,8 @@ import AttendeesSearchResults from '../components/AttendeesSearchResults';
 import {GQL, Colors, Layout} from '../constants';
 import {withData} from '../context/DataContext';
 import GET_ATTENDEES from '../data/attendeesquery';
-import {Event, User, Attendee} from '../data/data';
-import {MenuNavigationProp} from '../navigation/types';
+import {Event, User, Attendee} from '../typings/data';
+import {MenuNavigationProp} from '../typings/navigation';
 import {getContactTwitter} from '../utils';
 
 type AttendeesProps = {

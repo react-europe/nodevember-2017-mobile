@@ -9,7 +9,7 @@ import {StyleSheet, View, FlatList} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import {Colors} from '../constants';
-import {Attendee, Event} from '../data/data';
+import {Attendee, Event} from '../typings/data';
 import {getContactTwitter} from '../utils';
 import GravatarImage from './GravatarImage';
 import HighlightableText from './HighlightableText';

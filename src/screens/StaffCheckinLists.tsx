@@ -11,8 +11,8 @@ import {ScrollView, RectButton} from 'react-native-gesture-handler';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {RegularText} from '../components/StyledText';
 import {FontSizes, Colors} from '../constants';
-import {Event, User, CheckinList} from '../data/data';
-import {AppNavigationProp} from '../navigation/types';
+import {Event, User, CheckinList} from '../typings/data';
+import {AppNavigationProp} from '../typings/navigation';
 
 const BORDER_RADIUS = 3;
 

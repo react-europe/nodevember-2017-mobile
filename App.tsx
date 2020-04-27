@@ -21,7 +21,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {GQL} from './src/constants';
 import DataContext from './src/context/DataContext';
-import {Event} from './src/data/data';
+import {Event} from './src/typings/data';
 import GET_SCHEDULE from './src/data/schedulequery';
 import AppNavigator from './src/navigation/AppNavigator';
 import {setEvent, saveSchedule} from './src/utils';

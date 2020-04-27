@@ -2,9 +2,9 @@ import React from 'react';
 import {AsyncStorage} from 'react-native';
 
 import {GQL} from '../../constants';
-import {User, Attendee} from '../../data/data';
+import {User, Attendee} from '../../typings/data';
 import QR_CONTACT_QUERY from '../../data/qrContactQuery';
-import {AppNavigationProp} from '../../navigation/types';
+import {AppNavigationProp} from '../../typings/navigation';
 import {addContact} from '../../utils';
 import client from '../../utils/gqlClient';
 import {saveNewContact} from '../../utils/storage';

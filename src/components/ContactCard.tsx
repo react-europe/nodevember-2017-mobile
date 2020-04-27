@@ -13,7 +13,7 @@ import {
 import CachedImage from '../components/CachedImage';
 import GravatarImage from '../components/GravatarImage';
 import {Colors, FontSizes} from '../constants';
-import {User} from '../data/data';
+import {User} from '../typings/data';
 import {sendEmail, openTwitter, getContactTwitter} from '../utils';
 
 type Props = {

@@ -6,6 +6,7 @@ import {
   View,
   StyleProp,
   TextStyle,
+  SectionListData,
 } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
@@ -15,7 +16,7 @@ import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {SemiBoldText, RegularText} from '../components/StyledText';
 import {Layout, FontSizes, Colors} from '../constants';
 import {withData} from '../context/DataContext';
-import {Event, Sponsor} from '../data/data';
+import {Event, Sponsor} from '../typings/data';
 
 type SponsorsProps = {
   event: Event;
@@ -126,8 +127,11 @@ function Sponsors(props: SponsorsProps) {
       return {title, data: SponsorsData[key] ? SponsorsData[key] : []};
     });
   }
+  type HeaderProps<T> = {
+    section: SectionListData<T>;
+  };
 
-  const _renderSectionHeader = ({section}) => {
+  const _renderSectionHeader = ({section}: HeaderProps<Sponsor>) => {
     return (
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
@@ -135,7 +139,7 @@ function Sponsors(props: SponsorsProps) {
     );
   };
 
-  const _renderItem = ({item}) => {
+  const _renderItem = ({item}: {item: Sponsor}) => {
     return <SponsorRow item={item} />;
   };
 

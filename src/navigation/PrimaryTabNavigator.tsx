@@ -3,11 +3,11 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 
 import Screens from '../screens';
+import {PrimaryTabParamList} from '../typings/navigation';
 import ContactsNavigator from './ContactsNavigator';
 import MenuNavigator from './MenuNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import ScheduleNavigator from './ScheduleNavigator';
-import {PrimaryTabParamList} from './types';
 
 const Tab = createBottomTabNavigator<PrimaryTabParamList>();
 

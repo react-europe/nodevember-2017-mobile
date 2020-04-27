@@ -3,9 +3,9 @@ import moment from 'moment';
 import React from 'react';
 
 import {withData} from '../context/DataContext';
-import {ScheduleDay, Event} from '../data/data';
+import {ScheduleDay, Event} from '../typings/data';
 import Screens from '../screens';
-import {ScheduleDayTabParamList} from './types';
+import {ScheduleDayTabParamList} from '../typings/navigation';
 
 type Props = {
   event: Event;

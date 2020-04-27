@@ -4,7 +4,13 @@ import moment from 'moment-timezone';
 import React from 'react';
 import {Platform, Linking, AsyncStorage} from 'react-native';
 
-import {Speaker, Talk, Event as EventType, User, Attendee} from '../data/data';
+import {
+  Speaker,
+  Talk,
+  Event as EventType,
+  User,
+  Attendee,
+} from '../typings/data';
 
 export function getSpeakerTalk(speaker: Speaker): Talk | null {
   const talk = _.find(speaker.talks, function (talk) {

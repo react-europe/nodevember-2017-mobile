@@ -5,10 +5,10 @@ import Screen from '../screens';
 import QRCheckinScannerModalNavigation from '../screens/QRScreens/CheckIn';
 import QRContactScannerModalNavigation from '../screens/QRScreens/Contact';
 import QRScannerModalNavigation from '../screens/QRScreens/Identify';
+import {AppStackParamList} from '../typings/navigation';
 import DefaultStackConfig from '../utils/defaultNavConfig';
 import PrimaryTabNavigator from './PrimaryTabNavigator';
 import StaffCheckinListsNavigator from './StaffCheckinListsNavigator';
-import {AppStackParamList} from './types';
 
 const Stack = createStackNavigator<AppStackParamList>();
 

@@ -3,7 +3,7 @@ import {View, StyleProp, ViewStyle} from 'react-native';
 //@ts-ignore TODO use a new react-native-paper release
 import {Title} from 'react-native-paper';
 
-import {User} from '../data/data';
+import {User} from '../typings/data';
 import TicketCard from './TicketCard';
 
 type Props = {
