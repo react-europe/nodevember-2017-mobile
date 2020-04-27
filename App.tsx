@@ -21,9 +21,9 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {GQL} from './src/constants';
 import DataContext from './src/context/DataContext';
-import {Event} from './src/typings/data';
 import GET_SCHEDULE from './src/data/schedulequery';
 import AppNavigator from './src/navigation/AppNavigator';
+import {Event} from './src/typings/data';
 import {setEvent, saveSchedule} from './src/utils';
 import client from './src/utils/gqlClient';
 import {loadSavedTalksAsync} from './src/utils/storage';
