@@ -9,6 +9,7 @@ import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
 import {Event, Speaker, Talk} from '../typings/data';
 import {MenuNavigationProp} from '../typings/navigation';
+import {SectionHeaderProps} from '../typings/utils';
 import {getSpeakerTalk} from '../utils';
 
 type SpeakersProps = {
@@ -58,9 +59,12 @@ function SpeakerRow(props: SpeakerRowProps) {
 }
 
 function Speakers(props: SpeakersProps) {
-  const speakers = props.event.speakers;
+  let speakers: Speaker[] = [];
 
-  const _renderSectionHeader = ({section}) => {
+  if (props.event.speakers && props.event.speakers.length > 0) {
+    speakers = props.event.speakers as Speaker[];
+  }
+  const _renderSectionHeader = ({section}: SectionHeaderProps<Speaker>) => {
     return (
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
@@ -68,7 +72,7 @@ function Speakers(props: SpeakersProps) {
     );
   };
 
-  const _renderItem = ({item}) => {
+  const _renderItem = ({item}: {item: Speaker}) => {
     return <SpeakerRow item={item} onPress={_handlePressRow} />;
   };
 

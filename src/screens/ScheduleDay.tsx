@@ -8,6 +8,7 @@ import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
 import {Event, Schedule, ScheduleDay as ScheduleDayType} from '../typings/data';
 import {ScheduleDayProps} from '../typings/navigation';
+import {SectionHeaderProps} from '../typings/utils';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
 
 type Props = {
@@ -74,7 +75,7 @@ function ScheduleDay(props: Props & ScheduleDayProps) {
     return {data, title: convertUtcDateToEventTimezoneHour(time)};
   });
 
-  const _renderSectionHeader = ({section}) => {
+  const _renderSectionHeader = ({section}: SectionHeaderProps<Schedule>) => {
     return (
       <View style={styles.sectionHeader}>
         <RegularText>{section.title}</RegularText>
