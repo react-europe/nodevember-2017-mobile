@@ -4,12 +4,12 @@ import {
   useFocusEffect,
   useNavigation,
 } from '@react-navigation/native';
-import {Notifications} from 'expo';
+import {Notifications, Linking} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
+import {EventSubscription} from 'fbemitter';
 import React, {useEffect, useState} from 'react';
 import {
   Animated,
-  Linking,
   Platform,
   Image,
   TouchableOpacity,
@@ -19,7 +19,6 @@ import {
   InteractionManager,
   StyleProp,
   TextStyle,
-  EventSubscription,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {RectButton} from 'react-native-gesture-handler';
@@ -77,8 +76,8 @@ function Home(props: HomeProps) {
     };
   }, []);
 
-  const _handleRedirect = (url) => {
-    const {path, queryParams} = Linking.parse(url);
+  const _handleRedirect = (url: {url: string}) => {
+    const {path, queryParams} = Linking.parse(url.url);
     const uuid = url && url.url ? url.url.split('?uuid=')[1] : '';
     console.log(
       `Linked to app with path: ${path} and data: ${JSON.stringify(
@@ -221,8 +220,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           break;
         case 'newContact':
           console.log(notification);
-          const contact = notification.data.data;
-          saveNewContact(contact, navigation);
+          saveNewContact(notification.data.data, navigation);
           break;
         default:
           console.log('ok');
