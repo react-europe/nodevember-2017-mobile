@@ -143,7 +143,7 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
               ) as Attendee[];
             } else {
               const filteredAttendees: Attendee[] = [];
-              const attendeesSearchRankingScore = {};
+              const attendeesSearchRankingScore: {[id: string]: number} = {};
               if (attendees) {
                 attendees.forEach((attendee) => {
                   const fullName = `${
