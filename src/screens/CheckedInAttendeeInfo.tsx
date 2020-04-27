@@ -9,6 +9,7 @@ import {Button, Card, CardContent, Title} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import {Colors, FontSizes, Layout} from '../constants';
+import {Checkin} from '../typings/data';
 import {AppRouteProp, AppNavigationProp} from '../typings/navigation';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
@@ -54,7 +55,7 @@ function CheckedInAttendeeInfo(props: CheckedInAttendeeInfoProps) {
   );
 }
 
-function CheckinCard({checkins}) {
+function CheckinCard({checkins}: {checkins: Checkin[]}) {
   // console.log("props", this.props);
   // console.log("checkins", checkins);
   return <Text>Date: {checkins[0].createdAt}</Text>;
@@ -104,7 +105,7 @@ function DeferredCheckedInAttendeeInfoContent(
       {checkedInAttendee.checkins && checkedInAttendee.checkins.length > 0 ? (
         <View>
           <Title>Previous Checkin</Title>
-          <CheckinCard checkins={checkedInAttendee.checkins} />
+          <CheckinCard checkins={checkedInAttendee.checkins as Checkin[]} />
         </View>
       ) : null}
     </AnimatableView>
