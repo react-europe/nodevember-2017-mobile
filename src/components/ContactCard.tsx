@@ -7,6 +7,7 @@ import {
   Title,
   Paragraph,
   Card,
+  //@ts-ignore TODO use a new react-native-paper release
 } from 'react-native-paper';
 
 import CachedImage from '../components/CachedImage';

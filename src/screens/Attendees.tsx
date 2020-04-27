@@ -11,6 +11,7 @@ import {
   LayoutAnimation,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
+//@ts-ignore TODO use a new react-native-paper release
 import {Searchbar} from 'react-native-paper';
 
 import AttendeesSearchResults from '../components/AttendeesSearchResults';

@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ViewStyle, StyleProp} from 'react-native';
+//@ts-ignore TODO use a new react-native-paper release
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
 

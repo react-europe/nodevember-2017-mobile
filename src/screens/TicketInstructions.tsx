@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {Animated, View} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import Markdown from 'react-native-markdown-renderer';
+//@ts-ignore TODO use a new react-native-paper release
 import {Button, Card, CardContent, Title} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
