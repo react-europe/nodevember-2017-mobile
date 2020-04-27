@@ -4,9 +4,9 @@ import React, {useEffect, useState} from 'react';
 import {Alert, AsyncStorage} from 'react-native';
 
 import {GQL} from '../../constants';
-import {User} from '../../typings/data';
 import QR_QUERY from '../../data/qrQuery';
 import UPDATE_PUSH_TOKEN_QUERY from '../../data/updatePushTokenQuery';
+import {User} from '../../typings/data';
 import {AppProps} from '../../typings/navigation';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
@@ -25,7 +25,7 @@ export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
 
   useEffect(() => {
     if (props.route.params?.uuid) {
-      _handleBarCodeRead({data: props.route.params.uuid});
+      _handleBarCodeRead(props.route.params.uuid);
     }
   }, []);
 

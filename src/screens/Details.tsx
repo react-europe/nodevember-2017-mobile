@@ -22,7 +22,7 @@ import NavigationBar from '../components/NavigationBar';
 import SaveButton from '../components/SaveButton';
 import {RegularText, BoldText, SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
-import {Talk} from '../typings/data';
+import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
 import withHeaderHeight from '../utils/withHeaderHeight';
@@ -93,11 +93,11 @@ function Details(props: Props & AppProps<'Details'>) {
     );
   }; */
 
-  const _handlePressSpeaker = (speaker) => {
+  const _handlePressSpeaker = (speaker: Speaker) => {
     props.navigation.navigate('Details', {speaker});
   };
 
-  const _handlePressSpeakerTwitter = async (twitter) => {
+  const _handlePressSpeakerTwitter = async (twitter: string) => {
     try {
       await Linking.openURL(`twitter://user?screen_name=` + twitter);
     } catch (e) {
@@ -106,13 +106,27 @@ function Details(props: Props & AppProps<'Details'>) {
   };
 
   const params = props.route.params || {};
-  let speaker;
-  let speakers;
-  let talk;
+  let speaker: Speaker | null = null;
+  let speakers: Speaker[] = [];
+  let talk: Schedule | Talk | null = null;
+  let videoURL: string | null = null;
+  let room: string | null = null;
   const talkScreen = params.scheduleSlot || params.talk;
   if (talkScreen) {
-    talk = params.scheduleSlot || params.talk;
-    speakers = talk.speakers;
+    if (params.scheduleSlot) {
+      talk = params.scheduleSlot;
+      if (talk.speakers && talk.speakers.length > 0) {
+        speakers = talk.speakers as Speaker[];
+      }
+      if (talk.youtubeId && talk.youtubeId !== '') {
+        videoURL = talk.youtubeId;
+      }
+      if (talk.room) {
+        room = talk.room;
+      }
+    } else if (params.talk) {
+      talk = params.talk;
+    }
   } else if (params.speaker) {
     speaker = params.speaker;
     if (speaker.talks && speaker.talks.length > 0) {
@@ -137,7 +151,6 @@ function Details(props: Props & AppProps<'Details'>) {
     outputRange: [0, 0, 1],
   });
 
-  const videoURL = talk && talk.youtubeId && talk.youtubeId !== '';
   return (
     <View style={{flex: 1, backgroundColor: '#fff', overflow: 'hidden'}}>
       {Platform.OS === 'ios' ? (
@@ -180,23 +193,21 @@ function Details(props: Props & AppProps<'Details'>) {
               {talkScreen ? (
                 <View style={styles.headerRowSpeaker}>
                   {speakers
-                    ? speakers.map((speaker) => (
-                        <View
-                          key={speaker.id}
-                          style={styles.headerColumnSpeaker}>
-                          <TouchableOpacity
-                            key={speaker.id}
-                            onPress={() => _handlePressSpeaker(speaker)}>
-                            <CachedImage
-                              source={{uri: speaker.avatarUrl}}
-                              style={styles.avatarMultiple}
-                              key={speaker.id + talk.title}
-                            />
-                          </TouchableOpacity>
-                          {speaker.name.split(' ').map((name, index) => (
+                    ? speakers.map((speaker, index) => (
+                        <View key={index} style={styles.headerColumnSpeaker}>
+                          {speaker.avatarUrl && (
+                            <TouchableOpacity
+                              onPress={() => _handlePressSpeaker(speaker)}>
+                              <CachedImage
+                                source={{uri: speaker.avatarUrl}}
+                                style={styles.avatarMultiple}
+                              />
+                            </TouchableOpacity>
+                          )}
+                          {speaker.name?.split(' ').map((name, index) => (
                             <View key={index}>
                               <TouchableOpacity
-                                key={speaker.id}
+                                key={index}
                                 onPress={() => _handlePressSpeaker(speaker)}>
                                 <SemiBoldText
                                   style={styles.headerText}
@@ -211,22 +222,27 @@ function Details(props: Props & AppProps<'Details'>) {
                     : null}
                 </View>
               ) : (
-                <CachedImage
-                  source={{uri: speaker.avatarUrl}}
-                  style={styles.avatar}
-                  key={speaker.avatarUrl}
-                />
+                <>
+                  {speaker?.avatarUrl && (
+                    <CachedImage
+                      source={{uri: speaker.avatarUrl}}
+                      style={styles.avatar}
+                    />
+                  )}
+                </>
               )}
             </FadeIn>
           </Animated.View>
-          {talkScreen ? null : (
-            <SemiBoldText style={styles.headerText} key={speaker.id}>
+          {!talkScreen && speaker?.name ? (
+            <SemiBoldText style={styles.headerText}>
               {speaker.name}
             </SemiBoldText>
-          )}
-          {speaker && speaker.twitter ? (
+          ) : null}
+          {speaker?.twitter ? (
             <TouchableOpacity
-              onPress={() => _handlePressSpeakerTwitter(speaker.twitter)}>
+              onPress={() =>
+                _handlePressSpeakerTwitter(speaker?.twitter as string)
+              }>
               <RegularText style={styles.headerText}>
                 @{speaker.twitter}
               </RegularText>
@@ -240,7 +256,7 @@ function Details(props: Props & AppProps<'Details'>) {
           <View style={styles.videoWrapper}>
             <WebView
               source={{
-                uri: `https://www.youtube.com/embed/${talk.youtubeId}`,
+                uri: `https://www.youtube.com/embed/${videoURL}`,
               }}
               startInLoadingState
               scalesPageToFit
@@ -255,12 +271,12 @@ function Details(props: Props & AppProps<'Details'>) {
           delay={Platform.OS === 'ios' ? 50 : 150}
           duration={500}
           style={styles.content}>
-          {talkScreen ? null : (
+          {!talkScreen && speaker ? (
             <View>
               <SemiBoldText style={styles.sectionHeader}>Bio</SemiBoldText>
               <Markdown>{speaker.bio}</Markdown>
             </View>
-          )}
+          ) : null}
           {talk ? (
             <SemiBoldText style={styles.sectionHeader}>
               {talk && talk.type === 0 ? 'Talk description' : null}
@@ -271,7 +287,7 @@ function Details(props: Props & AppProps<'Details'>) {
                 : null}
             </SemiBoldText>
           ) : null}
-          {talk ? (
+          {talk?.description ? (
             <Markdown>
               {talk.description.replace(
                 '**Click here to see covered subjects**',
@@ -279,29 +295,27 @@ function Details(props: Props & AppProps<'Details'>) {
               )}
             </Markdown>
           ) : null}
-          {talkScreen && speakers.length > 0 ? (
+          {talkScreen && speakers?.length > 0 && talk ? (
             <View>
               <SemiBoldText style={styles.sectionHeader}>
                 {talk.type === 1 ? 'Trainers' : 'Speakers'}
               </SemiBoldText>
 
-              {speakers.map((speaker) => (
-                <View key={speaker.id}>
-                  <SemiBoldText key={speaker.id + talk.title}>
-                    {speaker.name}
-                  </SemiBoldText>
+              {speakers.map((speaker, index) => (
+                <View key={index}>
+                  <SemiBoldText>{speaker.name}</SemiBoldText>
                   <Markdown>{speaker.bio}</Markdown>
                 </View>
               ))}
             </View>
           ) : null}
-          {talk ? (
+          {room && talk ? (
             <View>
               <SemiBoldText style={styles.sectionHeader}>Time</SemiBoldText>
               <RegularText>
                 {convertUtcDateToEventTimezoneHour(talk.startDate)}
               </RegularText>
-              <RegularText>{talk.room}</RegularText>
+              <RegularText>{room}</RegularText>
             </View>
           ) : null}
         </AnimatableView>
