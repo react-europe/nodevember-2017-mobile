@@ -117,7 +117,7 @@ export function saveNewContact(
     if (storedContacts === null && contact && contact.firstName) {
       contacts = [contact];
     } else if (storedContacts) {
-      const existingContacts = JSON.parse(storedContacts) || [];
+      const existingContacts: Attendee[] = JSON.parse(storedContacts) || [];
       existingContacts.map((existingContact) => {
         if (
           existingContact?.id &&
