@@ -64,12 +64,12 @@ export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
     console.log('token', token, uuid);
   }
 
-  const _handleBarCodeRead = async (data: any) => {
+  const _handleBarCodeRead = async (data: string) => {
     if (loading) {
       return;
     }
     setLoading(true);
-    const variables = {slug: GQL.slug, uuid: data.data};
+    const variables = {slug: GQL.slug, uuid: data};
     try {
       const result = await client.query({
         query: QR_QUERY,

@@ -16,7 +16,7 @@ export default function QRCheckinScannerModalNavigation(
     AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef');
   }, []);
 
-  const _handleCheckinBarCodeRead = async (data: any) => {
+  const _handleCheckinBarCodeRead = async (data: string) => {
     if (loading) {
       return;
     }
@@ -26,24 +26,21 @@ export default function QRCheckinScannerModalNavigation(
       const lastCheckedInRef = await AsyncStorage.getItem(
         '@MySuperStore2019:lastCheckedInRef'
       );
-      await AsyncStorage.setItem(
-        '@MySuperStore2019:lastCheckedInRef',
-        data.data
-      );
+      await AsyncStorage.setItem('@MySuperStore2019:lastCheckedInRef', data);
 
-      if (data.data === lastCheckedInRef) {
+      if (data === lastCheckedInRef) {
         // bail out
         return;
       }
 
-      //{ slug: GQL.slug, uuid: data.data };
+      //{ slug: GQL.slug, uuid: data };
       const variables = {
         uuid: params.uuid,
         checkinListId: params.checkinList.id,
-        ref: data.data,
+        ref: data,
       };
 
-      //console.log("Scanned!", data.data);
+      //console.log("Scanned!", data);
       //console.log("variables", variables);
       //console.log("uuid state is", this.state.uuid);
       //console.log("checkinlist state is", this.state.checkinList);

@@ -16,7 +16,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {AppNavigationProp, AppStackParamList} from '../../typings/navigation';
 
 type Props = {
-  onBarCodeScanned: (data: any) => void;
+  onBarCodeScanned: (data: string) => void;
   loading?: boolean;
   title: string;
 };
@@ -42,7 +42,7 @@ function QRScreen(props: Props) {
     setHasCameraPermission(status === 'granted');
   };
 
-  const _onBarCodeRead = (data) => {
+  const _onBarCodeRead = ({data}: {data: string}) => {
     setShowQRScanner(false);
     props.onBarCodeScanned(data);
   };
