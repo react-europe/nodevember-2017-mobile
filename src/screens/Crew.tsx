@@ -27,7 +27,7 @@ type CrewProps = {
 function CrewRow(props: CrewRowProps) {
   const {item: crew} = props;
 
-  const _handlePressCrewTwitter = async (twitter) => {
+  const _handlePressCrewTwitter = async (twitter: string) => {
     try {
       await Linking.openURL(`twitter://user?screen_name=` + twitter);
     } catch (e) {
@@ -54,7 +54,7 @@ function CrewRow(props: CrewRowProps) {
         {crew.role ? <SemiBoldText>{crew.role}</SemiBoldText> : null}
         {crew.twitter && crew.twitter !== '' ? (
           <TouchableOpacity
-            onPress={() => _handlePressCrewTwitter(crew.twitter)}>
+            onPress={() => _handlePressCrewTwitter(crew.twitter as string)}>
             <RegularText>@{crew.twitter}</RegularText>
           </TouchableOpacity>
         ) : null}
@@ -64,7 +64,11 @@ function CrewRow(props: CrewRowProps) {
 }
 
 function Crews(props: CrewProps) {
-  const _renderItem = ({item}) => {
+  let collaborators: Collaborator[] = [];
+  if (props.event.collaborators && props.event.collaborators.length > 0) {
+    collaborators = props.event.collaborators as Collaborator[];
+  }
+  const _renderItem = ({item}: {item: Collaborator}) => {
     return <CrewRow item={item} />;
   };
 
@@ -73,7 +77,7 @@ function Crews(props: CrewProps) {
       <FlatList
         renderScrollComponent={(props) => <ScrollView {...props} />}
         renderItem={_renderItem}
-        data={props.event.collaborators}
+        data={collaborators}
         keyExtractor={(item, index) => index.toString()}
       />
     </LoadingPlaceholder>

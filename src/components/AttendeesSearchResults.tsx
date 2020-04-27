@@ -134,7 +134,7 @@ export default function AttendeesSearchResults(
 ) {
   const {attendees, isLoading} = props;
 
-  const _renderItem = ({item: attendee}) => (
+  const _renderItem = ({item: attendee}: {item: Attendee}) => (
     <AttendeesSearchResultRow
       attendee={attendee}
       onPress={props.onPress}
