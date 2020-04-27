@@ -13,6 +13,12 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
+type Chunk = {
+  highlight: boolean;
+  start: number;
+  end: number;
+};
+
 /**
  * Highlights all occurrences of search terms (searchText) within a string (textToHighlight).
  * This function returns an array of strings and <Text> elements (wrapping highlighted words).
@@ -27,7 +33,7 @@ export default function Highlighter({
   style,
   ...props
 }: Props) {
-  const chunks = findAll({
+  const chunks: Chunk[] = findAll({
     textToHighlight,
     searchWords,
     sanitize,
@@ -36,7 +42,7 @@ export default function Highlighter({
 
   return (
     <TextComponent style={style} {...props}>
-      {chunks.map((chunk, index) => {
+      {chunks.map((chunk: Chunk, index) => {
         const text = textToHighlight.substr(
           chunk.start,
           chunk.end - chunk.start
