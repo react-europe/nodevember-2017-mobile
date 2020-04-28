@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/native';
 import {Notifications, Linking} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
+import {Notification} from 'expo/build/Notifications/Notifications.types';
 import {EventSubscription} from 'fbemitter';
 import React, {useEffect, useState} from 'react';
 import {
@@ -212,8 +213,8 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
     };
   }, []);
 
-  const _handleNotification = (notification) => {
-    if (notification && notification.data && notification.data.action) {
+  const _handleNotification = (notification: Notification) => {
+    if (notification.data && notification.data.action) {
       switch (notification.data.action) {
         case 'newURL':
           WebBrowser.openBrowserAsync(notification.data.url);
