@@ -113,17 +113,22 @@ function SponsorRow(props: SponsorRowProps) {
 }
 
 function Sponsors(props: SponsorsProps) {
-  const event = props.event;
-  const SponsorsData = event.sponsors;
+  if (!props.event.sponsors) {
+    return <></>;
+  }
+  const SponsorsData: {[key: string]: Sponsor[]} = props.event.sponsors as {
+    [key: string]: Sponsor[];
+  };
   let SponsorsByLevel: {title: string; data: Sponsor[]}[] = [];
   const levels = [
     {title: 'Diamond', key: 'diamond'},
-    {title: 'Platinum', key: 'Platinium'},
+    {title: 'Platinum', key: 'platinum'},
     {title: 'Gold', key: 'gold'},
     {title: 'Partners', key: 'partner'},
   ];
   if (SponsorsData) {
     SponsorsByLevel = levels.map(({title, key}) => {
+      console.log(key);
       return {title, data: SponsorsData[key] ? SponsorsData[key] : []};
     });
   }
