@@ -128,7 +128,6 @@ function Sponsors(props: SponsorsProps) {
   ];
   if (SponsorsData) {
     SponsorsByLevel = levels.map(({title, key}) => {
-      console.log(key);
       return {title, data: SponsorsData[key] ? SponsorsData[key] : []};
     });
   }

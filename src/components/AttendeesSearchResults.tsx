@@ -38,14 +38,15 @@ function AttendeesSearchResultRow(props: AttendeesSearchResultRowProps) {
   const [isSpeaker, setIsSpeaker] = useState<boolean>(false);
 
   if (SpeakersData && SpeakersData.length > 0) {
-    setIsSpeaker(
-      !!SpeakersData[0].data.filter((speaker) => {
-        if (speaker?.twitter) {
-          return getContactTwitter(attendee) === speaker.twitter;
-        }
-        return false;
-      })[0]
-    );
+    const speaker = SpeakersData[0].data.filter((speaker) => {
+      if (speaker?.twitter) {
+        return getContactTwitter(attendee) === speaker.twitter;
+      }
+      return false;
+    });
+    if (speaker[0] && !isSpeaker) {
+      setIsSpeaker(true);
+    }
   }
 
   return (
