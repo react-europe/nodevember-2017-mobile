@@ -106,7 +106,7 @@ export type ScheduleProps = {
 /** ScheduleDay */
 
 export type ScheduleDayTabParamList = {
-  ScheduleDay: {day: string; date: string};
+  [key: string]: {day: string; date: string};
 };
 
 export type ScheduleDayRouteProp = RouteProp<

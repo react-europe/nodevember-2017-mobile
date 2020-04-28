@@ -3,8 +3,8 @@ import moment from 'moment';
 import React from 'react';
 
 import {withData} from '../context/DataContext';
-import {ScheduleDay, Event} from '../typings/data';
 import Screens from '../screens';
+import {ScheduleDay, Event} from '../typings/data';
 import {ScheduleDayTabParamList} from '../typings/navigation';
 
 type Props = {
@@ -30,7 +30,7 @@ function DynamicScheduleNavigation(props: Props) {
       {fullSchedule.map((day: ScheduleDay, index: number) => (
         <Tab.Screen
           key={index}
-          name="ScheduleDay"
+          name={day?.title ? day.title : index}
           component={Screens.ScheduleDay}
           initialParams={{
             day: day?.title ? day.title : '',
