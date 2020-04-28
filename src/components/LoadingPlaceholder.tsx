@@ -5,7 +5,7 @@ import {Colors} from '../constants';
 
 // All this does is briefly render a loading indicator when you
 // first mount a component as a child of this component
-export default function LoadingPlaceholder(props) {
+export default function LoadingPlaceholder(props: {children: React.ReactNode}) {
   const [isReady, setIsReady] = useState(false);
   let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
@@ -35,6 +35,6 @@ export default function LoadingPlaceholder(props) {
       </View>
     );
   } else {
-    return props.children;
+    return <>{props.children}</>;
   }
 }
