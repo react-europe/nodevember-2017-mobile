@@ -221,7 +221,8 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           break;
         case 'newContact':
           console.log(notification);
-          saveNewContact(notification.data.data, navigation);
+          saveNewContact(notification.data.data);
+          navigation.navigate('Contacts');
           break;
         default:
           console.log('ok');

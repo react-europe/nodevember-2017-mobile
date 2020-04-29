@@ -51,7 +51,7 @@ function AttendeeDetail(props: Props & AppProps<'AttendeeDetail'>) {
   const _handleAddToContacts = async () => {
     const {attendee}: {attendee: Attendee} = props.route.params;
     await addContact(attendee);
-    props.navigation.navigate('Contacts');
+    props.navigation.navigate('Home', {screen: 'Contacts'});
   };
 
   const params = props.route.params || {};

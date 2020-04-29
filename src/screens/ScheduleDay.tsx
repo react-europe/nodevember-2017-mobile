@@ -7,12 +7,16 @@ import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
 import {withData} from '../context/DataContext';
 import {Event, Schedule, ScheduleDay as ScheduleDayType} from '../typings/data';
-import {ScheduleDayProps} from '../typings/navigation';
+import {
+  ScheduleDayProps,
+  ScheduleDayNavigationProp,
+} from '../typings/navigation';
 import {SectionHeaderProps} from '../typings/utils';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
 
 type Props = {
   event: Event;
+  navigation: ScheduleDayNavigationProp;
 };
 
 type ScheduleRowProps = {
