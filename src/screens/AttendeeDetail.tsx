@@ -19,15 +19,16 @@ import NavigationBar from '../components/NavigationBar';
 import {RegularText, SemiBoldText} from '../components/StyledText';
 import {Colors, FontSizes, Layout} from '../constants';
 import {Attendee} from '../typings/data';
-import {AppProps} from '../typings/navigation';
+import {MenuTabProps} from '../typings/navigation';
 import {openTwitter, addContact, getContactTwitter} from '../utils';
+import {saveContactOnDevice} from '../utils/storage';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
 type Props = {
   headerHeight: number;
 };
 
-function AttendeeDetail(props: Props & AppProps<'AttendeeDetail'>) {
+function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
   const [scrollY] = useState(new Animated.Value(0));
 
   const _handlePressTwitter = () => {
@@ -51,7 +52,8 @@ function AttendeeDetail(props: Props & AppProps<'AttendeeDetail'>) {
   const _handleAddToContacts = async () => {
     const {attendee}: {attendee: Attendee} = props.route.params;
     await addContact(attendee);
-    props.navigation.navigate('Home', {screen: 'Contacts'});
+    await saveContactOnDevice(attendee);
+    props.navigation.navigate('Contacts');
   };
 
   const params = props.route.params || {};

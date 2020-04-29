@@ -156,7 +156,7 @@ export type MenuStackParamList = {
   Crew: undefined;
   Sponsors: undefined;
   Attendees: {attendee: Attendee};
-  AttendeeDetail: Attendee;
+  AttendeeDetail: {attendee: Attendee};
 };
 
 export type MenuRouteProp<T extends keyof MenuStackParamList> = RouteProp<

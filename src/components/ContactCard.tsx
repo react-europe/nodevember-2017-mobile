@@ -1,5 +1,6 @@
+import {Ionicons} from '@expo/vector-icons';
 import React from 'react';
-import {Text, Platform, StyleSheet, View} from 'react-native';
+import {Text, Platform, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {
   Button,
   CardActions,
@@ -10,15 +11,14 @@ import {
   //@ts-ignore TODO use a new react-native-paper release
 } from 'react-native-paper';
 
-import CachedImage from '../components/CachedImage';
 import GravatarImage from '../components/GravatarImage';
-import {Colors, FontSizes} from '../constants';
-import {User} from '../typings/data';
+import {Attendee} from '../typings/data';
 import {sendEmail, openTwitter, getContactTwitter} from '../utils';
+import {saveContactOnDevice} from '../utils/storage';
 
 type Props = {
-  contact: User;
-  tickets: User[];
+  contact: Attendee;
+  tickets: Attendee[];
 };
 
 function ContactCard({contact, tickets}: Props) {
@@ -39,6 +39,10 @@ function ContactCard({contact, tickets}: Props) {
       });
     }
   };
+
+  async function handleAddContact() {
+    saveContactOnDevice(contact);
+  }
 
   function getContactBio() {
     let bio: string | null = null;
@@ -66,28 +70,26 @@ function ContactCard({contact, tickets}: Props) {
             {bio && <Paragraph>{bio}</Paragraph>}
           </CardContent>
           <CardActions>
-            {twitter && (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <CachedImage
-                  source={require('../assets/twitter.png')}
-                  style={{
-                    tintColor: '#00AAE4',
-                    height: 40,
-                    width: 40,
-                    resizeMode: 'cover',
-                  }}
-                />
-                <Button compact onPress={_handlePressTwitterButton}>
-                  <Text>@{twitter}</Text>
-                </Button>
-              </View>
-            )}
             {tickets[0]?.firstName && tickets[0]?.lastName && (
               <Button onPress={_handlePressEmailButton}>EMAIL</Button>
+            )}
+            <Ionicons
+              name={Platform.OS === 'ios' ? 'ios-person-add' : 'md-person-add'}
+              size={Platform.OS === 'ios' ? 40 : 30}
+              style={styles.icon}
+              onPress={handleAddContact}
+            />
+            {twitter && (
+              <TouchableOpacity
+                style={{flexDirection: 'row', alignItems: 'center'}}
+                onPress={_handlePressTwitterButton}>
+                <Ionicons
+                  name="logo-twitter"
+                  size={Platform.OS === 'ios' ? 40 : 30}
+                  style={[styles.icon, {color: '#00AAE4'}]}
+                />
+                <Text>@{twitter}</Text>
+              </TouchableOpacity>
             )}
           </CardActions>
         </View>
@@ -99,6 +101,9 @@ function ContactCard({contact, tickets}: Props) {
 export default ContactCard;
 
 const styles = StyleSheet.create({
+  icon: {
+    paddingHorizontal: 4,
+  },
   avatarImage: {
     width: 64,
     height: 64,
@@ -108,58 +113,5 @@ const styles = StyleSheet.create({
   },
   headerRow: {
     flexDirection: 'row',
-  },
-  headerRowAvatarContainer: {
-    paddingRight: 10,
-  },
-  headerRowInfoContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    paddingBottom: 5,
-  },
-  speakerName: {
-    fontSize: FontSizes.bodyTitle,
-  },
-  organizationName: {
-    color: Colors.faint,
-    fontSize: FontSizes.bodyLarge,
-  },
-  ticketInfoRow: {
-    paddingTop: 10,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
-  ticketTitle: {
-    fontSize: FontSizes.bodyTitle,
-  },
-  ticketLocation: {
-    fontSize: FontSizes.bodyLarge,
-    color: Colors.faint,
-    marginTop: 10,
-  },
-  nextYear: {
-    textAlign: 'center',
-    fontSize: FontSizes.title,
-    marginVertical: 10,
-  },
-  button: {
-    padding: 15,
-    ...Platform.select({
-      ios: {
-        borderRadius: 5,
-        backgroundColor: '#fff',
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        shadowOffset: {width: 2, height: 2},
-      },
-      android: {
-        backgroundColor: '#fff',
-        elevation: 2,
-      },
-    }),
   },
 });
