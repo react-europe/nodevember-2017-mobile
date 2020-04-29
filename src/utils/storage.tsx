@@ -1,13 +1,10 @@
+import * as Contacts from 'expo-contacts';
 import {EventEmitter} from 'fbemitter';
 import _ from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {AsyncStorage} from 'react-native';
 
 import {Talk, Attendee} from '../typings/data';
-import {
-  PrimaryTabNavigationProp,
-  AppNavigationProp,
-} from '../typings/navigation';
 
 type Talks = {[key: string]: Talk};
 
@@ -136,4 +133,36 @@ export function saveNewContact(contact: Attendee) {
     const stringifiedContacts = JSON.stringify(contacts);
     AsyncStorage.setItem('@MySuperStore2019:contacts', stringifiedContacts);
   });
+}
+
+export async function saveContactOnDevice(contact: Attendee) {
+  if (!contact.id) {
+    return;
+  }
+  let email: Contacts.Email[] = [];
+  if (contact.email) {
+    email = [
+      {
+        id: contact.id.toString(),
+        label: 'Email',
+        email: contact.email,
+      },
+    ];
+  }
+  const contactInfo: Contacts.Contact = {
+    id: contact.id.toString(),
+    contactType: Contacts.ContactTypes.Person,
+    name: contact.firstName + ' ' + contact.lastName,
+    firstName: contact.firstName as string,
+    lastName: contact.lastName as string,
+    emails: email,
+  };
+  const {status} = await Contacts.requestPermissionsAsync();
+  if (status === 'granted') {
+    try {
+      await Contacts.addContactAsync(contactInfo, 'ReactEurope');
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
