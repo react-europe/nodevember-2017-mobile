@@ -107,12 +107,7 @@ export const withSaveState = <P extends object>(
   return <Component saved={saved} {...(props as P)} />;
 };
 
-export function saveNewContact(
-  contact: Attendee,
-  navigation:
-    | AppNavigationProp<'QRContactScanner'>
-    | PrimaryTabNavigationProp<'Home'>
-) {
+export function saveNewContact(contact: Attendee) {
   AsyncStorage.getItem('@MySuperStore2019:contacts').then((storedContacts) => {
     let contacts: Attendee[] = [];
     const newContacts: Attendee[] = [];
@@ -139,10 +134,6 @@ export function saveNewContact(
       contacts = newContacts;
     }
     const stringifiedContacts = JSON.stringify(contacts);
-    AsyncStorage.setItem('@MySuperStore2019:contacts', stringifiedContacts)
-      //AsyncStorage.removeItem('@MySuperStore2019:tickets')
-      .then(() => {
-        navigation.navigate('Contacts');
-      });
+    AsyncStorage.setItem('@MySuperStore2019:contacts', stringifiedContacts);
   });
 }

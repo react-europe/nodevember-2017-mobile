@@ -42,7 +42,8 @@ export default function QRContactScannerModalNavigation(props: Props) {
         // console.log('new contact', contact);
         // console.log('new contact query', QR_CONTACT_QUERY);
         // console.log('new contact query variables', variables);
-        saveNewContact(contact, props.navigation);
+        saveNewContact(contact);
+        props.navigation.navigate('Home', {screen: 'Contacts'});
       }
     });
     const variables = {slug: GQL.slug, uuid, q: contactRef};
@@ -53,7 +54,7 @@ export default function QRContactScannerModalNavigation(props: Props) {
     if (scannedContact?.data?.events[0]?.attendees[0]) {
       const contact: Attendee = scannedContact.data.events[0].attendees[0];
       await addContact(contact);
-      props.navigation.navigate('Contacts');
+      props.navigation.navigate('Home', {screen: 'Contacts'});
     }
   };
 

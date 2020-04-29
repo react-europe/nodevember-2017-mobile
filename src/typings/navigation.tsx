@@ -16,7 +16,7 @@ import {
 /** App */
 
 export type AppStackParamList = {
-  Home: undefined;
+  Home: {screen: keyof PrimaryTabParamList};
   AttendeeDetail: {attendee: Attendee};
   TicketInstructions: {ticket: User};
   CheckedInAttendeeInfo: {checkedInAttendee: CheckedinAttendee};
@@ -44,7 +44,7 @@ export type AppProps<T extends keyof AppStackParamList> = {
 /** Primary Tab */
 
 export type PrimaryTabParamList = {
-  Home: undefined;
+  Home: {screen: keyof PrimaryTabParamList};
   Profile: undefined;
   Schedule: undefined;
   Contacts: undefined;
@@ -105,18 +105,24 @@ export type ScheduleProps = {
 
 /** ScheduleDay */
 
+// Type DynamicScheduleNavigation at his creation
 export type ScheduleDayTabParamList = {
   [key: string]: {day: string; date: string};
 };
 
+// Type DynamicScheduleNavigation in the component
+export type ScheduleDayParamList = {
+  ScheduleDay: {day: string; date: string};
+};
+
 export type ScheduleDayRouteProp = RouteProp<
-  ScheduleDayTabParamList,
+  ScheduleDayParamList,
   'ScheduleDay'
 >;
 
 export type ScheduleDayNavigationProp = CompositeNavigationProp<
-  MaterialTopTabNavigationProp<ScheduleDayTabParamList, 'ScheduleDay'>,
-  StackNavigationProp<ScheduleStackParamList>
+  MaterialTopTabNavigationProp<ScheduleDayParamList, 'ScheduleDay'>,
+  ScheduleNavigationProp
 >;
 
 export type ScheduleDayProps = {
