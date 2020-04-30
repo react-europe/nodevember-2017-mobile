@@ -73,15 +73,20 @@ function ContactCard({contact, tickets}: Props) {
             {tickets[0]?.firstName && tickets[0]?.lastName && (
               <Button onPress={_handlePressEmailButton}>EMAIL</Button>
             )}
-            <Ionicons
-              name={Platform.OS === 'ios' ? 'ios-person-add' : 'md-person-add'}
-              size={Platform.OS === 'ios' ? 40 : 30}
-              style={styles.icon}
-              onPress={handleAddContact}
-            />
+            <Button
+              style={styles.buttonRemovePadding}
+              onPress={handleAddContact}>
+              <Ionicons
+                name={
+                  Platform.OS === 'ios' ? 'ios-person-add' : 'md-person-add'
+                }
+                size={Platform.OS === 'ios' ? 40 : 30}
+                style={styles.icon}
+              />
+            </Button>
             {twitter && (
-              <TouchableOpacity
-                style={{flexDirection: 'row', alignItems: 'center'}}
+              <Button
+                style={styles.buttonRemovePadding}
                 onPress={_handlePressTwitterButton}>
                 <Ionicons
                   name="logo-twitter"
@@ -89,7 +94,7 @@ function ContactCard({contact, tickets}: Props) {
                   style={[styles.icon, {color: '#00AAE4'}]}
                 />
                 <Text>@{twitter}</Text>
-              </TouchableOpacity>
+              </Button>
             )}
           </CardActions>
         </View>
@@ -101,6 +106,10 @@ function ContactCard({contact, tickets}: Props) {
 export default ContactCard;
 
 const styles = StyleSheet.create({
+  buttonRemovePadding: {
+    padding: 0,
+    margin: 0,
+  },
   icon: {
     paddingHorizontal: 4,
   },

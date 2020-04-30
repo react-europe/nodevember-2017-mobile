@@ -149,20 +149,17 @@ export async function saveContactOnDevice(contact: Attendee) {
       },
     ];
   }
-  const contactInfo: Contacts.Contact = {
-    id: contact.id.toString(),
-    contactType: Contacts.ContactTypes.Person,
-    name: contact.firstName + ' ' + contact.lastName,
-    firstName: contact.firstName as string,
-    lastName: contact.lastName as string,
-    emails: email,
+  const contactInfo = {
+    [Contacts.Fields.FirstName]: contact.firstName as string,
+    [Contacts.Fields.LastName]: contact.lastName as string,
+    [Contacts.Fields.Emails]: email,
   };
   const {status} = await Contacts.requestPermissionsAsync();
   if (status === 'granted') {
     try {
-      await Contacts.addContactAsync(contactInfo, 'ReactEurope');
+      await Contacts.addContactAsync(contactInfo);
     } catch (e) {
-      console.log(e);
+      console.log(e.code, e.message);
     }
   }
 }
