@@ -29,6 +29,10 @@ export const Icons = {
 };
 
 export const FontSizes = {
+  sm: isSmallDevice ? 12 : 14,
+  md: isSmallDevice ? 14 : 16,
+  lg: isSmallDevice ? 16 : 18,
+  xl: isSmallDevice ? 18 : 20,
   title: isSmallDevice ? 16 : 18,
   subtitle: isSmallDevice ? 14 : 16,
   bodyLarge: 14,
