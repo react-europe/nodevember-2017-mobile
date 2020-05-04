@@ -127,22 +127,22 @@ function Home(props: HomeProps) {
           />
           <View style={styles.headerContent}>
             <ShowWhenConferenceHasEnded>
-              <SemiBoldText style={styles.headerText} fontSize="title">
+              <SemiBoldText style={styles.headerText} fontSize="title" accent>
                 Thank you for joining us!
               </SemiBoldText>
-              <SemiBoldText style={{color: '#fff'}} fontSize="title">
+              <SemiBoldText fontSize="subtitle" accent>
                 See you in May, 2020!
               </SemiBoldText>
             </ShowWhenConferenceHasEnded>
 
             <HideWhenConferenceHasEnded>
-              <SemiBoldText style={styles.headerText} fontSize="title">
+              <SemiBoldText style={styles.headerText} fontSize="title" accent>
                 May 23rd to 24th (Conference)
               </SemiBoldText>
-              <SemiBoldText style={styles.headerText} fontSize="title">
+              <SemiBoldText style={styles.headerText} fontSize="title" accent>
                 May 21st to 22nd (Workshops)
               </SemiBoldText>
-              <SemiBoldText style={styles.headerText} fontSize="title">
+              <SemiBoldText style={styles.headerText} fontSize="title" accent>
                 Paris, France
               </SemiBoldText>
             </HideWhenConferenceHasEnded>
@@ -287,19 +287,23 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
       {isStaff ? (
         <PrimaryButton onPress={_handlePressStaffCheckinListsButton}>
-          <SemiBoldText fontSize="normalButton">Go to checkin</SemiBoldText>
+          <SemiBoldText fontSize="normalButton" accent>
+            Go to checkin
+          </SemiBoldText>
         </PrimaryButton>
       ) : null}
       {tickets.length <= 0 ? (
         <PrimaryButton onPress={_handlePressQRButton}>
-          <SemiBoldText fontSize="normalButton">
+          <SemiBoldText fontSize="normalButton" accent>
             Scan your conference ticket QR code
           </SemiBoldText>
         </PrimaryButton>
       ) : null}
       {tickets.length > 0 && !isStaff ? (
         <PrimaryButton onPress={() => navigation.navigate('Profile')}>
-          <SemiBoldText fontSize="normalButton">My tickets</SemiBoldText>
+          <SemiBoldText fontSize="normalButton" accent>
+            My tickets
+          </SemiBoldText>
         </PrimaryButton>
       ) : null}
       <HideWhenConferenceHasEnded>
@@ -310,7 +314,10 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
       </HideWhenConferenceHasEnded>
       <View style={{marginHorizontal: 15, marginBottom: 20}}>
         <TouchableOpacity onPress={_handlePressAllTalks}>
-          <SemiBoldText style={styles.seeAllTalks} fontSize="normalButton">
+          <SemiBoldText
+            style={styles.seeAllTalks}
+            fontSize="normalButton"
+            accent>
             <HideWhenConferenceHasEnded>
               See all talks →
             </HideWhenConferenceHasEnded>
@@ -322,26 +329,28 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
       </View>
       {tickets.length > 0 ? (
         <PrimaryButton onPress={() => navigation.navigate('Profile')}>
-          <SemiBoldText fontSize="normalButton">My tickets</SemiBoldText>
+          <SemiBoldText fontSize="normalButton" accent>
+            My tickets
+          </SemiBoldText>
         </PrimaryButton>
       ) : null}
       {tickets.length <= 0 ? (
         <PrimaryButton onPress={_handlePressQRButton}>
-          <SemiBoldText fontSize="normalButton">
+          <SemiBoldText fontSize="normalButton" accent>
             Scan your conference ticket QR code
           </SemiBoldText>
         </PrimaryButton>
       ) : null}
       {tickets.length > 0 ? (
         <PrimaryButton onPress={_handlePressQRButton}>
-          <SemiBoldText fontSize="normalButton">
+          <SemiBoldText fontSize="normalButton" accent>
             Scan another ticket QR code
           </SemiBoldText>
         </PrimaryButton>
       ) : null}
       {props.event.cocUrl && (
         <PrimaryButton onPress={_handlePressCOCButton}>
-          <SemiBoldText fontSize="normalButton">
+          <SemiBoldText fontSize="normalButton" accent>
             Read the code of conduct
           </SemiBoldText>
         </PrimaryButton>
@@ -349,14 +358,14 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
 
       {props.event.venueName && props.event.venueCity && (
         <PrimaryButton onPress={_handlePressMapButton}>
-          <SemiBoldText fontSize="normalButton">
+          <SemiBoldText fontSize="normalButton" accent>
             {Platform.OS === 'android' ? 'Download' : 'Open'} the conference map
           </SemiBoldText>
         </PrimaryButton>
       )}
 
       <PrimaryButton onPress={_handlePressTwitterButton}>
-        <SemiBoldText fontSize="normalButton">
+        <SemiBoldText fontSize="normalButton" accent>
           <Ionicons
             name="logo-twitter"
             size={23}
