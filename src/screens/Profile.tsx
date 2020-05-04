@@ -3,28 +3,19 @@ import * as Permissions from 'expo-permissions';
 import React, {useState} from 'react';
 import {
   Platform,
-  StyleSheet,
   ScrollView,
   View,
   AsyncStorage,
   InteractionManager,
   Alert,
-  StyleProp,
-  TextStyle,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import {RectButton} from 'react-native-gesture-handler';
 
+import PrimaryButton from '../components/Buttons/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import Tickets from '../components/Tickets';
-import {Colors, FontSizes} from '../constants';
 import {User} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
-
-type ClipBorderRadiusProps = {
-  style?: StyleProp<TextStyle>;
-  children: React.ReactNode;
-};
 
 function Profile() {
   return (
@@ -90,83 +81,15 @@ function DeferredProfileContent() {
         tickets={tickets}
         style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
       />
-
-      <ClipBorderRadius>
-        <RectButton
-          style={styles.bigButton}
-          onPress={_handlePressQRButton}
-          underlayColor="#fff">
-          <SemiBoldText style={styles.bigButtonText}>
-            {tickets && tickets.length > 0
-              ? 'Scan another ticket QR code'
-              : 'Scan your ticket QR code'}
-          </SemiBoldText>
-        </RectButton>
-      </ClipBorderRadius>
+      <PrimaryButton onPress={_handlePressQRButton}>
+        <SemiBoldText fontSize="normalButton">
+          {tickets && tickets.length > 0
+            ? 'Scan another ticket QR code'
+            : 'Scan your ticket QR code'}
+        </SemiBoldText>
+      </PrimaryButton>
     </AnimatableView>
   );
 }
-
-const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
-  return (
-    <View
-      style={[
-        {borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10},
-        style,
-      ]}>
-      {children}
-    </View>
-  );
-};
-
-const BORDER_RADIUS = 3;
-
-const styles = StyleSheet.create({
-  headerContent: {
-    alignItems: 'center',
-    marginTop: 5,
-    paddingVertical: 10,
-  },
-  headerVideoLayer: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  headerVideoOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: Colors.blue,
-    opacity: 0.8,
-  },
-  headerText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 17,
-    lineHeight: 17 * 1.5,
-  },
-  headerSmallText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 7,
-    lineHeight: 7 * 1.5,
-  },
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
-  seeAllTalks: {
-    fontSize: FontSizes.normalButton,
-    color: Colors.blue,
-  },
-});
 
 export default Profile;
