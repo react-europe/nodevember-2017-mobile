@@ -3,10 +3,10 @@ import {DefaultTheme, Theme, configureFonts} from 'react-native-paper';
 const fontConfig = {
   default: {
     regular: {
-      fontFamily: 'open-sans-semibold',
+      fontFamily: 'open-sans',
     },
     medium: {
-      fontFamily: 'open-sans-semibold',
+      fontFamily: 'open-sans-bold',
     },
     light: {
       fontFamily: 'open-sans-semibold',
