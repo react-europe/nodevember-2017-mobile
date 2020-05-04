@@ -21,7 +21,7 @@ import CloseButton from '../components/CloseButton';
 import NavigationBar from '../components/NavigationBar';
 import SaveButton from '../components/SaveButton';
 import {RegularText, BoldText, SemiBoldText} from '../components/StyledText';
-import {Colors, FontSizes, Layout} from '../constants';
+import {Colors, Layout} from '../constants';
 import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
@@ -209,9 +209,7 @@ function Details(props: Props & AppProps<'Details'>) {
                               <TouchableOpacity
                                 key={index}
                                 onPress={() => _handlePressSpeaker(speaker)}>
-                                <SemiBoldText
-                                  style={styles.headerText}
-                                  key={'speakers' + speaker.id + name}>
+                                <SemiBoldText fontSize="sm" accent>
                                   {name}
                                 </SemiBoldText>
                               </TouchableOpacity>
@@ -234,7 +232,7 @@ function Details(props: Props & AppProps<'Details'>) {
             </FadeIn>
           </Animated.View>
           {!talkScreen && speaker?.name ? (
-            <SemiBoldText style={styles.headerText}>
+            <SemiBoldText fontSize="sm" accent>
               {speaker.name}
             </SemiBoldText>
           ) : null}
@@ -243,17 +241,19 @@ function Details(props: Props & AppProps<'Details'>) {
               onPress={() =>
                 _handlePressSpeakerTwitter(speaker?.twitter as string)
               }>
-              <RegularText style={styles.headerText}>
+              <RegularText fontSize="sm" accent>
                 @{speaker.twitter}
               </RegularText>
             </TouchableOpacity>
           ) : null}
           {talk ? (
-            <BoldText style={styles.talkTitleText}>{talk.title}</BoldText>
+            <BoldText style={styles.talkTitleText} fontSize="lg" accent>
+              {talk.title}
+            </BoldText>
           ) : null}
         </View>
         {videoURL ? (
-          <View style={styles.videoWrapper}>
+          <View>
             <WebView
               source={{
                 uri: `https://www.youtube.com/embed/${videoURL}`,
@@ -273,12 +273,14 @@ function Details(props: Props & AppProps<'Details'>) {
           style={styles.content}>
           {!talkScreen && speaker ? (
             <View>
-              <SemiBoldText style={styles.sectionHeader}>Bio</SemiBoldText>
+              <SemiBoldText style={styles.sectionHeader} fontSize="md">
+                Bio
+              </SemiBoldText>
               <Markdown>{speaker.bio}</Markdown>
             </View>
           ) : null}
           {talk ? (
-            <SemiBoldText style={styles.sectionHeader}>
+            <SemiBoldText style={styles.sectionHeader} fontSize="md">
               {talk && talk.type === 0 ? 'Talk description' : null}
               {talk && talk.type === 1 ? 'Workshop description' : null}
               {talk && talk.type === 6 ? 'Panel description' : null}
@@ -297,7 +299,7 @@ function Details(props: Props & AppProps<'Details'>) {
           ) : null}
           {talkScreen && speakers?.length > 0 && talk ? (
             <View>
-              <SemiBoldText style={styles.sectionHeader}>
+              <SemiBoldText style={styles.sectionHeader} fontSize="md">
                 {talk.type === 1 ? 'Trainers' : 'Speakers'}
               </SemiBoldText>
 
@@ -311,11 +313,13 @@ function Details(props: Props & AppProps<'Details'>) {
           ) : null}
           {room && talk ? (
             <View>
-              <SemiBoldText style={styles.sectionHeader}>Time</SemiBoldText>
+              <SemiBoldText style={styles.sectionHeader} fontSize="md">
+                Time
+              </SemiBoldText>
               <RegularText>
                 {convertUtcDateToEventTimezoneHour(talk.startDate)}
               </RegularText>
-              <RegularText>{room}</RegularText>
+              <RegularText fontSize="sm">{room}</RegularText>
             </View>
           ) : null}
         </AnimatableView>
@@ -347,7 +351,6 @@ function Details(props: Props & AppProps<'Details'>) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
   avatar: {
     width: 100,
     height: 100,
@@ -364,20 +367,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingBottom: 20,
     paddingHorizontal: 20,
-  },
-  markdownBio: {
-    backgroundColor: '#fff',
-    paddingBottom: 20,
-    paddingHorizontal: 20,
-    width: 300,
-    height: 200,
-  },
-  markdownTalkDescription: {
-    backgroundColor: '#fff',
-    paddingBottom: 20,
-    paddingHorizontal: 20,
-    width: 300,
-    height: 600,
   },
   headerRowSpeaker: {
     flexDirection: 'row',
@@ -396,22 +385,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  headerText: {
-    color: '#fff',
-    fontSize: FontSizes.subtitle,
-  },
   talkTitleText: {
-    color: '#fff',
-    fontSize: FontSizes.title,
-    textAlign: 'center',
     marginTop: 10,
   },
   sectionHeader: {
-    fontSize: FontSizes.bodyTitle,
     marginTop: 15,
     marginBottom: 3,
   },
-  videoWrapper: {},
 });
 
 export default withHeaderHeight(Details);
