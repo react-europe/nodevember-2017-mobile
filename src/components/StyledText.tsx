@@ -16,7 +16,6 @@ interface CustomTextProps extends Props {
 
 function CustomText<P extends CustomTextProps>(props: P) {
   const fontSize = props.fontSize ? FontSizes[props.fontSize] : FontSizes.title;
-  console.log(fontSize);
   return (
     <Text
       {...(props as P)}
