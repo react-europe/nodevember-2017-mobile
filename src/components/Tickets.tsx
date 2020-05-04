@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleProp, ViewStyle} from 'react-native';
-import {Title} from 'react-native-paper';
+import {Title, withTheme, Theme} from 'react-native-paper';
 
 import {User} from '../typings/data';
 import TicketCard from './TicketCard';
@@ -8,9 +8,10 @@ import TicketCard from './TicketCard';
 type Props = {
   tickets: User[];
   style: StyleProp<ViewStyle>;
+  theme: Theme;
 };
 
-export default function Tickets(props: Props) {
+function Tickets(props: Props) {
   const tix: User[] = props.tickets || [];
 
   /* function _renderDateTime() {
@@ -33,7 +34,7 @@ export default function Tickets(props: Props) {
 
   return (
     <View style={[{marginHorizontal: 10}, props.style]}>
-      <Title>My Tickets</Title>
+      <Title style={{color: 'black'}}>My Tickets</Title>
       {tix.map((ticket, index) =>
         ticket ? (
           <TicketCard
@@ -46,6 +47,8 @@ export default function Tickets(props: Props) {
     </View>
   );
 }
+
+export default withTheme(Tickets);
 
 /* const styles = StyleSheet.create({
   time: {
