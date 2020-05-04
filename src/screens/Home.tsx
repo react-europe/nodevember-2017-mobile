@@ -127,22 +127,22 @@ function Home(props: HomeProps) {
           />
           <View style={styles.headerContent}>
             <ShowWhenConferenceHasEnded>
-              <SemiBoldText style={styles.headerText}>
+              <SemiBoldText style={styles.headerText} fontSize="title">
                 Thank you for joining us!
               </SemiBoldText>
-              <SemiBoldText style={{color: '#fff'}}>
+              <SemiBoldText style={{color: '#fff'}} fontSize="title">
                 See you in May, 2020!
               </SemiBoldText>
             </ShowWhenConferenceHasEnded>
 
             <HideWhenConferenceHasEnded>
-              <SemiBoldText style={styles.headerText}>
+              <SemiBoldText style={styles.headerText} fontSize="title">
                 May 23rd to 24th (Conference)
               </SemiBoldText>
-              <SemiBoldText style={styles.headerText}>
+              <SemiBoldText style={styles.headerText} fontSize="title">
                 May 21st to 22nd (Workshops)
               </SemiBoldText>
-              <SemiBoldText style={styles.headerText}>
+              <SemiBoldText style={styles.headerText} fontSize="title">
                 Paris, France
               </SemiBoldText>
             </HideWhenConferenceHasEnded>
@@ -392,9 +392,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   headerText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 17,
     lineHeight: 17 * 1.5,
   },
   seeAllTalks: {
