@@ -8,7 +8,6 @@ import {
   Title,
   Paragraph,
   Card,
-  //@ts-ignore TODO use a new react-native-paper release
 } from 'react-native-paper';
 
 import GravatarImage from '../components/GravatarImage';

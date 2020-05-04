@@ -53,7 +53,7 @@
     "react-native-gesture-handler": "~1.5.0",
     "react-native-gravatar": "^1.0.2",
     "react-native-markdown-renderer": "^3.2.8",
-    "react-native-paper": "^1.2.6",
+    "react-native-paper": "^3.9.0",
     "react-native-qrcode-svg": "^6.0.3",
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
