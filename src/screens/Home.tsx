@@ -18,17 +18,15 @@ import {
   AsyncStorage,
   View,
   InteractionManager,
-  StyleProp,
-  TextStyle,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import {RectButton} from 'react-native-gesture-handler';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
+import PrimaryButton from '../components/Buttons/PrimaryButton';
 import NavigationBar from '../components/NavigationBar';
 import {SemiBoldText} from '../components/StyledText';
 import TalksUpNext from '../components/TalksUpNext';
-import {Colors, FontSizes, Layout} from '../constants';
+import {Colors, Layout} from '../constants';
 import {withData} from '../context/DataContext';
 import {Event, User} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
@@ -45,11 +43,6 @@ type HomeProps = {
 
 type DeferredHomeContentProps = {
   event: Event;
-};
-
-type ClipBorderRadiusProps = {
-  style?: StyleProp<TextStyle>;
-  children: React.ReactNode;
 };
 
 function Home(props: HomeProps) {
@@ -293,38 +286,21 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
       {isStaff ? (
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={_handlePressStaffCheckinListsButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              Go to checkin
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={_handlePressStaffCheckinListsButton}>
+          <SemiBoldText fontSize="normalButton">Go to checkin</SemiBoldText>
+        </PrimaryButton>
       ) : null}
       {tickets.length <= 0 ? (
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={_handlePressQRButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              Scan your conference ticket QR code
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={_handlePressQRButton}>
+          <SemiBoldText fontSize="normalButton">
+            Scan your conference ticket QR code
+          </SemiBoldText>
+        </PrimaryButton>
       ) : null}
       {tickets.length > 0 && !isStaff ? (
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={() => navigation.navigate('Profile')}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>My tickets</SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={() => navigation.navigate('Profile')}>
+          <SemiBoldText fontSize="normalButton">My tickets</SemiBoldText>
+        </PrimaryButton>
       ) : null}
       <HideWhenConferenceHasEnded>
         <TalksUpNext
@@ -334,7 +310,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
       </HideWhenConferenceHasEnded>
       <View style={{marginHorizontal: 15, marginBottom: 20}}>
         <TouchableOpacity onPress={_handlePressAllTalks}>
-          <SemiBoldText style={styles.seeAllTalks}>
+          <SemiBoldText style={styles.seeAllTalks} fontSize="normalButton">
             <HideWhenConferenceHasEnded>
               See all talks →
             </HideWhenConferenceHasEnded>
@@ -345,86 +321,53 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
         </TouchableOpacity>
       </View>
       {tickets.length > 0 ? (
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={() => navigation.navigate('Profile')}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>My Tickets</SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={() => navigation.navigate('Profile')}>
+          <SemiBoldText fontSize="normalButton">My tickets</SemiBoldText>
+        </PrimaryButton>
       ) : null}
       {tickets.length <= 0 ? (
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={_handlePressQRButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              Scan your conference ticket QR code
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={_handlePressQRButton}>
+          <SemiBoldText fontSize="normalButton">
+            Scan your conference ticket QR code
+          </SemiBoldText>
+        </PrimaryButton>
       ) : null}
       {tickets.length > 0 ? (
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={_handlePressQRButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              Scan another ticket QR code
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={_handlePressQRButton}>
+          <SemiBoldText fontSize="normalButton">
+            Scan another ticket QR code
+          </SemiBoldText>
+        </PrimaryButton>
       ) : null}
       {props.event.cocUrl && (
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={_handlePressCOCButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              Read the code of conduct
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={_handlePressCOCButton}>
+          <SemiBoldText fontSize="normalButton">
+            Read the code of conduct
+          </SemiBoldText>
+        </PrimaryButton>
       )}
 
       {props.event.venueName && props.event.venueCity && (
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={_handlePressMapButton}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              {Platform.OS === 'android' ? 'Download' : 'Open'} the conference
-              map
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={_handlePressMapButton}>
+          <SemiBoldText fontSize="normalButton">
+            {Platform.OS === 'android' ? 'Download' : 'Open'} the conference map
+          </SemiBoldText>
+        </PrimaryButton>
       )}
 
-      <ClipBorderRadius>
-        <RectButton
-          style={styles.bigButton}
-          onPress={_handlePressTwitterButton}
-          underlayColor="#fff">
+      <PrimaryButton onPress={_handlePressTwitterButton}>
+        <SemiBoldText fontSize="normalButton">
           <Ionicons
             name="logo-twitter"
             size={23}
             style={{
               color: '#fff',
-              marginTop: 3,
               backgroundColor: 'transparent',
-              marginRight: 5,
             }}
           />
-          <SemiBoldText style={styles.bigButtonText}>
-            @{props.event.twitterHandle}
-          </SemiBoldText>
-        </RectButton>
-      </ClipBorderRadius>
+          @{props.event.twitterHandle}
+        </SemiBoldText>
+      </PrimaryButton>
     </AnimatableView>
   );
 }
@@ -442,33 +385,11 @@ const OverscrollView = () => (
   />
 );
 
-const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
-  return (
-    <View
-      style={[
-        {borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10},
-        style,
-      ]}>
-      {children}
-    </View>
-  );
-};
-
-const BORDER_RADIUS = 3;
-
 const styles = StyleSheet.create({
   headerContent: {
     alignItems: 'center',
     marginTop: 5,
     paddingVertical: 10,
-  },
-  headerVideoLayer: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  headerVideoOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: Colors.blue,
-    opacity: 0.8,
   },
   headerText: {
     color: '#fff',
@@ -476,30 +397,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 17 * 1.5,
   },
-  headerSmallText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 7,
-    lineHeight: 7 * 1.5,
-  },
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
   seeAllTalks: {
-    fontSize: FontSizes.normalButton,
     color: Colors.blue,
   },
 });

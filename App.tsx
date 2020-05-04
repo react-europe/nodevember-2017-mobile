@@ -17,9 +17,11 @@ import {
   AsyncStorage,
   Dimensions,
 } from 'react-native';
+import {Provider as PaperProvider} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {GQL} from './src/constants';
+import theme from './src/constants/theme';
 import DataContext from './src/context/DataContext';
 import GET_SCHEDULE from './src/data/schedulequery';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -232,9 +234,11 @@ export default function App() {
                 event: schedule,
                 initialLinkingUri,
               }}>
-              <NavigationContainer>
-                <AppNavigator />
-              </NavigationContainer>
+              <PaperProvider theme={theme}>
+                <NavigationContainer>
+                  <AppNavigator />
+                </NavigationContainer>
+              </PaperProvider>
             </DataContext.Provider>
           </ApolloProvider>
         ) : null}
