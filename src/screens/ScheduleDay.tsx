@@ -33,14 +33,14 @@ function ScheduleRow(props: ScheduleRowProps) {
 
   const content = (
     <View style={[styles.row, item.talk && styles.rowStatic]}>
-      <BoldText>
+      <BoldText fontSize="sm">
         {/* <SaveIconWhenSaved talk={item} />  TODO (Handle save talk )*/}
         {item.title}
       </BoldText>
 
       {item.speakers
         ? item.speakers.map((speaker, index) => (
-            <SemiBoldText key={index}>
+            <SemiBoldText key={index} fontSize="sm">
               {speaker?.name ? speaker.name : ''}
             </SemiBoldText>
           ))
@@ -82,7 +82,7 @@ function ScheduleDay(props: Props & ScheduleDayProps) {
   const _renderSectionHeader = ({section}: SectionHeaderProps<Schedule>) => {
     return (
       <View style={styles.sectionHeader}>
-        <RegularText>{section.title}</RegularText>
+        <RegularText fontSize="sm">{section.title}</RegularText>
       </View>
     );
   };

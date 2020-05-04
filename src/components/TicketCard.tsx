@@ -39,7 +39,7 @@ function TicketCard(props: Props) {
         )}
         {ticket.ref && <QRCode value={ticket.ref} size={300} />}
         <Button onPress={_handlePress}>
-          <RegularText fontSize="subtitle">Read useful info</RegularText>{' '}
+          <RegularText fontSize="sm">Read useful info</RegularText>
         </Button>
       </Card.Content>
     </Card>
