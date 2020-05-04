@@ -22,7 +22,8 @@ const theme: Theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: '#4d5fab',
-    text: '#FFFFFF',
+    accent: '#FFF',
+    text: '#000',
   },
   fonts: configureFonts(fontConfig),
 };
