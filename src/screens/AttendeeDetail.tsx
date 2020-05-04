@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import FadeIn from 'react-native-fade-in-image';
-//@ts-ignore TODO use a new react-native-paper release
 import {Button} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
