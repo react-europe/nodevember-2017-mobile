@@ -3,9 +3,10 @@ import React, {useState} from 'react';
 import {Animated, View} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import Markdown from 'react-native-markdown-renderer';
-import {Button, Card, CardContent, Title} from 'react-native-paper';
+import {Card, Title} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
+import PrimaryButton from '../components/Buttons/PrimaryButton';
 import {Colors, Layout} from '../constants';
 import {User} from '../typings/data';
 import {AppRouteProp, AppNavigationProp} from '../typings/navigation';
@@ -61,15 +62,13 @@ function DeferredTicketInstructionsContent({
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
       <Card>
-        <CardContent>
+        <Card.Content>
           <Title>{ticket.firstName + ' ' + ticket.lastName} </Title>
           <Title>Ticket Ref: {ticket.ref} </Title>
           <Markdown>{ticket.mobileMessage}</Markdown>
-        </CardContent>
+        </Card.Content>
       </Card>
-      <Button raised onPress={() => navigation.goBack()}>
-        Close
-      </Button>
+      <PrimaryButton onPress={() => navigation.goBack()}>Close</PrimaryButton>
     </AnimatableView>
   );
 }

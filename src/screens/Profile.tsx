@@ -82,7 +82,7 @@ function DeferredProfileContent() {
         style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
       />
       <PrimaryButton onPress={_handlePressQRButton}>
-        <SemiBoldText fontSize="normalButton">
+        <SemiBoldText fontSize="normalButton" accent>
           {tickets && tickets.length > 0
             ? 'Scan another ticket QR code'
             : 'Scan your ticket QR code'}
