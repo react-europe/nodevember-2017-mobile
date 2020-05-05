@@ -104,26 +104,26 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   speakerName: {
-    fontSize: FontSizes.bodyTitle,
+    fontSize: FontSizes.md,
   },
   organizationName: {
     color: Colors.faint,
-    fontSize: FontSizes.bodyLarge,
+    fontSize: FontSizes.sm,
   },
   talkInfoRow: {
     paddingTop: 10,
   },
   talkTitle: {
-    fontSize: FontSizes.bodyLarge,
+    fontSize: FontSizes.sm,
   },
   talkLocation: {
-    fontSize: FontSizes.bodyLarge,
+    fontSize: FontSizes.sm,
     color: Colors.faint,
     marginTop: 10,
   },
   nextYear: {
     textAlign: 'center',
-    fontSize: FontSizes.title,
+    fontSize: FontSizes.lg,
     marginVertical: 10,
   },
   button: {

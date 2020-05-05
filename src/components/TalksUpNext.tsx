@@ -58,7 +58,7 @@ function TalksUpNext(props: Props) {
   return (
     <View style={[{marginHorizontal: 10}, props.style]}>
       <View style={{flexDirection: 'row'}}>
-        <SemiBoldText style={{fontSize: FontSizes.title}}>
+        <SemiBoldText style={{fontSize: FontSizes.lg}}>
           {conferenceHasEnded() ? 'A great talk from 2019' : 'Coming up next'}
         </SemiBoldText>
       </View>
@@ -79,6 +79,6 @@ export default TalksUpNext;
 const styles = StyleSheet.create({
   time: {
     color: Colors.faint,
-    fontSize: FontSizes.subtitle,
+    fontSize: FontSizes.sm,
   },
 });
