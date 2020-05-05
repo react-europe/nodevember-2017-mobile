@@ -3,11 +3,12 @@ import React, {useState} from 'react';
 import {Animated, View} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import Markdown from 'react-native-markdown-renderer';
-import {Card, Title} from 'react-native-paper';
+import {Card, Title, Theme, useTheme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
-import {Colors, Layout} from '../constants';
+import OverscrollView from '../components/OverscrollView';
+import {Layout} from '../constants';
 import {User} from '../typings/data';
 import {AppRouteProp, AppNavigationProp} from '../typings/navigation';
 import withHeaderHeight from '../utils/withHeaderHeight';
@@ -22,6 +23,7 @@ type DeferredTicketInstructionsContentProps = {
 };
 
 function TicketInstructions(props: TicketInstructionsProps) {
+  const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   return (
     <View style={{flex: 1}}>
@@ -39,7 +41,7 @@ function TicketInstructions(props: TicketInstructionsProps) {
         )}>
         <View
           style={{
-            backgroundColor: Colors.blue,
+            backgroundColor: theme.colors.primary,
             padding: 10,
             paddingTop: props.headerHeight - 10,
             justifyContent: 'center',
@@ -72,18 +74,5 @@ function DeferredTicketInstructionsContent({
     </AnimatableView>
   );
 }
-
-const OverscrollView = () => (
-  <View
-    style={{
-      position: 'absolute',
-      top: -400,
-      height: 400,
-      left: 0,
-      right: 0,
-      backgroundColor: Colors.blue,
-    }}
-  />
-);
 
 export default withHeaderHeight(TicketInstructions);

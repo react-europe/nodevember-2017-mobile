@@ -8,8 +8,8 @@ import {
   StyleProp,
   TextStyle,
 } from 'react-native';
+import {useTheme, Theme} from 'react-native-paper';
 
-import {Colors} from '../constants';
 import withHeaderHeight from '../utils/withHeaderHeight';
 
 type Props = {
@@ -22,6 +22,7 @@ type Props = {
 };
 
 function NavigationBar(props: Props) {
+  const theme: Theme = useTheme();
   const _renderAnimated = () => {
     return (
       <>
@@ -36,7 +37,7 @@ function NavigationBar(props: Props) {
             style={[
               StyleSheet.absoluteFill,
               {
-                backgroundColor: Colors.blue,
+                backgroundColor: theme.colors.primary,
                 opacity: props.animatedBackgroundOpacity,
               },
             ]}

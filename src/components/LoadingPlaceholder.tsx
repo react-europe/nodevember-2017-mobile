@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator, Platform, View} from 'react-native';
-
-import {Colors} from '../constants';
+import {useTheme, Theme} from 'react-native-paper';
 
 // All this does is briefly render a loading indicator when you
 // first mount a component as a child of this component
-export default function LoadingPlaceholder(props: {children: React.ReactNode}) {
+export default function LoadingPlaceholder(props: {
+  children: React.ReactNode;
+  theme: Theme;
+}) {
+  const theme: Theme = useTheme();
   const [isReady, setIsReady] = useState(false);
   let timer: ReturnType<typeof setTimeout> | undefined = undefined;
 
@@ -29,7 +32,7 @@ export default function LoadingPlaceholder(props: {children: React.ReactNode}) {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <ActivityIndicator
-          color={Platform.OS === 'android' ? Colors.blue : '#888'}
+          color={Platform.OS === 'android' ? theme.colors.primary : '#888'}
           size="large"
         />
       </View>

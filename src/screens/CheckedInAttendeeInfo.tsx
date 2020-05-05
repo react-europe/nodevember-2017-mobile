@@ -4,10 +4,11 @@ import {Animated, Text, StyleSheet, View, AsyncStorage} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Gravatar} from 'react-native-gravatar';
 import Markdown from 'react-native-markdown-renderer';
-import {Card, Title} from 'react-native-paper';
+import {Card, Title, useTheme, Theme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
+import OverscrollView from '../components/OverscrollView';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, Layout} from '../constants';
 import {Checkin} from '../typings/data';
@@ -24,6 +25,7 @@ type DeferredCheckedInAttendeeInfoContentProps = {
 };
 
 function CheckedInAttendeeInfo(props: CheckedInAttendeeInfoProps) {
+  const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   return (
     <View style={{flex: 1}}>
@@ -41,7 +43,7 @@ function CheckedInAttendeeInfo(props: CheckedInAttendeeInfoProps) {
         )}>
         <View
           style={{
-            backgroundColor: Colors.blue,
+            backgroundColor: theme.colors.primary,
             padding: 10,
             paddingTop: props.headerHeight - 10,
             justifyContent: 'center',
@@ -111,19 +113,6 @@ function DeferredCheckedInAttendeeInfoContent(
     </AnimatableView>
   );
 }
-
-const OverscrollView = () => (
-  <View
-    style={{
-      position: 'absolute',
-      top: -400,
-      height: 400,
-      left: 0,
-      right: 0,
-      backgroundColor: Colors.blue,
-    }}
-  />
-);
 
 const styles = StyleSheet.create({
   roundedProfileImage: {

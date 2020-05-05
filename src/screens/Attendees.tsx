@@ -14,7 +14,8 @@ import {View as AnimatableView} from 'react-native-animatable';
 import {Searchbar} from 'react-native-paper';
 
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
-import {GQL, Colors, Layout, FontSizes} from '../constants';
+import OverscrollView from '../components/OverscrollView';
+import {GQL, Layout, FontSizes} from '../constants';
 import {withData} from '../context/DataContext';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
@@ -201,19 +202,6 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
     </AnimatableView>
   );
 }
-
-const OverscrollView = () => (
-  <View
-    style={{
-      position: 'absolute',
-      top: -400,
-      height: 400,
-      left: 0,
-      right: 0,
-      backgroundColor: Colors.blue,
-    }}
-  />
-);
 
 const styles = StyleSheet.create({
   textInput: {
