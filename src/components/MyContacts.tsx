@@ -47,18 +47,20 @@ export default function MyContacts(props: Props) {
           </SemiBoldText>
         </PrimaryButton>
       ) : null}
-      {contacts.map((contact) => {
-        if (contact?.id && contact?.email) {
-          return (
-            <ContactCard
-              key={contact.id + contact.email}
-              contact={contact}
-              tickets={props.tickets}
-            />
-          );
-        }
-        return null;
-      })}
+      <View style={{marginTop: 10}}>
+        {contacts.map((contact) => {
+          if (contact?.id && contact?.email) {
+            return (
+              <ContactCard
+                key={contact.id + contact.email}
+                contact={contact}
+                tickets={props.tickets}
+              />
+            );
+          }
+          return null;
+        })}
+      </View>
     </View>
   );
 }

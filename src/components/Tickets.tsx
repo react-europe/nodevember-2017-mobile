@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, StyleProp, ViewStyle} from 'react-native';
-import {Title} from 'react-native-paper';
 
 import {User} from '../typings/data';
+import {SemiBoldText} from './StyledText';
 import TicketCard from './TicketCard';
 
 type Props = {
@@ -33,7 +33,7 @@ export default function Tickets(props: Props) {
 
   return (
     <View style={[{marginHorizontal: 10}, props.style]}>
-      <Title>My Tickets</Title>
+      <SemiBoldText fontSize="lg">My Tickets</SemiBoldText>
       {tix.map((ticket, index) =>
         ticket ? (
           <TicketCard
