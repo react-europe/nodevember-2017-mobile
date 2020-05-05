@@ -18,7 +18,7 @@ interface CustomTextProps extends Props {
 
 function CustomText<P extends CustomTextProps>(props: P) {
   const colors = props.theme.colors;
-  const fontSize = props.fontSize ? FontSizes[props.fontSize] : FontSizes.title;
+  const fontSize = props.fontSize ? FontSizes[props.fontSize] : FontSizes.md;
   const textColor = props.accent ? colors.accent : colors.text;
   return (
     <Text

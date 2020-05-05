@@ -33,11 +33,6 @@ export const FontSizes = {
   md: isSmallDevice ? 14 : 16,
   lg: isSmallDevice ? 16 : 18,
   xl: isSmallDevice ? 18 : 20,
-  title: isSmallDevice ? 16 : 18,
-  subtitle: isSmallDevice ? 14 : 16,
-  bodyLarge: 14,
-  bodyTitle: isSmallDevice ? 14 : 15,
-  normalButton: isSmallDevice ? 15 : 16,
 };
 
 export const GQL = {

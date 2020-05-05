@@ -4,10 +4,7 @@ import {useTheme, Theme} from 'react-native-paper';
 
 // All this does is briefly render a loading indicator when you
 // first mount a component as a child of this component
-export default function LoadingPlaceholder(props: {
-  children: React.ReactNode;
-  theme: Theme;
-}) {
+export default function LoadingPlaceholder(props: {children: React.ReactNode}) {
   const theme: Theme = useTheme();
   const [isReady, setIsReady] = useState(false);
   let timer: ReturnType<typeof setTimeout> | undefined = undefined;

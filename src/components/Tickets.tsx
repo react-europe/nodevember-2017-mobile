@@ -50,6 +50,6 @@ export default function Tickets(props: Props) {
 /* const styles = StyleSheet.create({
   time: {
     color: Colors.faint,
-    fontSize: FontSizes.subtitle,
+    fontSize: FontSizes.sm,
   },
 }); */
