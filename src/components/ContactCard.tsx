@@ -1,19 +1,13 @@
 import {Ionicons} from '@expo/vector-icons';
 import React from 'react';
-import {Text, Platform, StyleSheet, View, TouchableOpacity} from 'react-native';
-import {
-  Button,
-  CardActions,
-  CardContent,
-  Title,
-  Paragraph,
-  Card,
-} from 'react-native-paper';
+import {Platform, StyleSheet, View} from 'react-native';
+import {Button, Paragraph, Card} from 'react-native-paper';
 
 import GravatarImage from '../components/GravatarImage';
 import {Attendee} from '../typings/data';
 import {sendEmail, openTwitter, getContactTwitter} from '../utils';
 import {saveContactOnDevice} from '../utils/storage';
+import {SemiBoldText, RegularText} from './StyledText';
 
 type Props = {
   contact: Attendee;
@@ -59,43 +53,45 @@ function ContactCard({contact, tickets}: Props) {
 
   return (
     <Card>
-      <View style={{flex: 1, flexDirection: 'row'}}>
+      <View style={styles.headerRow}>
         {contact.email && (
           <GravatarImage style={styles.avatarImage} email={contact.email} />
         )}
         <View style={{flex: 1}}>
-          <CardContent>
-            <Title>{contact.firstName + ' ' + contact.lastName}</Title>
+          <Card.Content>
+            <SemiBoldText fontSize="lg">
+              {contact.firstName + ' ' + contact.lastName}
+            </SemiBoldText>
             {bio && <Paragraph>{bio}</Paragraph>}
-          </CardContent>
-          <CardActions>
+          </Card.Content>
+          <Card.Actions>
             {tickets[0]?.firstName && tickets[0]?.lastName && (
-              <Button onPress={_handlePressEmailButton}>EMAIL</Button>
+              <Button onPress={_handlePressEmailButton}>
+                <RegularText fontSize="md">EMAIL</RegularText>
+              </Button>
             )}
-            <Button
-              style={styles.buttonRemovePadding}
-              onPress={handleAddContact}>
-              <Ionicons
-                name={
-                  Platform.OS === 'ios' ? 'ios-person-add' : 'md-person-add'
-                }
-                size={Platform.OS === 'ios' ? 40 : 30}
-                style={styles.icon}
-              />
+            <Button onPress={handleAddContact}>
+              <RegularText>
+                <Ionicons
+                  name={
+                    Platform.OS === 'ios' ? 'ios-person-add' : 'md-person-add'
+                  }
+                  size={Platform.OS === 'ios' ? 40 : 30}
+                  style={styles.icon}
+                />
+              </RegularText>
             </Button>
             {twitter && (
-              <Button
-                style={styles.buttonRemovePadding}
-                onPress={_handlePressTwitterButton}>
+              <Button onPress={_handlePressTwitterButton}>
                 <Ionicons
                   name="logo-twitter"
                   size={Platform.OS === 'ios' ? 40 : 30}
                   style={[styles.icon, {color: '#00AAE4'}]}
                 />
-                <Text>@{twitter}</Text>
+                <RegularText fontSize="sm">@{twitter}</RegularText>
               </Button>
             )}
-          </CardActions>
+          </Card.Actions>
         </View>
       </View>
     </Card>
@@ -105,10 +101,6 @@ function ContactCard({contact, tickets}: Props) {
 export default ContactCard;
 
 const styles = StyleSheet.create({
-  buttonRemovePadding: {
-    padding: 0,
-    margin: 0,
-  },
   icon: {
     paddingHorizontal: 4,
   },
@@ -120,6 +112,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   headerRow: {
+    flex: 1,
     flexDirection: 'row',
   },
 });
