@@ -10,11 +10,8 @@ import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {RegularText} from '../components/StyledText';
-import {FontSizes, Colors} from '../constants';
 import {Event, User, CheckinList} from '../typings/data';
 import {AppNavigationProp} from '../typings/navigation';
-
-const BORDER_RADIUS = 3;
 
 type Props = {
   event: Event;
@@ -43,7 +40,7 @@ export function StaffCheckinListRow(props: StaffCheckinListRowProps) {
         <View style={styles.row}>
           {item.name ? (
             <View>
-              <RegularText>{item.name}</RegularText>
+              <RegularText fontSize="sm">{item.name}</RegularText>
             </View>
           ) : null}
         </View>
@@ -109,42 +106,10 @@ export default function StaffCheckinLists(props: Props) {
 }
 
 const styles = StyleSheet.create({
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
   row: {
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: '#eee',
-  },
-  rowAvatarContainer: {
-    paddingVertical: 5,
-    paddingRight: 10,
-    paddingLeft: 0,
-  },
-  rowData: {
-    flex: 1,
-  },
-  sectionHeader: {
-    paddingHorizontal: 10,
-    paddingTop: 7,
-    paddingBottom: 5,
-    backgroundColor: '#eee',
-    borderWidth: 1,
     borderColor: '#eee',
   },
 });

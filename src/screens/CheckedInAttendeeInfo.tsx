@@ -4,10 +4,12 @@ import {Animated, Text, StyleSheet, View, AsyncStorage} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Gravatar} from 'react-native-gravatar';
 import Markdown from 'react-native-markdown-renderer';
-import {Button, Card, CardContent, Title} from 'react-native-paper';
+import {Card, Title} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
-import {Colors, FontSizes, Layout} from '../constants';
+import PrimaryButton from '../components/Buttons/PrimaryButton';
+import {SemiBoldText} from '../components/StyledText';
+import {Colors, Layout} from '../constants';
 import {Checkin} from '../typings/data';
 import {AppRouteProp, AppNavigationProp} from '../typings/navigation';
 import withHeaderHeight from '../utils/withHeaderHeight';
@@ -81,7 +83,7 @@ function DeferredCheckedInAttendeeInfoContent(
       />
 
       <Card>
-        <CardContent>
+        <Card.Content>
           <Title>
             {checkedInAttendee.firstName + ' ' + checkedInAttendee.lastName}{' '}
           </Title>
@@ -90,17 +92,16 @@ function DeferredCheckedInAttendeeInfoContent(
           )}
           <Title>Ticket Ref: {checkedInAttendee.ref} </Title>
           <Markdown>{checkedInAttendee.checkinMessage}</Markdown>
-        </CardContent>
+        </Card.Content>
       </Card>
-      <Button
-        raised
+      <PrimaryButton
         onPress={() => {
           AsyncStorage.removeItem(
             '@MySuperStore2019:lastCheckedInRef'
           ).then(() => navigation.goBack());
         }}>
-        Close
-      </Button>
+        <SemiBoldText accent>Close</SemiBoldText>
+      </PrimaryButton>
       {checkedInAttendee.checkins && checkedInAttendee.checkins.length > 0 ? (
         <View>
           <Title>Previous Checkin</Title>
@@ -124,8 +125,6 @@ const OverscrollView = () => (
   />
 );
 
-const BORDER_RADIUS = 3;
-
 const styles = StyleSheet.create({
   roundedProfileImage: {
     width: 100,
@@ -133,51 +132,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: 'white',
     borderRadius: 50,
-  },
-  headerContent: {
-    alignItems: 'center',
-    marginTop: 5,
-    paddingVertical: 10,
-  },
-  headerVideoLayer: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  headerVideoOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: Colors.blue,
-    opacity: 0.8,
-  },
-  headerText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 17,
-    lineHeight: 17 * 1.5,
-  },
-  headerSmallText: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 7,
-    lineHeight: 7 * 1.5,
-  },
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
-  seeAllTalks: {
-    fontSize: FontSizes.normalButton,
-    color: Colors.blue,
   },
 });
 
