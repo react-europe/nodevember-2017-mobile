@@ -14,7 +14,7 @@ import {View as AnimatableView} from 'react-native-animatable';
 import {Searchbar} from 'react-native-paper';
 
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
-import {GQL, Colors, Layout} from '../constants';
+import {GQL, Colors, Layout, FontSizes} from '../constants';
 import {withData} from '../context/DataContext';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
@@ -63,10 +63,12 @@ function Attendees(props: AttendeesProps) {
       <Searchbar
         onChangeText={(text: string) => queryThrottle(text)}
         placeholder="Search for conference attendees"
+        inputStyle={{fontSize: FontSizes.sm}}
         style={styles.textInput}
         autoCapitalize="none"
         autoCorrect={false}
         clearButtonMode="while-editing"
+        value={aquery}
       />
       <DeferredAttendeesContent aquery={aquery} event={props.event} />
       <OverscrollView />

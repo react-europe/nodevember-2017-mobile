@@ -1,7 +1,9 @@
 // Local implementation of 'react-native-highlight-words'
 import {findAll} from 'highlight-words-core';
 import React from 'react';
-import {Text, ViewStyle, StyleProp, TextStyle} from 'react-native';
+import {ViewStyle, StyleProp, TextStyle} from 'react-native';
+
+import {BoldText} from './StyledText';
 
 type Props = {
   TextComponent: React.ComponentType<any>;
@@ -51,9 +53,9 @@ export default function Highlighter({
         return !chunk.highlight ? (
           text
         ) : (
-          <Text key={index} style={chunk.highlight && highlightStyle}>
+          <BoldText key={index} style={chunk.highlight && highlightStyle}>
             {text}
-          </Text>
+          </BoldText>
         );
       })}
     </TextComponent>

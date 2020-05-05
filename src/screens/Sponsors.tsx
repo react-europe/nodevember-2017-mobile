@@ -1,19 +1,14 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import {
-  SectionList,
-  StyleSheet,
-  View,
-  StyleProp,
-  TextStyle,
-} from 'react-native';
+import {SectionList, StyleSheet, View} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
+import PrimaryButton from '../components/Buttons/PrimaryButton';
 import CachedImage from '../components/CachedImage';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {SemiBoldText, RegularText} from '../components/StyledText';
-import {Layout, FontSizes, Colors} from '../constants';
+import {Layout} from '../constants';
 import {withData} from '../context/DataContext';
 import {Event, Sponsor} from '../typings/data';
 import {SectionHeaderProps} from '../typings/utils';
@@ -25,25 +20,6 @@ type SponsorsProps = {
 type SponsorRowProps = {
   item: Sponsor;
 };
-
-type ClipBorderRadiusProps = {
-  style?: StyleProp<TextStyle>;
-  children: React.ReactNode;
-};
-
-const ClipBorderRadius = ({children, style}: ClipBorderRadiusProps) => {
-  return (
-    <View
-      style={[
-        {borderRadius: BORDER_RADIUS, overflow: 'hidden', marginTop: 10},
-        style,
-      ]}>
-      {children}
-    </View>
-  );
-};
-
-const BORDER_RADIUS = 3;
 
 function SponsorRow(props: SponsorRowProps) {
   const sponsor = props.item;
@@ -92,21 +68,16 @@ function SponsorRow(props: SponsorRowProps) {
         </View>
         {sponsor.description ? (
           <View style={styles.rowData}>
-            <RegularText style={{marginBottom: 10}}>
+            <RegularText style={{marginBottom: 10}} fontSize="sm">
               {sponsor.description}
             </RegularText>
           </View>
         ) : null}
-        <ClipBorderRadius>
-          <RectButton
-            style={styles.bigButton}
-            onPress={_handlePressJobUrl}
-            underlayColor="#fff">
-            <SemiBoldText style={styles.bigButtonText}>
-              Work with {sponsor.name}
-            </SemiBoldText>
-          </RectButton>
-        </ClipBorderRadius>
+        <PrimaryButton onPress={_handlePressJobUrl}>
+          <SemiBoldText fontSize="md" accent>
+            Work with {sponsor.name}
+          </SemiBoldText>
+        </PrimaryButton>
       </View>
     </RectButton>
   );
@@ -135,7 +106,7 @@ function Sponsors(props: SponsorsProps) {
   const _renderSectionHeader = ({section}: SectionHeaderProps<Sponsor>) => {
     return (
       <View style={styles.sectionHeader}>
-        <RegularText>{section.title}</RegularText>
+        <RegularText fontSize="sm">{section.title}</RegularText>
       </View>
     );
   };
@@ -162,32 +133,11 @@ function Sponsors(props: SponsorsProps) {
 }
 
 const styles = StyleSheet.create({
-  bigButton: {
-    backgroundColor: Colors.blue,
-    paddingHorizontal: 15,
-    height: 50,
-    marginHorizontal: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  bigButtonText: {
-    fontSize: FontSizes.normalButton,
-    color: '#fff',
-    textAlign: 'center',
-  },
   row: {
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#eee',
-  },
-  rowAvatarContainer: {
-    paddingVertical: 5,
-    paddingRight: 10,
-    paddingLeft: 0,
   },
   rowData: {
     flex: 1,

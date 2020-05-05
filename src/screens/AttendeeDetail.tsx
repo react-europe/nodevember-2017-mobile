@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import FadeIn from 'react-native-fade-in-image';
-import {Button} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
+import PrimaryButton from '../components/Buttons/PrimaryButton';
 import GravatarImage from '../components/GravatarImage';
 import NavigationBar from '../components/NavigationBar';
 import {RegularText, SemiBoldText} from '../components/StyledText';
-import {Colors, FontSizes, Layout} from '../constants';
+import {Colors, Layout} from '../constants';
 import {Attendee} from '../typings/data';
 import {MenuTabProps} from '../typings/navigation';
 import {openTwitter, addContact, getContactTwitter} from '../utils';
@@ -124,12 +124,14 @@ function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
               )}
             </FadeIn>
           </Animated.View>
-          <SemiBoldText style={styles.headerText}>
+          <SemiBoldText fontSize="md" accent>
             {attendee.firstName} {attendee.lastName}
           </SemiBoldText>
           {twitter ? (
             <TouchableOpacity onPress={_handlePressTwitter}>
-              <RegularText style={styles.headerText}>@{twitter}</RegularText>
+              <RegularText fontSize="md" accent>
+                @{twitter}
+              </RegularText>
             </TouchableOpacity>
           ) : null}
         </View>
@@ -140,9 +142,11 @@ function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
           duration={250}
           style={styles.content}>
           <View>
-            <Button raised primary onPress={_handleAddToContacts}>
-              Add to contacts
-            </Button>
+            <PrimaryButton onPress={_handleAddToContacts}>
+              <SemiBoldText fontSize="md" accent>
+                Add to contacts
+              </SemiBoldText>
+            </PrimaryButton>
           </View>
         </AnimatableView>
       </AnimatedScrollView>
@@ -169,7 +173,6 @@ function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
   avatar: {
     width: 100,
     height: 100,
@@ -189,10 +192,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  headerText: {
-    color: '#fff',
-    fontSize: FontSizes.subtitle,
   },
 });
 

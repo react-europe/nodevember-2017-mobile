@@ -48,14 +48,16 @@ function CrewRow(props: CrewRowProps) {
         </FadeIn>
       </View>
       <View style={styles.rowData}>
-        <BoldText>
+        <BoldText fontSize="sm">
           {crew.firstName} {crew.lastName}
         </BoldText>
-        {crew.role ? <SemiBoldText>{crew.role}</SemiBoldText> : null}
+        {crew.role ? (
+          <SemiBoldText fontSize="sm">{crew.role}</SemiBoldText>
+        ) : null}
         {crew.twitter && crew.twitter !== '' ? (
           <TouchableOpacity
             onPress={() => _handlePressCrewTwitter(crew.twitter as string)}>
-            <RegularText>@{crew.twitter}</RegularText>
+            <RegularText fontSize="sm">@{crew.twitter}</RegularText>
           </TouchableOpacity>
         ) : null}
       </View>

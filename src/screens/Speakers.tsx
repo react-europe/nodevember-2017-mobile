@@ -47,11 +47,11 @@ function SpeakerRow(props: SpeakerRowProps) {
           </FadeIn>
         </View>
         <View style={styles.rowData}>
-          <BoldText>{speaker.name}</BoldText>
+          <BoldText fontSize="sm">{speaker.name}</BoldText>
           {speaker.twitter ? (
-            <SemiBoldText>@{speaker.twitter}</SemiBoldText>
+            <SemiBoldText fontSize="sm">@{speaker.twitter}</SemiBoldText>
           ) : null}
-          {talk && <RegularText>{talk.title}</RegularText>}
+          {talk && <RegularText fontSize="sm">{talk.title}</RegularText>}
         </View>
       </View>
     </RectButton>
@@ -67,7 +67,7 @@ function Speakers(props: SpeakersProps) {
   const _renderSectionHeader = ({section}: SectionHeaderProps<Speaker>) => {
     return (
       <View style={styles.sectionHeader}>
-        <RegularText>{section.title}</RegularText>
+        <RegularText fontSize="sm">{section.title}</RegularText>
       </View>
     );
   };
