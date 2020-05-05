@@ -9,9 +9,10 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
+import {useTheme, Theme} from 'react-native-paper';
 
 import CachedImage from '../components/CachedImage';
-import {Colors, Layout} from '../constants';
+import {Layout} from '../constants';
 import {MenuNavigationProp, MenuStackParamList} from '../typings/navigation';
 
 type Props = {
@@ -19,6 +20,7 @@ type Props = {
 };
 
 function MenuScreen(props: Props) {
+  const theme: Theme = useTheme();
   function getIconName(key: keyof MenuStackParamList) {
     if (key === 'Speakers') return 'ios-microphone';
     if (key === 'Crew') return 'ios-information-circle';
@@ -94,7 +96,7 @@ function MenuScreen(props: Props) {
               <Ionicons
                 name={getIconName(item.key)}
                 size={24}
-                color={Colors.blue}
+                color={theme.colors.primary}
               />
               <Text style={{fontSize: 20, marginHorizontal: 16, flex: 1}}>
                 {item.key}

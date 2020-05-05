@@ -10,13 +10,14 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import FadeIn from 'react-native-fade-in-image';
+import {useTheme, Theme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
 import GravatarImage from '../components/GravatarImage';
 import NavigationBar from '../components/NavigationBar';
 import {RegularText, SemiBoldText} from '../components/StyledText';
-import {Colors, Layout} from '../constants';
+import {Layout} from '../constants';
 import {Attendee} from '../typings/data';
 import {MenuTabProps} from '../typings/navigation';
 import {openTwitter, addContact, getContactTwitter} from '../utils';
@@ -28,6 +29,7 @@ type Props = {
 };
 
 function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
+  const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
 
   const _handlePressTwitter = () => {
@@ -100,7 +102,7 @@ function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
                 }),
               },
             ],
-            backgroundColor: Colors.blue,
+            backgroundColor: theme.colors.primary,
           }}
         />
       ) : null}
@@ -115,7 +117,11 @@ function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
           ],
           {useNativeDriver: true}
         )}>
-        <View style={styles.headerContainer}>
+        <View
+          style={[
+            styles.headerContainer,
+            {backgroundColor: theme.colors.primary},
+          ]}>
           <Animated.View
             style={{transform: [{scale}, {translateX}, {translateY}]}}>
             <FadeIn placeholderStyle={{backgroundColor: 'transparent'}}>
@@ -186,7 +192,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   headerContainer: {
-    backgroundColor: Colors.blue,
     paddingTop: Constants.statusBarHeight + Layout.notchHeight + 20,
     paddingBottom: 20,
     paddingHorizontal: 20,

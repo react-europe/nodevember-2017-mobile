@@ -20,10 +20,12 @@ import {
   InteractionManager,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
+import {useTheme, Theme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import PrimaryButton from '../components/Buttons/PrimaryButton';
 import NavigationBar from '../components/NavigationBar';
+import OverscrollView from '../components/OverscrollView';
 import {SemiBoldText} from '../components/StyledText';
 import TalksUpNext from '../components/TalksUpNext';
 import {Colors, Layout} from '../constants';
@@ -46,6 +48,7 @@ type DeferredHomeContentProps = {
 };
 
 function Home(props: HomeProps) {
+  const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
 
   function checkUuidOnLoad() {
@@ -115,7 +118,7 @@ function Home(props: HomeProps) {
         )}>
         <View
           style={{
-            backgroundColor: Colors.blue,
+            backgroundColor: theme.colors.primary,
             padding: 10,
             paddingTop: props.headerHeight - 10,
             justifyContent: 'center',
@@ -172,6 +175,7 @@ function Home(props: HomeProps) {
 }
 
 function DeferredHomeContent(props: DeferredHomeContentProps) {
+  const theme: Theme = useTheme();
   const navigation = useNavigation<PrimaryTabNavigationProp<'Home'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [tickets, setTickets] = useState<User[]>([]);
@@ -314,7 +318,10 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
       </HideWhenConferenceHasEnded>
       <View style={{marginHorizontal: 15, marginBottom: 20}}>
         <TouchableOpacity onPress={_handlePressAllTalks}>
-          <SemiBoldText style={styles.seeAllTalks} fontSize="md" accent>
+          <SemiBoldText
+            style={{color: theme.colors.primary}}
+            fontSize="md"
+            accent>
             <HideWhenConferenceHasEnded>
               See all talks →
             </HideWhenConferenceHasEnded>
@@ -377,19 +384,6 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
     </AnimatableView>
   );
 }
-
-const OverscrollView = () => (
-  <View
-    style={{
-      position: 'absolute',
-      top: -400,
-      height: 400,
-      left: 0,
-      right: 0,
-      backgroundColor: Colors.blue,
-    }}
-  />
-);
 
 const styles = StyleSheet.create({
   headerContent: {

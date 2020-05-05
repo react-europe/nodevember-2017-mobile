@@ -13,6 +13,7 @@ import {
 import {View as AnimatableView} from 'react-native-animatable';
 import FadeIn from 'react-native-fade-in-image';
 import Markdown from 'react-native-markdown-renderer';
+import {Theme, useTheme} from 'react-native-paper';
 import WebView from 'react-native-webview';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
@@ -21,7 +22,7 @@ import CloseButton from '../components/CloseButton';
 import NavigationBar from '../components/NavigationBar';
 import SaveButton from '../components/SaveButton';
 import {RegularText, BoldText, SemiBoldText} from '../components/StyledText';
-import {Colors, Layout} from '../constants';
+import {Layout} from '../constants';
 import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
@@ -45,6 +46,7 @@ function SavedButtonNavigationItem(props: {talk: Talk}) {
 }
 
 function Details(props: Props & AppProps<'Details'>) {
+  const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   let _listener: string | null = null;
 
@@ -74,7 +76,7 @@ function Details(props: Props & AppProps<'Details'>) {
       <TouchableOpacity
         hitSlop={{top: 15, left: 15, right: 15, bottom: 15}}
         onPress={handlePress}>
-        <SemiBoldText style={{color: Colors.blue, marginTop: 5}}>
+        <SemiBoldText style={{color: theme.colors.primary, marginTop: 5}}>
           Read more
         </SemiBoldText>
       </TouchableOpacity>
@@ -86,7 +88,7 @@ function Details(props: Props & AppProps<'Details'>) {
       <TouchableOpacity
         hitSlop={{top: 15, left: 15, right: 15, bottom: 15}}
         onPress={handlePress}>
-        <SemiBoldText style={{color: Colors.blue, marginTop: 5}}>
+        <SemiBoldText style={{color: theme.colors.primary, marginTop: 5}}>
           Show less
         </SemiBoldText>
       </TouchableOpacity>
@@ -169,7 +171,7 @@ function Details(props: Props & AppProps<'Details'>) {
                 }),
               },
             ],
-            backgroundColor: Colors.blue,
+            backgroundColor: theme.colors.primary,
           }}
         />
       ) : null}
@@ -184,7 +186,11 @@ function Details(props: Props & AppProps<'Details'>) {
           ],
           {useNativeDriver: true}
         )}>
-        <View style={styles.headerContainer}>
+        <View
+          style={[
+            styles.headerContainer,
+            {backgroundColor: theme.colors.primary},
+          ]}>
           <Animated.View
             style={{
               transform: [{scale}, {translateX}, {translateY}],
@@ -378,7 +384,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   headerContainer: {
-    backgroundColor: Colors.blue,
     paddingTop: Constants.statusBarHeight + Layout.notchHeight + 20,
     paddingBottom: 20,
     paddingHorizontal: 20,

@@ -8,7 +8,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
-import {Colors} from '../constants';
+import theme from '../constants/theme';
 import {Attendee, Event} from '../typings/data';
 import {getContactTwitter} from '../utils';
 import GravatarImage from './GravatarImage';
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#eee',
-    borderLeftColor: Colors.blue,
+    borderLeftColor: theme.colors.primary,
     flexDirection: 'row',
   },
   rowAvatarContainer: {

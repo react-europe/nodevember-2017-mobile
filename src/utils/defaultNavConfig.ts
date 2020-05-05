@@ -1,4 +1,4 @@
-import {Colors} from '../constants';
+import theme from '../constants/theme';
 
 function DefaultStackConfig(route: any) {
   return {
@@ -9,9 +9,9 @@ function DefaultStackConfig(route: any) {
     headerStyle: {
       borderBottomWidth: 0,
       shadowRadius: 0,
-      backgroundColor: Colors.blue,
+      backgroundColor: theme.colors.primary,
     },
-    headerTintColor: 'white',
+    headerTintColor: theme.colors.accent,
     headerTitleStyle: {
       fontFamily: 'open-sans-bold',
     },
