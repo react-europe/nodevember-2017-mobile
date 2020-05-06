@@ -13,9 +13,9 @@ import FadeIn from 'react-native-fade-in-image';
 import {useTheme, Theme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
-import PrimaryButton from '../components/Buttons/PrimaryButton';
 import GravatarImage from '../components/GravatarImage';
 import NavigationBar from '../components/NavigationBar';
+import PrimaryButton from '../components/PrimaryButton';
 import {RegularText, SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
 import {Attendee} from '../typings/data';

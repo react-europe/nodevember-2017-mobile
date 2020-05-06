@@ -7,8 +7,8 @@ import Markdown from 'react-native-markdown-renderer';
 import {Card, Title, useTheme, Theme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
-import PrimaryButton from '../components/Buttons/PrimaryButton';
 import OverscrollView from '../components/OverscrollView';
+import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import {Colors, Layout} from '../constants';
 import {Checkin} from '../typings/data';

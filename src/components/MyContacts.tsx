@@ -3,8 +3,8 @@ import {Alert, Clipboard, View, ViewStyle, StyleProp} from 'react-native';
 
 import {Attendee} from '../typings/data';
 import {getContactTwitter} from '../utils';
-import PrimaryButton from './Buttons/PrimaryButton';
 import ContactCard from './ContactCard';
+import PrimaryButton from './PrimaryButton';
 import {SemiBoldText} from './StyledText';
 
 type Props = {
@@ -38,8 +38,7 @@ export default function MyContacts(props: Props) {
   };
 
   return (
-    <View style={[{marginHorizontal: 10}, props.style]}>
-      <SemiBoldText fontSize="lg">My Contacts</SemiBoldText>
+    <>
       {contacts && contacts.length > 0 ? (
         <PrimaryButton onPress={_handlePressCopyEmails}>
           <SemiBoldText fontSize="md" accent>
@@ -47,7 +46,7 @@ export default function MyContacts(props: Props) {
           </SemiBoldText>
         </PrimaryButton>
       ) : null}
-      <View style={{marginTop: 10}}>
+      <View style={[{marginHorizontal: 10}, props.style]}>
         {contacts.map((contact) => {
           if (contact?.id && contact?.email) {
             return (
@@ -61,6 +60,6 @@ export default function MyContacts(props: Props) {
           return null;
         })}
       </View>
-    </View>
+    </>
   );
 }

@@ -23,9 +23,9 @@ import {View as AnimatableView} from 'react-native-animatable';
 import {useTheme, Theme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
-import PrimaryButton from '../components/Buttons/PrimaryButton';
 import NavigationBar from '../components/NavigationBar';
 import OverscrollView from '../components/OverscrollView';
+import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import TalksUpNext from '../components/TalksUpNext';
 import {Colors, Layout} from '../constants';
