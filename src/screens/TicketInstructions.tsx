@@ -6,8 +6,8 @@ import Markdown from 'react-native-markdown-renderer';
 import {Card, Title, Theme, useTheme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
-import PrimaryButton from '../components/Buttons/PrimaryButton';
 import OverscrollView from '../components/OverscrollView';
+import PrimaryButton from '../components/PrimaryButton';
 import {Layout} from '../constants';
 import {User} from '../typings/data';
 import {AppRouteProp, AppNavigationProp} from '../typings/navigation';

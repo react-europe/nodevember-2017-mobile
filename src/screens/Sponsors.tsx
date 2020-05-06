@@ -4,9 +4,9 @@ import {SectionList, StyleSheet, View} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
-import PrimaryButton from '../components/Buttons/PrimaryButton';
 import CachedImage from '../components/CachedImage';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
+import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText, RegularText} from '../components/StyledText';
 import {Layout} from '../constants';
 import {withData} from '../context/DataContext';
