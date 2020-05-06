@@ -11,18 +11,18 @@ import PrimaryButton from '../components/PrimaryButton';
 import {Layout} from '../constants';
 import {User} from '../typings/data';
 import {AppRouteProp, AppNavigationProp} from '../typings/navigation';
-import withHeaderHeight from '../utils/withHeaderHeight';
+import useHeaderHeight from '../utils/useHeaderHeight';
 
 type TicketInstructionsProps = {
   route: AppRouteProp<'TicketInstructions'>;
-  headerHeight: number;
 };
 
 type DeferredTicketInstructionsContentProps = {
   ticketParams: {ticket: User};
 };
 
-function TicketInstructions(props: TicketInstructionsProps) {
+export default function TicketInstructions(props: TicketInstructionsProps) {
+  const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   return (
@@ -43,7 +43,7 @@ function TicketInstructions(props: TicketInstructionsProps) {
           style={{
             backgroundColor: theme.colors.primary,
             padding: 10,
-            paddingTop: props.headerHeight - 10,
+            paddingTop: headerHeight - 10,
             justifyContent: 'center',
             alignItems: 'center',
           }}
@@ -74,5 +74,3 @@ function DeferredTicketInstructionsContent({
     </AnimatableView>
   );
 }
-
-export default withHeaderHeight(TicketInstructions);

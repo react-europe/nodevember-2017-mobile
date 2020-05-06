@@ -10,10 +10,9 @@ import {
 } from 'react-native';
 import {useTheme, Theme} from 'react-native-paper';
 
-import withHeaderHeight from '../utils/withHeaderHeight';
+import useHeaderHeight from '../utils/useHeaderHeight';
 
 type Props = {
-  headerHeight: number;
   style?: StyleProp<TextStyle>;
   animatedBackgroundOpacity?: Animated.AnimatedInterpolation;
   renderLeftButton?: () => React.ReactNode;
@@ -21,7 +20,8 @@ type Props = {
   renderTitle?: () => React.ReactNode;
 };
 
-function NavigationBar(props: Props) {
+export default function NavigationBar(props: Props) {
+  const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const _renderAnimated = () => {
     return (
@@ -29,7 +29,7 @@ function NavigationBar(props: Props) {
         <View
           style={[
             styles.navigationBarContainer,
-            {height: props.headerHeight},
+            {height: headerHeight},
             props.style,
           ]}
           pointerEvents="none">
@@ -49,10 +49,7 @@ function NavigationBar(props: Props) {
         </View>
 
         <View
-          style={[
-            styles.navigationBarTitleContainer,
-            {height: props.headerHeight},
-          ]}
+          style={[styles.navigationBarTitleContainer, {height: headerHeight}]}
           pointerEvents="none">
           {props.renderTitle && props.renderTitle()}
         </View>
@@ -66,17 +63,13 @@ function NavigationBar(props: Props) {
 
   const _renderStatic = () => {
     return (
-      <View
-        style={[styles.navigationBarContainer, {height: props.headerHeight}]}>
+      <View style={[styles.navigationBarContainer, {height: headerHeight}]}>
         <View style={styles.navigationBarLeftButton}>
           {props.renderLeftButton && props.renderLeftButton()}
         </View>
 
         <View
-          style={[
-            styles.navigationBarTitleContainer,
-            {height: props.headerHeight},
-          ]}>
+          style={[styles.navigationBarTitleContainer, {height: headerHeight}]}>
           {props.renderTitle && props.renderTitle()}
         </View>
 
@@ -133,5 +126,3 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
-
-export default withHeaderHeight(NavigationBar);

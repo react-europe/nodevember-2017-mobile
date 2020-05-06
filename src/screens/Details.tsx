@@ -26,11 +26,7 @@ import {Layout} from '../constants';
 import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
-import withHeaderHeight from '../utils/withHeaderHeight';
-
-type Props = {
-  headerHeight: number;
-};
+import useHeaderHeight from '../utils/useHeaderHeight';
 
 function SavedButtonNavigationItem(props: {talk: Talk}) {
   return (
@@ -45,7 +41,8 @@ function SavedButtonNavigationItem(props: {talk: Talk}) {
   );
 }
 
-function Details(props: Props & AppProps<'Details'>) {
+export default function Details(props: AppProps<'Details'>) {
+  const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   let _listener: string | null = null;
@@ -334,7 +331,7 @@ function Details(props: Props & AppProps<'Details'>) {
         animatedBackgroundOpacity={headerOpacity}
         style={[
           Platform.OS === 'android'
-            ? {height: props.headerHeight + Constants.statusBarHeight}
+            ? {height: headerHeight + Constants.statusBarHeight}
             : null,
         ]}
         renderLeftButton={() => (
@@ -398,5 +395,3 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
 });
-
-export default withHeaderHeight(Details);

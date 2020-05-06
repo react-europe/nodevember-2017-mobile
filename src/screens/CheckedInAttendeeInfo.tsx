@@ -10,13 +10,12 @@ import AnimatedScrollView from '../components/AnimatedScrollView';
 import OverscrollView from '../components/OverscrollView';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
-import {Colors, Layout} from '../constants';
+import {Layout} from '../constants';
 import {Checkin} from '../typings/data';
 import {AppRouteProp, AppNavigationProp} from '../typings/navigation';
-import withHeaderHeight from '../utils/withHeaderHeight';
+import useHeaderHeight from '../utils/useHeaderHeight';
 
 type CheckedInAttendeeInfoProps = {
-  headerHeight: number;
   route: AppRouteProp<'CheckedInAttendeeInfo'>;
 };
 
@@ -24,7 +23,10 @@ type DeferredCheckedInAttendeeInfoContentProps = {
   route: AppRouteProp<'CheckedInAttendeeInfo'>;
 };
 
-function CheckedInAttendeeInfo(props: CheckedInAttendeeInfoProps) {
+export default function CheckedInAttendeeInfo(
+  props: CheckedInAttendeeInfoProps
+) {
+  const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   return (
@@ -45,7 +47,7 @@ function CheckedInAttendeeInfo(props: CheckedInAttendeeInfoProps) {
           style={{
             backgroundColor: theme.colors.primary,
             padding: 10,
-            paddingTop: props.headerHeight - 10,
+            paddingTop: headerHeight - 10,
             justifyContent: 'center',
             alignItems: 'center',
           }}
@@ -123,5 +125,3 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
-
-export default withHeaderHeight(CheckedInAttendeeInfo);
