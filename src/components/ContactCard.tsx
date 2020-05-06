@@ -52,7 +52,7 @@ function ContactCard({contact, tickets}: Props) {
   }
 
   return (
-    <Card>
+    <Card style={styles.card}>
       <View style={styles.headerRow}>
         {contact.email && (
           <GravatarImage style={styles.avatarImage} email={contact.email} />
@@ -103,6 +103,9 @@ export default ContactCard;
 const styles = StyleSheet.create({
   icon: {
     paddingHorizontal: 4,
+  },
+  card: {
+    marginTop: 2,
   },
   avatarImage: {
     width: 64,

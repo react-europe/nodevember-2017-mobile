@@ -11,24 +11,43 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 
-import PrimaryButton from '../components/Buttons/PrimaryButton';
+import BottomFAB from '../components/BottomFAB';
+import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import Tickets from '../components/Tickets';
 import {User} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
 
 function Profile() {
+  const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
+
+  const _requestCameraPermission = async () => {
+    const {status} = await Permissions.askAsync(Permissions.CAMERA);
+    const hasCameraPermission = status === 'granted';
+    return hasCameraPermission;
+  };
+
+  const handleAddTicket = async () => {
+    if (await _requestCameraPermission()) {
+      navigation.navigate('QRScanner');
+    } else {
+      Alert.alert(
+        'You need to manually enable camera permissions in your operating system settings app'
+      );
+    }
+  };
+
   return (
     <View style={{flex: 1}}>
       <ScrollView style={{flex: 1}}>
-        <DeferredProfileContent />
+        <DeferredProfileContent handleAddTicket={handleAddTicket} />
       </ScrollView>
+      <BottomFAB onPress={handleAddTicket} />
     </View>
   );
 }
 
-function DeferredProfileContent() {
-  const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
+function DeferredProfileContent(props: {handleAddTicket: () => void}) {
   const [tickets, setTickets] = useState<User[]>([]);
   const [ready, setReady] = useState(Platform.OS !== 'android');
 
@@ -56,38 +75,22 @@ function DeferredProfileContent() {
     }, [])
   );
 
-  const _requestCameraPermission = async () => {
-    const {status} = await Permissions.askAsync(Permissions.CAMERA);
-    const hasCameraPermission = status === 'granted';
-    return hasCameraPermission;
-  };
-
-  const _handlePressQRButton = async () => {
-    if (await _requestCameraPermission()) {
-      navigation.navigate('QRScanner');
-    } else {
-      Alert.alert(
-        'You need to manually enable camera permissions in your operating system settings app'
-      );
-    }
-  };
-
   if (!ready) {
     return null;
   }
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
+      {!tickets || tickets.length <= 0 ? (
+        <PrimaryButton onPress={props.handleAddTicket}>
+          <SemiBoldText fontSize="md" accent>
+            Scan your ticket QR code
+          </SemiBoldText>
+        </PrimaryButton>
+      ) : null}
       <Tickets
         tickets={tickets}
         style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
       />
-      <PrimaryButton onPress={_handlePressQRButton}>
-        <SemiBoldText fontSize="md" accent>
-          {tickets && tickets.length > 0
-            ? 'Scan another ticket QR code'
-            : 'Scan your ticket QR code'}
-        </SemiBoldText>
-      </PrimaryButton>
     </AnimatableView>
   );
 }

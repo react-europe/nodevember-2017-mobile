@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {ViewStyle, StyleProp} from 'react-native';
+import {ViewStyle, StyleProp, StyleSheet} from 'react-native';
 import {Button, Card, Title} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
 
@@ -13,7 +13,7 @@ type Props = {
   style?: StyleProp<ViewStyle>;
 };
 
-function TicketCard(props: Props) {
+export default function TicketCard(props: Props) {
   const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
   const {ticket} = props;
 
@@ -24,7 +24,7 @@ function TicketCard(props: Props) {
   };
 
   return (
-    <Card>
+    <Card style={style.card}>
       <Card.Content>
         {ticket.checkinLists && (
           <>
@@ -46,4 +46,8 @@ function TicketCard(props: Props) {
   );
 }
 
-export default TicketCard;
+const style = StyleSheet.create({
+  card: {
+    marginTop: 2,
+  },
+});
