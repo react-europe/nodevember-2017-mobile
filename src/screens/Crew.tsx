@@ -1,5 +1,5 @@
 import WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -13,15 +13,11 @@ import {ScrollView} from 'react-native-gesture-handler';
 import CachedImage from '../components/CachedImage';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
-import {withData} from '../context/DataContext';
-import {Collaborator, Event} from '../typings/data';
+import DataContext from '../context/DataContext';
+import {Collaborator} from '../typings/data';
 
 type CrewRowProps = {
   item: Collaborator;
-};
-
-type CrewProps = {
-  event: Event;
 };
 
 function CrewRow(props: CrewRowProps) {
@@ -65,10 +61,11 @@ function CrewRow(props: CrewRowProps) {
   );
 }
 
-function Crews(props: CrewProps) {
+export default function Crews() {
+  const {event} = useContext(DataContext);
   let collaborators: Collaborator[] = [];
-  if (props.event.collaborators && props.event.collaborators.length > 0) {
-    collaborators = props.event.collaborators as Collaborator[];
+  if (event?.collaborators && event.collaborators.length > 0) {
+    collaborators = event.collaborators as Collaborator[];
   }
   const _renderItem = ({item}: {item: Collaborator}) => {
     return <CrewRow item={item} />;
@@ -104,5 +101,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export default withData(Crews);

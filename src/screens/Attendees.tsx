@@ -16,26 +16,20 @@ import {Searchbar} from 'react-native-paper';
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 import OverscrollView from '../components/OverscrollView';
 import {GQL, Layout, FontSizes} from '../constants';
-import {withData} from '../context/DataContext';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
 import {MenuNavigationProp} from '../typings/navigation';
 import {getContactTwitter} from '../utils';
 
-type AttendeesProps = {
-  event: Event;
-};
-
 type DeferredAttendeesContentProps = {
   aquery: string;
-  event: Event;
 };
 
 type QueryAttendees = {
   events: Event[];
 };
 
-function Attendees(props: AttendeesProps) {
+export default function Attendees() {
   const [aquery, setAquery] = useState('');
 
   const throttleDelayMs = 200;
@@ -71,7 +65,7 @@ function Attendees(props: AttendeesProps) {
         clearButtonMode="while-editing"
         value={aquery}
       />
-      <DeferredAttendeesContent aquery={aquery} event={props.event} />
+      <DeferredAttendeesContent aquery={aquery} />
       <OverscrollView />
     </View>
   );
@@ -220,5 +214,3 @@ const styles = StyleSheet.create({
     borderColor: 'black',
   },
 });
-
-export default withData(Attendees);

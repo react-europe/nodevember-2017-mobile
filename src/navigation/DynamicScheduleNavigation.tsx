@@ -1,22 +1,19 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import moment from 'moment';
-import React from 'react';
+import React, {useContext} from 'react';
 
-import {withData} from '../context/DataContext';
+import DataContext from '../context/DataContext';
 import Screens from '../screens';
-import {ScheduleDay, Event} from '../typings/data';
+import {ScheduleDay} from '../typings/data';
 import {ScheduleDayTabParamList} from '../typings/navigation';
-
-type Props = {
-  event: Event;
-};
 
 const Tab = createMaterialTopTabNavigator<ScheduleDayTabParamList>();
 
-function DynamicScheduleNavigation(props: Props) {
+export default function DynamicScheduleNavigation() {
+  const {event} = useContext(DataContext);
   let fullSchedule: ScheduleDay[] = [];
-  if (props.event.groupedSchedule) {
-    fullSchedule = props.event.groupedSchedule as ScheduleDay[];
+  if (event?.groupedSchedule) {
+    fullSchedule = event.groupedSchedule as ScheduleDay[];
   }
   return (
     <Tab.Navigator
@@ -41,5 +38,3 @@ function DynamicScheduleNavigation(props: Props) {
     </Tab.Navigator>
   );
 }
-
-export default withData(DynamicScheduleNavigation);
