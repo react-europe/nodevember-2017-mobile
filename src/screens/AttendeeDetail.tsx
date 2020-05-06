@@ -22,13 +22,10 @@ import {Attendee} from '../typings/data';
 import {MenuTabProps} from '../typings/navigation';
 import {openTwitter, addContact, getContactTwitter} from '../utils';
 import {saveContactOnDevice} from '../utils/storage';
-import withHeaderHeight from '../utils/withHeaderHeight';
+import useHeaderHeight from '../utils/useHeaderHeight';
 
-type Props = {
-  headerHeight: number;
-};
-
-function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
+export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
+  const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
 
@@ -161,7 +158,7 @@ function AttendeeDetail(props: Props & MenuTabProps<'AttendeeDetail'>) {
         animatedBackgroundOpacity={headerOpacity}
         style={[
           Platform.OS === 'android'
-            ? {height: props.headerHeight + Constants.statusBarHeight}
+            ? {height: headerHeight + Constants.statusBarHeight}
             : null,
         ]}
         renderLeftButton={() => (
@@ -199,5 +196,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-export default withHeaderHeight(AttendeeDetail);

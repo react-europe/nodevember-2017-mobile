@@ -34,13 +34,12 @@ import {Event, User} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
-import withHeaderHeight from '../utils/withHeaderHeight';
+import useHeaderHeight from '../utils/useHeaderHeight';
 
 type HomeProps = {
   navigation: PrimaryTabNavigationProp<'Home'>;
   event: Event;
   initialLinkingUri: string;
-  headerHeight: number;
 };
 
 type DeferredHomeContentProps = {
@@ -48,6 +47,7 @@ type DeferredHomeContentProps = {
 };
 
 function Home(props: HomeProps) {
+  const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
 
@@ -120,7 +120,7 @@ function Home(props: HomeProps) {
           style={{
             backgroundColor: theme.colors.primary,
             padding: 10,
-            paddingTop: props.headerHeight - 10,
+            paddingTop: headerHeight - 10,
             justifyContent: 'center',
             alignItems: 'center',
           }}>
@@ -399,4 +399,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withHeaderHeight(withData(Home));
+export default withData(Home);
