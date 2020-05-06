@@ -8,7 +8,7 @@ import {Notifications, Linking} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
 import {Notification} from 'expo/build/Notifications/Notifications.types';
 import {EventSubscription} from 'fbemitter';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   Animated,
   Platform,
@@ -29,8 +29,8 @@ import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import TalksUpNext from '../components/TalksUpNext';
 import {Colors, Layout} from '../constants';
-import {withData} from '../context/DataContext';
-import {Event, User} from '../typings/data';
+import DataContext from '../context/DataContext';
+import {User} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
@@ -38,23 +38,18 @@ import useHeaderHeight from '../utils/useHeaderHeight';
 
 type HomeProps = {
   navigation: PrimaryTabNavigationProp<'Home'>;
-  event: Event;
-  initialLinkingUri: string;
 };
 
-type DeferredHomeContentProps = {
-  event: Event;
-};
-
-function Home(props: HomeProps) {
+export default function Home(props: HomeProps) {
+  const {initialLinkingUri} = useContext(DataContext);
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
 
   function checkUuidOnLoad() {
-    console.log('checking props initialLinkingUri', props.initialLinkingUri);
-    if (props.initialLinkingUri) {
-      const url = props.initialLinkingUri;
+    console.log('checking props initialLinkingUri', initialLinkingUri);
+    if (initialLinkingUri) {
+      const url = initialLinkingUri;
       console.log('check url from home', url);
       const uuid = url ? url.split('?uuid=')[1] : '';
       console.log('check uuid from home', uuid);
@@ -151,7 +146,7 @@ function Home(props: HomeProps) {
             </HideWhenConferenceHasEnded>
           </View>
         </View>
-        <DeferredHomeContent event={props.event} />
+        <DeferredHomeContent />
         <OverscrollView />
       </AnimatedScrollView>
 
@@ -174,7 +169,8 @@ function Home(props: HomeProps) {
   );
 }
 
-function DeferredHomeContent(props: DeferredHomeContentProps) {
+function DeferredHomeContent() {
+  const {event} = useContext(DataContext);
   const theme: Theme = useTheme();
   const navigation = useNavigation<PrimaryTabNavigationProp<'Home'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
@@ -236,8 +232,8 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
   };
 
   const _handlePressCOCButton = () => {
-    if (props.event.cocUrl) {
-      WebBrowser.openBrowserAsync(props.event.cocUrl);
+    if (event?.cocUrl) {
+      WebBrowser.openBrowserAsync(event.cocUrl);
     }
   };
 
@@ -251,24 +247,23 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
   };
 
   const _handlePressTwitterButton = async () => {
-    try {
-      await Linking.openURL(
-        `twitter://user?screen_name=` + props.event.twitterHandle
-      );
-    } catch (e) {
-      WebBrowser.openBrowserAsync(
-        'https://twitter.com/' + props.event.twitterHandle
-      );
+    if (event) {
+      try {
+        await Linking.openURL(
+          `twitter://user?screen_name=` + event.twitterHandle
+        );
+      } catch (e) {
+        WebBrowser.openBrowserAsync(
+          'https://twitter.com/' + event.twitterHandle
+        );
+      }
     }
   };
 
   const _handlePressMapButton = () => {
-    if (props.event.venueName && props.event.venueCity) {
+    if (event?.venueName && event.venueCity) {
       const params = encodeURIComponent(
-        props.event.venueName +
-          props.event.venueCity +
-          ',' +
-          props.event.venueCountry
+        event.venueName + event.venueCity + ',' + event.venueCountry
       );
       WebBrowser.openBrowserAsync(
         'https://www.google.com/maps/search/' + params
@@ -310,12 +305,14 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           </SemiBoldText>
         </PrimaryButton>
       ) : null}
-      <HideWhenConferenceHasEnded>
-        <TalksUpNext
-          event={props.event}
-          style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
-        />
-      </HideWhenConferenceHasEnded>
+      {event && (
+        <HideWhenConferenceHasEnded>
+          <TalksUpNext
+            event={event}
+            style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
+          />
+        </HideWhenConferenceHasEnded>
+      )}
       <View style={{marginHorizontal: 15, marginBottom: 20}}>
         <TouchableOpacity onPress={_handlePressAllTalks}>
           <SemiBoldText
@@ -352,7 +349,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
           </SemiBoldText>
         </PrimaryButton>
       ) : null}
-      {props.event.cocUrl && (
+      {event?.cocUrl && (
         <PrimaryButton onPress={_handlePressCOCButton}>
           <SemiBoldText fontSize="md" accent>
             Read the code of conduct
@@ -360,7 +357,7 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
         </PrimaryButton>
       )}
 
-      {props.event.venueName && props.event.venueCity && (
+      {event?.venueName && event.venueCity && (
         <PrimaryButton onPress={_handlePressMapButton}>
           <SemiBoldText fontSize="md" accent>
             {Platform.OS === 'android' ? 'Download' : 'Open'} the conference map
@@ -368,19 +365,21 @@ function DeferredHomeContent(props: DeferredHomeContentProps) {
         </PrimaryButton>
       )}
 
-      <PrimaryButton onPress={_handlePressTwitterButton}>
-        <SemiBoldText fontSize="md" accent>
-          <Ionicons
-            name="logo-twitter"
-            size={23}
-            style={{
-              color: '#fff',
-              backgroundColor: 'transparent',
-            }}
-          />
-          @{props.event.twitterHandle}
-        </SemiBoldText>
-      </PrimaryButton>
+      {event?.twitterHandle && (
+        <PrimaryButton onPress={_handlePressTwitterButton}>
+          <SemiBoldText fontSize="md" accent>
+            <Ionicons
+              name="logo-twitter"
+              size={23}
+              style={{
+                color: '#fff',
+                backgroundColor: 'transparent',
+              }}
+            />
+            @{event.twitterHandle}
+          </SemiBoldText>
+        </PrimaryButton>
+      )}
     </AnimatableView>
   );
 }
@@ -398,5 +397,3 @@ const styles = StyleSheet.create({
     color: Colors.blue,
   },
 });
-
-export default withData(Home);

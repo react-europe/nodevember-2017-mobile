@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
@@ -6,14 +6,13 @@ import {ScrollView, RectButton} from 'react-native-gesture-handler';
 import CachedImage from '../components/CachedImage';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
-import {withData} from '../context/DataContext';
-import {Event, Speaker, Talk} from '../typings/data';
+import DataContext from '../context/DataContext';
+import {Speaker, Talk} from '../typings/data';
 import {MenuNavigationProp} from '../typings/navigation';
 import {SectionHeaderProps} from '../typings/utils';
 import {getSpeakerTalk} from '../utils';
 
 type SpeakersProps = {
-  event: Event;
   navigation: MenuNavigationProp<'Speakers'>;
 };
 
@@ -58,11 +57,11 @@ function SpeakerRow(props: SpeakerRowProps) {
   );
 }
 
-function Speakers(props: SpeakersProps) {
+export default function Speakers(props: SpeakersProps) {
+  const {event} = useContext(DataContext);
   let speakers: Speaker[] = [];
-
-  if (props.event.speakers && props.event.speakers.length > 0) {
-    speakers = props.event.speakers as Speaker[];
+  if (event?.speakers && event.speakers.length > 0) {
+    speakers = event.speakers as Speaker[];
   }
   const _renderSectionHeader = ({section}: SectionHeaderProps<Speaker>) => {
     return (
@@ -119,5 +118,3 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
 });
-
-export default withData(Speakers);

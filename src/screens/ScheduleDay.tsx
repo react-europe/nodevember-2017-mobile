@@ -1,23 +1,15 @@
 import _ from 'lodash';
-import React from 'react';
+import React, {useContext} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
-import {withData} from '../context/DataContext';
-import {Event, Schedule, ScheduleDay as ScheduleDayType} from '../typings/data';
-import {
-  ScheduleDayProps,
-  ScheduleDayNavigationProp,
-} from '../typings/navigation';
+import DataContext from '../context/DataContext';
+import {Schedule, ScheduleDay as ScheduleDayType} from '../typings/data';
+import {ScheduleDayProps} from '../typings/navigation';
 import {SectionHeaderProps} from '../typings/utils';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
-
-type Props = {
-  event: Event;
-  navigation: ScheduleDayNavigationProp;
-};
 
 type ScheduleRowProps = {
   onPress: (item: Schedule) => void;
@@ -59,9 +51,10 @@ function ScheduleRow(props: ScheduleRowProps) {
   );
 }
 
-function ScheduleDay(props: Props & ScheduleDayProps) {
+export default function ScheduleDay(props: ScheduleDayProps) {
+  const {event} = useContext(DataContext);
   const schedule: ScheduleDayType | null | undefined = _.find(
-    props.event.groupedSchedule,
+    event?.groupedSchedule,
     (schedule) => {
       if (schedule?.title) {
         return schedule.title === props.route.params.day;
@@ -132,5 +125,3 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
 });
-
-export default withData(ScheduleDay);

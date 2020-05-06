@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, {useContext} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
@@ -9,13 +9,9 @@ import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText, RegularText} from '../components/StyledText';
 import {Layout} from '../constants';
-import {withData} from '../context/DataContext';
-import {Event, Sponsor} from '../typings/data';
+import DataContext from '../context/DataContext';
+import {Sponsor} from '../typings/data';
 import {SectionHeaderProps} from '../typings/utils';
-
-type SponsorsProps = {
-  event: Event;
-};
 
 type SponsorRowProps = {
   item: Sponsor;
@@ -83,11 +79,12 @@ function SponsorRow(props: SponsorRowProps) {
   );
 }
 
-function Sponsors(props: SponsorsProps) {
-  if (!props.event.sponsors) {
+export default function Sponsors() {
+  const {event} = useContext(DataContext);
+  if (!event?.sponsors) {
     return <></>;
   }
-  const SponsorsData: {[key: string]: Sponsor[]} = props.event.sponsors as {
+  const SponsorsData: {[key: string]: Sponsor[]} = event.sponsors as {
     [key: string]: Sponsor[];
   };
   let SponsorsByLevel: {title: string; data: Sponsor[]}[] = [];
@@ -151,5 +148,3 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
 });
-
-export default withData(Sponsors);
