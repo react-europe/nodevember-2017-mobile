@@ -9,23 +9,14 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 
-import PrimaryButton from '../components/Buttons/PrimaryButton';
+import BottomFAB from '../components/BottomFAB';
 import MyContacts from '../components/MyContacts';
+import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import {Attendee} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
 
-function Contacts() {
-  return (
-    <View style={{flex: 1}}>
-      <ScrollView style={{flex: 1}}>
-        <DeferredContactsContent />
-      </ScrollView>
-    </View>
-  );
-}
-
-function DeferredContactsContent() {
+export default function Contacts() {
   const navigation = useNavigation<PrimaryTabNavigationProp<'Contacts'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [tickets, setTickets] = useState<Attendee[]>([]);
@@ -63,39 +54,36 @@ function DeferredContactsContent() {
     }, [])
   );
 
-  const _handlePressQRButton = () => {
-    navigation.navigate('QRContactScanner');
-  };
-
   const _handlePressProfileQRButton = () => {
     navigation.navigate('QRScanner');
+  };
+
+  const handlePressQRButton = () => {
+    navigation.navigate('QRContactScanner');
   };
 
   if (!ready) {
     return null;
   }
   return (
-    <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
-      <MyContacts
-        contacts={contacts}
-        tickets={tickets}
-        style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
-      />
-      {tickets && tickets.length > 0 ? (
-        <PrimaryButton onPress={_handlePressQRButton}>
-          <SemiBoldText fontSize="md" accent>
-            Scan a contact's QR code
-          </SemiBoldText>
-        </PrimaryButton>
-      ) : (
-        <PrimaryButton onPress={_handlePressProfileQRButton}>
-          <SemiBoldText fontSize="md" accent>
-            You need to scan your ticket first
-          </SemiBoldText>
-        </PrimaryButton>
-      )}
-    </AnimatableView>
+    <View style={{flex: 1}}>
+      <ScrollView style={{flex: 1}}>
+        <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
+          {tickets.length <= 0 ? (
+            <PrimaryButton onPress={_handlePressProfileQRButton}>
+              <SemiBoldText fontSize="md" accent>
+                You need to scan your ticket first
+              </SemiBoldText>
+            </PrimaryButton>
+          ) : null}
+          <MyContacts
+            contacts={contacts}
+            tickets={tickets}
+            style={{marginTop: 10, marginHorizontal: 15, marginBottom: 2}}
+          />
+        </AnimatableView>
+      </ScrollView>
+      {tickets.length > 0 && <BottomFAB onPress={handlePressQRButton} />}
+    </View>
   );
 }
-
-export default Contacts;
