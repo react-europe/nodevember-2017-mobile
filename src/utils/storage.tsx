@@ -2,7 +2,7 @@ import * as Contacts from 'expo-contacts';
 import {EventEmitter} from 'fbemitter';
 import _ from 'lodash';
 import React, {useEffect, useState} from 'react';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, Alert} from 'react-native';
 
 import {Talk, Attendee} from '../typings/data';
 
@@ -158,6 +158,10 @@ export async function saveContactOnDevice(contact: Attendee) {
   if (status === 'granted') {
     try {
       await Contacts.addContactAsync(contactInfo);
+      Alert.alert(
+        'Contact added',
+        'Your contact has been added to your repertory.'
+      );
     } catch (e) {
       console.log(e.code, e.message);
     }
