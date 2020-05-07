@@ -31,10 +31,12 @@ type QueryAttendees = {
 
 export default function Attendees() {
   const [aquery, setAquery] = useState('');
+  const [search, setSearch] = useState('');
 
   const throttleDelayMs = 200;
   let throttleTimeout: NodeJS.Timer;
   const queryThrottle = (text: string) => {
+    setSearch(text);
     if (throttleTimeout) {
       clearTimeout(throttleTimeout);
     }
@@ -63,7 +65,7 @@ export default function Attendees() {
         autoCapitalize="none"
         autoCorrect={false}
         clearButtonMode="while-editing"
-        value={aquery}
+        value={search}
       />
       <DeferredAttendeesContent aquery={aquery} />
       <OverscrollView />
