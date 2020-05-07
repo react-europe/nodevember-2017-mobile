@@ -8,6 +8,7 @@ import {Card, Title, Theme, useTheme} from 'react-native-paper';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import OverscrollView from '../components/OverscrollView';
 import PrimaryButton from '../components/PrimaryButton';
+import {SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
 import {User} from '../typings/data';
 import {AppRouteProp, AppNavigationProp} from '../typings/navigation';
@@ -48,7 +49,6 @@ export default function TicketInstructions(props: TicketInstructionsProps) {
             alignItems: 'center',
           }}
         />
-
         <DeferredTicketInstructionsContent ticketParams={props.route.params} />
         <OverscrollView />
       </AnimatedScrollView>
@@ -70,7 +70,11 @@ function DeferredTicketInstructionsContent({
           <Markdown>{ticket.mobileMessage}</Markdown>
         </Card.Content>
       </Card>
-      <PrimaryButton onPress={() => navigation.goBack()}>Close</PrimaryButton>
+      <PrimaryButton onPress={() => navigation.goBack()}>
+        <SemiBoldText fontSize="md" accent>
+          Close
+        </SemiBoldText>
+      </PrimaryButton>
     </AnimatableView>
   );
 }
