@@ -235,7 +235,7 @@ export default function App() {
                 initialLinkingUri,
               }}>
               <PaperProvider theme={theme}>
-                <NavigationContainer>
+                <NavigationContainer linking={{enabled: true, prefixes: []}}>
                   <AppNavigator />
                 </NavigationContainer>
               </PaperProvider>

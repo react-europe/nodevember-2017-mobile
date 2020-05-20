@@ -14,11 +14,11 @@
     "lint": "eslint . --ext .js --quiet"
   },
   "dependencies": {
-    "@react-native-community/masked-view": "0.1.5",
-    "@react-navigation/bottom-tabs": "^5.2.5",
-    "@react-navigation/material-top-tabs": "^5.1.8",
-    "@react-navigation/native": "^5.1.5",
-    "@react-navigation/stack": "^5.2.9",
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/bottom-tabs": "^5.4.6",
+    "@react-navigation/material-top-tabs": "^5.2.6",
+    "@react-navigation/native": "^5.4.1",
+    "@react-navigation/stack": "^5.3.8",
     "apollo-client": "^2.3.1",
     "apollo-client-preset": "^1.0.8",
     "crypto-js": "^3.1.9-1",
