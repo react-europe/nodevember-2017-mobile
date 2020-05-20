@@ -1,10 +1,10 @@
 import '@expo/match-media';
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import {View} from 'react-native-animatable';
 import {RectButton} from 'react-native-gesture-handler';
 import {Theme, useTheme} from 'react-native-paper';
 import {useMediaQuery} from 'react-responsive';
-import {View} from 'react-native-animatable';
 
 type Props = {
   onPress: () => void;
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function PrimaryButton(props: Props) {
-  const theme: Theme = useTheme();
+  const {colors}: Theme = useTheme();
 
   const isTabletOrMobileDevice = useMediaQuery({
     maxDeviceWidth: 1224,
@@ -22,16 +22,20 @@ export default function PrimaryButton(props: Props) {
   if (isTabletOrMobileDevice) {
     return (
       <RectButton
-        style={[styles.PrimaryButton, {backgroundColor: 'limegreen'}]}
+        style={[styles.PrimaryButton, {backgroundColor: colors.primary}]}
         onPress={props.onPress}>
         {props.children}
       </RectButton>
     );
   }
   return (
-    <View style={[styles.centerContainer, {backgroundColor: 'teal'}]}>
+    <View style={[styles.centerContainer]}>
       <RectButton
-        style={[styles.PrimaryButtonWeb, {backgroundColor: 'salmon'}]}
+        style={[
+          styles.PrimaryButton,
+          styles.PrimaryButtonWeb,
+          {backgroundColor: colors.primary},
+        ]}
         onPress={props.onPress}>
         {props.children}
       </RectButton>
@@ -44,14 +48,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   PrimaryButtonWeb: {
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 15,
-    marginTop: 10,
-    overflow: 'hidden',
-    borderRadius: 3,
-    flexDirection: 'row',
     width: '400px',
   },
   PrimaryButton: {
