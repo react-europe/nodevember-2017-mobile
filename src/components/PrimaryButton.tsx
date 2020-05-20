@@ -6,6 +6,8 @@ import {RectButton} from 'react-native-gesture-handler';
 import {Theme, useTheme} from 'react-native-paper';
 import {useMediaQuery} from 'react-responsive';
 
+import {mediaQuery} from '../constants/theme';
+
 type Props = {
   onPress: () => void;
   children: React.ReactNode;
@@ -14,10 +16,7 @@ type Props = {
 export default function PrimaryButton(props: Props) {
   const {colors}: Theme = useTheme();
 
-  const isTabletOrMobileDevice = useMediaQuery({
-    maxDeviceWidth: 1224,
-    query: '(max-device-width: 1224px)',
-  });
+  const isTabletOrMobileDevice = useMediaQuery(mediaQuery);
 
   if (isTabletOrMobileDevice) {
     return (
