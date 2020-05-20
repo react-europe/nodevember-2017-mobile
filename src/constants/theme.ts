@@ -1,5 +1,10 @@
 import {DefaultTheme, Theme, configureFonts} from 'react-native-paper';
 
+export const mediaQuery = {
+  maxDeviceWidth: 1224,
+  query: '(max-device-width: 1224px)',
+};
+
 const fontConfig = {
   default: {
     regular: {
