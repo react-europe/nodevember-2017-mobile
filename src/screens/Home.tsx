@@ -146,7 +146,9 @@ export default function Home(props: HomeProps) {
             </HideWhenConferenceHasEnded>
           </View>
         </View>
-        <DeferredHomeContent />
+        <View style={{alignItems: 'center'}}>
+          <DeferredHomeContent />
+        </View>
         <OverscrollView />
       </AnimatedScrollView>
 
