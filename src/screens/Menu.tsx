@@ -14,13 +14,56 @@ import {useTheme, Theme} from 'react-native-paper';
 import CachedImage from '../components/CachedImage';
 import {Layout} from '../constants';
 import {MenuNavigationProp, MenuStackParamList} from '../typings/navigation';
+import useScreenWidth from '../utils/useScreenWidth';
 
 type Props = {
   navigation: MenuNavigationProp<'Menu'>;
 };
 
+function MenuHeader() {
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 240 + Layout.notchHeight,
+      }}>
+      <CachedImage
+        source={require('../assets/hero.png')}
+        style={{
+          height: 240 + Layout.notchHeight,
+          width: Layout.window.width,
+          resizeMode: 'cover',
+          position: 'absolute',
+        }}
+      />
+      <View
+        style={[
+          StyleSheet.absoluteFill,
+          {
+            backgroundColor: 'rgba(0,0,0,0.5)',
+          },
+        ]}
+      />
+      <Image
+        source={require('../assets/logo.png')}
+        style={[
+          {
+            width: 220,
+            height: 100,
+            resizeMode: 'contain',
+          },
+        ]}
+      />
+    </View>
+  );
+}
+
 function MenuScreen(props: Props) {
   const theme: Theme = useTheme();
+  const isLargeScreen = useScreenWidth();
+
   function getIconName(key: keyof MenuStackParamList) {
     if (key === 'Speakers') return 'ios-microphone';
     if (key === 'Crew') return 'ios-information-circle';
@@ -38,43 +81,7 @@ function MenuScreen(props: Props) {
       <StatusBar barStyle="light-content" />
       <FlatList
         data={screens}
-        /* ListHeaderComponent={() => (
-          <View
-            style={{
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 240 + Layout.notchHeight,
-            }}>
-            <CachedImage
-              source={require('../assets/hero.png')}
-              style={{
-                height: 240 + Layout.notchHeight,
-                width: Layout.window.width,
-                resizeMode: 'cover',
-                position: 'absolute',
-              }}
-            />
-            <View
-              style={[
-                StyleSheet.absoluteFill,
-                {
-                  backgroundColor: 'rgba(0,0,0,0.5)',
-                },
-              ]}
-            />
-            <Image
-              source={require('../assets/logo.png')}
-              style={[
-                {
-                  width: 220,
-                  height: 100,
-                  resizeMode: 'contain',
-                },
-              ]}
-            />
-          </View>
-        )} */
+        ListHeaderComponent={isLargeScreen ? <></> : <MenuHeader />}
         ItemSeparatorComponent={() => (
           <View
             style={{
