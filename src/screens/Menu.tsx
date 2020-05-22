@@ -38,7 +38,7 @@ function MenuScreen(props: Props) {
       <StatusBar barStyle="light-content" />
       <FlatList
         data={screens}
-        ListHeaderComponent={() => (
+        /* ListHeaderComponent={() => (
           <View
             style={{
               flex: 1,
@@ -74,7 +74,7 @@ function MenuScreen(props: Props) {
               ]}
             />
           </View>
-        )}
+        )} */
         ItemSeparatorComponent={() => (
           <View
             style={{

@@ -20,7 +20,7 @@ type SponsorRowProps = {
 
 function SponsorRow(props: SponsorRowProps) {
   const sponsor = props.item;
-  const isSmallScreen = useScreenWidth();
+  const isLargeScreen = useScreenWidth();
 
   const _handlePress = () => {
     if (sponsor.url) {
@@ -66,11 +66,9 @@ function SponsorRow(props: SponsorRowProps) {
         </View>
         {sponsor.description ? (
           <View
-            style={
-              (styles.rowData, isSmallScreen ? {} : {alignItems: 'center'})
-            }>
+            style={(styles.rowData, isLargeScreen && {alignItems: 'center'})}>
             <RegularText
-              style={[{marginBottom: 10}, isSmallScreen ? {} : styles.textWeb]}
+              style={[{marginBottom: 10}, isLargeScreen && styles.textWeb]}
               fontSize="sm">
               {sponsor.description}
             </RegularText>

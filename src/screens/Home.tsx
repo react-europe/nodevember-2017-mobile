@@ -46,7 +46,7 @@ export default function Home(props: HomeProps) {
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
-  const isSmallScreen = useScreenWidth();
+  const isLargeScreen = useScreenWidth();
 
   function checkUuidOnLoad() {
     console.log('checking props initialLinkingUri', initialLinkingUri);
@@ -148,7 +148,7 @@ export default function Home(props: HomeProps) {
             </HideWhenConferenceHasEnded>
           </View>
         </View>
-        <View style={isSmallScreen ? {} : {alignItems: 'center'}}>
+        <View style={isLargeScreen && {alignItems: 'center'}}>
           <DeferredHomeContent />
         </View>
         <OverscrollView />
