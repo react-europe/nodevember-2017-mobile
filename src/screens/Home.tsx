@@ -3,6 +3,7 @@ import {
   CommonActions,
   useFocusEffect,
   useNavigation,
+  Link,
 } from '@react-navigation/native';
 import {Notifications, Linking} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
@@ -227,14 +228,6 @@ function DeferredHomeContent() {
     }
   };
 
-  const _handlePressAllTalks = () => {
-    navigation.dispatch(
-      CommonActions.navigate({
-        name: 'Schedule',
-      })
-    );
-  };
-
   const _handlePressCOCButton = () => {
     if (event?.cocUrl) {
       WebBrowser.openBrowserAsync(event.cocUrl);
@@ -318,7 +311,7 @@ function DeferredHomeContent() {
         </HideWhenConferenceHasEnded>
       )}
       <View style={{marginHorizontal: 15, marginBottom: 20}}>
-        <TouchableOpacity onPress={_handlePressAllTalks}>
+        <Link to="/schedule">
           <SemiBoldText
             style={{color: theme.colors.primary}}
             fontSize="md"
@@ -330,7 +323,7 @@ function DeferredHomeContent() {
               See all 2019 talks →
             </ShowWhenConferenceHasEnded>
           </SemiBoldText>
-        </TouchableOpacity>
+        </Link>
       </View>
       {tickets.length > 0 ? (
         <PrimaryButton onPress={() => navigation.navigate('Profile')}>
