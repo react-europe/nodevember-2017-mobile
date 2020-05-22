@@ -14,30 +14,30 @@ type Props = {
 
 export default function PrimaryButton(props: Props) {
   const {colors}: Theme = useTheme();
-  const isSmallScreen = useScreenWidth();
+  const isLargeScreen = useScreenWidth();
 
-  if (isSmallScreen) {
+  if (isLargeScreen) {
     return (
-      <RectButton
-        style={[styles.PrimaryButton, {backgroundColor: colors.primary}]}
-        onPress={props.onPress}>
-        {props.children}
-      </RectButton>
+      <View style={[styles.centerContainer]}>
+        <RectButton
+          style={[
+            styles.PrimaryButton,
+            {backgroundColor: colors.primary},
+            styles.PrimaryButtonWeb,
+          ]}
+          onPress={props.onPress}>
+          {props.children}
+        </RectButton>
+      </View>
     );
   }
 
   return (
-    <View style={[styles.centerContainer]}>
-      <RectButton
-        style={[
-          styles.PrimaryButton,
-          {backgroundColor: colors.primary},
-          styles.PrimaryButtonWeb,
-        ]}
-        onPress={props.onPress}>
-        {props.children}
-      </RectButton>
-    </View>
+    <RectButton
+      style={[styles.PrimaryButton, {backgroundColor: colors.primary}]}
+      onPress={props.onPress}>
+      {props.children}
+    </RectButton>
   );
 }
 
