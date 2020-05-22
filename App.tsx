@@ -25,6 +25,7 @@ import theme from './src/constants/theme';
 import DataContext from './src/context/DataContext';
 import GET_SCHEDULE from './src/data/schedulequery';
 import AppNavigator from './src/navigation/AppNavigator';
+import linkingConfig from './src/navigation/linking';
 import {Event} from './src/typings/data';
 import {setEvent, saveSchedule} from './src/utils';
 import client from './src/utils/gqlClient';
@@ -235,7 +236,7 @@ export default function App() {
                 initialLinkingUri,
               }}>
               <PaperProvider theme={theme}>
-                <NavigationContainer linking={{enabled: true, prefixes: []}}>
+                <NavigationContainer linking={linkingConfig}>
                   <AppNavigator />
                 </NavigationContainer>
               </PaperProvider>
