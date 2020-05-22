@@ -35,6 +35,7 @@ import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
 import useHeaderHeight from '../utils/useHeaderHeight';
+import useScreenWidth from '../utils/useScreenWidth';
 
 type HomeProps = {
   navigation: PrimaryTabNavigationProp<'Home'>;
@@ -45,6 +46,7 @@ export default function Home(props: HomeProps) {
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
+  const isSmallScreen = useScreenWidth();
 
   function checkUuidOnLoad() {
     console.log('checking props initialLinkingUri', initialLinkingUri);
@@ -146,7 +148,7 @@ export default function Home(props: HomeProps) {
             </HideWhenConferenceHasEnded>
           </View>
         </View>
-        <View style={{alignItems: 'center'}}>
+        <View style={isSmallScreen ? {} : {alignItems: 'center'}}>
           <DeferredHomeContent />
         </View>
         <OverscrollView />
