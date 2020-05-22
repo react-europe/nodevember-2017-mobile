@@ -77,7 +77,7 @@ function MenuScreen(props: Props) {
     {key: 'Attendees'},
   ];
   return (
-    <View style={{flex: 1}}>
+    <View style={[{flex: 1}, isLargeScreen && styles.webMenuContainer]}>
       <StatusBar barStyle="light-content" />
       <FlatList
         data={screens}
@@ -93,13 +93,15 @@ function MenuScreen(props: Props) {
         renderItem={({item}) => (
           <TouchableOpacity onPress={() => props.navigation.navigate(item.key)}>
             <View
-              style={{
-                flex: 1,
-                paddingVertical: 12,
-                paddingHorizontal: 16,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
+              style={[
+                isLargeScreen ? {width: 400} : {flex: 1},
+                {
+                  paddingVertical: 12,
+                  paddingHorizontal: 16,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                },
+              ]}>
               <Ionicons
                 name={getIconName(item.key)}
                 size={24}
@@ -118,3 +120,10 @@ function MenuScreen(props: Props) {
 }
 
 export default MenuScreen;
+
+const styles = StyleSheet.create({
+  webMenuContainer: {
+    paddingTop: 20,
+    alignItems: 'center',
+  },
+});
