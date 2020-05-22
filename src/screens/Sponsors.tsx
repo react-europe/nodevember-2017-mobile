@@ -12,6 +12,7 @@ import {Layout} from '../constants';
 import DataContext from '../context/DataContext';
 import {Sponsor} from '../typings/data';
 import {SectionHeaderProps} from '../typings/utils';
+import useScreenWidth from '../utils/useScreenWidth';
 
 type SponsorRowProps = {
   item: Sponsor;
@@ -19,6 +20,7 @@ type SponsorRowProps = {
 
 function SponsorRow(props: SponsorRowProps) {
   const sponsor = props.item;
+  const isSmallScreen = useScreenWidth();
 
   const _handlePress = () => {
     if (sponsor.url) {
@@ -63,8 +65,13 @@ function SponsorRow(props: SponsorRowProps) {
           </FadeIn>
         </View>
         {sponsor.description ? (
-          <View style={styles.rowData}>
-            <RegularText style={{marginBottom: 10}} fontSize="sm">
+          <View
+            style={
+              (styles.rowData, isSmallScreen ? {} : {alignItems: 'center'})
+            }>
+            <RegularText
+              style={[{marginBottom: 10}, isSmallScreen ? {} : styles.textWeb]}
+              fontSize="sm">
               {sponsor.description}
             </RegularText>
           </View>
@@ -138,6 +145,10 @@ const styles = StyleSheet.create({
   },
   rowData: {
     flex: 1,
+  },
+  textWeb: {
+    maxWidth: 900,
+    textAlign: 'center',
   },
   sectionHeader: {
     paddingHorizontal: 10,
