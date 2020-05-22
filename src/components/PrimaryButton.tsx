@@ -4,9 +4,8 @@ import {StyleSheet} from 'react-native';
 import {View} from 'react-native-animatable';
 import {RectButton} from 'react-native-gesture-handler';
 import {Theme, useTheme} from 'react-native-paper';
-import {useMediaQuery} from 'react-responsive';
 
-import {mediaQuery} from '../constants/theme';
+import useScreenWidth from '../utils/useScreenWidth';
 
 type Props = {
   onPress: () => void;
@@ -15,10 +14,9 @@ type Props = {
 
 export default function PrimaryButton(props: Props) {
   const {colors}: Theme = useTheme();
+  const isSmallScreen = useScreenWidth();
 
-  const isTabletOrMobileDevice = useMediaQuery(mediaQuery);
-
-  if (isTabletOrMobileDevice) {
+  if (isSmallScreen) {
     return (
       <RectButton
         style={[styles.PrimaryButton, {backgroundColor: colors.primary}]}
@@ -27,13 +25,14 @@ export default function PrimaryButton(props: Props) {
       </RectButton>
     );
   }
+
   return (
     <View style={[styles.centerContainer]}>
       <RectButton
         style={[
           styles.PrimaryButton,
-          styles.PrimaryButtonWeb,
           {backgroundColor: colors.primary},
+          styles.PrimaryButtonWeb,
         ]}
         onPress={props.onPress}>
         {props.children}
