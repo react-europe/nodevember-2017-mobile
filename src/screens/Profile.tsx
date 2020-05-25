@@ -1,5 +1,4 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import * as Permissions from 'expo-permissions';
 import React, {useState} from 'react';
 import {
   Platform,
@@ -7,11 +6,11 @@ import {
   View,
   AsyncStorage,
   InteractionManager,
-  Alert,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 
 import BottomFAB from '../components/BottomFAB';
+import LinkButton from '../components/LinkButton';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import Tickets from '../components/Tickets';
@@ -21,33 +20,21 @@ import {PrimaryTabNavigationProp} from '../typings/navigation';
 function Profile() {
   const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
 
-  const _requestCameraPermission = async () => {
-    const {status} = await Permissions.askAsync(Permissions.CAMERA);
-    const hasCameraPermission = status === 'granted';
-    return hasCameraPermission;
-  };
-
   const handleAddTicket = async () => {
-    if (await _requestCameraPermission()) {
-      navigation.navigate('QRScanner');
-    } else {
-      Alert.alert(
-        'You need to manually enable camera permissions in your operating system settings app'
-      );
-    }
+    navigation.navigate('QRScanner');
   };
 
   return (
     <View style={{flex: 1}}>
       <ScrollView style={{flex: 1}}>
-        <DeferredProfileContent handleAddTicket={handleAddTicket} />
+        <DeferredProfileContent />
       </ScrollView>
       <BottomFAB onPress={handleAddTicket} />
     </View>
   );
 }
 
-function DeferredProfileContent(props: {handleAddTicket: () => void}) {
+function DeferredProfileContent() {
   const [tickets, setTickets] = useState<User[]>([]);
   const [ready, setReady] = useState(Platform.OS !== 'android');
 
@@ -79,13 +66,19 @@ function DeferredProfileContent(props: {handleAddTicket: () => void}) {
     return null;
   }
   return (
-    <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
+    <AnimatableView
+      animation="fadeIn"
+      useNativeDriver
+      duration={800}
+      style={{alignItems: 'center'}}>
       {!tickets || tickets.length <= 0 ? (
-        <PrimaryButton onPress={props.handleAddTicket}>
-          <SemiBoldText fontSize="md" accent>
-            Scan your ticket QR code
-          </SemiBoldText>
-        </PrimaryButton>
+        <LinkButton to="/QRScanner">
+          <PrimaryButton>
+            <SemiBoldText fontSize="md" accent>
+              Scan your ticket QR code
+            </SemiBoldText>
+          </PrimaryButton>
+        </LinkButton>
       ) : null}
       <Tickets
         tickets={tickets}
