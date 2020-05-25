@@ -1,4 +1,5 @@
 import {Ionicons} from '@expo/vector-icons';
+import {Link} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -12,6 +13,7 @@ import {
 import {useTheme, Theme} from 'react-native-paper';
 
 import CachedImage from '../components/CachedImage';
+import LinkButton from '../components/LinkButton';
 import {Layout} from '../constants';
 import {MenuNavigationProp, MenuStackParamList} from '../typings/navigation';
 import useScreenWidth from '../utils/useScreenWidth';
@@ -91,7 +93,7 @@ function MenuScreen(props: Props) {
           />
         )}
         renderItem={({item}) => (
-          <TouchableOpacity onPress={() => props.navigation.navigate(item.key)}>
+          <LinkButton to={'/' + item.key}>
             <View
               style={[
                 isLargeScreen ? {width: 400} : {flex: 1},
@@ -112,7 +114,7 @@ function MenuScreen(props: Props) {
               </Text>
               <Ionicons name="ios-arrow-forward" size={24} color="#999" />
             </View>
-          </TouchableOpacity>
+          </LinkButton>
         )}
       />
     </View>
