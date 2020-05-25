@@ -8,7 +8,7 @@ import {Theme, useTheme} from 'react-native-paper';
 import useScreenWidth from '../utils/useScreenWidth';
 
 type Props = {
-  onPress: () => void;
+  onPress?: () => void;
   children: React.ReactNode;
 };
 
