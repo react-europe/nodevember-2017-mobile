@@ -1,15 +1,6 @@
 import {Ionicons} from '@expo/vector-icons';
-import {Link} from '@react-navigation/native';
 import React from 'react';
-import {
-  View,
-  Image,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
+import {View, Image, Text, FlatList, StyleSheet, StatusBar} from 'react-native';
 import {useTheme, Theme} from 'react-native-paper';
 
 import CachedImage from '../components/CachedImage';
