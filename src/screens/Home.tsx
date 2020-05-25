@@ -1,10 +1,5 @@
 import {Ionicons} from '@expo/vector-icons';
-import {
-  CommonActions,
-  useFocusEffect,
-  useNavigation,
-  Link,
-} from '@react-navigation/native';
+import {useFocusEffect, useNavigation, Link} from '@react-navigation/native';
 import {Notifications, Linking} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
 import {Notification} from 'expo/build/Notifications/Notifications.types';
@@ -14,7 +9,6 @@ import {
   Animated,
   Platform,
   Image,
-  TouchableOpacity,
   StyleSheet,
   AsyncStorage,
   View,
@@ -24,6 +18,7 @@ import {View as AnimatableView} from 'react-native-animatable';
 import {useTheme, Theme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
+import LinkButton from '../components/LinkButton';
 import NavigationBar from '../components/NavigationBar';
 import OverscrollView from '../components/OverscrollView';
 import PrimaryButton from '../components/PrimaryButton';
@@ -234,15 +229,6 @@ function DeferredHomeContent() {
     }
   };
 
-  const _handlePressQRButton = () => {
-    navigation.navigate('QRScanner');
-  };
-
-  const _handlePressStaffCheckinListsButton = () => {
-    // console.log("handle press checkinlists");
-    navigation.navigate('StaffCheckinLists');
-  };
-
   const _handlePressTwitterButton = async () => {
     if (event) {
       try {
@@ -282,25 +268,31 @@ function DeferredHomeContent() {
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
       {isStaff ? (
-        <PrimaryButton onPress={_handlePressStaffCheckinListsButton}>
-          <SemiBoldText fontSize="md" accent>
-            Go to checkin
-          </SemiBoldText>
-        </PrimaryButton>
+        <LinkButton to="/StaffCheckinLists">
+          <PrimaryButton>
+            <SemiBoldText fontSize="md" accent>
+              Go to checkin
+            </SemiBoldText>
+          </PrimaryButton>
+        </LinkButton>
       ) : null}
       {tickets.length <= 0 ? (
-        <PrimaryButton onPress={_handlePressQRButton}>
-          <SemiBoldText fontSize="md" accent>
-            Scan your conference ticket QR code
-          </SemiBoldText>
-        </PrimaryButton>
+        <LinkButton to="/QRScanner">
+          <PrimaryButton>
+            <SemiBoldText fontSize="md" accent>
+              Scan your conference ticket QR code
+            </SemiBoldText>
+          </PrimaryButton>
+        </LinkButton>
       ) : null}
       {tickets.length > 0 && !isStaff ? (
-        <PrimaryButton onPress={() => navigation.navigate('Profile')}>
-          <SemiBoldText fontSize="md" accent>
-            My tickets
-          </SemiBoldText>
-        </PrimaryButton>
+        <LinkButton to="/profile">
+          <PrimaryButton>
+            <SemiBoldText fontSize="md" accent>
+              My tickets
+            </SemiBoldText>
+          </PrimaryButton>
+        </LinkButton>
       ) : null}
       {event && (
         <HideWhenConferenceHasEnded>
@@ -326,25 +318,31 @@ function DeferredHomeContent() {
         </Link>
       </View>
       {tickets.length > 0 ? (
-        <PrimaryButton onPress={() => navigation.navigate('Profile')}>
-          <SemiBoldText fontSize="md" accent>
-            My tickets
-          </SemiBoldText>
-        </PrimaryButton>
+        <LinkButton to="/profile">
+          <PrimaryButton>
+            <SemiBoldText fontSize="md" accent>
+              My tickets
+            </SemiBoldText>
+          </PrimaryButton>
+        </LinkButton>
       ) : null}
       {tickets.length <= 0 ? (
-        <PrimaryButton onPress={_handlePressQRButton}>
-          <SemiBoldText fontSize="md" accent>
-            Scan your conference ticket QR code
-          </SemiBoldText>
-        </PrimaryButton>
+        <LinkButton to="/QRScanner">
+          <PrimaryButton>
+            <SemiBoldText fontSize="md" accent>
+              Scan your conference ticket QR code
+            </SemiBoldText>
+          </PrimaryButton>
+        </LinkButton>
       ) : null}
       {tickets.length > 0 ? (
-        <PrimaryButton onPress={_handlePressQRButton}>
-          <SemiBoldText fontSize="md" accent>
-            Scan another ticket QR code
-          </SemiBoldText>
-        </PrimaryButton>
+        <LinkButton to="/QRScanner">
+          <PrimaryButton>
+            <SemiBoldText fontSize="md" accent>
+              Scan another ticket QR code
+            </SemiBoldText>
+          </PrimaryButton>
+        </LinkButton>
       ) : null}
       {event?.cocUrl && (
         <PrimaryButton onPress={_handlePressCOCButton}>
