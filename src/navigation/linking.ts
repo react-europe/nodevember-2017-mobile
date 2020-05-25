@@ -21,6 +21,7 @@ const linkingConfig = {
           },
         },
         Menu: {
+          initialRouteName: 'Menu',
           screens: {
             Menu: 'menu',
             Speakers: 'menu/speakers',
