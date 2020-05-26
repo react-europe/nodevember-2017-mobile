@@ -2,6 +2,12 @@ const linkingConfig = {
   enabled: true,
   prefixes: [],
   config: {
+    Details: {
+      path: 'details',
+      parse: {
+        scheduleId: (scheduleId: string) => JSON.parse(scheduleId),
+      },
+    },
     Home: {
       screens: {
         Home: '',
