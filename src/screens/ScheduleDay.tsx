@@ -3,6 +3,7 @@ import React, {useContext} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
+import LinkButton from '../components/LinkButton';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {RegularText, SemiBoldText, BoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
@@ -12,16 +13,11 @@ import {SectionHeaderProps} from '../typings/utils';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
 
 type ScheduleRowProps = {
-  onPress: (item: Schedule) => void;
   item: Schedule;
 };
 
 function ScheduleRow(props: ScheduleRowProps) {
   const {item} = props;
-
-  const _handlePress = () => {
-    props.onPress && props.onPress(props.item);
-  };
 
   const content = (
     <View style={[styles.row, item.talk && styles.rowStatic]}>
@@ -42,12 +38,13 @@ function ScheduleRow(props: ScheduleRowProps) {
   );
 
   return (
-    <RectButton
-      activeOpacity={0.05}
-      onPress={_handlePress}
-      style={{flex: 1, backgroundColor: '#fff'}}>
-      {content}
-    </RectButton>
+    <LinkButton to={'/details?scheduleId=' + item.id}>
+      <RectButton
+        activeOpacity={0.05}
+        style={{flex: 1, backgroundColor: '#fff'}}>
+        {content}
+      </RectButton>
+    </LinkButton>
   );
 }
 
@@ -81,13 +78,7 @@ export default function ScheduleDay(props: ScheduleDayProps) {
   };
 
   const _renderItem = ({item}: {item: Schedule}) => {
-    return <ScheduleRow item={item} onPress={_handlePressRow} />;
-  };
-
-  const _handlePressRow = (item: Schedule) => {
-    props.navigation.navigate('Details', {
-      scheduleSlot: item,
-    });
+    return <ScheduleRow item={item} />;
   };
 
   return (
