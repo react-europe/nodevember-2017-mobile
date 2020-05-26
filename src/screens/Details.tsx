@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import * as Haptic from 'expo-haptics';
 import * as WebBrowser from 'expo-web-browser';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   Animated,
   Platform,
@@ -23,6 +23,7 @@ import NavigationBar from '../components/NavigationBar';
 import SaveButton from '../components/SaveButton';
 import {RegularText, BoldText, SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
+import DataContext from '../context/DataContext';
 import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
@@ -42,6 +43,8 @@ function SavedButtonNavigationItem(props: {talk: Talk}) {
 }
 
 export default function Details(props: AppProps<'Details'>) {
+  console.log(props.route.params);
+  const data = useContext(DataContext);
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
@@ -104,23 +107,36 @@ export default function Details(props: AppProps<'Details'>) {
     }
   };
 
+  function getScheduleSlotById(slotId: number): Schedule | undefined {
+    if (data.event?.groupedSchedule) {
+      const days = data.event.groupedSchedule.map((day) => {
+        if (day?.slots) {
+          return day.slots;
+        }
+      });
+      const scheduleSlots = days.flat() as (Schedule | undefined)[];
+      const scheduleSlot = scheduleSlots.find((slot) => slot?.id === slotId);
+      return scheduleSlot;
+    }
+  }
+
   const params = props.route.params || {};
   let speaker: Speaker | null = null;
   let speakers: Speaker[] = [];
-  let talk: Schedule | Talk | null = null;
+  let talk: Schedule | Talk | undefined = undefined;
   let videoURL: string | null = null;
   let room: string | null = null;
-  const talkScreen = params.scheduleSlot || params.talk;
+  const talkScreen = params.scheduleId || params.talk;
   if (talkScreen) {
-    if (params.scheduleSlot) {
-      talk = params.scheduleSlot;
-      if (talk.speakers && talk.speakers.length > 0) {
+    if (params.scheduleId) {
+      talk = getScheduleSlotById(params.scheduleId);
+      if (talk?.speakers && talk.speakers.length > 0) {
         speakers = talk.speakers as Speaker[];
       }
-      if (talk.youtubeId && talk.youtubeId !== '') {
+      if (talk?.youtubeId && talk.youtubeId !== '') {
         videoURL = talk.youtubeId;
       }
-      if (talk.room) {
+      if (talk?.room) {
         room = talk.room;
       }
     } else if (params.talk) {
