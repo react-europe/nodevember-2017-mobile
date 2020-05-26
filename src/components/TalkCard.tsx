@@ -1,14 +1,12 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Platform, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
-import {RectButton} from 'react-native-gesture-handler';
 
 import {Colors, FontSizes} from '../constants';
 import {Schedule} from '../typings/data';
-import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {conferenceHasEnded} from '../utils';
 import CachedImage from './CachedImage';
+import LinkButton from './LinkButton';
 import {BoldText, RegularText, SemiBoldText} from './StyledText';
 
 type Props = {
@@ -17,12 +15,7 @@ type Props = {
 };
 
 function TalkCard(props: Props) {
-  const navigation = useNavigation<PrimaryTabNavigationProp<'Home'>>();
   const speakers = props.talk.speakers;
-
-  const _handlePress = () => {
-    navigation.navigate('Details', {scheduleSlot: props.talk});
-  };
 
   const _renderPlaceholderForNextYear = () => {
     return (
@@ -37,10 +30,9 @@ function TalkCard(props: Props) {
   }
 
   return (
-    <RectButton
-      onPress={_handlePress}
-      style={[styles.button, props.style]}
-      activeOpacity={0.05}>
+    <LinkButton
+      to={'/details?scheduleId=' + props.talk.id}
+      style={[styles.button, props.style]}>
       {speakers &&
         speakers.map((speaker) => {
           if (!speaker) {
@@ -84,7 +76,7 @@ function TalkCard(props: Props) {
           </RegularText>
         )}
       </View>
-    </RectButton>
+    </LinkButton>
   );
 }
 
