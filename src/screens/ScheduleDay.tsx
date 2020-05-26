@@ -38,10 +38,8 @@ function ScheduleRow(props: ScheduleRowProps) {
   );
 
   return (
-    <LinkButton to={'/details?scheduleId=' + item.id}>
-      <RectButton
-        activeOpacity={0.05}
-        style={{flex: 1, backgroundColor: '#fff'}}>
+    <LinkButton to={'/details?scheduleId=' + item.id} style={styles.linkButton}>
+      <RectButton activeOpacity={0.05} style={{width: '100%'}}>
         {content}
       </RectButton>
     </LinkButton>
@@ -97,6 +95,11 @@ export default function ScheduleDay(props: ScheduleDayProps) {
 }
 
 const styles = StyleSheet.create({
+  linkButton: {
+    flex: 1,
+    backgroundColor: '#fff',
+    width: '100%',
+  },
   row: {
     flex: 1,
     padding: 10,
