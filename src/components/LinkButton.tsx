@@ -1,11 +1,19 @@
 import {useLinkProps, NavigationAction} from '@react-navigation/native';
 import React from 'react';
-import {Platform, TouchableOpacity, Text, View} from 'react-native';
+import {
+  Platform,
+  TouchableOpacity,
+  Text,
+  View,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 type Props = {
   to: string;
   action?: NavigationAction;
   children: React.ReactNode;
+  style: StyleProp<ViewStyle>;
 };
 
 export default function LinkButton({to, action, children, ...rest}: Props) {
