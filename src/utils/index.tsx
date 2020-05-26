@@ -12,7 +12,7 @@ import {
   Attendee,
 } from '../typings/data';
 
-export function getSpeakerTalk(speaker: Speaker): Talk | null {
+export function getSpeakerTalk(speaker: Speaker): Talk | undefined {
   const talk = _.find(speaker.talks, function (talk) {
     if (talk) {
       return talk.type === 0;
@@ -23,7 +23,7 @@ export function getSpeakerTalk(speaker: Speaker): Talk | null {
     if (speaker.talks && speaker.talks[0]) {
       return speaker.talks[0];
     }
-    return null;
+    return undefined;
   }
   return talk;
 }
