@@ -3,7 +3,7 @@ import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs'
 import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
-import {User, CheckedinAttendee, CheckinList, Talk, Attendee} from './data';
+import {User, CheckedinAttendee, CheckinList, Attendee} from './data';
 
 /** App */
 
@@ -16,7 +16,7 @@ export type AppStackParamList = {
   QRCheckinScanner: {uuid: string; checkinList: CheckinList};
   QRContactScanner: undefined;
   StaffCheckinLists: undefined;
-  Details: {talk?: Talk; scheduleId?: number; speakerId?: number};
+  Details: {scheduleId?: number; speakerId?: number};
 };
 
 export type AppRouteProp<T extends keyof AppStackParamList> = RouteProp<

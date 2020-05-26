@@ -95,10 +95,6 @@ export default function Details(props: AppProps<'Details'>) {
     );
   }; */
 
-  const _handlePressSpeaker = (speaker: Speaker) => {
-    props.navigation.navigate('Details', {speaker});
-  };
-
   const _handlePressSpeakerTwitter = async (twitter: string) => {
     try {
       await Linking.openURL(`twitter://user?screen_name=` + twitter);
@@ -135,7 +131,7 @@ export default function Details(props: AppProps<'Details'>) {
   let talk: Schedule | Talk | undefined = undefined;
   let videoURL: string | null = null;
   let room: string | null = null;
-  const talkScreen = params.scheduleId || params.talk;
+  const talkScreen = params.scheduleId;
   if (talkScreen) {
     if (params.scheduleId) {
       talk = getScheduleSlotById(params.scheduleId);
@@ -148,8 +144,6 @@ export default function Details(props: AppProps<'Details'>) {
       if (talk?.room) {
         room = talk.room;
       }
-    } else if (params.talk) {
-      talk = params.talk;
     }
   } else if (params.speakerId) {
     speaker = getSpeakerById(params.speakerId);
@@ -224,8 +218,7 @@ export default function Details(props: AppProps<'Details'>) {
                     ? speakers.map((speaker, index) => (
                         <View key={index} style={styles.headerColumnSpeaker}>
                           {speaker.avatarUrl && (
-                            <TouchableOpacity
-                              onPress={() => _handlePressSpeaker(speaker)}>
+                            <TouchableOpacity>
                               <CachedImage
                                 source={{uri: speaker.avatarUrl}}
                                 style={styles.avatarMultiple}
@@ -234,9 +227,7 @@ export default function Details(props: AppProps<'Details'>) {
                           )}
                           {speaker.name?.split(' ').map((name, index) => (
                             <View key={index}>
-                              <TouchableOpacity
-                                key={index}
-                                onPress={() => _handlePressSpeaker(speaker)}>
+                              <TouchableOpacity key={index}>
                                 <SemiBoldText fontSize="sm" accent>
                                   {name}
                                 </SemiBoldText>
