@@ -1,63 +1,51 @@
 import React, {useContext} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
-import {ScrollView, RectButton} from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 
 import CachedImage from '../components/CachedImage';
+import LinkButton from '../components/LinkButton';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {Speaker, Talk} from '../typings/data';
-import {MenuNavigationProp} from '../typings/navigation';
 import {SectionHeaderProps} from '../typings/utils';
 import {getSpeakerTalk} from '../utils';
 
-type SpeakersProps = {
-  navigation: MenuNavigationProp<'Speakers'>;
-};
-
 type SpeakerRowProps = {
   item: Speaker;
-  onPress: (speaker: Speaker) => void;
 };
 
 function SpeakerRow(props: SpeakerRowProps) {
-  const {item: speaker} = props;
-  const talk: Talk | null = getSpeakerTalk(speaker);
-
-  const _handlePress = () => {
-    props.onPress(props.item);
-  };
+  const {item} = props;
+  const talk: Talk | undefined = getSpeakerTalk(item);
 
   return (
-    <RectButton
-      onPress={_handlePress}
-      activeOpacity={0.05}
-      style={{flex: 1, backgroundColor: '#fff'}}>
+    <LinkButton to={'/details?speakerId=' + item.id} style={styles.linkButton}>
       <View style={styles.row}>
         <View style={styles.rowAvatarContainer}>
           <FadeIn>
-            {speaker.avatarUrl && (
+            {item.avatarUrl && (
               <CachedImage
-                source={{uri: speaker.avatarUrl}}
+                source={{uri: item.avatarUrl}}
                 style={{width: 50, height: 50, borderRadius: 25}}
               />
             )}
           </FadeIn>
         </View>
         <View style={styles.rowData}>
-          <BoldText fontSize="sm">{speaker.name}</BoldText>
-          {speaker.twitter ? (
-            <SemiBoldText fontSize="sm">@{speaker.twitter}</SemiBoldText>
+          <BoldText fontSize="sm">{item.name}</BoldText>
+          {item.twitter ? (
+            <SemiBoldText fontSize="sm">@{item.twitter}</SemiBoldText>
           ) : null}
           {talk && <RegularText fontSize="sm">{talk.title}</RegularText>}
         </View>
       </View>
-    </RectButton>
+    </LinkButton>
   );
 }
 
-export default function Speakers(props: SpeakersProps) {
+export default function Speakers() {
   const {event} = useContext(DataContext);
   let speakers: Speaker[] = [];
   if (event?.speakers && event.speakers.length > 0) {
@@ -72,11 +60,7 @@ export default function Speakers(props: SpeakersProps) {
   };
 
   const _renderItem = ({item}: {item: Speaker}) => {
-    return <SpeakerRow item={item} onPress={_handlePressRow} />;
-  };
-
-  const _handlePressRow = (speaker: Speaker) => {
-    props.navigation.navigate('Details', {speaker});
+    return <SpeakerRow item={item} />;
   };
 
   return (
@@ -95,11 +79,16 @@ export default function Speakers(props: SpeakersProps) {
 
 const styles = StyleSheet.create({
   row: {
+    width: '100%',
     flex: 1,
     padding: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#eee',
     flexDirection: 'row',
+  },
+  linkButton: {
+    flex: 1,
+    backgroundColor: '#fff',
   },
   rowAvatarContainer: {
     paddingVertical: 5,

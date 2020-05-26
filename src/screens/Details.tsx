@@ -120,8 +120,17 @@ export default function Details(props: AppProps<'Details'>) {
     }
   }
 
+  function getSpeakerById(SpeakerId: number): Speaker | undefined | null {
+    if (data.event?.speakers) {
+      const speaker = data.event.speakers.find(
+        (speaker) => speaker?.id === SpeakerId
+      );
+      return speaker;
+    }
+  }
+
   const params = props.route.params || {};
-  let speaker: Speaker | null = null;
+  let speaker: Speaker | null | undefined = null;
   let speakers: Speaker[] = [];
   let talk: Schedule | Talk | undefined = undefined;
   let videoURL: string | null = null;
@@ -142,9 +151,9 @@ export default function Details(props: AppProps<'Details'>) {
     } else if (params.talk) {
       talk = params.talk;
     }
-  } else if (params.speaker) {
-    speaker = params.speaker;
-    if (speaker.talks && speaker.talks.length > 0) {
+  } else if (params.speakerId) {
+    speaker = getSpeakerById(params.speakerId);
+    if (speaker?.talks && speaker.talks.length > 0) {
       talk = getSpeakerTalk(speaker);
     }
   }
