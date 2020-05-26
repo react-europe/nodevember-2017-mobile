@@ -6,6 +6,7 @@ const linkingConfig = {
       path: 'details',
       parse: {
         scheduleId: (scheduleId: string) => JSON.parse(scheduleId),
+        speakerId: (speakerId: string) => JSON.parse(speakerId),
       },
     },
     Home: {
