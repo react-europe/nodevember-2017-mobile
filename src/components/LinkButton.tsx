@@ -13,7 +13,7 @@ type Props = {
   to: string;
   action?: NavigationAction;
   children: React.ReactNode;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
 };
 
 export default function LinkButton({to, action, children, ...rest}: Props) {
