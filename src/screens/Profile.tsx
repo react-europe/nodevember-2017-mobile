@@ -74,7 +74,7 @@ function DeferredProfileContent() {
       {!tickets || tickets.length <= 0 ? (
         <LinkButton to="/QRScanner">
           <PrimaryButton>
-            <SemiBoldText fontSize="md" accent>
+            <SemiBoldText fontSize="md" TextColorAccent>
               Scan your ticket QR code
             </SemiBoldText>
           </PrimaryButton>

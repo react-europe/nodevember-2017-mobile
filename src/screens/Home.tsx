@@ -123,22 +123,34 @@ export default function Home(props: HomeProps) {
           />
           <View style={styles.headerContent}>
             <ShowWhenConferenceHasEnded>
-              <SemiBoldText style={styles.headerText} fontSize="lg" accent>
+              <SemiBoldText
+                style={styles.headerText}
+                fontSize="lg"
+                TextColorAccent>
                 Thank you for joining us!
               </SemiBoldText>
-              <SemiBoldText fontSize="sm" accent>
+              <SemiBoldText fontSize="sm" TextColorAccent>
                 See you in May, 2020!
               </SemiBoldText>
             </ShowWhenConferenceHasEnded>
 
             <HideWhenConferenceHasEnded>
-              <SemiBoldText style={styles.headerText} fontSize="lg" accent>
+              <SemiBoldText
+                style={styles.headerText}
+                fontSize="lg"
+                TextColorAccent>
                 May 23rd to 24th (Conference)
               </SemiBoldText>
-              <SemiBoldText style={styles.headerText} fontSize="lg" accent>
+              <SemiBoldText
+                style={styles.headerText}
+                fontSize="lg"
+                TextColorAccent>
                 May 21st to 22nd (Workshops)
               </SemiBoldText>
-              <SemiBoldText style={styles.headerText} fontSize="lg" accent>
+              <SemiBoldText
+                style={styles.headerText}
+                fontSize="lg"
+                TextColorAccent>
                 Paris, France
               </SemiBoldText>
             </HideWhenConferenceHasEnded>
@@ -270,7 +282,7 @@ function DeferredHomeContent() {
       {isStaff ? (
         <LinkButton to="/StaffCheckinLists">
           <PrimaryButton>
-            <SemiBoldText fontSize="md" accent>
+            <SemiBoldText fontSize="md" TextColorAccent>
               Go to checkin
             </SemiBoldText>
           </PrimaryButton>
@@ -279,7 +291,7 @@ function DeferredHomeContent() {
       {tickets.length <= 0 ? (
         <LinkButton to="/QRScanner">
           <PrimaryButton>
-            <SemiBoldText fontSize="md" accent>
+            <SemiBoldText fontSize="md" TextColorAccent>
               Scan your conference ticket QR code
             </SemiBoldText>
           </PrimaryButton>
@@ -288,7 +300,7 @@ function DeferredHomeContent() {
       {tickets.length > 0 && !isStaff ? (
         <LinkButton to="/profile">
           <PrimaryButton>
-            <SemiBoldText fontSize="md" accent>
+            <SemiBoldText fontSize="md" TextColorAccent>
               My tickets
             </SemiBoldText>
           </PrimaryButton>
@@ -307,7 +319,7 @@ function DeferredHomeContent() {
           <SemiBoldText
             style={{color: theme.colors.primary}}
             fontSize="md"
-            accent>
+            TextColorAccent>
             <HideWhenConferenceHasEnded>
               See all talks →
             </HideWhenConferenceHasEnded>
@@ -320,7 +332,7 @@ function DeferredHomeContent() {
       {tickets.length > 0 ? (
         <LinkButton to="/profile">
           <PrimaryButton>
-            <SemiBoldText fontSize="md" accent>
+            <SemiBoldText fontSize="md" TextColorAccent>
               My tickets
             </SemiBoldText>
           </PrimaryButton>
@@ -329,7 +341,7 @@ function DeferredHomeContent() {
       {tickets.length <= 0 ? (
         <LinkButton to="/QRScanner">
           <PrimaryButton>
-            <SemiBoldText fontSize="md" accent>
+            <SemiBoldText fontSize="md" TextColorAccent>
               Scan your conference ticket QR code
             </SemiBoldText>
           </PrimaryButton>
@@ -338,7 +350,7 @@ function DeferredHomeContent() {
       {tickets.length > 0 ? (
         <LinkButton to="/QRScanner">
           <PrimaryButton>
-            <SemiBoldText fontSize="md" accent>
+            <SemiBoldText fontSize="md" TextColorAccent>
               Scan another ticket QR code
             </SemiBoldText>
           </PrimaryButton>
@@ -346,7 +358,7 @@ function DeferredHomeContent() {
       ) : null}
       {event?.cocUrl && (
         <PrimaryButton onPress={_handlePressCOCButton}>
-          <SemiBoldText fontSize="md" accent>
+          <SemiBoldText fontSize="md" TextColorAccent>
             Read the code of conduct
           </SemiBoldText>
         </PrimaryButton>
@@ -354,7 +366,7 @@ function DeferredHomeContent() {
 
       {event?.venueName && event.venueCity && (
         <PrimaryButton onPress={_handlePressMapButton}>
-          <SemiBoldText fontSize="md" accent>
+          <SemiBoldText fontSize="md" TextColorAccent>
             {Platform.OS === 'android' ? 'Download' : 'Open'} the conference map
           </SemiBoldText>
         </PrimaryButton>
@@ -362,7 +374,7 @@ function DeferredHomeContent() {
 
       {event?.twitterHandle && (
         <PrimaryButton onPress={_handlePressTwitterButton}>
-          <SemiBoldText fontSize="md" accent>
+          <SemiBoldText fontSize="md" TextColorAccent>
             <Ionicons
               name="logo-twitter"
               size={23}

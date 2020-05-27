@@ -71,7 +71,7 @@ function DeferredTicketInstructionsContent({
         </Card.Content>
       </Card>
       <PrimaryButton onPress={() => navigation.goBack()}>
-        <SemiBoldText fontSize="md" accent>
+        <SemiBoldText fontSize="md" TextColorAccent>
           Close
         </SemiBoldText>
       </PrimaryButton>

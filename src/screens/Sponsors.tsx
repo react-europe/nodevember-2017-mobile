@@ -75,7 +75,7 @@ function SponsorRow(props: SponsorRowProps) {
           </View>
         ) : null}
         <PrimaryButton onPress={_handlePressJobUrl}>
-          <SemiBoldText fontSize="md" accent>
+          <SemiBoldText fontSize="md" TextColorAccent>
             Work with {sponsor.name}
           </SemiBoldText>
         </PrimaryButton>
