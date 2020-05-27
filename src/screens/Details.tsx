@@ -12,7 +12,6 @@ import {
   Linking,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import FadeIn from 'react-native-fade-in-image';
 import Markdown from 'react-native-markdown-renderer';
 import {Theme, useTheme} from 'react-native-paper';
 import WebView from 'react-native-webview';
@@ -20,6 +19,7 @@ import WebView from 'react-native-webview';
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import CachedImage from '../components/CachedImage';
 import CloseButton from '../components/CloseButton';
+import ImageFadeIn from '../components/ImageFadeIn';
 import NavigationBar from '../components/NavigationBar';
 import SaveButton from '../components/SaveButton';
 import {RegularText, BoldText, SemiBoldText} from '../components/StyledText';
@@ -213,7 +213,7 @@ export default function Details(props: AppProps<'Details'>) {
             style={{
               transform: [{scale}, {translateX}, {translateY}],
             }}>
-            <FadeIn placeholderStyle={{backgroundColor: 'transparent'}}>
+            <ImageFadeIn placeholderStyle={{backgroundColor: 'transparent'}}>
               {talkScreen ? (
                 <View style={styles.headerRowSpeaker}>
                   {speakers
@@ -250,7 +250,7 @@ export default function Details(props: AppProps<'Details'>) {
                   )}
                 </>
               )}
-            </FadeIn>
+            </ImageFadeIn>
           </Animated.View>
           {!talkScreen && speaker?.name ? (
             <SemiBoldText fontSize="sm" TextColorAccent>

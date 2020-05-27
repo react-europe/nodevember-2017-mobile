@@ -1,10 +1,10 @@
 import * as WebBrowser from 'expo-web-browser';
 import React, {useContext} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
-import FadeIn from 'react-native-fade-in-image';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import CachedImage from '../components/CachedImage';
+import ImageFadeIn from '../components/ImageFadeIn';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText, RegularText} from '../components/StyledText';
@@ -50,7 +50,7 @@ function SponsorRow(props: SponsorRowProps) {
               marginTop: 10,
             },
           ]}>
-          <FadeIn placeholderStyle={{borderRadius: 3}}>
+          <ImageFadeIn placeholderStyle={{borderRadius: 3}}>
             {sponsor.logoUrl && (
               <CachedImage
                 source={{uri: sponsor.logoUrl}}
@@ -62,7 +62,7 @@ function SponsorRow(props: SponsorRowProps) {
                 }}
               />
             )}
-          </FadeIn>
+          </ImageFadeIn>
         </View>
         {sponsor.description ? (
           <View

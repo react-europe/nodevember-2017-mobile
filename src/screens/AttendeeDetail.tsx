@@ -9,11 +9,11 @@ import {
   View,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import FadeIn from 'react-native-fade-in-image';
 import {useTheme, Theme} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import GravatarImage from '../components/GravatarImage';
+import ImageFadeIn from '../components/ImageFadeIn';
 import NavigationBar from '../components/NavigationBar';
 import PrimaryButton from '../components/PrimaryButton';
 import {RegularText, SemiBoldText} from '../components/StyledText';
@@ -121,11 +121,11 @@ export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
           ]}>
           <Animated.View
             style={{transform: [{scale}, {translateX}, {translateY}]}}>
-            <FadeIn placeholderStyle={{backgroundColor: 'transparent'}}>
+            <ImageFadeIn placeholderStyle={{backgroundColor: 'transparent'}}>
               {attendee.email && (
                 <GravatarImage style={styles.avatar} email={attendee.email} />
               )}
-            </FadeIn>
+            </ImageFadeIn>
           </Animated.View>
           <SemiBoldText fontSize="md" TextColorAccent>
             {attendee.firstName} {attendee.lastName}
