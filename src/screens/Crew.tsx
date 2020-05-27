@@ -1,4 +1,4 @@
-import WebBrowser from 'expo-web-browser';
+import * as WebBrowser from 'expo-web-browser';
 import React, {useContext} from 'react';
 import {
   FlatList,
@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Linking,
+  Platform,
 } from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -24,10 +25,14 @@ function CrewRow(props: CrewRowProps) {
   const {item: crew} = props;
 
   const _handlePressCrewTwitter = async (twitter: string) => {
-    try {
-      await Linking.openURL(`twitter://user?screen_name=` + twitter);
-    } catch (e) {
+    if (Platform.OS === 'web') {
       WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
+    } else {
+      try {
+        await Linking.openURL(`twitter://user?screen_name=` + twitter);
+      } catch (e) {
+        WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
+      }
     }
   };
 

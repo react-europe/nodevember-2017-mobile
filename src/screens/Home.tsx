@@ -243,14 +243,20 @@ function DeferredHomeContent() {
 
   const _handlePressTwitterButton = async () => {
     if (event) {
-      try {
-        await Linking.openURL(
-          `twitter://user?screen_name=` + event.twitterHandle
-        );
-      } catch (e) {
+      if (Platform.OS === 'web') {
         WebBrowser.openBrowserAsync(
           'https://twitter.com/' + event.twitterHandle
         );
+      } else {
+        try {
+          await Linking.openURL(
+            `twitter://user?screen_name=` + event.twitterHandle
+          );
+        } catch (e) {
+          WebBrowser.openBrowserAsync(
+            'https://twitter.com/' + event.twitterHandle
+          );
+        }
       }
     }
   };
