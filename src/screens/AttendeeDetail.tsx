@@ -127,12 +127,12 @@ export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
               )}
             </FadeIn>
           </Animated.View>
-          <SemiBoldText fontSize="md" accent>
+          <SemiBoldText fontSize="md" TextColorAccent>
             {attendee.firstName} {attendee.lastName}
           </SemiBoldText>
           {twitter ? (
             <TouchableOpacity onPress={_handlePressTwitter}>
-              <RegularText fontSize="md" accent>
+              <RegularText fontSize="md" TextColorAccent>
                 @{twitter}
               </RegularText>
             </TouchableOpacity>
@@ -146,7 +146,7 @@ export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
           style={styles.content}>
           <View>
             <PrimaryButton onPress={_handleAddToContacts}>
-              <SemiBoldText fontSize="md" accent>
+              <SemiBoldText fontSize="md" TextColorAccent>
                 Add to contacts
               </SemiBoldText>
             </PrimaryButton>

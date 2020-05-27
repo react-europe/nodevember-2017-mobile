@@ -104,7 +104,7 @@ function DeferredCheckedInAttendeeInfoContent(
             '@MySuperStore2019:lastCheckedInRef'
           ).then(() => navigation.goBack());
         }}>
-        <SemiBoldText accent>Close</SemiBoldText>
+        <SemiBoldText TextColorAccent>Close</SemiBoldText>
       </PrimaryButton>
       {checkedInAttendee.checkins && checkedInAttendee.checkins.length > 0 ? (
         <View>

@@ -1,3 +1,4 @@
+import {useNavigationState} from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Haptic from 'expo-haptics';
 import * as WebBrowser from 'expo-web-browser';
@@ -43,7 +44,8 @@ function SavedButtonNavigationItem(props: {talk: Talk}) {
 }
 
 export default function Details(props: AppProps<'Details'>) {
-  console.log(props.route.params);
+  const state = useNavigationState((state) => state);
+  console.log('State: ', state);
   const data = useContext(DataContext);
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
@@ -228,7 +230,7 @@ export default function Details(props: AppProps<'Details'>) {
                           {speaker.name?.split(' ').map((name, index) => (
                             <View key={index}>
                               <TouchableOpacity key={index}>
-                                <SemiBoldText fontSize="sm" accent>
+                                <SemiBoldText fontSize="sm" TextColorAccent>
                                   {name}
                                 </SemiBoldText>
                               </TouchableOpacity>
@@ -251,7 +253,7 @@ export default function Details(props: AppProps<'Details'>) {
             </FadeIn>
           </Animated.View>
           {!talkScreen && speaker?.name ? (
-            <SemiBoldText fontSize="sm" accent>
+            <SemiBoldText fontSize="sm" TextColorAccent>
               {speaker.name}
             </SemiBoldText>
           ) : null}
@@ -260,13 +262,16 @@ export default function Details(props: AppProps<'Details'>) {
               onPress={() =>
                 _handlePressSpeakerTwitter(speaker?.twitter as string)
               }>
-              <RegularText fontSize="sm" accent>
+              <RegularText fontSize="sm" TextColorAccent>
                 @{speaker.twitter}
               </RegularText>
             </TouchableOpacity>
           ) : null}
           {talk ? (
-            <BoldText style={styles.talkTitleText} fontSize="lg" accent>
+            <BoldText
+              style={styles.talkTitleText}
+              fontSize="lg"
+              TextColorAccent>
               {talk.title}
             </BoldText>
           ) : null}

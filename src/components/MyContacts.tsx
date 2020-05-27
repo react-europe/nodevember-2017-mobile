@@ -41,7 +41,7 @@ export default function MyContacts(props: Props) {
     <>
       {contacts && contacts.length > 0 ? (
         <PrimaryButton onPress={_handlePressCopyEmails}>
-          <SemiBoldText fontSize="md" accent>
+          <SemiBoldText fontSize="md" TextColorAccent>
             Copy all emails to clipboard
           </SemiBoldText>
         </PrimaryButton>

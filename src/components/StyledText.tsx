@@ -8,7 +8,7 @@ type Props = {
   style?: StyleProp<TextStyle>;
   children: React.ReactNode;
   fontSize?: keyof typeof FontSizes;
-  accent?: boolean;
+  TextColorAccent?: boolean;
 };
 
 interface CustomTextProps extends Props {
@@ -19,18 +19,18 @@ interface CustomTextProps extends Props {
 function CustomText<P extends CustomTextProps>(props: P) {
   const colors = props.theme.colors;
   const fontSize = props.fontSize ? FontSizes[props.fontSize] : FontSizes.md;
-  const textColor = props.accent ? colors.accent : colors.text;
+  const textColor = props.TextColorAccent ? colors.accent : colors.text;
   return (
     <Text
-      {...(props as P)}
       style={[
         {backgroundColor: 'transparent'},
         {color: textColor},
         {fontSize},
         {fontFamily: props.fontFamily},
         props.style,
-      ]}
-    />
+      ]}>
+      {props.children}
+    </Text>
   );
 }
 

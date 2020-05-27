@@ -71,7 +71,7 @@ export default function Contacts() {
         <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
           {tickets.length <= 0 ? (
             <PrimaryButton onPress={_handlePressProfileQRButton}>
-              <SemiBoldText fontSize="md" accent>
+              <SemiBoldText fontSize="md" TextColorAccent>
                 You need to scan your ticket first
               </SemiBoldText>
             </PrimaryButton>
