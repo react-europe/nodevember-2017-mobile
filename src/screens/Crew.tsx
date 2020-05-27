@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import FadeIn from 'react-native-fade-in-image';
 import {ScrollView} from 'react-native-gesture-handler';
 
 import CachedImage from '../components/CachedImage';
+import ImageFadeIn from '../components/ImageFadeIn';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
@@ -34,14 +34,14 @@ function CrewRow(props: CrewRowProps) {
   return (
     <View style={styles.row}>
       <View style={styles.rowAvatarContainer}>
-        <FadeIn>
+        <ImageFadeIn>
           {crew.avatarUrl && (
             <CachedImage
               source={{uri: crew.avatarUrl}}
               style={{width: 50, height: 50, borderRadius: 25}}
             />
           )}
-        </FadeIn>
+        </ImageFadeIn>
       </View>
       <View style={styles.rowData}>
         <BoldText fontSize="sm">

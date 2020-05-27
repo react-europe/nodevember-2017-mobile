@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
-import FadeIn from 'react-native-fade-in-image';
 import {ScrollView} from 'react-native-gesture-handler';
 
 import CachedImage from '../components/CachedImage';
+import ImageFadeIn from '../components/ImageFadeIn';
 import LinkButton from '../components/LinkButton';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
@@ -24,14 +24,14 @@ function SpeakerRow(props: SpeakerRowProps) {
     <LinkButton to={'/details?speakerId=' + item.id} style={styles.linkButton}>
       <View style={styles.row}>
         <View style={styles.rowAvatarContainer}>
-          <FadeIn>
+          <ImageFadeIn>
             {item.avatarUrl && (
               <CachedImage
                 source={{uri: item.avatarUrl}}
                 style={{width: 50, height: 50, borderRadius: 25}}
               />
             )}
-          </FadeIn>
+          </ImageFadeIn>
         </View>
         <View style={styles.rowData}>
           <BoldText fontSize="sm">{item.name}</BoldText>

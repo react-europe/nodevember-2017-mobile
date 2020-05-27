@@ -1,11 +1,11 @@
 import React from 'react';
 import {Platform, StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
-import FadeIn from 'react-native-fade-in-image';
 
 import {Colors, FontSizes} from '../constants';
 import {Schedule} from '../typings/data';
 import {conferenceHasEnded} from '../utils';
 import CachedImage from './CachedImage';
+import ImageFadeIn from './ImageFadeIn';
 import LinkButton from './LinkButton';
 import {BoldText, RegularText, SemiBoldText} from './StyledText';
 
@@ -42,12 +42,12 @@ function TalkCard(props: Props) {
             <View style={styles.headerRow} key={speaker.id as number}>
               {speaker.avatarUrl && (
                 <View style={styles.headerRowAvatarContainer}>
-                  <FadeIn>
+                  <ImageFadeIn>
                     <CachedImage
                       source={{uri: speaker.avatarUrl}}
                       style={{width: 40, height: 40, borderRadius: 20}}
                     />
-                  </FadeIn>
+                  </ImageFadeIn>
                 </View>
               )}
               <View style={styles.headerRowInfoContainer}>
