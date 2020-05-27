@@ -9,6 +9,7 @@ import {
   StyleProp,
   ImageStyle,
   ImageSourcePropType,
+  Platform,
 } from 'react-native';
 
 type Props = {
@@ -27,7 +28,7 @@ export default function CachedImage(props: Props) {
     try {
       if (typeof source === 'number') {
         await Asset.fromModule(source).downloadAsync();
-      } else if (source && source.uri) {
+      } else if (source && source.uri && Platform.OS !== 'web') {
         const name = sha256(source.uri);
         const filepath = `${FileSystem.documentDirectory}${name}.png'`;
         const {exists} = await FileSystem.getInfoAsync(filepath);
