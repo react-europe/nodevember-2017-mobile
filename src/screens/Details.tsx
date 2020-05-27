@@ -98,10 +98,14 @@ export default function Details(props: AppProps<'Details'>) {
   }; */
 
   const _handlePressSpeakerTwitter = async (twitter: string) => {
-    try {
-      await Linking.openURL(`twitter://user?screen_name=` + twitter);
-    } catch (e) {
+    if (Platform.OS === 'web') {
       WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
+    } else {
+      try {
+        await Linking.openURL(`twitter://user?screen_name=` + twitter);
+      } catch (e) {
+        WebBrowser.openBrowserAsync('https://twitter.com/' + twitter);
+      }
     }
   };
 
