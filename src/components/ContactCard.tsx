@@ -70,17 +70,19 @@ function ContactCard({contact, tickets}: Props) {
                 <RegularText fontSize="md">EMAIL</RegularText>
               </Button>
             )}
-            <Button onPress={handleAddContact}>
-              <RegularText>
-                <Ionicons
-                  name={
-                    Platform.OS === 'ios' ? 'ios-person-add' : 'md-person-add'
-                  }
-                  size={Platform.OS === 'ios' ? 40 : 30}
-                  style={styles.icon}
-                />
-              </RegularText>
-            </Button>
+            {Platform.OS !== 'web' && (
+              <Button onPress={handleAddContact}>
+                <RegularText>
+                  <Ionicons
+                    name={
+                      Platform.OS === 'ios' ? 'ios-person-add' : 'md-person-add'
+                    }
+                    size={Platform.OS === 'ios' ? 40 : 30}
+                    style={styles.icon}
+                  />
+                </RegularText>
+              </Button>
+            )}
             {twitter && (
               <Button onPress={_handlePressTwitterButton}>
                 <Ionicons
