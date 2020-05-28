@@ -20,6 +20,7 @@ import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
 import {MenuNavigationProp} from '../typings/navigation';
 import {getContactTwitter} from '../utils';
+import useScreenWidth from '../utils/useScreenWidth';
 
 type DeferredAttendeesContentProps = {
   aquery: string;
@@ -30,6 +31,7 @@ type QueryAttendees = {
 };
 
 export default function Attendees() {
+  const isLargeScreen = useScreenWidth();
   const [aquery, setAquery] = useState('');
   const [search, setSearch] = useState('');
 
@@ -56,12 +58,15 @@ export default function Attendees() {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={[{flex: 1}, isLargeScreen && {alignItems: 'center'}]}>
       <Searchbar
         onChangeText={(text: string) => queryThrottle(text)}
         placeholder="Search for conference attendees"
         inputStyle={{fontSize: FontSizes.sm}}
-        style={styles.textInput}
+        style={[
+          styles.textInput,
+          isLargeScreen ? styles.textInputWeb : styles.textInputMobile,
+        ]}
         autoCapitalize="none"
         autoCorrect={false}
         clearButtonMode="while-editing"
@@ -202,10 +207,7 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
 const styles = StyleSheet.create({
   textInput: {
     height: 60,
-    position: 'absolute',
     top: Layout.notchHeight,
-    left: 0,
-    right: 0,
     marginLeft: 6,
     marginRight: 6,
     zIndex: 10,
@@ -214,5 +216,14 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0,
     borderColor: 'black',
+  },
+  textInputMobile: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+  },
+  textInputWeb: {
+    width: 400,
+    marginTop: 10,
   },
 });
