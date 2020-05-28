@@ -1,5 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
+import {Platform} from 'react-native';
 
 import Screen from '../screens';
 import QRCheckinScannerModalNavigation from '../screens/QRScreens/CheckIn';
@@ -7,6 +8,7 @@ import QRContactScannerModalNavigation from '../screens/QRScreens/Contact';
 import QRScannerModalNavigation from '../screens/QRScreens/Identify';
 import {AppStackParamList} from '../typings/navigation';
 import DefaultStackConfig from '../utils/defaultNavConfig';
+import DrawerNavigator from './DrawerNavigator';
 import PrimaryTabNavigator from './PrimaryTabNavigator';
 import StaffCheckinListsNavigator from './StaffCheckinListsNavigator';
 
@@ -19,7 +21,12 @@ function AppNavigator() {
       headerMode="none"
       mode="modal"
       screenOptions={({route}) => ({...DefaultStackConfig(route)})}>
-      <Stack.Screen name="Home" component={PrimaryTabNavigator} />
+      <Stack.Screen
+        name="Home"
+        component={
+          Platform.OS === 'web' ? DrawerNavigator : PrimaryTabNavigator
+        }
+      />
       <Stack.Screen name="AttendeeDetail" component={Screen.AttendeeDetail} />
       <Stack.Screen
         name="TicketInstructions"
