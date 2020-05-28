@@ -1,5 +1,6 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
+import {useTheme} from 'react-native-paper';
 
 import Screens from '../screens';
 import Attendees from '../screens/Attendees';
@@ -12,8 +13,11 @@ import ScheduleNavigator from './ScheduleNavigator';
 const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
+  const {colors} = useTheme();
   return (
     <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContentOptions={{activeTintColor: colors.primary}}
       drawerPosition="left"
       drawerType="permanent"
       openByDefault>
