@@ -1,5 +1,6 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
+/* import {useWindowDimensions} from 'react-native'; */
 import {useTheme} from 'react-native-paper';
 
 import Screens from '../screens';
@@ -14,12 +15,15 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
   const {colors} = useTheme();
+  /* const dimensions = useWindowDimensions(); */
+  const isLargeScreen = true;
+
   return (
     <Drawer.Navigator
       initialRouteName="Home"
       drawerContentOptions={{activeTintColor: colors.primary}}
       drawerPosition="left"
-      drawerType="permanent"
+      drawerType={isLargeScreen ? 'permanent' : 'back'}
       openByDefault>
       <Drawer.Screen name="Home" component={Screens.Home} />
       <Drawer.Screen name="Profile" component={ProfileNavigator} />
