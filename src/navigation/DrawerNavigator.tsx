@@ -1,12 +1,13 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React, {useEffect, useState} from 'react';
-import {AsyncStorage, Dimensions, ScaledSize} from 'react-native';
+import {AsyncStorage} from 'react-native';
 import {useTheme} from 'react-native-paper';
 
 import Screens from '../screens';
 import Attendees from '../screens/Attendees';
 import Speakers from '../screens/Speakers';
 import Sponsors from '../screens/Sponsors';
+import {useCurrentScreenWidth} from '../utils/useScreenWidth';
 import ContactsNavigator from './ContactsNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import ScheduleNavigator from './ScheduleNavigator';
@@ -15,8 +16,8 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
   const {colors} = useTheme();
-  const [dimensions, setDimensions] = React.useState(Dimensions.get('window'));
   const [haveTitcket, setHaveTicket] = useState(false);
+  const isLargeScreen = useCurrentScreenWidth();
 
   async function checkTickets() {
     const value = await AsyncStorage.getItem('@MySuperStore2019:tickets'); // todo: use recoil
@@ -27,14 +28,7 @@ export default function DrawerNavigator() {
 
   useEffect(() => {
     checkTickets();
-    const onDimensionsChange = ({window}: {window: ScaledSize}) => {
-      setDimensions(window);
-    };
-    Dimensions.addEventListener('change', onDimensionsChange);
-    return () => Dimensions.removeEventListener('change', onDimensionsChange);
-  }, []);
-
-  const isLargeScreen = dimensions.width >= 1024;
+  });
 
   return (
     <Drawer.Navigator
