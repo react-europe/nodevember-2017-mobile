@@ -16,6 +16,7 @@ export default function DrawerOpenButton(navigation) {
         <Ionicons name="md-menu" size={30} style={styles.icon} />
       </Button>
     ),
+    cardStyle: {flex: 1},
   };
 }
 
