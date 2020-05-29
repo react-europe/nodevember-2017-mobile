@@ -1,6 +1,7 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 /* import {useWindowDimensions} from 'react-native'; */
+import {AsyncStorage} from 'react-native';
 import {useTheme} from 'react-native-paper';
 
 import Screens from '../screens';
@@ -17,6 +18,18 @@ export default function DrawerNavigator() {
   const {colors} = useTheme();
   /* const dimensions = useWindowDimensions(); */
   const isLargeScreen = true;
+  const [haveTitcket, setHaveTicket] = useState(false);
+
+  async function checkTickets() {
+    const value = await AsyncStorage.getItem('@MySuperStore2019:tickets'); // todo: use recoil
+    if (value) {
+      setHaveTicket(true);
+    }
+  }
+
+  useEffect(() => {
+    checkTickets();
+  }, []);
 
   return (
     <Drawer.Navigator
@@ -28,10 +41,12 @@ export default function DrawerNavigator() {
       <Drawer.Screen name="Home" component={Screens.Home} />
       <Drawer.Screen name="Profile" component={ProfileNavigator} />
       <Drawer.Screen name="Schedule" component={ScheduleNavigator} />
-      <Drawer.Screen name="Contacts" component={ContactsNavigator} />
+      {haveTitcket && (
+        <Drawer.Screen name="Contacts" component={ContactsNavigator} />
+      )}
       <Drawer.Screen name="Speakers" component={Speakers} />
       <Drawer.Screen name="Sponsors" component={Sponsors} />
-      <Drawer.Screen name="Attendees" component={Attendees} />
+      {haveTitcket && <Drawer.Screen name="Attendees" component={Attendees} />}
     </Drawer.Navigator>
   );
 }
