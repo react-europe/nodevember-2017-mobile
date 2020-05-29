@@ -8,7 +8,7 @@ import {useCurrentScreenWidth} from '../utils/useScreenWidth';
 export default function DrawerOpenButton(navigation) {
   const isLargeScreen = useCurrentScreenWidth();
   if (isLargeScreen || Platform.OS !== 'web') {
-    return null;
+    return {};
   }
   return {
     headerLeft: () => (
