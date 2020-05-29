@@ -1,7 +1,6 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import React, {useEffect, useState} from 'react';
-/* import {useWindowDimensions} from 'react-native'; */
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, Dimensions, ScaledSize} from 'react-native';
 import {useTheme} from 'react-native-paper';
 
 import Screens from '../screens';
@@ -16,8 +15,7 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerNavigator() {
   const {colors} = useTheme();
-  /* const dimensions = useWindowDimensions(); */
-  const isLargeScreen = true;
+  const [dimensions, setDimensions] = React.useState(Dimensions.get('window'));
   const [haveTitcket, setHaveTicket] = useState(false);
 
   async function checkTickets() {
@@ -29,7 +27,14 @@ export default function DrawerNavigator() {
 
   useEffect(() => {
     checkTickets();
+    const onDimensionsChange = ({window}: {window: ScaledSize}) => {
+      setDimensions(window);
+    };
+    Dimensions.addEventListener('change', onDimensionsChange);
+    return () => Dimensions.removeEventListener('change', onDimensionsChange);
   }, []);
+
+  const isLargeScreen = dimensions.width >= 1024;
 
   return (
     <Drawer.Navigator
@@ -37,6 +42,7 @@ export default function DrawerNavigator() {
       drawerContentOptions={{activeTintColor: colors.primary}}
       drawerPosition="left"
       drawerType={isLargeScreen ? 'permanent' : 'back'}
+      drawerStyle={isLargeScreen ? null : {width: '100%'}}
       openByDefault>
       <Drawer.Screen name="Home" component={Screens.Home} />
       <Drawer.Screen name="Profile" component={ProfileNavigator} />
