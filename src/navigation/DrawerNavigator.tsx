@@ -1,18 +1,19 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
 import {AsyncStorage} from 'react-native';
 import {useTheme} from 'react-native-paper';
 
+import DrawerOpenButton from '../components/DrawerOpenButton';
 import Screens from '../screens';
-import Attendees from '../screens/Attendees';
-import Speakers from '../screens/Speakers';
-import Sponsors from '../screens/Sponsors';
+import DefaultStackConfig from '../utils/defaultNavConfig';
 import {useCurrentScreenWidth} from '../utils/useScreenWidth';
 import ContactsNavigator from './ContactsNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import ScheduleNavigator from './ScheduleNavigator';
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 export default function DrawerNavigator() {
   const {colors} = useTheme();
@@ -44,9 +45,50 @@ export default function DrawerNavigator() {
       {haveTitcket && (
         <Drawer.Screen name="Contacts" component={ContactsNavigator} />
       )}
-      <Drawer.Screen name="Speakers" component={Speakers} />
-      <Drawer.Screen name="Sponsors" component={Sponsors} />
-      {haveTitcket && <Drawer.Screen name="Attendees" component={Attendees} />}
+      <Drawer.Screen name="Speakers" component={SpeakersNavigator} />
+      <Drawer.Screen name="Sponsors" component={SponsorsNavigator} />
+      {haveTitcket && (
+        <Drawer.Screen name="Attendees" component={AttendeesNavigator} />
+      )}
     </Drawer.Navigator>
+  );
+}
+
+function SpeakersNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={({route}) => ({...DefaultStackConfig(route)})}>
+      <Stack.Screen
+        name="Speakers"
+        component={Screens.Speakers}
+        options={({navigation}) => DrawerOpenButton(navigation)}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function SponsorsNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={({route}) => ({...DefaultStackConfig(route)})}>
+      <Stack.Screen
+        name="Sponsors"
+        component={Screens.Sponsors}
+        options={({navigation}) => DrawerOpenButton(navigation)}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function AttendeesNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={({route}) => ({...DefaultStackConfig(route)})}>
+      <Stack.Screen
+        name="Attendees"
+        component={Screens.Attendees}
+        options={({navigation}) => DrawerOpenButton(navigation)}
+      />
+    </Stack.Navigator>
   );
 }
