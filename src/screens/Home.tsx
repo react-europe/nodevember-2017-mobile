@@ -15,7 +15,7 @@ import {
   InteractionManager,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
-import {useTheme, Theme} from 'react-native-paper';
+import {useTheme, Theme, Button} from 'react-native-paper';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import LinkButton from '../components/LinkButton';
@@ -31,7 +31,7 @@ import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
 import useHeaderHeight from '../utils/useHeaderHeight';
-import useScreenWidth from '../utils/useScreenWidth';
+import useScreenWidth, {useCurrentScreenWidth} from '../utils/useScreenWidth';
 
 type HomeProps = {
   navigation: PrimaryTabNavigationProp<'Home'>;
@@ -43,6 +43,7 @@ export default function Home(props: HomeProps) {
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   const isLargeScreen = useScreenWidth();
+  const isCurrentLargeScreen = useCurrentScreenWidth();
 
   function checkUuidOnLoad() {
     console.log('checking props initialLinkingUri', initialLinkingUri);
@@ -117,6 +118,13 @@ export default function Home(props: HomeProps) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
+          {!isCurrentLargeScreen && Platform.OS === 'web' && (
+            <Button
+              style={styles.buttonDrawer}
+              onPress={() => props.navigation.openDrawer()}>
+              <Ionicons name="md-menu" size={30} style={styles.icon} />
+            </Button>
+          )}
           <Image
             source={require('../assets/logo.png')}
             style={{width: 220, height: 60, resizeMode: 'contain'}}
@@ -408,5 +416,13 @@ const styles = StyleSheet.create({
   },
   seeAllTalks: {
     color: Colors.blue,
+  },
+  icon: {
+    color: '#FFF',
+  },
+  buttonDrawer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
 });
