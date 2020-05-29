@@ -1,4 +1,5 @@
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {MaterialTopTabNavigationProp} from '@react-navigation/material-top-tabs';
 import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -50,8 +51,9 @@ export type PrimaryTabRouteProp<
 export type PrimaryTabNavigationProp<
   T extends keyof PrimaryTabParamList
 > = CompositeNavigationProp<
-  BottomTabNavigationProp<PrimaryTabParamList, T>,
-  StackNavigationProp<AppStackParamList>
+  | BottomTabNavigationProp<PrimaryTabParamList, T>
+  | DrawerNavigationProp<PrimaryTabParamList, T>,
+  DrawerNavigationProp<AppStackParamList>
 >;
 
 export type PrimaryTabProps<T extends keyof PrimaryTabParamList> = {
