@@ -1,6 +1,6 @@
 import * as WebBrowser from 'expo-web-browser';
 import React, {useContext} from 'react';
-import {SectionList, StyleSheet, View} from 'react-native';
+import {SectionList, StyleSheet, View, Platform} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 
 import CachedImage from '../components/CachedImage';
@@ -12,7 +12,6 @@ import {Layout} from '../constants';
 import DataContext from '../context/DataContext';
 import {Sponsor} from '../typings/data';
 import {SectionHeaderProps} from '../typings/utils';
-import useScreenWidth from '../utils/useScreenWidth';
 
 type SponsorRowProps = {
   item: Sponsor;
@@ -20,7 +19,6 @@ type SponsorRowProps = {
 
 function SponsorRow(props: SponsorRowProps) {
   const sponsor = props.item;
-  const isLargeScreen = useScreenWidth();
 
   const _handlePress = () => {
     if (sponsor.url) {
@@ -66,9 +64,14 @@ function SponsorRow(props: SponsorRowProps) {
         </View>
         {sponsor.description ? (
           <View
-            style={(styles.rowData, isLargeScreen && {alignItems: 'center'})}>
+            style={
+              (styles.rowData, Platform.OS === 'web' && {alignItems: 'center'})
+            }>
             <RegularText
-              style={[{marginBottom: 10}, isLargeScreen && styles.textWeb]}
+              style={[
+                {marginBottom: 10},
+                Platform.OS === 'web' && styles.textWeb,
+              ]}
               fontSize="sm">
               {sponsor.description}
             </RegularText>

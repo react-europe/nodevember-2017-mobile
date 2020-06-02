@@ -1,13 +1,20 @@
 import {Ionicons} from '@expo/vector-icons';
 import React from 'react';
-import {View, Image, Text, FlatList, StyleSheet, StatusBar} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  FlatList,
+  StyleSheet,
+  StatusBar,
+  Platform,
+} from 'react-native';
 import {useTheme, Theme} from 'react-native-paper';
 
 import CachedImage from '../components/CachedImage';
 import LinkButton from '../components/LinkButton';
 import {Layout} from '../constants';
 import {MenuNavigationProp, MenuStackParamList} from '../typings/navigation';
-import useScreenWidth from '../utils/useScreenWidth';
 
 type Props = {
   navigation: MenuNavigationProp<'Menu'>;
@@ -55,7 +62,6 @@ function MenuHeader() {
 
 function MenuScreen(props: Props) {
   const theme: Theme = useTheme();
-  const isLargeScreen = useScreenWidth();
 
   function getIconName(key: keyof MenuStackParamList) {
     if (key === 'Speakers') return 'ios-microphone';
@@ -70,11 +76,11 @@ function MenuScreen(props: Props) {
     {key: 'Attendees'},
   ];
   return (
-    <View style={[{flex: 1}, isLargeScreen && styles.webMenuContainer]}>
+    <View style={[{flex: 1}, Platform.OS === 'web' && styles.webMenuContainer]}>
       <StatusBar barStyle="light-content" />
       <FlatList
         data={screens}
-        ListHeaderComponent={isLargeScreen ? <></> : <MenuHeader />}
+        ListHeaderComponent={Platform.OS === 'web' ? <></> : <MenuHeader />}
         ItemSeparatorComponent={() => (
           <View
             style={{
@@ -87,7 +93,7 @@ function MenuScreen(props: Props) {
           <LinkButton to={'/' + item.key}>
             <View
               style={[
-                isLargeScreen ? {width: 400} : {flex: 1},
+                Platform.OS === 'web' ? {width: 400} : {flex: 1},
                 {
                   paddingVertical: 12,
                   paddingHorizontal: 16,
