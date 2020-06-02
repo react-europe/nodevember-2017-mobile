@@ -30,7 +30,7 @@ import {Event} from './src/typings/data';
 import {setEvent, saveSchedule} from './src/utils';
 import client from './src/utils/gqlClient';
 import {loadSavedTalksAsync} from './src/utils/storage';
-import {useCurrentScreenWidth} from './src/utils/useScreenWidth';
+import {checkLargeScreen} from './src/utils/useScreenWidth';
 
 export default function App() {
   const [error, setError] = useState(false);
@@ -42,7 +42,7 @@ export default function App() {
   const [initialLinkingUri, setInitialLinkingUri] = useState('');
   const [schedule, setSchedule] = useState<Event | null>(null);
   const [splashVisibility] = useState(new Animated.Value(1));
-  const isLargeScreen = useCurrentScreenWidth();
+  const isLargeScreen = checkLargeScreen();
 
   /* useEffect(() => {
     Updates.addListener(({type}) => {

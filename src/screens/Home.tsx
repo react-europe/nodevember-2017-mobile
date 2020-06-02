@@ -31,7 +31,7 @@ import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
 import useHeaderHeight from '../utils/useHeaderHeight';
-import useScreenWidth, {useCurrentScreenWidth} from '../utils/useScreenWidth';
+import {checkLargeScreen} from '../utils/useScreenWidth';
 
 type HomeProps = {
   navigation: PrimaryTabNavigationProp<'Home'>;
@@ -42,8 +42,7 @@ export default function Home(props: HomeProps) {
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
-  const isLargeScreen = useScreenWidth();
-  const isCurrentLargeScreen = useCurrentScreenWidth();
+  const isLargeScreen = checkLargeScreen();
 
   function checkUuidOnLoad() {
     console.log('checking props initialLinkingUri', initialLinkingUri);
@@ -118,7 +117,7 @@ export default function Home(props: HomeProps) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          {!isCurrentLargeScreen && Platform.OS === 'web' && (
+          {!isLargeScreen && Platform.OS === 'web' && (
             <Button
               style={styles.buttonDrawer}
               onPress={() => props.navigation.openDrawer()}>
@@ -164,7 +163,7 @@ export default function Home(props: HomeProps) {
             </HideWhenConferenceHasEnded>
           </View>
         </View>
-        <View style={isLargeScreen && {alignItems: 'center'}}>
+        <View style={Platform.OS === 'web' && {alignItems: 'center'}}>
           <DeferredHomeContent />
         </View>
         <OverscrollView />

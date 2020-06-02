@@ -8,7 +8,7 @@ import QRContactScannerModalNavigation from '../screens/QRScreens/Contact';
 import QRScannerModalNavigation from '../screens/QRScreens/Identify';
 import {AppStackParamList} from '../typings/navigation';
 import DefaultStackConfig from '../utils/defaultNavConfig';
-import {useCurrentScreenWidth} from '../utils/useScreenWidth';
+import {checkLargeScreen} from '../utils/useScreenWidth';
 import DrawerNavigator from './DrawerNavigator';
 import PrimaryTabNavigator from './PrimaryTabNavigator';
 import StaffCheckinListsNavigator from './StaffCheckinListsNavigator';
@@ -16,7 +16,7 @@ import StaffCheckinListsNavigator from './StaffCheckinListsNavigator';
 const Stack = createStackNavigator<AppStackParamList>();
 
 function AppNavigator() {
-  const isLargeScreen = useCurrentScreenWidth();
+  const isLargeScreen = checkLargeScreen();
   return (
     <Stack.Navigator
       initialRouteName="Home"
