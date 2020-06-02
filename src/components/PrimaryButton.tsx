@@ -1,4 +1,3 @@
-import '@expo/match-media';
 import React from 'react';
 import {StyleSheet, Platform} from 'react-native';
 import {View} from 'react-native-animatable';
