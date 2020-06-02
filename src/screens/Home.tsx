@@ -31,7 +31,7 @@ import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
 import {saveNewContact} from '../utils/storage';
 import useHeaderHeight from '../utils/useHeaderHeight';
-import {checkLargeScreen} from '../utils/useScreenWidth';
+import {checkMediumScreen} from '../utils/useScreenWidth';
 
 type HomeProps = {
   navigation: PrimaryTabNavigationProp<'Home'>;
@@ -42,7 +42,7 @@ export default function Home(props: HomeProps) {
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
-  const isLargeScreen = checkLargeScreen();
+  const isMediumScreen = checkMediumScreen();
 
   function checkUuidOnLoad() {
     console.log('checking props initialLinkingUri', initialLinkingUri);
@@ -117,7 +117,7 @@ export default function Home(props: HomeProps) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          {!isLargeScreen && Platform.OS === 'web' && (
+          {isMediumScreen && Platform.OS === 'web' && (
             <Button
               style={styles.buttonDrawer}
               onPress={() => props.navigation.openDrawer()}>

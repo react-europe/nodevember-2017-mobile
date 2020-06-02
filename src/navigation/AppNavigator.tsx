@@ -8,7 +8,7 @@ import QRContactScannerModalNavigation from '../screens/QRScreens/Contact';
 import QRScannerModalNavigation from '../screens/QRScreens/Identify';
 import {AppStackParamList} from '../typings/navigation';
 import DefaultStackConfig from '../utils/defaultNavConfig';
-import {checkLargeScreen} from '../utils/useScreenWidth';
+import {checkLargeScreen, checkMediumScreen} from '../utils/useScreenWidth';
 import DrawerNavigator from './DrawerNavigator';
 import PrimaryTabNavigator from './PrimaryTabNavigator';
 import StaffCheckinListsNavigator from './StaffCheckinListsNavigator';
@@ -17,6 +17,8 @@ const Stack = createStackNavigator<AppStackParamList>();
 
 function AppNavigator() {
   const isLargeScreen = checkLargeScreen();
+  const isMediumScreen = checkMediumScreen();
+  const drawer = isLargeScreen || isMediumScreen;
   return (
     <Stack.Navigator
       initialRouteName="Home"
@@ -26,7 +28,7 @@ function AppNavigator() {
       <Stack.Screen
         name="Home"
         component={
-          Platform.OS === 'web' && isLargeScreen
+          Platform.OS === 'web' && drawer
             ? DrawerNavigator
             : PrimaryTabNavigator
         }
