@@ -29,7 +29,7 @@ export default function DrawerNavigator() {
 
   useEffect(() => {
     checkTickets();
-  });
+  }, []);
 
   return (
     <Drawer.Navigator
