@@ -1,11 +1,9 @@
 import '@expo/match-media';
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {View} from 'react-native-animatable';
 import {RectButton} from 'react-native-gesture-handler';
 import {Theme, useTheme} from 'react-native-paper';
-
-import useScreenWidth from '../utils/useScreenWidth';
 
 type Props = {
   onPress?: () => void;
@@ -14,9 +12,8 @@ type Props = {
 
 export default function PrimaryButton(props: Props) {
   const {colors}: Theme = useTheme();
-  const isLargeScreen = useScreenWidth();
 
-  if (isLargeScreen) {
+  if (Platform.OS === 'web') {
     return (
       <View style={[styles.centerContainer]}>
         <RectButton

@@ -20,7 +20,6 @@ import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
 import {MenuNavigationProp} from '../typings/navigation';
 import {getContactTwitter} from '../utils';
-import useScreenWidth from '../utils/useScreenWidth';
 
 type DeferredAttendeesContentProps = {
   aquery: string;
@@ -31,7 +30,6 @@ type QueryAttendees = {
 };
 
 export default function Attendees() {
-  const isLargeScreen = useScreenWidth();
   const [aquery, setAquery] = useState('');
   const [search, setSearch] = useState('');
 
@@ -58,14 +56,14 @@ export default function Attendees() {
   }, []);
 
   return (
-    <View style={[{flex: 1}, isLargeScreen && {alignItems: 'center'}]}>
+    <View style={[{flex: 1}, Platform.OS === 'web' && {alignItems: 'center'}]}>
       <Searchbar
         onChangeText={(text: string) => queryThrottle(text)}
         placeholder="Search for conference attendees"
         inputStyle={{fontSize: FontSizes.sm}}
         style={[
           styles.textInput,
-          isLargeScreen ? styles.textInputWeb : styles.textInputMobile,
+          Platform.OS === 'web' ? styles.textInputWeb : styles.textInputMobile,
         ]}
         autoCapitalize="none"
         autoCorrect={false}
