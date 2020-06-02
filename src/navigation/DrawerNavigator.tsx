@@ -7,7 +7,7 @@ import {useTheme} from 'react-native-paper';
 import DrawerOpenButton from '../components/DrawerOpenButton';
 import Screens from '../screens';
 import DefaultStackConfig from '../utils/defaultNavConfig';
-import {useCurrentScreenWidth} from '../utils/useScreenWidth';
+import {checkLargeScreen} from '../utils/useScreenWidth';
 import ContactsNavigator from './ContactsNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import ScheduleNavigator from './ScheduleNavigator';
@@ -18,7 +18,7 @@ const Stack = createStackNavigator();
 export default function DrawerNavigator() {
   const {colors} = useTheme();
   const [haveTitcket, setHaveTicket] = useState(false);
-  const isLargeScreen = useCurrentScreenWidth();
+  const isLargeScreen = checkLargeScreen();
 
   async function checkTickets() {
     const value = await AsyncStorage.getItem('@MySuperStore2019:tickets'); // todo: use recoil

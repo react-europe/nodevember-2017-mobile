@@ -3,11 +3,11 @@ import React from 'react';
 import {Platform, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 
-import {useCurrentScreenWidth} from '../utils/useScreenWidth';
+import {checkMediumScreen} from '../utils/useScreenWidth';
 
 export default function DrawerOpenButton(navigation) {
-  const isLargeScreen = useCurrentScreenWidth();
-  if (isLargeScreen || Platform.OS !== 'web') {
+  const isMediumScreen = checkMediumScreen();
+  if (!isMediumScreen || Platform.OS !== 'web') {
     return {};
   }
   return {
