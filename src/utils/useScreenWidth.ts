@@ -21,5 +21,20 @@ export function useCurrentScreenWidth() {
     return () => Dimensions.removeEventListener('change', onDimensionsChange);
   }, []);
 
+  return dimensions;
+}
+
+export function checkSmallScreen() {
+  const dimensions = useCurrentScreenWidth();
+  return dimensions.width <= 640;
+}
+
+export function checkMediumScreen() {
+  const dimensions = useCurrentScreenWidth();
+  return dimensions.width > 640 && dimensions.width < 1024;
+}
+
+export function checkLargeScreen() {
+  const dimensions = useCurrentScreenWidth();
   return dimensions.width >= 1024;
 }
