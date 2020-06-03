@@ -1,3 +1,4 @@
+import {zonedTimeToUtc, format} from 'date-fns-tz';
 import * as WebBrowser from 'expo-web-browser';
 import moment from 'moment-timezone';
 import React from 'react';
@@ -49,7 +50,8 @@ export function convertUtcDateToEventTimezone(
 export function convertUtcDateToEventTimezoneHour(date: string): string | null {
   const d = new Date(date);
   if (Event.timezoneId) {
-    return moment.tz(d, Event.timezoneId).format('hh:mma');
+    const utcDate = zonedTimeToUtc(d, Event.timezoneId);
+    return format(utcDate, 'hh:mma');
   }
   return null;
 }
