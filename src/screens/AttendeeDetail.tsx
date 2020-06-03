@@ -1,5 +1,4 @@
 import Constants from 'expo-constants';
-import _ from 'lodash';
 import React, {useState} from 'react';
 import {
   Animated,
@@ -57,7 +56,7 @@ export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
   const params = props.route.params || {};
   const attendee = params.attendee;
 
-  if (!attendee || !_.has(attendee, 'email')) {
+  if (!attendee || !attendee.email) {
     props.navigation.goBack();
     return null;
   }

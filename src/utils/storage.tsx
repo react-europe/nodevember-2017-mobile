@@ -1,7 +1,6 @@
 import * as Contacts from 'expo-contacts';
 import {EventEmitter} from 'fbemitter';
-import _ from 'lodash';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {AsyncStorage, Alert} from 'react-native';
 
 import {Talk, Attendee} from '../typings/data';
@@ -32,16 +31,18 @@ export const loadSavedTalksAsync = async () => {
 };
 
 export function getSavedStateForTalk(talk: Talk) {
-  if (talk.title && _savedTalks) {
+  /* todo: handle saved talks
+    if (talk.title && _savedTalks) {
     const talkKey = _.snakeCase(talk.title);
     const active = _savedTalks[talkKey];
     return active;
   }
-  return null;
+  return null; */
 }
 
 // Returns the subscription, subscriber needs to remove subscription on unmount
 export function subscribeToUpdates(talk: Talk, onUpdateFn: (t: Talk) => void) {
+  /* todo: handle saved talks
   if (talk.title) {
     const talkKey = _.snakeCase(talk.title);
     return _emitter.addListener('change', () => {
@@ -51,11 +52,12 @@ export function subscribeToUpdates(talk: Talk, onUpdateFn: (t: Talk) => void) {
       }
     });
   }
-  return null;
+  return null; */
 }
 
 export const toggleSaved = (talk: Talk) => {
-  /* if (talk.title && _savedTalks) {  TODO (handle save talk)
+  /* todo: handle saved talks
+  if (talk.title && _savedTalks) {  TODO (handle save talk)
     const key = _.snakeCase(talk.title);
     const newSavedTalks = {
       ..._savedTalks,
@@ -86,6 +88,7 @@ export const withSaveState = <P extends object>(
   talk,
   ...props
 }: withSaveStateProps) => {
+  /* todo: handle saved talks
   const [saved, setSaved] = useState(getSavedStateForTalk(talk));
 
   useEffect(() => {
@@ -99,9 +102,9 @@ export const withSaveState = <P extends object>(
         _subscription.remove();
       }
     };
-  }, []);
+  }, []); */
 
-  return <Component saved={saved} {...(props as P)} />;
+  return <Component saved={false} {...(props as P)} />;
 };
 
 export function saveNewContact(contact: Attendee) {

@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import _ from 'lodash';
+import orderBy from 'lodash/orderBy';
 import React, {useState, useEffect} from 'react';
 import {Query} from 'react-apollo';
 import {
@@ -137,7 +137,7 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
               data?.events && data.events[0] ? data.events[0].attendees : [];
             let attendeesData: Attendee[] = [];
             if (cleanedQuery === '' && attendees) {
-              attendeesData = _.orderBy(
+              attendeesData = orderBy(
                 attendees,
                 (attendee) => `${attendee?.firstName} ${attendee?.lastName}`,
                 ['asc']
@@ -179,7 +179,7 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
                   }
                 });
               }
-              const sortedFilteredAttendees = _.orderBy(
+              const sortedFilteredAttendees = orderBy(
                 filteredAttendees,
                 (attendee) => attendeesSearchRankingScore[`${attendee.id}`],
                 ['desc']

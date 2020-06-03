@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, {useContext} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
@@ -11,6 +10,8 @@ import {Schedule, ScheduleDay as ScheduleDayType} from '../typings/data';
 import {ScheduleDayProps} from '../typings/navigation';
 import {SectionHeaderProps} from '../typings/utils';
 import {convertUtcDateToEventTimezoneHour} from '../utils';
+import {groupBy} from '../utils/array';
+import {toSnakeCase} from '../utils/string';
 
 type ScheduleRowProps = {
   item: Schedule;
@@ -48,25 +49,28 @@ function ScheduleRow(props: ScheduleRowProps) {
 
 export default function ScheduleDay(props: ScheduleDayProps) {
   const {event} = useContext(DataContext);
-  const schedule: ScheduleDayType | null | undefined = _.find(
-    event?.groupedSchedule,
-    (schedule) => {
+  let schedule: ScheduleDayType | null | undefined = undefined;
+  if (event?.groupedSchedule) {
+    schedule = event.groupedSchedule.find((schedule) => {
       if (schedule?.title) {
         return schedule.title === props.route.params.day;
       }
       return false;
-    }
-  );
-  let slotsByTime: _.Dictionary<Schedule[]> | null = null;
-  if (schedule?.slots) {
-    slotsByTime = _.groupBy(schedule.slots, (slot) =>
-      slot?.startDate ? slot.startDate : ''
-    ) as _.Dictionary<Schedule[]>;
+    });
   }
-  const slotsData = _.map(slotsByTime, (data, time) => {
-    return {data, title: convertUtcDateToEventTimezoneHour(time)};
-  });
-
+  let slotsByTime: {[id: string]: Schedule[]} | null = null;
+  if (schedule?.slots) {
+    slotsByTime = groupBy(schedule.slots, 'startDate');
+  }
+  const slotsData: {data: Schedule[]; title: string}[] = [];
+  if (slotsByTime) {
+    Object.entries(slotsByTime).forEach(([key, data]) => {
+      slotsData.push({
+        data,
+        title: convertUtcDateToEventTimezoneHour(key) as string,
+      });
+    });
+  }
   const _renderSectionHeader = ({section}: SectionHeaderProps<Schedule>) => {
     return (
       <View style={styles.sectionHeader}>
@@ -87,7 +91,7 @@ export default function ScheduleDay(props: ScheduleDayProps) {
         renderItem={_renderItem}
         renderSectionHeader={_renderSectionHeader}
         sections={slotsData}
-        keyExtractor={(item) => _.snakeCase(item?.title ? item.title : '')}
+        keyExtractor={(item) => toSnakeCase(item?.title ? item.title : '')}
         initialNumToRender={10}
       />
     </LoadingPlaceholder>
