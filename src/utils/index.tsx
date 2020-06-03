@@ -1,5 +1,4 @@
 import * as WebBrowser from 'expo-web-browser';
-import _ from 'lodash';
 import moment from 'moment-timezone';
 import React from 'react';
 import {Platform, Linking, AsyncStorage} from 'react-native';
@@ -13,12 +12,15 @@ import {
 } from '../typings/data';
 
 export function getSpeakerTalk(speaker: Speaker): Talk | undefined {
-  const talk = _.find(speaker.talks, function (talk) {
-    if (talk) {
-      return talk.type === 0;
-    }
-    return false;
-  });
+  let talk = undefined;
+  if (speaker.talks) {
+    talk = speaker?.talks.find((talk) => {
+      if (talk) {
+        return talk.type === 0;
+      }
+      return false;
+    });
+  }
   if (!talk) {
     if (speaker.talks && speaker.talks[0]) {
       return speaker.talks[0];

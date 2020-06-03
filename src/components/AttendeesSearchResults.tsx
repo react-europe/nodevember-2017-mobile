@@ -3,7 +3,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-import _ from 'lodash';
+import times from 'lodash/times';
 import React, {useState} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
@@ -144,9 +144,7 @@ export default function AttendeesSearchResults(
   );
 
   const _renderItemPlaceholder = () => <AttendeesSearchResultPlaceholderRow />;
-  const maybeAttendees = isLoading
-    ? _.times(10).map((id) => ({id}))
-    : attendees;
+  const maybeAttendees = isLoading ? times(10).map((id) => ({id})) : attendees;
   const itemRenderer = isLoading ? _renderItemPlaceholder : _renderItem;
   return (
     <FlatList
