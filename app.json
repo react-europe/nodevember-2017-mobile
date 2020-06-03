@@ -8,9 +8,10 @@
     "primaryColor": "#4d5fab",
     "icon": "./src/assets/icon-ios.png",
     "orientation": "portrait",
-    "sdkVersion": "36.0.0",
     "scheme": "reacteurope",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -23,7 +24,11 @@
       "package": "hr.apps.n6574",
       "icon": "./src/assets/icon-android.png",
       "versionCode": 58,
-      "permissions": ["WRITE_CONTACTS", "READ_CONTACTS", "CAMERA"]
+      "permissions": [
+        "WRITE_CONTACTS",
+        "READ_CONTACTS",
+        "CAMERA"
+      ]
     },
     "ios": {
       "bundleIdentifier": "reacteurope",
@@ -34,6 +39,9 @@
         "NSCameraUsageDescription": "Camera is needed to scan your QRcode."
       }
     },
-    "platforms": ["ios", "android"]
+    "platforms": [
+      "ios",
+      "android"
+    ]
   }
 }
