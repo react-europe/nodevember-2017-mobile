@@ -1,5 +1,5 @@
 import {
-  Entypo,
+  Ionicons,
   MaterialIcons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
@@ -82,8 +82,8 @@ function AttendeesSearchResultRow(props: AttendeesSearchResultRowProps) {
           />
           {getContactTwitter(attendee) ? (
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Entypo
-                name="twitter"
+              <Ionicons
+                name="logo-twitter"
                 size={16}
                 color="#1da1f2"
                 style={{paddingRight: 3}}
