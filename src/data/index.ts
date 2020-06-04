@@ -1,5 +1,5 @@
+import isBefore from 'date-fns/isBefore';
 import filter from 'lodash/filter';
-import moment from 'moment-timezone';
 
 import {Event, Schedule} from '../typings/data';
 import {convertUtcDateToEventTimezone} from '../utils';
@@ -21,15 +21,15 @@ export function findNextTalksAfterDate(event: Event) {
   if (!event.timezoneId) {
     return null;
   }
-  const currentTime = moment.tz(event.timezoneId);
+  const currentTime = convertUtcDateToEventTimezone();
   // You can test going into the future with:
   // let currentTime = moment.tz(event.timezoneId).add(4, 'days');
 
   const talks = filter(flattenedTalks, (talk) => {
     const talkType = talk.type === 0 || talk.type === 1 || talk.type === 8;
     const startDate = convertUtcDateToEventTimezone(talk.startDate);
-    if (talkType && startDate) {
-      return currentTime.isBefore(startDate);
+    if (talkType && startDate && currentTime) {
+      return isBefore(currentTime, startDate);
     }
     return false;
   });

@@ -320,12 +320,10 @@ function DeferredHomeContent() {
         </LinkButton>
       ) : null}
       {event && (
-        <HideWhenConferenceHasEnded>
-          <TalksUpNext
-            event={event}
-            style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
-          />
-        </HideWhenConferenceHasEnded>
+        <TalksUpNext
+          event={event}
+          style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
+        />
       )}
       <View style={{marginHorizontal: 15, marginBottom: 20}}>
         <Link to="/schedule">

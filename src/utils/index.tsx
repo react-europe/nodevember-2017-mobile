@@ -1,6 +1,5 @@
 import {zonedTimeToUtc, format} from 'date-fns-tz';
 import * as WebBrowser from 'expo-web-browser';
-import moment from 'moment-timezone';
 import React from 'react';
 import {Platform, Linking, AsyncStorage} from 'react-native';
 
@@ -37,12 +36,15 @@ export function setEvent(event: EventType): void {
   Event = event;
 }
 
-export function convertUtcDateToEventTimezone(
-  date: string
-): moment.Moment | null {
-  const d = new Date(date);
+export function convertUtcDateToEventTimezone(date?: string): Date | null {
+  let d;
+  if (date) {
+    d = new Date(date);
+  } else {
+    d = new Date();
+  }
   if (Event.timezoneId) {
-    return moment.tz(d, Event.timezoneId);
+    return zonedTimeToUtc(d, Event.timezoneId);
   }
   return null;
 }
@@ -61,7 +63,8 @@ export function convertUtcDateToEventTimezoneDaytime(
 ): string | null {
   const d = new Date(date);
   if (Event.timezoneId) {
-    return moment.tz(d, Event.timezoneId).format('dddd DD MMM, h:mma');
+    const utcDate = zonedTimeToUtc(d, Event.timezoneId);
+    return format(utcDate, 'EEEE dd LLL, h:mma');
   }
   return null;
 }
