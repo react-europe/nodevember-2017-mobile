@@ -77,7 +77,7 @@ export function conferenceHasStarted(): boolean | null {
 }
 
 export function conferenceHasEnded(): boolean | null {
-  if (Event.status?.hasEnded) {
+  if (Event?.status?.hasEnded) {
     return Event.status.hasEnded;
   }
   return null;
