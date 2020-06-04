@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import moment from 'moment-timezone';
+import tz from 'moment-timezone/moment-timezone';
 import React from 'react';
 import {Platform, Linking, AsyncStorage} from 'react-native';
 
@@ -46,7 +46,7 @@ export function convertUtcDateToEventTimezone(
     d = new Date();
   }
   if (Event.timezoneId) {
-    return moment.tz(d, Event.timezoneId);
+    return tz(d, Event.timezoneId);
   }
   return null;
 }
@@ -54,7 +54,7 @@ export function convertUtcDateToEventTimezone(
 export function convertUtcDateToEventTimezoneHour(date: string): string | null {
   const d = new Date(date);
   if (Event.timezoneId) {
-    return moment.tz(d, Event.timezoneId).format('hh:mma');
+    return tz(d, Event.timezoneId).format('hh:mma');
   }
   return null;
 }
@@ -64,7 +64,7 @@ export function convertUtcDateToEventTimezoneDaytime(
 ): string | null {
   const d = new Date(date);
   if (Event.timezoneId) {
-    return moment.tz(d, Event.timezoneId).format('dddd DD MMM, h:mma');
+    return tz(d, Event.timezoneId).format('dddd DD MMM, h:mma');
   }
   return null;
 }
