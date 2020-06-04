@@ -1,5 +1,5 @@
-import {zonedTimeToUtc, format} from 'date-fns-tz';
 import * as WebBrowser from 'expo-web-browser';
+import moment from 'moment-timezone';
 import React from 'react';
 import {Platform, Linking, AsyncStorage} from 'react-native';
 
@@ -36,7 +36,9 @@ export function setEvent(event: EventType): void {
   Event = event;
 }
 
-export function convertUtcDateToEventTimezone(date?: string): Date | null {
+export function convertUtcDateToEventTimezone(
+  date?: string
+): moment.Moment | null {
   let d;
   if (date) {
     d = new Date(date);
@@ -44,7 +46,7 @@ export function convertUtcDateToEventTimezone(date?: string): Date | null {
     d = new Date();
   }
   if (Event.timezoneId) {
-    return zonedTimeToUtc(d, Event.timezoneId);
+    return moment.tz(d, Event.timezoneId);
   }
   return null;
 }
@@ -52,8 +54,7 @@ export function convertUtcDateToEventTimezone(date?: string): Date | null {
 export function convertUtcDateToEventTimezoneHour(date: string): string | null {
   const d = new Date(date);
   if (Event.timezoneId) {
-    const utcDate = zonedTimeToUtc(d, Event.timezoneId);
-    return format(utcDate, 'hh:mma');
+    return moment.tz(d, Event.timezoneId).format('hh:mma');
   }
   return null;
 }
@@ -63,8 +64,7 @@ export function convertUtcDateToEventTimezoneDaytime(
 ): string | null {
   const d = new Date(date);
   if (Event.timezoneId) {
-    const utcDate = zonedTimeToUtc(d, Event.timezoneId);
-    return format(utcDate, 'EEEE dd LLL, h:mma');
+    return moment.tz(d, Event.timezoneId).format('dddd DD MMM, h:mma');
   }
   return null;
 }

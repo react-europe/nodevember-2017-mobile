@@ -1,4 +1,3 @@
-import isBefore from 'date-fns/isBefore';
 import filter from 'lodash/filter';
 
 import {Event, Schedule} from '../typings/data';
@@ -29,7 +28,7 @@ export function findNextTalksAfterDate(event: Event) {
     const talkType = talk.type === 0 || talk.type === 1 || talk.type === 8;
     const startDate = convertUtcDateToEventTimezone(talk.startDate);
     if (talkType && startDate && currentTime) {
-      return isBefore(currentTime, startDate);
+      return currentTime.isBefore(startDate);
     }
     return false;
   });
