@@ -45,7 +45,6 @@ function SavedButtonNavigationItem(props: {talk: Talk}) {
 
 export default function Details(props: AppProps<'Details'>) {
   const state = useNavigationState((state) => state);
-  console.log('State: ', state);
   const data = useContext(DataContext);
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();

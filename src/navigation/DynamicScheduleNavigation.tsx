@@ -1,5 +1,4 @@
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import moment from 'moment';
 import React, {useContext} from 'react';
 
 import DataContext from '../context/DataContext';
@@ -31,7 +30,6 @@ export default function DynamicScheduleNavigation() {
           component={Screens.ScheduleDay}
           initialParams={{
             day: day?.title ? day.title : '',
-            date: moment(new Date(day.date)).format('ddd'),
           }}
         />
       ))}
