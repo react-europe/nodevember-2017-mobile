@@ -1,44 +1,21 @@
-import {gql} from 'apollo-boost';
 import React from 'react';
-import {Query, ApolloProvider} from 'react-apollo';
+import {Query} from 'react-apollo';
 import {View, Text} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 
+import Providers from '../components/Providers';
 import {GQL} from '../constants';
+import GET_SPEAKERS from '../data/speakers';
 import {SpeakerRow} from '../screens/Speakers';
 import {Event} from '../typings/data';
-import client from '../utils/gqlClient';
-
-const SPEAKERS = gql`
-  query speakers($slug: String!) {
-    events(slug: $slug) {
-      id
-      name
-      speakers {
-        id
-        name
-        twitter
-        github
-        avatarUrl
-        bio
-        talks {
-          id
-          title
-          type
-          description
-          length
-          startDate
-        }
-      }
-    }
-  }
-`;
 
 export default function App() {
   return (
     <View>
-      <ApolloProvider client={client}>
-        <Query<{events: Event[]}> query={SPEAKERS} variables={{slug: GQL.slug}}>
+      <Providers>
+        <Query<{events: Event[]}>
+          query={GET_SPEAKERS}
+          variables={{slug: GQL.slug}}>
           {({loading, error, data}) => {
             if (loading) {
               return (
@@ -69,7 +46,7 @@ export default function App() {
             );
           }}
         </Query>
-      </ApolloProvider>
+      </Providers>
     </View>
   );
 }
