@@ -16,32 +16,30 @@ type SpeakerRowProps = {
   item: Speaker;
 };
 
-function SpeakerRow(props: SpeakerRowProps) {
+export function SpeakerRow(props: SpeakerRowProps) {
   const {item} = props;
   const talk: Talk | undefined = getSpeakerTalk(item);
 
   return (
-    <LinkButton to={'/details?speakerId=' + item.id} style={styles.linkButton}>
-      <View style={styles.row}>
-        <View style={styles.rowAvatarContainer}>
-          <ImageFadeIn>
-            {item.avatarUrl && (
-              <CachedImage
-                source={{uri: item.avatarUrl}}
-                style={{width: 50, height: 50, borderRadius: 25}}
-              />
-            )}
-          </ImageFadeIn>
-        </View>
-        <View style={styles.rowData}>
-          <BoldText fontSize="sm">{item.name}</BoldText>
-          {item.twitter ? (
-            <SemiBoldText fontSize="sm">@{item.twitter}</SemiBoldText>
-          ) : null}
-          {talk && <RegularText fontSize="sm">{talk.title}</RegularText>}
-        </View>
+    <View style={styles.row}>
+      <View style={styles.rowAvatarContainer}>
+        <ImageFadeIn>
+          {item.avatarUrl && (
+            <CachedImage
+              source={{uri: item.avatarUrl}}
+              style={{width: 50, height: 50, borderRadius: 25}}
+            />
+          )}
+        </ImageFadeIn>
       </View>
-    </LinkButton>
+      <View style={styles.rowData}>
+        <BoldText fontSize="sm">{item.name}</BoldText>
+        {item.twitter ? (
+          <SemiBoldText fontSize="sm">@{item.twitter}</SemiBoldText>
+        ) : null}
+        {talk && <RegularText fontSize="sm">{talk.title}</RegularText>}
+      </View>
+    </View>
   );
 }
 
@@ -60,7 +58,13 @@ export default function Speakers() {
   };
 
   const _renderItem = ({item}: {item: Speaker}) => {
-    return <SpeakerRow item={item} />;
+    return (
+      <LinkButton
+        to={'/details?speakerId=' + item.id}
+        style={styles.linkButton}>
+        <SpeakerRow item={item} />
+      </LinkButton>
+    );
   };
 
   return (
