@@ -6,7 +6,6 @@ import {Asset} from 'expo-asset';
 import Constants from 'expo-constants';
 import * as Font from 'expo-font';
 import React, {useState} from 'react';
-import {ApolloProvider} from 'react-apollo';
 import {
   Animated,
   Button,
@@ -17,11 +16,10 @@ import {
   AsyncStorage,
   Dimensions,
 } from 'react-native';
-import {Provider as PaperProvider} from 'react-native-paper';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
+import Providers from './src/components/Providers';
 import {GQL} from './src/constants';
-import theme from './src/constants/theme';
 import DataContext from './src/context/DataContext';
 import GET_SCHEDULE from './src/data/schedulequery';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -231,19 +229,17 @@ export default function App() {
     <SafeAreaProvider>
       <View style={{flex: 1}}>
         {isAppReady && schedule ? (
-          <ApolloProvider client={client}>
-            <DataContext.Provider
-              value={{
-                event: schedule,
-                initialLinkingUri,
-              }}>
-              <PaperProvider theme={theme}>
-                <NavigationContainer linking={linkingConfig(isLargeScreen)}>
-                  <AppNavigator />
-                </NavigationContainer>
-              </PaperProvider>
-            </DataContext.Provider>
-          </ApolloProvider>
+          <DataContext.Provider
+            value={{
+              event: schedule,
+              initialLinkingUri,
+            }}>
+            <Providers>
+              <NavigationContainer linking={linkingConfig(isLargeScreen)}>
+                <AppNavigator />
+              </NavigationContainer>
+            </Providers>
+          </DataContext.Provider>
         ) : null}
 
         {isSplashAnimationComplete ? null : (
