@@ -17,6 +17,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {RecoilRoot} from 'recoil';
 
 import Providers from './src/components/Providers';
 import {GQL} from './src/constants';
@@ -234,11 +235,13 @@ export default function App() {
               event: schedule,
               initialLinkingUri,
             }}>
-            <Providers>
-              <NavigationContainer linking={linkingConfig(isLargeScreen)}>
-                <AppNavigator />
-              </NavigationContainer>
-            </Providers>
+            <RecoilRoot>
+              <Providers>
+                <NavigationContainer linking={linkingConfig(isLargeScreen)}>
+                  <AppNavigator />
+                </NavigationContainer>
+              </Providers>
+            </RecoilRoot>
           </DataContext.Provider>
         ) : null}
 
