@@ -209,3 +209,16 @@ export const getContactTwitter = (contact: User | Attendee): string => {
     .replace('https://twitter.com/', '')
     .replace('twitter.com/', '');
 };
+
+export async function getTickets() {
+  try {
+    const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
+    if (value) {
+      const tickets: User[] = JSON.parse(value);
+      return tickets;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  return null;
+}
