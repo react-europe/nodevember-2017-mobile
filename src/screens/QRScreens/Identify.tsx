@@ -1,27 +1,22 @@
 import {Notifications} from 'expo';
 import * as Permissions from 'expo-permissions';
 import React, {useEffect, useState} from 'react';
-import {Alert, AsyncStorage} from 'react-native';
+import {Alert} from 'react-native';
+import {useRecoilState} from 'recoil';
 
 import {GQL} from '../../constants';
+import {ticketState} from '../../context/ticketState';
 import QR_QUERY from '../../data/qrQuery';
 import UPDATE_PUSH_TOKEN_QUERY from '../../data/updatePushTokenQuery';
 import {User} from '../../typings/data';
 import {AppProps} from '../../typings/navigation';
+import {updateTickets, getTickets} from '../../utils';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 
 export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
   const [loading, setLoading] = useState(false);
-
-  async function setTickets(tickets: string) {
-    try {
-      await AsyncStorage.setItem('@MySuperStore2019:tickets', tickets);
-    } catch (err) {
-      console.log(err);
-      return [];
-    }
-  }
+  const [tickets, setTickets] = useRecoilState(ticketState);
 
   useEffect(() => {
     if (props.route.params?.uuid) {
@@ -88,38 +83,35 @@ export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
         return;
       }
 
-      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      let tickets: User[] | null = null;
-      const newTickets: User[] = [];
+      if (!tickets) {
+        const userTickets = await getTickets();
+        setTickets(userTickets);
+      }
+      let newTickets: User[] = [];
       let found = false;
 
-      if (value === null && me !== null) {
-        tickets = [me];
-      } else {
-        const existingTickets: User[] = JSON.parse(value ? value : '[]');
-        existingTickets.map((ticket) => {
-          if (ticket && me && me.ref && ticket.ref === me.ref) {
-            found = true;
-            newTickets.push(me);
-          } else {
-            if (ticket) {
-              newTickets.push(ticket);
-            }
-          }
-        });
-        if (!found && me) {
+      const existingTickets: User[] = tickets ? tickets : [];
+      existingTickets.map((ticket) => {
+        if (ticket && me && me.ref && ticket.ref === me.ref) {
+          found = true;
           newTickets.push(me);
+        } else {
+          if (ticket) {
+            newTickets.push(ticket);
+          }
         }
-        tickets = newTickets;
-        if (!tickets || tickets[0] === [null]) {
-          tickets = [];
-        }
+      });
+      if (!found && me) {
+        newTickets.push(me);
+      }
+      if (!newTickets || newTickets[0] === [null]) {
+        newTickets = [];
       }
 
-      if (tickets && tickets !== null && tickets !== []) {
-        const stringifiedTickets = JSON.stringify(tickets);
-        console.log(stringifiedTickets);
-        await setTickets(stringifiedTickets);
+      if (newTickets && newTickets !== null && newTickets !== []) {
+        const stringifiedTickets = JSON.stringify(newTickets);
+        setTickets(newTickets);
+        await updateTickets(stringifiedTickets);
         registerForPushNotificationsAsync(variables.uuid);
         props.navigation.navigate('Home', {screen: 'Profile'});
       }
