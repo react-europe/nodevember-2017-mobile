@@ -16064,10 +16064,9 @@ recast@~0.11.12:
     private "~0.1.5"
     source-map "~0.5.0"
 
-recoil@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.0.8.tgz#b24eb00fb8bfcbefb68836dc5ebc93cf884ed0f4"
-  integrity sha512-lfIH6y9A0wQ6piucwWFZfpp9KNQ+mFdTPFPFL0m0sRCrfsuwz3lyVaaofHY6/O4BXekDoXyjYodPBgCSdw9HCw==
+recoil@eveningkid/Recoil#react-native:
+  version "0.0.7"
+  resolved "https://codeload.github.com/eveningkid/Recoil/tar.gz/6d5b5c08ca55d85eff2c286c6c1eee51725b333f"
 
 recursive-readdir@2.2.1:
   version "2.2.1"
