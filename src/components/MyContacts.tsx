@@ -1,7 +1,7 @@
 import React from 'react';
 import {Alert, Clipboard, View, ViewStyle, StyleProp} from 'react-native';
 
-import {Attendee} from '../typings/data';
+import {Attendee, User} from '../typings/data';
 import {getContactTwitter} from '../utils';
 import ContactCard from './ContactCard';
 import PrimaryButton from './PrimaryButton';
@@ -9,7 +9,7 @@ import {SemiBoldText} from './StyledText';
 
 type Props = {
   contacts: Attendee[];
-  tickets: Attendee[];
+  tickets: User[];
   style?: StyleProp<ViewStyle>;
 };
 
