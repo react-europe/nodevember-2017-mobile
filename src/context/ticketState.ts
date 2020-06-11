@@ -1,6 +1,8 @@
 import {atom} from 'recoil';
 
-export const ticketState = atom({
+import {User} from '../typings/data';
+
+export const ticketState = atom<null | User[]>({
   key: 'ticketState',
   default: null,
 });
