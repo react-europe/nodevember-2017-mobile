@@ -1,11 +1,12 @@
 import React from 'react';
-import {AsyncStorage} from 'react-native';
+import {useRecoilState} from 'recoil';
 
 import {GQL} from '../../constants';
+import {ticketState} from '../../context/ticketState';
 import QR_CONTACT_QUERY from '../../data/qrContactQuery';
 import {User, Attendee} from '../../typings/data';
 import {AppNavigationProp} from '../../typings/navigation';
-import {addContact} from '../../utils';
+import {addContact, getTickets} from '../../utils';
 import client from '../../utils/gqlClient';
 import {saveNewContact} from '../../utils/storage';
 import QRScreen from './QRScreen';
@@ -15,15 +16,22 @@ type Props = {
 };
 
 export default function QRContactScannerModalNavigation(props: Props) {
+  const [tickets, setTickets] = useRecoilState(ticketState);
+
   const _handleContactBarCodeRead = async (data: string) => {
-    const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-    if (!value) {
+    let userTickets: User[] = [];
+    if (!tickets) {
+      userTickets = await getTickets();
+      setTickets(userTickets);
+    } else {
+      userTickets = tickets;
+    }
+    if (!tickets || tickets.length < 0) {
       return;
     }
-    const tickets: User[] = JSON.parse(value) || [];
     let uuid = '';
     const contactRef = data;
-    tickets.map(async (ticket: User) => {
+    userTickets.map(async (ticket: User) => {
       if (ticket.checkinLists) {
         ticket.checkinLists.map((ch) => {
           if (ch?.mainEvent && ticket?.uuid) {
