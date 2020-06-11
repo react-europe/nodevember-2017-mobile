@@ -299,7 +299,7 @@ function DeferredHomeContent() {
           </PrimaryButton>
         </LinkButton>
       ) : null}
-      {tickets.length <= 0 ? (
+      {!tickets || tickets.length <= 0 ? (
         <LinkButton to="/QRScanner">
           <PrimaryButton>
             <SemiBoldText fontSize="md" TextColorAccent>
@@ -308,7 +308,7 @@ function DeferredHomeContent() {
           </PrimaryButton>
         </LinkButton>
       ) : null}
-      {tickets.length > 0 && !isStaff ? (
+      {tickets && tickets.length > 0 && !isStaff ? (
         <LinkButton to="/profile">
           <PrimaryButton>
             <SemiBoldText fontSize="md" TextColorAccent>
@@ -340,7 +340,7 @@ function DeferredHomeContent() {
           </SemiBoldText>
         </Link>
       </View>
-      {tickets.length > 0 ? (
+      {tickets && tickets.length > 0 ? (
         <LinkButton to="/profile">
           <PrimaryButton>
             <SemiBoldText fontSize="md" TextColorAccent>
@@ -349,7 +349,7 @@ function DeferredHomeContent() {
           </PrimaryButton>
         </LinkButton>
       ) : null}
-      {tickets.length <= 0 ? (
+      {!tickets || tickets.length <= 0 ? (
         <LinkButton to="/QRScanner">
           <PrimaryButton>
             <SemiBoldText fontSize="md" TextColorAccent>
@@ -358,7 +358,7 @@ function DeferredHomeContent() {
           </PrimaryButton>
         </LinkButton>
       ) : null}
-      {tickets.length > 0 ? (
+      {tickets && tickets.length > 0 ? (
         <LinkButton to="/QRScanner">
           <PrimaryButton>
             <SemiBoldText fontSize="md" TextColorAccent>
