@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {useTheme, Theme, Button} from 'react-native-paper';
+import {useRecoilState} from 'recoil';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import LinkButton from '../components/LinkButton';
@@ -26,9 +27,14 @@ import {SemiBoldText} from '../components/StyledText';
 import TalksUpNext from '../components/TalksUpNext';
 import {Colors, Layout} from '../constants';
 import DataContext from '../context/DataContext';
+import {ticketState} from '../context/ticketState';
 import {User} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
-import {HideWhenConferenceHasEnded, ShowWhenConferenceHasEnded} from '../utils';
+import {
+  HideWhenConferenceHasEnded,
+  ShowWhenConferenceHasEnded,
+  getTickets,
+} from '../utils';
 import {saveNewContact} from '../utils/storage';
 import useHeaderHeight from '../utils/useHeaderHeight';
 import {checkMediumScreen} from '../utils/useScreenWidth';
@@ -193,27 +199,19 @@ function DeferredHomeContent() {
   const theme: Theme = useTheme();
   const navigation = useNavigation<PrimaryTabNavigationProp<'Home'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
-  const [tickets, setTickets] = useState<User[]>([]);
+  const [tickets, setTickets] = useRecoilState(ticketState);
   let _notificationSubscription: EventSubscription | null = null;
-
-  async function getTickets() {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      if (value) {
-        setTickets(JSON.parse(value));
-      }
-    } catch (err) {
-      console.log(err);
-    }
-    setReady(true);
-  }
 
   useFocusEffect(
     React.useCallback(() => {
-      InteractionManager.runAfterInteractions(() => {
-        getTickets();
+      InteractionManager.runAfterInteractions(async () => {
+        if (!tickets) {
+          const userTickets = await getTickets();
+          setTickets(userTickets);
+        }
+        setReady(true);
       });
-    }, [])
+    }, [tickets])
   );
 
   useEffect(() => {
