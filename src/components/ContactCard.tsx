@@ -4,14 +4,14 @@ import {Platform, StyleSheet, View} from 'react-native';
 import {Button, Paragraph, Card} from 'react-native-paper';
 
 import GravatarImage from '../components/GravatarImage';
-import {Attendee} from '../typings/data';
+import {Attendee, User} from '../typings/data';
 import {sendEmail, openTwitter, getContactTwitter} from '../utils';
 import {saveContactOnDevice} from '../utils/storage';
 import {SemiBoldText, RegularText} from './StyledText';
 
 type Props = {
   contact: Attendee;
-  tickets: Attendee[];
+  tickets: User[];
 };
 
 function ContactCard({contact, tickets}: Props) {
