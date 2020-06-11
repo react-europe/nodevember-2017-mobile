@@ -1,10 +1,11 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect, useState} from 'react';
-import {AsyncStorage} from 'react-native';
 import {useTheme} from 'react-native-paper';
+import {useRecoilValue} from 'recoil';
 
 import DrawerOpenButton from '../components/DrawerOpenButton';
+import {ticketState} from '../context/ticketState';
 import Screens from '../screens';
 import DefaultStackConfig from '../utils/defaultNavConfig';
 import {checkLargeScreen} from '../utils/useScreenWidth';
@@ -16,20 +17,20 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 export default function DrawerNavigator() {
+  const tickets = useRecoilValue(ticketState);
   const {colors} = useTheme();
   const [haveTitcket, setHaveTicket] = useState(false);
   const isLargeScreen = checkLargeScreen();
 
   async function checkTickets() {
-    const value = await AsyncStorage.getItem('@MySuperStore2019:tickets'); // todo: use recoil
-    if (value) {
+    if (tickets && tickets.length > 0) {
       setHaveTicket(true);
     }
   }
 
   useEffect(() => {
     checkTickets();
-  }, []);
+  }, [tickets]);
 
   return (
     <Drawer.Navigator
