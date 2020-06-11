@@ -1,21 +1,17 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {
-  Platform,
-  ScrollView,
-  View,
-  AsyncStorage,
-  InteractionManager,
-} from 'react-native';
+import {Platform, ScrollView, View, InteractionManager} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
+import {useRecoilState} from 'recoil';
 
 import BottomFAB from '../components/BottomFAB';
 import LinkButton from '../components/LinkButton';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import Tickets from '../components/Tickets';
-import {User} from '../typings/data';
+import {ticketState} from '../context/ticketState';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
+import {getTickets} from '../utils';
 
 function Profile() {
   const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
@@ -35,31 +31,20 @@ function Profile() {
 }
 
 function DeferredProfileContent() {
-  const [tickets, setTickets] = useState<User[]>([]);
   const [ready, setReady] = useState(Platform.OS !== 'android');
 
-  const getTickets = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      if (value) {
-        const tickets: User[] = JSON.parse(value);
-        setTickets(tickets);
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-      if (!ready) {
-        setReady(true);
-      }
-    }
-  };
+  const [tickets, setTickets] = useRecoilState(ticketState);
 
   useFocusEffect(
     React.useCallback(() => {
-      InteractionManager.runAfterInteractions(() => {
-        getTickets();
+      InteractionManager.runAfterInteractions(async () => {
+        if (!tickets) {
+          const userTickets = await getTickets();
+          setTickets(userTickets);
+        }
+        setReady(true);
       });
-    }, [])
+    }, [tickets])
   );
 
   if (!ready) {
@@ -70,7 +55,7 @@ function DeferredProfileContent() {
       animation="fadeIn"
       useNativeDriver
       duration={800}
-      style={{alignItems: 'center'}}>
+      style={Platform.OS === 'web' ? {alignItems: 'center'} : {}}>
       {!tickets || tickets.length <= 0 ? (
         <LinkButton to="/QRScanner">
           <PrimaryButton>
