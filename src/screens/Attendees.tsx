@@ -2,24 +2,19 @@ import {useNavigation} from '@react-navigation/native';
 import orderBy from 'lodash/orderBy';
 import React, {useState, useEffect} from 'react';
 import {Query} from 'react-apollo';
-import {
-  Platform,
-  Text,
-  StyleSheet,
-  View,
-  AsyncStorage,
-  LayoutAnimation,
-} from 'react-native';
+import {Platform, Text, StyleSheet, View, LayoutAnimation} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Searchbar} from 'react-native-paper';
+import {useRecoilState} from 'recoil';
 
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 import OverscrollView from '../components/OverscrollView';
 import {GQL, Layout, FontSizes} from '../constants';
+import {ticketState} from '../context/ticketState';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
 import {MenuNavigationProp} from '../typings/navigation';
-import {getContactTwitter} from '../utils';
+import {getContactTwitter, getTickets} from '../utils';
 
 type DeferredAttendeesContentProps = {
   aquery: string;
@@ -34,7 +29,7 @@ export default function Attendees() {
   const [search, setSearch] = useState('');
 
   const throttleDelayMs = 200;
-  let throttleTimeout: NodeJS.Timer;
+  let throttleTimeout: number;
   const queryThrottle = (text: string) => {
     setSearch(text);
     if (throttleTimeout) {
@@ -79,8 +74,9 @@ export default function Attendees() {
 function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
   const navigation = useNavigation<MenuNavigationProp<'Attendees'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
+  const [tickets, setTickets] = useRecoilState(ticketState);
   const [uuid, setUuid] = useState('');
-  let timer: NodeJS.Timer;
+  let timer: number;
 
   useEffect(() => {
     _getUuid();
@@ -93,15 +89,17 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
         clearTimeout(timer);
       }
     };
-  }, []);
+  }, [tickets]);
 
   async function _getUuid() {
-    const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-    if (!value) {
-      return null;
+    let userTickets: User[] = [];
+    if (!tickets) {
+      userTickets = await getTickets();
+      setTickets(userTickets);
+    } else {
+      userTickets = tickets;
     }
-    const tickets: User[] = JSON.parse(value) || [];
-    tickets.map((ticket) => {
+    userTickets.map((ticket) => {
       if (ticket?.checkinLists) {
         ticket.checkinLists.map((ch) => {
           if (ch?.mainEvent) {
