@@ -222,3 +222,12 @@ export async function getTickets() {
   }
   return null;
 }
+
+export async function updateTickets(tickets: string) {
+  try {
+    await AsyncStorage.setItem('@MySuperStore2019:tickets', tickets);
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+}
