@@ -1,17 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {
-  TouchableOpacity,
-  AsyncStorage,
-  FlatList,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {TouchableOpacity, FlatList, StyleSheet, View} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
+import {useRecoilState} from 'recoil';
 
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {RegularText} from '../components/StyledText';
+import {ticketState} from '../context/ticketState';
 import {Event, User, CheckinList} from '../typings/data';
 import {AppNavigationProp} from '../typings/navigation';
+import {getTickets} from '../utils';
 
 type Props = {
   event: Event;
@@ -51,18 +48,20 @@ export function StaffCheckinListRow(props: StaffCheckinListRowProps) {
 
 export default function StaffCheckinLists(props: Props) {
   const [staffCheckinLists, setStaffCheckinLists] = useState<CheckinList[]>([]);
+  const [tickets, setTickets] = useRecoilState(ticketState);
   const [uuid, setUuid] = useState('');
 
-  async function getTickets() {
+  async function getCheckinLists() {
+    let userTickets: User[] = [];
     try {
-      const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-      if (!value) {
-        return;
+      if (!tickets) {
+        userTickets = await getTickets();
+        setTickets(userTickets);
       }
-      const json: User[] = JSON.parse(value) || [];
+      const checkTicket = tickets ? tickets : userTickets;
       let staffCheckinListsArray: CheckinList[] = [];
       let uuid = '';
-      json.map((ticket) => {
+      checkTicket.map((ticket) => {
         if (ticket?.staffCheckinLists && ticket.staffCheckinLists.length > 0) {
           staffCheckinListsArray = ticket.staffCheckinLists as CheckinList[];
         }
@@ -79,8 +78,8 @@ export default function StaffCheckinLists(props: Props) {
   }
 
   useEffect(() => {
-    getTickets();
-  }, []);
+    getCheckinLists();
+  }, [tickets]);
 
   const _renderItem = ({item}: {item: CheckinList}) => {
     return (
