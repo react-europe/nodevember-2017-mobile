@@ -211,6 +211,7 @@ export const getContactTwitter = (contact: User | Attendee): string => {
 };
 
 export async function getTickets() {
+  console.log("It's time to fetch some ticket !");
   try {
     const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
     if (value) {
