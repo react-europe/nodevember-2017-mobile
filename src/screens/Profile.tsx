@@ -65,10 +65,12 @@ function DeferredProfileContent() {
           </PrimaryButton>
         </LinkButton>
       ) : null}
-      <Tickets
-        tickets={tickets}
-        style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
-      />
+      {tickets && (
+        <Tickets
+          tickets={tickets}
+          style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
+        />
+      )}
     </AnimatableView>
   );
 }
