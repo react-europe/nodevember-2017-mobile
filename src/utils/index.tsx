@@ -220,7 +220,7 @@ export async function getTickets() {
   } catch (err) {
     console.log(err);
   }
-  return null;
+  return [];
 }
 
 export async function updateTickets(tickets: string) {

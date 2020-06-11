@@ -83,14 +83,14 @@ export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
         return;
       }
 
+      let userTickets: User[] = [];
       if (!tickets) {
-        const userTickets = await getTickets();
-        setTickets(userTickets);
+        userTickets = await getTickets();
       }
       let newTickets: User[] = [];
       let found = false;
 
-      const existingTickets: User[] = tickets ? tickets : [];
+      const existingTickets: User[] = tickets ? tickets : userTickets;
       existingTickets.map((ticket) => {
         if (ticket && me && me.ref && ticket.ref === me.ref) {
           found = true;
