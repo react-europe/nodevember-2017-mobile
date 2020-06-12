@@ -1,6 +1,6 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {ScrollView, AsyncStorage, View, InteractionManager} from 'react-native';
+import {ScrollView, View, InteractionManager} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {useRecoilState} from 'recoil';
 
@@ -8,26 +8,21 @@ import BottomFAB from '../components/BottomFAB';
 import MyContacts from '../components/MyContacts';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
+import {contactState} from '../context/contactState';
 import {ticketState} from '../context/ticketState';
-import {Attendee} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
-import {getTickets} from '../utils';
+import {getTickets, getContacts} from '../utils';
 
 export default function Contacts() {
   const navigation = useNavigation<PrimaryTabNavigationProp<'Contacts'>>();
   const [ready, setReady] = useState(false);
   const [tickets, setTickets] = useRecoilState(ticketState);
-  const [contacts, setContacts] = useState<Attendee[]>([]);
+  const [contacts, setContacts] = useRecoilState(contactState);
 
   async function getContent() {
-    try {
-      const value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
-      if (value) {
-        setContacts(JSON.parse(value));
-      }
-    } catch (err) {
-      console.log(err);
-      setContacts([]);
+    if (!contacts) {
+      const userContact = await getContacts();
+      setContacts(userContact);
     }
     if (!tickets) {
       const userTickets = await getTickets();
@@ -43,7 +38,7 @@ export default function Contacts() {
       InteractionManager.runAfterInteractions(() => {
         getContent();
       });
-    }, [tickets])
+    }, [tickets, contacts])
   );
 
   const _handlePressProfileQRButton = () => {
@@ -67,12 +62,8 @@ export default function Contacts() {
                 You need to scan your ticket first
               </SemiBoldText>
             </PrimaryButton>
-          ) : (
-            <SemiBoldText fontSize="md" TextColorAccent>
-              Hey
-            </SemiBoldText>
-          )}
-          {tickets && (
+          ) : null}
+          {tickets && contacts && (
             <MyContacts
               contacts={contacts}
               tickets={tickets}
