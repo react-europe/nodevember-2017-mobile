@@ -10,7 +10,6 @@ import {
   Platform,
   Image,
   StyleSheet,
-  AsyncStorage,
   View,
   InteractionManager,
 } from 'react-native';
@@ -27,13 +26,15 @@ import {SemiBoldText} from '../components/StyledText';
 import TalksUpNext from '../components/TalksUpNext';
 import {Colors, Layout} from '../constants';
 import DataContext from '../context/DataContext';
+import {contactState} from '../context/contactState';
 import {ticketState} from '../context/ticketState';
-import {User} from '../typings/data';
+import {Attendee} from '../typings/data';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {
   HideWhenConferenceHasEnded,
   ShowWhenConferenceHasEnded,
   getTickets,
+  getContacts,
 } from '../utils';
 import {saveNewContact} from '../utils/storage';
 import useHeaderHeight from '../utils/useHeaderHeight';
@@ -200,6 +201,7 @@ function DeferredHomeContent() {
   const navigation = useNavigation<PrimaryTabNavigationProp<'Home'>>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [tickets, setTickets] = useRecoilState(ticketState);
+  const [contacts, setContacts] = useRecoilState(contactState);
   let _notificationSubscription: EventSubscription | null = null;
 
   useFocusEffect(
@@ -223,15 +225,25 @@ function DeferredHomeContent() {
     };
   }, []);
 
-  const _handleNotification = (notification: Notification) => {
+  const _handleNotification = async (notification: Notification) => {
+    let userContacts: Attendee[] = [];
+    let newContatcts: Attendee[] = [];
     if (notification.data && notification.data.action) {
       switch (notification.data.action) {
         case 'newURL':
           WebBrowser.openBrowserAsync(notification.data.url);
           break;
         case 'newContact':
-          console.log(notification);
-          saveNewContact(notification.data.data);
+          if (!contacts) {
+            userContacts = await getContacts();
+          } else {
+            userContacts = contacts;
+          }
+          newContatcts = await saveNewContact(
+            notification.data.data,
+            userContacts
+          );
+          setContacts(newContatcts);
           navigation.navigate('Contacts');
           break;
         default:
