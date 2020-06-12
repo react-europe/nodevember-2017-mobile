@@ -3,6 +3,7 @@ import {EventEmitter} from 'fbemitter';
 import React from 'react';
 import {AsyncStorage, Alert} from 'react-native';
 
+import {getContacts} from '.';
 import {Talk, Attendee} from '../typings/data';
 
 type Talks = {[key: string]: Talk};
@@ -107,35 +108,37 @@ export const withSaveState = <P extends object>(
   return <Component saved={false} {...(props as P)} />;
 };
 
-export function saveNewContact(contact: Attendee) {
-  AsyncStorage.getItem('@MySuperStore2019:contacts').then((storedContacts) => {
-    let contacts: Attendee[] = [];
-    const newContacts: Attendee[] = [];
-    let found = false;
-    if (storedContacts === null && contact && contact.firstName) {
-      contacts = [contact];
-    } else if (storedContacts) {
-      const existingContacts: Attendee[] = JSON.parse(storedContacts) || [];
-      existingContacts.map((existingContact) => {
-        if (
-          existingContact?.id &&
-          contact?.id &&
-          existingContact.id === contact.id
-        ) {
-          found = true;
-          newContacts.push(contact);
-        } else if (existingContact && existingContact.id) {
-          newContacts.push(existingContact);
-        }
-      });
-      if (!found && contact?.id) {
-        newContacts.push(contact);
-      }
-      contacts = newContacts;
+export async function saveNewContact(
+  contact: Attendee,
+  contacts: Attendee[] | null
+) {
+  let userContacts: Attendee[] = [];
+
+  if (!contacts) {
+    userContacts = await getContacts();
+  } else {
+    userContacts = contacts;
+  }
+  const newContacts: Attendee[] = [];
+  let found = false;
+  userContacts.map((existingContact) => {
+    if (
+      existingContact?.id &&
+      contact?.id &&
+      existingContact.id === contact.id
+    ) {
+      found = true;
+      newContacts.push(contact);
+    } else if (existingContact && existingContact.id) {
+      newContacts.push(existingContact);
     }
-    const stringifiedContacts = JSON.stringify(contacts);
-    AsyncStorage.setItem('@MySuperStore2019:contacts', stringifiedContacts);
   });
+  if (!found && contact?.id) {
+    newContacts.push(contact);
+  }
+  const stringifiedContacts = JSON.stringify(newContacts);
+  AsyncStorage.setItem('@MySuperStore2019:contacts', stringifiedContacts);
+  return newContacts;
 }
 
 export async function saveContactOnDevice(contact: Attendee) {
