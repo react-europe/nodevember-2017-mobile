@@ -144,46 +144,6 @@ export const openTwitter = async (twitter: string): Promise<any> => {
   }
 };
 
-export const addContact = async (contact: Attendee): Promise<void> => {
-  const storedContacts = await AsyncStorage.getItem(
-    '@MySuperStore2019:contacts'
-  );
-
-  let contacts: Attendee[] = [];
-  const newContacts: Attendee[] = [];
-  let found = false;
-  if (storedContacts === null && contact && contact.firstName) {
-    contacts = [contact];
-  } else {
-    const existingContacts = JSON.parse(storedContacts ? storedContacts : '[]');
-    // console.log('how many existing contacts', existingContacts.length);
-    existingContacts.map((existingContact: Attendee) => {
-      // console.log('existing contact', existingContact);
-      if (
-        existingContact &&
-        existingContact.id &&
-        contact &&
-        contact.id &&
-        existingContact.id === contact.id
-      ) {
-        found = true;
-        newContacts.push(contact);
-      } else if (existingContact && existingContact.id) {
-        newContacts.push(existingContact);
-      }
-    });
-    if (!found && contact && contact.id) {
-      newContacts.push(contact);
-    }
-    contacts = newContacts;
-  }
-  const stringifiedContacts = JSON.stringify(contacts);
-  return AsyncStorage.setItem(
-    '@MySuperStore2019:contacts',
-    stringifiedContacts
-  );
-};
-
 export const saveSchedule = async (schedule: EventType): Promise<void> => {
   return AsyncStorage.setItem(
     '@MySuperStore2019:schedule',
@@ -233,7 +193,6 @@ export async function updateTickets(tickets: string) {
 }
 
 export async function getContacts() {
-  console.log("Let's getch some contacts !");
   try {
     const value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
     if (value) {
