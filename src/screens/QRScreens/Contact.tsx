@@ -4,9 +4,9 @@ import {useRecoilState} from 'recoil';
 import {GQL} from '../../constants';
 import {ticketState} from '../../context/ticketState';
 import QR_CONTACT_QUERY from '../../data/qrContactQuery';
-import {User, Attendee} from '../../typings/data';
+import {User} from '../../typings/data';
 import {AppNavigationProp} from '../../typings/navigation';
-import {addContact, getTickets} from '../../utils';
+import {getTickets} from '../../utils';
 import client from '../../utils/gqlClient';
 import {saveNewContact} from '../../utils/storage';
 import QRScreen from './QRScreen';
@@ -31,7 +31,7 @@ export default function QRContactScannerModalNavigation(props: Props) {
     }
     let uuid = '';
     const contactRef = data;
-    userTickets.map(async (ticket: User) => {
+    for (const ticket of userTickets) {
       if (ticket.checkinLists) {
         ticket.checkinLists.map((ch) => {
           if (ch?.mainEvent && ticket?.uuid) {
@@ -47,22 +47,9 @@ export default function QRContactScannerModalNavigation(props: Props) {
       });
       if (scannedContact?.data?.events[0]?.attendees[0]) {
         const contact = scannedContact.data.events[0].attendees[0];
-        // console.log('new contact', contact);
-        // console.log('new contact query', QR_CONTACT_QUERY);
-        // console.log('new contact query variables', variables);
         saveNewContact(contact);
         props.navigation.navigate('Home', {screen: 'Contacts'});
       }
-    });
-    const variables = {slug: GQL.slug, uuid, q: contactRef};
-    const scannedContact = await client.query({
-      query: QR_CONTACT_QUERY,
-      variables,
-    });
-    if (scannedContact?.data?.events[0]?.attendees[0]) {
-      const contact: Attendee = scannedContact.data.events[0].attendees[0];
-      await addContact(contact);
-      props.navigation.navigate('Home', {screen: 'Contacts'});
     }
   };
 
