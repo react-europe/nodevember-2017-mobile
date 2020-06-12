@@ -231,3 +231,17 @@ export async function updateTickets(tickets: string) {
     return [];
   }
 }
+
+export async function getContacts() {
+  console.log("Let's getch some contacts !");
+  try {
+    const value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
+    if (value) {
+      const contacts: Attendee[] = JSON.parse(value);
+      return contacts;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  return [];
+}
