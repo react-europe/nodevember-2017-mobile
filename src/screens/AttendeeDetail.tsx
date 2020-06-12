@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {useTheme, Theme} from 'react-native-paper';
+import {useRecoilState} from 'recoil';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import GravatarImage from '../components/GravatarImage';
@@ -17,16 +18,18 @@ import NavigationBar from '../components/NavigationBar';
 import PrimaryButton from '../components/PrimaryButton';
 import {RegularText, SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
+import {contactState} from '../context/contactState';
 import {Attendee} from '../typings/data';
 import {MenuTabProps} from '../typings/navigation';
-import {openTwitter, addContact, getContactTwitter} from '../utils';
-import {saveContactOnDevice} from '../utils/storage';
+import {openTwitter, getContactTwitter, getContacts} from '../utils';
+import {saveContactOnDevice, saveNewContact} from '../utils/storage';
 import useHeaderHeight from '../utils/useHeaderHeight';
 
 export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
+  const [contacts, setContacts] = useRecoilState(contactState);
 
   const _handlePressTwitter = () => {
     const {attendee}: {attendee: Attendee} = props.route.params;
@@ -48,7 +51,14 @@ export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
 
   const _handleAddToContacts = async () => {
     const {attendee}: {attendee: Attendee} = props.route.params;
-    await addContact(attendee);
+    let userContacts: Attendee[] = [];
+    if (!contacts) {
+      userContacts = await getContacts();
+    } else {
+      userContacts = contacts;
+    }
+    const newContatcts = await saveNewContact(attendee, userContacts);
+    setContacts(newContatcts);
     await saveContactOnDevice(attendee);
     props.navigation.navigate('Contacts');
   };
