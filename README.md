@@ -8,5 +8,5 @@
 
 - `yarn global add expo-cli`
 - Clone this repo, cd into it, run `yarn`
-- `expo start`
+- `cd packages/event-app && expo start`
 - Scan the QR code from your phone. Alternatively, in another terminal window run `expo ios` and/or `expo android` to open in simulator.
