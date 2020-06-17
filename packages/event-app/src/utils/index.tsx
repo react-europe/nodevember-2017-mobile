@@ -204,3 +204,16 @@ export async function getContacts() {
   }
   return [];
 }
+
+export function isSharingInfo(tickets: User[] | null) {
+  if (!tickets) return;
+  for (const ticket of tickets) {
+    if (!ticket.staffCheckinLists) continue;
+    for (const checkIn of ticket.staffCheckinLists) {
+      if (checkIn?.mainEvent === true && ticket.shareInfo === true) {
+        return true;
+      }
+    }
+  }
+  return tickets[0].shareInfo;
+}

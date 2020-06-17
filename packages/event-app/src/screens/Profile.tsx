@@ -11,7 +11,8 @@ import {SemiBoldText} from '../components/StyledText';
 import Tickets from '../components/Tickets';
 import {ticketState} from '../context/ticketState';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
-import {getTickets} from '../utils';
+import {getTickets, isSharingInfo} from '../utils';
+import {User} from '../typings/data';
 
 function Profile() {
   const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
@@ -34,6 +35,7 @@ function DeferredProfileContent() {
   const [ready, setReady] = useState(Platform.OS !== 'android');
 
   const [tickets, setTickets] = useRecoilState(ticketState);
+  const shareInfo = isSharingInfo(tickets);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -64,7 +66,18 @@ function DeferredProfileContent() {
             </SemiBoldText>
           </PrimaryButton>
         </LinkButton>
-      ) : null}
+      ) : (
+        <PrimaryButton>
+          <SemiBoldText fontSize="md" TextColorAccent>
+            {shareInfo ? 'Disable share info' : 'Enable share info'}
+          </SemiBoldText>
+        </PrimaryButton>
+      )}
+      {tickets &&
+        tickets.map((ticket) => {
+          console.log(ticket.shareInfo);
+          console.log(ticket.uuid);
+        })}
       {tickets && (
         <Tickets
           tickets={tickets}
