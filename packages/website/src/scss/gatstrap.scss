@@ -1,0 +1,35 @@
+// Colors
+//
+// Grayscale and brand colors for use across Bootstrap.
+
+// Start with assigning color names to specific hex values.
+//
+// Color system
+//
+
+// Fonts
+//
+@import './fonts.scss';
+
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+
+.gatsby-image-wrapper:hover:not(.no-animation) img {
+  animation: pulse 0.5s;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
