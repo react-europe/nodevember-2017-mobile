@@ -1,0 +1,16 @@
+{
+  "extends": ["config:base"],
+  "automerge": true,
+  "major": {
+    "automerge": false
+  },
+  "packageRules": [
+    {
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["major", "minor", "patch"],
+      "groupName": "devDependencies"
+    }
+  ],
+  "schedule": ["before 8am on Monday"],
+  "timezone": "Asia/Tokyo"
+}
