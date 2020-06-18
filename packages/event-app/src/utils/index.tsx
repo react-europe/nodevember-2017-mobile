@@ -205,7 +205,7 @@ export async function getContacts() {
   return [];
 }
 
-export function isSharingInfo(tickets: User[] | null) {
+export function checkSharingInfo(tickets: User[] | null) {
   if (!tickets) return;
   for (const ticket of tickets) {
     if (!ticket.staffCheckinLists) continue;

@@ -9,10 +9,10 @@ import LinkButton from '../components/LinkButton';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import Tickets from '../components/Tickets';
+import ShareInfo from '../components/shareInfo';
 import {ticketState} from '../context/ticketState';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
-import {getTickets, isSharingInfo} from '../utils';
-import {User} from '../typings/data';
+import {getTickets, checkSharingInfo} from '../utils';
 
 function Profile() {
   const navigation = useNavigation<PrimaryTabNavigationProp<'Profile'>>();
@@ -33,9 +33,10 @@ function Profile() {
 
 function DeferredProfileContent() {
   const [ready, setReady] = useState(Platform.OS !== 'android');
+  const [visible, setVisible] = useState(false);
 
   const [tickets, setTickets] = useRecoilState(ticketState);
-  const shareInfo = isSharingInfo(tickets);
+  const isSharingInfo = checkSharingInfo(tickets);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -67,9 +68,9 @@ function DeferredProfileContent() {
           </PrimaryButton>
         </LinkButton>
       ) : (
-        <PrimaryButton>
+        <PrimaryButton onPress={() => setVisible(true)}>
           <SemiBoldText fontSize="md" TextColorAccent>
-            {shareInfo ? 'Disable share info' : 'Enable share info'}
+            {isSharingInfo ? 'Disable share info' : 'Enable share info'}
           </SemiBoldText>
         </PrimaryButton>
       )}
@@ -84,6 +85,7 @@ function DeferredProfileContent() {
           style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
         />
       )}
+      <ShareInfo isSharingInfo visible={visible} setVisible={setVisible} />
     </AnimatableView>
   );
 }
