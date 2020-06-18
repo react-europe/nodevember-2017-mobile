@@ -205,15 +205,34 @@ export async function getContacts() {
   return [];
 }
 
-export function checkSharingInfo(tickets: User[] | null) {
-  if (!tickets) return;
+export function getMainEventTicket(tickets: User[]) {
   for (const ticket of tickets) {
-    if (!ticket.staffCheckinLists) continue;
-    for (const checkIn of ticket.staffCheckinLists) {
-      if (checkIn?.mainEvent === true && ticket.shareInfo === true) {
-        return true;
+    if (!ticket.checkinLists) continue;
+    for (const checkIn of ticket.checkinLists) {
+      if (checkIn?.mainEvent === true) {
+        console.log('UUID: ', ticket.uuid);
+        console.log('shareInfo: ', ticket.shareInfo);
+        return ticket;
       }
     }
   }
-  return tickets[0].shareInfo;
+  return null;
+}
+
+export function checkSharingInfo(tickets: User[] | null) {
+  if (!tickets) return false;
+  const mainTicket = getMainEventTicket(tickets);
+  if (mainTicket) {
+    return mainTicket.shareInfo ? mainTicket?.shareInfo : false;
+  }
+  return false;
+}
+
+export function getUuid(tickets: User[] | null) {
+  if (!tickets) return '';
+  const mainTicket = getMainEventTicket(tickets);
+  if (mainTicket) {
+    return mainTicket.uuid ? mainTicket.uuid : '';
+  }
+  return '';
 }

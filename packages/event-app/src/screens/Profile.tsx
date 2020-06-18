@@ -74,18 +74,17 @@ function DeferredProfileContent() {
           </SemiBoldText>
         </PrimaryButton>
       )}
-      {tickets &&
-        tickets.map((ticket) => {
-          console.log(ticket.shareInfo);
-          console.log(ticket.uuid);
-        })}
       {tickets && (
         <Tickets
           tickets={tickets}
           style={{marginTop: 20, marginHorizontal: 15, marginBottom: 2}}
         />
       )}
-      <ShareInfo isSharingInfo visible={visible} setVisible={setVisible} />
+      <ShareInfo
+        isSharingInfo={isSharingInfo}
+        visible={visible}
+        setVisible={setVisible}
+      />
     </AnimatableView>
   );
 }
