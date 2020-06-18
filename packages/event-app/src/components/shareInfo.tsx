@@ -5,7 +5,7 @@ import {useRecoilState} from 'recoil';
 
 import {ticketState} from '../context/ticketState';
 import {User} from '../typings/data';
-import {getUuid} from '../utils';
+import {getUuid, updateTickets} from '../utils';
 import client from '../utils/gqlClient';
 
 const UPDATE_SHARING_INFO = gql`
@@ -42,6 +42,7 @@ export default function ShareInfo(props: ShareInfoProps) {
       if (index === -1) return;
       userTickets[index].shareInfo = !isSharingInfo;
       setTickets(userTickets);
+      await updateTickets(JSON.stringify(userTickets));
     } catch (e) {
       console.log(e);
     }
@@ -57,10 +58,7 @@ export default function ShareInfo(props: ShareInfoProps) {
         <Dialog.Content>
           <Paragraph>
             - You will {isSharingInfo && 'not '}be searchable by other attendees
-          </Paragraph>
-          <Paragraph>
-            - You will {isSharingInfo && 'not '}be able to search for other
-            attendees
+            by name and email
           </Paragraph>
         </Dialog.Content>
         <Dialog.Actions>
