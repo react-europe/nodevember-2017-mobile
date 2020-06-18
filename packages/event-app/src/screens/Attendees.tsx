@@ -5,16 +5,24 @@ import {Query} from 'react-apollo';
 import {Platform, Text, StyleSheet, View, LayoutAnimation} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Searchbar} from 'react-native-paper';
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 import OverscrollView from '../components/OverscrollView';
+import PrimaryButton from '../components/PrimaryButton';
+import {SemiBoldText} from '../components/StyledText';
+import ShareInfo from '../components/shareInfo';
 import {GQL, Layout, FontSizes} from '../constants';
 import {ticketState} from '../context/ticketState';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
 import {MenuNavigationProp} from '../typings/navigation';
-import {getContactTwitter, getTickets, getUuid} from '../utils';
+import {
+  getContactTwitter,
+  getTickets,
+  getUuid,
+  checkSharingInfo,
+} from '../utils';
 
 type DeferredAttendeesContentProps = {
   aquery: string;
@@ -27,6 +35,9 @@ type QueryAttendees = {
 export default function Attendees() {
   const [aquery, setAquery] = useState('');
   const [search, setSearch] = useState('');
+  const tickets = useRecoilValue(ticketState);
+  const isSharingInfo = checkSharingInfo(tickets);
+  const [visible, setVisible] = useState(false);
 
   const throttleDelayMs = 200;
   let throttleTimeout: number;
@@ -67,6 +78,20 @@ export default function Attendees() {
       />
       <DeferredAttendeesContent aquery={aquery} />
       <OverscrollView />
+      {!isSharingInfo && tickets && (
+        <>
+          <PrimaryButton onPress={() => setVisible(true)}>
+            <SemiBoldText fontSize="md" TextColorAccent>
+              Make yourself searchable
+            </SemiBoldText>
+          </PrimaryButton>
+          <ShareInfo
+            isSharingInfo={isSharingInfo}
+            visible={visible}
+            setVisible={setVisible}
+          />
+        </>
+      )}
     </View>
   );
 }
