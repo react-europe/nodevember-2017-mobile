@@ -14,7 +14,7 @@ import {ticketState} from '../context/ticketState';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
 import {MenuNavigationProp} from '../typings/navigation';
-import {getContactTwitter, getTickets} from '../utils';
+import {getContactTwitter, getTickets, getUuid} from '../utils';
 
 type DeferredAttendeesContentProps = {
   aquery: string;
@@ -99,15 +99,8 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
     } else {
       userTickets = tickets;
     }
-    userTickets.map((ticket) => {
-      if (ticket?.checkinLists) {
-        ticket.checkinLists.map((ch) => {
-          if (ch?.mainEvent) {
-            setUuid(ticket.uuid ? ticket.uuid : '');
-          }
-        });
-      }
-    });
+    const userUuid = getUuid(userTickets);
+    setUuid(userUuid);
   }
 
   const _handlePressRow = (attendee: Attendee) => {
