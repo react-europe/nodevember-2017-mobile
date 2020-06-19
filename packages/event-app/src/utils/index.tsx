@@ -210,8 +210,6 @@ export function getMainEventTicket(tickets: User[]) {
     if (!ticket.checkinLists) continue;
     for (const checkIn of ticket.checkinLists) {
       if (checkIn?.mainEvent === true) {
-        console.log('UUID: ', ticket.uuid);
-        console.log('shareInfo: ', ticket.shareInfo);
         return ticket;
       }
     }
