@@ -113,7 +113,13 @@ export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
         setTickets(newTickets);
         await updateTickets(stringifiedTickets);
         registerForPushNotificationsAsync(variables.uuid);
-        props.navigation.navigate('Home', {screen: 'Profile'});
+        props.navigation.navigate('Home', {
+          screen: 'Profile',
+          params: {
+            screen: 'Profile',
+            params: {displayShareInfo: newTickets?.length === 1},
+          },
+        });
       }
       // expected output: Array [1, 2, 3]
     } catch (e) {

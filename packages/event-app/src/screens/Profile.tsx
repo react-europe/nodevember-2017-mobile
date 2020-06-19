@@ -1,5 +1,9 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import React, {useState, useEffect} from 'react';
 import {Platform, ScrollView, View, InteractionManager} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {useRecoilState} from 'recoil';
@@ -11,7 +15,10 @@ import {SemiBoldText} from '../components/StyledText';
 import Tickets from '../components/Tickets';
 import ShareInfo from '../components/shareInfo';
 import {ticketState} from '../context/ticketState';
-import {PrimaryTabNavigationProp} from '../typings/navigation';
+import {
+  PrimaryTabNavigationProp,
+  ProfileRouteProp,
+} from '../typings/navigation';
 import {getTickets, checkSharingInfo} from '../utils';
 
 function Profile() {
@@ -32,11 +39,18 @@ function Profile() {
 }
 
 function DeferredProfileContent() {
+  const route = useRoute<ProfileRouteProp>();
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [visible, setVisible] = useState(false);
 
   const [tickets, setTickets] = useRecoilState(ticketState);
   const isSharingInfo = checkSharingInfo(tickets);
+
+  useEffect(() => {
+    if (route?.params?.displayShareInfo === true && isSharingInfo === false) {
+      setVisible(true);
+    }
+  }, [route]);
 
   useFocusEffect(
     React.useCallback(() => {

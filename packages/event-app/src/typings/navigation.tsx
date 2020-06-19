@@ -9,7 +9,7 @@ import {User, CheckedinAttendee, CheckinList, Attendee} from './data';
 /** App */
 
 export type AppStackParamList = {
-  Home: {screen: keyof PrimaryTabParamList};
+  Home: {screen: keyof PrimaryTabParamList; params?: any};
   AttendeeDetail: {attendee: Attendee};
   TicketInstructions: {ticket: User};
   CheckedInAttendeeInfo: {checkedInAttendee: CheckedinAttendee};
@@ -38,7 +38,7 @@ export type AppProps<T extends keyof AppStackParamList> = {
 
 export type PrimaryTabParamList = {
   Home: {screen: keyof PrimaryTabParamList};
-  Profile: undefined;
+  Profile: {displayShareInfo?: boolean};
   Schedule: undefined;
   Contacts: undefined;
   Menu: undefined;
@@ -64,7 +64,7 @@ export type PrimaryTabProps<T extends keyof PrimaryTabParamList> = {
 /** Profile */
 
 export type ProfileStackParamList = {
-  Profile: undefined;
+  Profile: {displayShareInfo?: boolean};
 };
 
 export type ProfileRouteProp = RouteProp<ProfileStackParamList, 'Profile'>;
