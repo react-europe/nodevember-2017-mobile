@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    paddingTop: 80,
+    paddingTop: 10,
   },
   micIcon: {
     position: 'absolute',
