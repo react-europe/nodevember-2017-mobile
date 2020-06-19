@@ -1,18 +1,11 @@
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import orderBy from 'lodash/orderBy';
 import React, {useState, useEffect} from 'react';
 import {Query} from 'react-apollo';
-import {
-  Platform,
-  Text,
-  StyleSheet,
-  View,
-  LayoutAnimation,
-  InteractionManager,
-} from 'react-native';
+import {Platform, Text, StyleSheet, View, LayoutAnimation} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Searchbar} from 'react-native-paper';
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 import OverscrollView from '../components/OverscrollView';
@@ -42,7 +35,7 @@ type QueryAttendees = {
 export default function Attendees() {
   const [aquery, setAquery] = useState('');
   const [search, setSearch] = useState('');
-  const [tickets, setTickets] = useRecoilState(ticketState);
+  const tickets = useRecoilValue(ticketState);
   const isSharingInfo = checkSharingInfo(tickets);
   const [visible, setVisible] = useState(false);
 
@@ -59,17 +52,6 @@ export default function Attendees() {
       setAquery(text);
     }, throttleDelayMs);
   };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      InteractionManager.runAfterInteractions(async () => {
-        if (!tickets) {
-          const userTickets = await getTickets();
-          setTickets(userTickets);
-        }
-      });
-    }, [tickets])
-  );
 
   useEffect(() => {
     return function unmount() {
