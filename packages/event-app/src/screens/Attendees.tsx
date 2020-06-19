@@ -1,11 +1,18 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import orderBy from 'lodash/orderBy';
 import React, {useState, useEffect} from 'react';
 import {Query} from 'react-apollo';
-import {Platform, Text, StyleSheet, View, LayoutAnimation} from 'react-native';
+import {
+  Platform,
+  Text,
+  StyleSheet,
+  View,
+  LayoutAnimation,
+  InteractionManager,
+} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {Searchbar} from 'react-native-paper';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState} from 'recoil';
 
 import AttendeesSearchResults from '../components/AttendeesSearchResults';
 import OverscrollView from '../components/OverscrollView';
@@ -35,7 +42,7 @@ type QueryAttendees = {
 export default function Attendees() {
   const [aquery, setAquery] = useState('');
   const [search, setSearch] = useState('');
-  const tickets = useRecoilValue(ticketState);
+  const [tickets, setTickets] = useRecoilState(ticketState);
   const isSharingInfo = checkSharingInfo(tickets);
   const [visible, setVisible] = useState(false);
 
@@ -53,6 +60,17 @@ export default function Attendees() {
     }, throttleDelayMs);
   };
 
+  useFocusEffect(
+    React.useCallback(() => {
+      InteractionManager.runAfterInteractions(async () => {
+        if (!tickets) {
+          const userTickets = await getTickets();
+          setTickets(userTickets);
+        }
+      });
+    }, [tickets])
+  );
+
   useEffect(() => {
     return function unmount() {
       if (throttleTimeout) {
@@ -67,17 +85,12 @@ export default function Attendees() {
         onChangeText={(text: string) => queryThrottle(text)}
         placeholder="Search for conference attendees"
         inputStyle={{fontSize: FontSizes.sm}}
-        style={[
-          styles.textInput,
-          Platform.OS === 'web' ? styles.textInputWeb : styles.textInputMobile,
-        ]}
+        style={[styles.textInput, Platform.OS === 'web' && styles.textInputWeb]}
         autoCapitalize="none"
         autoCorrect={false}
         clearButtonMode="while-editing"
         value={search}
       />
-      <DeferredAttendeesContent aquery={aquery} />
-      <OverscrollView />
       {!isSharingInfo && tickets && (
         <>
           <PrimaryButton onPress={() => setVisible(true)}>
@@ -92,6 +105,8 @@ export default function Attendees() {
           />
         </>
       )}
+      <DeferredAttendeesContent aquery={aquery} />
+      <OverscrollView />
     </View>
   );
 }
@@ -230,11 +245,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 0,
     borderColor: 'black',
-  },
-  textInputMobile: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
   },
   textInputWeb: {
     width: 400,
