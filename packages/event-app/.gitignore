@@ -4,3 +4,4 @@ npm-debug.*
 web-build/
 .cache/
 public/
+.env

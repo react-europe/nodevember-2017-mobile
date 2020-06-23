@@ -1,4 +1,6 @@
 import {Dimensions, Platform} from 'react-native';
+// @ts-ignore
+import {GQL_URI, GQL_SLUG} from 'react-native-dotenv';
 
 const X_WIDTH = 375;
 const X_HEIGHT = 812;
@@ -36,8 +38,8 @@ export const FontSizes = {
 };
 
 export const GQL = {
-  uri: 'https://www.react-europe.org/gql',
-  slug: 'reacteurope-2019',
+  uri: GQL_URI,
+  slug: GQL_SLUG,
   // uri: "http://192.168.1.32:4449/gql",
   //    uri: "https://a6bb05ac.ngrok.io",
   //    slug: "cluster-test"
