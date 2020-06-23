@@ -6,7 +6,19 @@
 
 ## Get it running on your machine
 
+- Clone this repo, cd into it, run `yarn install`
+
+### Run the mobile application
+
 - `yarn global add expo-cli`
-- Clone this repo, cd into it, run `yarn`
-- `cd packages/event-app && expo start`
+- `cd packages/event-app`
+- `yarn install`
+- `expo start`
 - Scan the QR code from your phone. Alternatively, in another terminal window run `expo ios` and/or `expo android` to open in simulator.
+
+### Run the website
+
+- `yarn global add gatsby-cli`
+- `cd packages/website`
+- `yarn install`
+- `gatsby develop`
