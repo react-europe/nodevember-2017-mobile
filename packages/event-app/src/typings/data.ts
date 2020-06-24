@@ -1,4 +1,5 @@
 export type Maybe<T> = T | null;
+export type Exact<T extends {[key: string]: any}> = {[K in keyof T]: T[K]};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -291,6 +292,8 @@ export type Attendee = {
   /** @deprecated Field no longer supported */
   canCheckin?: Maybe<Scalars['Boolean']>;
   /** @deprecated Field no longer supported */
+  comboName?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
   email?: Maybe<Scalars['String']>;
   /** @deprecated Field no longer supported */
   firstName?: Maybe<Scalars['String']>;
@@ -372,6 +375,22 @@ export type Collaborator = {
   url?: Maybe<Scalars['String']>;
 };
 
+export type ComboType = {
+  __typename?: 'comboType';
+  /** @deprecated Field no longer supported */
+  createdAt?: Maybe<Scalars['DateType']>;
+  /** @deprecated Field no longer supported */
+  disabled?: Maybe<Scalars['Boolean']>;
+  /** @deprecated Field no longer supported */
+  id?: Maybe<Scalars['Int']>;
+  /** @deprecated Field no longer supported */
+  name?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  ticketId?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  uuid?: Maybe<Scalars['String']>;
+};
+
 export type CommentPost = {
   __typename?: 'CommentPost';
   /** @deprecated Field no longer supported */
@@ -386,6 +405,24 @@ export type CommentPost = {
   text?: Maybe<Scalars['String']>;
   /** @deprecated Field no longer supported */
   userId?: Maybe<Scalars['Int']>;
+};
+
+export type ContestType = {
+  __typename?: 'contestType';
+  /** @deprecated Field no longer supported */
+  attendees?: Maybe<Array<Maybe<Attendee>>>;
+  /** @deprecated Field no longer supported */
+  createdAt?: Maybe<Scalars['DateType']>;
+  /** @deprecated Field no longer supported */
+  disabled?: Maybe<Scalars['Boolean']>;
+  /** @deprecated Field no longer supported */
+  id?: Maybe<Scalars['Int']>;
+  /** @deprecated Field no longer supported */
+  name?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  sponsorId?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  uuid?: Maybe<Scalars['String']>;
 };
 
 export type Discount = {
@@ -459,6 +496,8 @@ export type Event = {
   /** @deprecated Field no longer supported */
   collaborators?: Maybe<Array<Maybe<Collaborator>>>;
   /** @deprecated Field no longer supported */
+  contests?: Maybe<Array<Maybe<ContestType>>>;
+  /** @deprecated Field no longer supported */
   copyrightsLegend?: Maybe<Scalars['String']>;
   /** @deprecated Field no longer supported */
   currencyCode?: Maybe<Scalars['String']>;
@@ -504,6 +543,8 @@ export type Event = {
   organizerEmail?: Maybe<Scalars['String']>;
   /** @deprecated Field no longer supported */
   organizers?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  otherEditions?: Maybe<Array<Maybe<MiniEvent>>>;
   /** @deprecated Field no longer supported */
   proposalFixedLength?: Maybe<Scalars['Boolean']>;
   /** @deprecated Field no longer supported */
@@ -630,6 +671,40 @@ export type Message = {
   receiverId?: Maybe<Scalars['Int']>;
 };
 
+export type MiniEvent = {
+  __typename?: 'MiniEvent';
+  /** @deprecated Field no longer supported */
+  description?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  endDate?: Maybe<Scalars['DateType']>;
+  /** @deprecated Field no longer supported */
+  id?: Maybe<Scalars['Int']>;
+  /** @deprecated Field no longer supported */
+  name?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  slug?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  startDate?: Maybe<Scalars['DateType']>;
+  /** @deprecated Field no longer supported */
+  tagLine?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  timezoneId?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  venueAddress?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  venueCity?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  venueCountry?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  venueLatitude?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  venueLongitude?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  venueName?: Maybe<Scalars['String']>;
+  /** @deprecated Field no longer supported */
+  venuePostalCode?: Maybe<Scalars['String']>;
+};
+
 export type Post = {
   __typename?: 'Post';
   /** @deprecated Field no longer supported */
@@ -741,9 +816,9 @@ export type RootMutation = {
 };
 
 export type RootMutationCommentPostArgs = {
-  text: Scalars['String'];
   uuid: Scalars['String'];
   postId?: Maybe<Scalars['Int']>;
+  text: Scalars['String'];
 };
 
 export type RootMutationCommentProposalArgs = {
@@ -759,64 +834,64 @@ export type RootMutationCreateCheckinArgs = {
 };
 
 export type RootMutationCreateCheckinlistArgs = {
+  includeInQrScan?: Maybe<Scalars['Boolean']>;
+  token: Scalars['String'];
   name: Scalars['String'];
   mainEvent?: Maybe<Scalars['Boolean']>;
   ticketIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
   eventId: Scalars['Int'];
   sponsor?: Maybe<Scalars['Boolean']>;
   includeInMobile?: Maybe<Scalars['Boolean']>;
-  includeInQrScan?: Maybe<Scalars['Boolean']>;
-  token: Scalars['String'];
 };
 
 export type RootMutationCreateCollaboratorArgs = {
+  firstName?: Maybe<Scalars['String']>;
   public?: Maybe<Scalars['Boolean']>;
-  twitter?: Maybe<Scalars['String']>;
   github?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
   deletedAt?: Maybe<Scalars['DateType']>;
-  token: Scalars['String'];
   eventId: Scalars['Int'];
+  lastName?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   role?: Maybe<Scalars['String']>;
+  twitter?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['DateType']>;
   updatedAt?: Maybe<Scalars['DateType']>;
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
+  token: Scalars['String'];
 };
 
 export type RootMutationCreateDiscountArgs = {
-  minPerOrder?: Maybe<Scalars['Int']>;
-  studentEmail?: Maybe<Scalars['String']>;
   eventId: Scalars['Int'];
   name: Scalars['String'];
-  endDate: Scalars['DateType'];
   description?: Maybe<Scalars['String']>;
-  percentage: Scalars['Int'];
-  emailDomain?: Maybe<Scalars['String']>;
-  contributionId?: Maybe<Scalars['Int']>;
-  startDate: Scalars['DateType'];
   quantity: Scalars['Int'];
   maxPerOrder: Scalars['Int'];
-  ticketIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  token: Scalars['String'];
+  minPerOrder?: Maybe<Scalars['Int']>;
+  percentage: Scalars['Int'];
   code?: Maybe<Scalars['String']>;
   contributorTicketId?: Maybe<Scalars['String']>;
+  token: Scalars['String'];
+  studentEmail?: Maybe<Scalars['String']>;
+  startDate: Scalars['DateType'];
+  endDate: Scalars['DateType'];
+  contributionId?: Maybe<Scalars['Int']>;
+  emailDomain?: Maybe<Scalars['String']>;
+  ticketIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
 };
 
 export type RootMutationCreateEventArgs = {
-  currencyCode?: Maybe<Scalars['String']>;
-  venueAddress?: Maybe<Scalars['String']>;
-  venueCountry?: Maybe<Scalars['String']>;
-  venueLatitude?: Maybe<Scalars['String']>;
   venuePostalCode?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  currencyCode?: Maybe<Scalars['String']>;
+  venueCity?: Maybe<Scalars['String']>;
+  venueCountry?: Maybe<Scalars['String']>;
+  venueAddress?: Maybe<Scalars['String']>;
+  venueLatitude?: Maybe<Scalars['String']>;
   venueLongitude?: Maybe<Scalars['String']>;
   token: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
   startDate?: Maybe<Scalars['DateType']>;
   endDate?: Maybe<Scalars['DateType']>;
   venueName?: Maybe<Scalars['String']>;
-  venueCity?: Maybe<Scalars['String']>;
 };
 
 export type RootMutationCreatePostArgs = {
@@ -827,98 +902,98 @@ export type RootMutationCreatePostArgs = {
 
 export type RootMutationCreateQuestionArgs = {
   required?: Maybe<Scalars['Boolean']>;
-  options?: Maybe<Scalars['String']>;
-  token: Scalars['String'];
-  eventId: Scalars['Int'];
+  type?: Maybe<Scalars['Int']>;
   title: Scalars['String'];
   description: Scalars['String'];
   public?: Maybe<Scalars['Boolean']>;
-  type?: Maybe<Scalars['Int']>;
+  options?: Maybe<Scalars['String']>;
   ticketIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  token: Scalars['String'];
+  eventId: Scalars['Int'];
 };
 
 export type RootMutationCreateSpeakerArgs = {
-  name: Scalars['String'];
   bio?: Maybe<Scalars['String']>;
-  agreeToCoc?: Maybe<Scalars['Boolean']>;
-  eventId: Scalars['Int'];
+  githubTempCode?: Maybe<Scalars['String']>;
+  public?: Maybe<Scalars['Boolean']>;
+  email?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  pastExperience?: Maybe<Scalars['String']>;
+  travelCosts?: Maybe<Scalars['Boolean']>;
+  status?: Maybe<Scalars['Int']>;
   twitter?: Maybe<Scalars['String']>;
   github?: Maybe<Scalars['String']>;
-  status?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  githubTempCode?: Maybe<Scalars['String']>;
-  travelCosts?: Maybe<Scalars['Boolean']>;
-  token: Scalars['String'];
-  public?: Maybe<Scalars['Boolean']>;
-  inputProposal?: Maybe<Scalars['AdminProposalTypeScalar']>;
-  displayOrder?: Maybe<Scalars['Int']>;
-  email?: Maybe<Scalars['String']>;
-  pastExperience?: Maybe<Scalars['String']>;
+  agreeToCoc?: Maybe<Scalars['Boolean']>;
   githubConnected?: Maybe<Scalars['Boolean']>;
+  displayOrder?: Maybe<Scalars['Int']>;
+  inputProposal?: Maybe<Scalars['AdminProposalTypeScalar']>;
+  token: Scalars['String'];
+  eventId: Scalars['Int'];
 };
 
 export type RootMutationCreateTicketArgs = {
-  allowTwitterDiscount?: Maybe<Scalars['Boolean']>;
-  customEventStartDate?: Maybe<Scalars['DateType']>;
-  customEventEndDate?: Maybe<Scalars['DateType']>;
-  sendToTwitter?: Maybe<Scalars['Boolean']>;
-  isSponsor?: Maybe<Scalars['Boolean']>;
-  tweetText?: Maybe<Scalars['String']>;
-  geoRestriction?: Maybe<Scalars['String']>;
-  showTicketsLeft?: Maybe<Scalars['Boolean']>;
-  facebookText?: Maybe<Scalars['String']>;
-  customEventVenueName?: Maybe<Scalars['String']>;
-  parents?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  busy?: Maybe<Scalars['Boolean']>;
-  includeVat?: Maybe<Scalars['Boolean']>;
-  isExclusive?: Maybe<Scalars['Boolean']>;
-  quantityLeft?: Maybe<Scalars['Int']>;
-  sendToFacebook?: Maybe<Scalars['Boolean']>;
-  price?: Maybe<Scalars['Int']>;
-  priceWithVat?: Maybe<Scalars['Int']>;
-  sponsorType?: Maybe<Scalars['Int']>;
-  twitterDiscountPercentage?: Maybe<Scalars['Int']>;
-  eventId: Scalars['Int'];
-  name: Scalars['String'];
-  allowStudentDiscount?: Maybe<Scalars['Boolean']>;
-  customEventVenueAddress?: Maybe<Scalars['String']>;
-  customEventVenueLongitude?: Maybe<Scalars['String']>;
-  token: Scalars['String'];
-  maxPerOrder?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['DateType']>;
   customEventVenueCity?: Maybe<Scalars['String']>;
-  childrenIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  studentDiscountQuantity?: Maybe<Scalars['Int']>;
-  uuid?: Maybe<Scalars['String']>;
-  soldOut?: Maybe<Scalars['Boolean']>;
-  sendToSubscribersEmails?: Maybe<Scalars['Boolean']>;
-  repoUrls?: Maybe<Array<Maybe<Scalars['String']>>>;
-  studentDiscountPercentage?: Maybe<Scalars['Int']>;
-  twitterDiscountQuantity?: Maybe<Scalars['Int']>;
-  githubDiscountsEnabled?: Maybe<Scalars['Boolean']>;
-  customEventVenueCountry?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['DateType']>;
-  quantity?: Maybe<Scalars['Int']>;
-  showTicketsBeforeStart?: Maybe<Scalars['Boolean']>;
-  showTicketsPriceBeforeStart?: Maybe<Scalars['Boolean']>;
-  displayOrder?: Maybe<Scalars['Int']>;
-  customEventVenueLatitude?: Maybe<Scalars['String']>;
-  availableTicketsWebhookTriggeredAt?: Maybe<Scalars['DateType']>;
-  priceWithoutVat?: Maybe<Scalars['Int']>;
-  private?: Maybe<Scalars['Boolean']>;
   iconType?: Maybe<Scalars['Int']>;
+  isForCustomEvent?: Maybe<Scalars['Boolean']>;
+  twitterDiscountQuantity?: Maybe<Scalars['Int']>;
+  repoUrls?: Maybe<Array<Maybe<Scalars['String']>>>;
+  priceWithoutVat?: Maybe<Scalars['Int']>;
+  includeVat?: Maybe<Scalars['Boolean']>;
+  isSponsor?: Maybe<Scalars['Boolean']>;
+  githubDiscountsEnabled?: Maybe<Scalars['Boolean']>;
+  twitterDiscountPercentage?: Maybe<Scalars['Int']>;
+  availableTicketsWebhookTriggeredAt?: Maybe<Scalars['DateType']>;
+  private?: Maybe<Scalars['Boolean']>;
+  quantityLeft?: Maybe<Scalars['Int']>;
+  sendToSubscribersEmails?: Maybe<Scalars['Boolean']>;
+  studentDiscountQuantity?: Maybe<Scalars['Int']>;
+  priceWithVat?: Maybe<Scalars['Int']>;
+  showTicketsPriceBeforeStart?: Maybe<Scalars['Boolean']>;
+  facebookText?: Maybe<Scalars['String']>;
+  customEventVenueCountry?: Maybe<Scalars['String']>;
+  studentDiscountPercentage?: Maybe<Scalars['Int']>;
+  createdAt?: Maybe<Scalars['DateType']>;
+  customEventEndDate?: Maybe<Scalars['DateType']>;
   showVat?: Maybe<Scalars['Boolean']>;
   thankYouText?: Maybe<Scalars['String']>;
+  allowStudentDiscount?: Maybe<Scalars['Boolean']>;
+  name: Scalars['String'];
+  startDate?: Maybe<Scalars['DateType']>;
   showDaysLeft?: Maybe<Scalars['Boolean']>;
-  emailText?: Maybe<Scalars['String']>;
-  isForCustomEvent?: Maybe<Scalars['Boolean']>;
-  deletedAt?: Maybe<Scalars['DateType']>;
-  endDate?: Maybe<Scalars['DateType']>;
-  description?: Maybe<Scalars['String']>;
   customEventVenuePostalCode?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  showTicketsBeforeStart?: Maybe<Scalars['Boolean']>;
+  sendToFacebook?: Maybe<Scalars['Boolean']>;
+  customEventVenueAddress?: Maybe<Scalars['String']>;
+  deletedAt?: Maybe<Scalars['DateType']>;
+  parents?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  endDate?: Maybe<Scalars['DateType']>;
+  quantity?: Maybe<Scalars['Int']>;
+  maxPerOrder?: Maybe<Scalars['Int']>;
   allowPaypal?: Maybe<Scalars['Boolean']>;
+  showTicketsLeft?: Maybe<Scalars['Boolean']>;
+  geoRestriction?: Maybe<Scalars['String']>;
+  customEventVenueName?: Maybe<Scalars['String']>;
+  customEventVenueLatitude?: Maybe<Scalars['String']>;
+  isExclusive?: Maybe<Scalars['Boolean']>;
+  allowTwitterDiscount?: Maybe<Scalars['Boolean']>;
+  displayOrder?: Maybe<Scalars['Int']>;
+  sponsorType?: Maybe<Scalars['Int']>;
+  sendToTwitter?: Maybe<Scalars['Boolean']>;
+  customEventStartDate?: Maybe<Scalars['DateType']>;
+  eventId: Scalars['Int'];
+  price?: Maybe<Scalars['Int']>;
+  soldOut?: Maybe<Scalars['Boolean']>;
+  childrenIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  token: Scalars['String'];
+  uuid?: Maybe<Scalars['String']>;
+  customEventVenueLongitude?: Maybe<Scalars['String']>;
+  busy?: Maybe<Scalars['Boolean']>;
+  tweetText?: Maybe<Scalars['String']>;
+  emailText?: Maybe<Scalars['String']>;
   quantitySold?: Maybe<Scalars['Int']>;
-  createdAt?: Maybe<Scalars['DateType']>;
+  updatedAt?: Maybe<Scalars['DateType']>;
 };
 
 export type RootMutationDeleteCollaboratorArgs = {
@@ -932,9 +1007,9 @@ export type RootMutationLikePostArgs = {
 };
 
 export type RootMutationSendMessageArgs = {
+  uuid: Scalars['String'];
   message: Scalars['String'];
   receiverId: Scalars['Int'];
-  uuid: Scalars['String'];
 };
 
 export type RootMutationSigninArgs = {
@@ -943,199 +1018,199 @@ export type RootMutationSigninArgs = {
 };
 
 export type RootMutationUpdateAttendeeArgs = {
+  expoPushToken?: Maybe<Scalars['String']>;
   shareInfo?: Maybe<Scalars['Boolean']>;
   uuid: Scalars['String'];
   FCMToken?: Maybe<Scalars['String']>;
-  expoPushToken?: Maybe<Scalars['String']>;
 };
 
 export type RootMutationUpdateCollaboratorArgs = {
-  email?: Maybe<Scalars['String']>;
-  twitter?: Maybe<Scalars['String']>;
-  github?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  createdAt?: Maybe<Scalars['DateType']>;
-  updatedAt?: Maybe<Scalars['DateType']>;
-  lastName?: Maybe<Scalars['String']>;
-  public?: Maybe<Scalars['Boolean']>;
-  deletedAt?: Maybe<Scalars['DateType']>;
-  firstName?: Maybe<Scalars['String']>;
-  role?: Maybe<Scalars['String']>;
   token: Scalars['String'];
   id: Scalars['Int'];
+  email?: Maybe<Scalars['String']>;
+  github?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  deletedAt?: Maybe<Scalars['DateType']>;
+  updatedAt?: Maybe<Scalars['DateType']>;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  public?: Maybe<Scalars['Boolean']>;
+  role?: Maybe<Scalars['String']>;
+  twitter?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['DateType']>;
 };
 
 export type RootMutationUpdateDiscountArgs = {
-  contributorTicketId?: Maybe<Scalars['String']>;
-  token: Scalars['String'];
-  emailDomain?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
   minPerOrder?: Maybe<Scalars['Int']>;
-  studentEmail?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['DateType']>;
-  endDate?: Maybe<Scalars['DateType']>;
-  maxPerOrder?: Maybe<Scalars['Int']>;
-  contributionId?: Maybe<Scalars['Int']>;
-  ticketIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  id: Scalars['Int'];
-  name?: Maybe<Scalars['String']>;
+  percentage?: Maybe<Scalars['Int']>;
   code?: Maybe<Scalars['String']>;
   eventId?: Maybe<Scalars['Int']>;
+  contributorTicketId?: Maybe<Scalars['String']>;
+  ticketIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  description?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['DateType']>;
+  endDate?: Maybe<Scalars['DateType']>;
+  id: Scalars['Int'];
+  emailDomain?: Maybe<Scalars['String']>;
+  contributionId?: Maybe<Scalars['Int']>;
+  maxPerOrder?: Maybe<Scalars['Int']>;
   quantity?: Maybe<Scalars['Int']>;
-  percentage?: Maybe<Scalars['Int']>;
+  studentEmail?: Maybe<Scalars['String']>;
+  token: Scalars['String'];
 };
 
 export type RootMutationUpdateEventArgs = {
-  venueCity?: Maybe<Scalars['String']>;
-  venuePostalCode?: Maybe<Scalars['String']>;
-  venueLatitude?: Maybe<Scalars['String']>;
-  facebookUrl?: Maybe<Scalars['String']>;
-  cfpRules?: Maybe<Scalars['String']>;
-  cfpStartDate?: Maybe<Scalars['DateType']>;
-  tagLine?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  showCompanyVatNumber?: Maybe<Scalars['Boolean']>;
-  twitterHandle?: Maybe<Scalars['String']>;
-  fontColor?: Maybe<Scalars['String']>;
   customDomain?: Maybe<Scalars['String']>;
-  cfpLengthLegend?: Maybe<Scalars['String']>;
-  themeId?: Maybe<Scalars['Int']>;
-  venueAddress?: Maybe<Scalars['String']>;
+  hotelsList?: Maybe<Scalars['String']>;
+  cfpRules?: Maybe<Scalars['String']>;
+  proposalLength?: Maybe<Scalars['Int']>;
+  proposalFixedLength?: Maybe<Scalars['Boolean']>;
+  sponsorPdfUrl?: Maybe<Scalars['String']>;
+  websiteUrl?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['DateType']>;
+  endDate?: Maybe<Scalars['DateType']>;
   cocUrl?: Maybe<Scalars['String']>;
-  googlePlusUrl?: Maybe<Scalars['String']>;
   organizers?: Maybe<Scalars['String']>;
   organizerEmail?: Maybe<Scalars['String']>;
-  gettingThereLegend?: Maybe<Scalars['String']>;
-  hotelsList?: Maybe<Scalars['String']>;
-  token: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
-  websiteUrl?: Maybe<Scalars['String']>;
-  copyrightsLegend?: Maybe<Scalars['String']>;
-  invoiceCompanyName?: Maybe<Scalars['String']>;
-  cfpEndDate?: Maybe<Scalars['DateType']>;
-  id: Scalars['Int'];
-  venueCountry?: Maybe<Scalars['String']>;
-  lanyrdUrl?: Maybe<Scalars['String']>;
-  speakersLegend?: Maybe<Scalars['String']>;
-  cfpForceGithub?: Maybe<Scalars['Boolean']>;
-  endDate?: Maybe<Scalars['DateType']>;
-  timezoneId?: Maybe<Scalars['String']>;
-  homepageGaId?: Maybe<Scalars['String']>;
-  invoiceVatNumber?: Maybe<Scalars['String']>;
-  proposalLength?: Maybe<Scalars['Int']>;
-  sponsorPdfUrl?: Maybe<Scalars['String']>;
-  mediumUrl?: Maybe<Scalars['String']>;
-  bgColor?: Maybe<Scalars['String']>;
-  scheduleLegend?: Maybe<Scalars['String']>;
-  venueLongitude?: Maybe<Scalars['String']>;
-  currencyCode?: Maybe<Scalars['String']>;
-  ticketsLegend?: Maybe<Scalars['String']>;
-  invoiceAddress?: Maybe<Scalars['String']>;
-  proposalFixedLength?: Maybe<Scalars['Boolean']>;
   venueName?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['DateType']>;
+  venueCountry?: Maybe<Scalars['String']>;
+  cfpLengthLegend?: Maybe<Scalars['String']>;
+  cfpForceGithub?: Maybe<Scalars['Boolean']>;
+  venueAddress?: Maybe<Scalars['String']>;
+  invoiceAddress?: Maybe<Scalars['String']>;
+  venueLatitude?: Maybe<Scalars['String']>;
+  cfpEndDate?: Maybe<Scalars['DateType']>;
+  venueLongitude?: Maybe<Scalars['String']>;
+  bgColor?: Maybe<Scalars['String']>;
+  fontColor?: Maybe<Scalars['String']>;
+  gettingThereLegend?: Maybe<Scalars['String']>;
+  invoiceCompanyName?: Maybe<Scalars['String']>;
+  tagLine?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  copyrightsLegend?: Maybe<Scalars['String']>;
+  cfpStartDate?: Maybe<Scalars['DateType']>;
+  mediumUrl?: Maybe<Scalars['String']>;
+  scheduleLegend?: Maybe<Scalars['String']>;
+  ticketsLegend?: Maybe<Scalars['String']>;
+  speakersLegend?: Maybe<Scalars['String']>;
+  invoiceVatNumber?: Maybe<Scalars['String']>;
+  venuePostalCode?: Maybe<Scalars['String']>;
+  timezoneId?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  venueCity?: Maybe<Scalars['String']>;
+  currencyCode?: Maybe<Scalars['String']>;
+  twitterHandle?: Maybe<Scalars['String']>;
+  facebookUrl?: Maybe<Scalars['String']>;
+  googlePlusUrl?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  token: Scalars['String'];
+  homepageGaId?: Maybe<Scalars['String']>;
+  showCompanyVatNumber?: Maybe<Scalars['Boolean']>;
+  lanyrdUrl?: Maybe<Scalars['String']>;
+  themeId?: Maybe<Scalars['Int']>;
 };
 
 export type RootMutationUpdateQuestionArgs = {
+  type?: Maybe<Scalars['Int']>;
+  id: Scalars['Int'];
+  title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  required?: Maybe<Scalars['Boolean']>;
+  public?: Maybe<Scalars['Boolean']>;
   options?: Maybe<Scalars['String']>;
   ticketIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
   token: Scalars['String'];
-  id: Scalars['Int'];
-  title?: Maybe<Scalars['String']>;
-  required?: Maybe<Scalars['Boolean']>;
-  public?: Maybe<Scalars['Boolean']>;
-  type?: Maybe<Scalars['Int']>;
 };
 
 export type RootMutationUpdateSpeakerArgs = {
-  name: Scalars['String'];
-  travelCosts?: Maybe<Scalars['Boolean']>;
+  inputProposal?: Maybe<Scalars['AdminProposalTypeScalar']>;
+  github?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  pastExperience?: Maybe<Scalars['String']>;
+  githubTempCode?: Maybe<Scalars['String']>;
   agreeToCoc?: Maybe<Scalars['Boolean']>;
+  displayOrder?: Maybe<Scalars['Int']>;
+  public?: Maybe<Scalars['Boolean']>;
+  travelCosts?: Maybe<Scalars['Boolean']>;
   githubConnected?: Maybe<Scalars['Boolean']>;
   status?: Maybe<Scalars['Int']>;
   token: Scalars['String'];
-  twitter?: Maybe<Scalars['String']>;
-  github?: Maybe<Scalars['String']>;
-  githubTempCode?: Maybe<Scalars['String']>;
-  displayOrder?: Maybe<Scalars['Int']>;
   id: Scalars['Int'];
-  url?: Maybe<Scalars['String']>;
-  bio?: Maybe<Scalars['String']>;
-  inputProposal?: Maybe<Scalars['AdminProposalTypeScalar']>;
-  public?: Maybe<Scalars['Boolean']>;
   email?: Maybe<Scalars['String']>;
-  pastExperience?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  twitter?: Maybe<Scalars['String']>;
 };
 
 export type RootMutationUpdateTicketArgs = {
-  allowTwitterDiscount?: Maybe<Scalars['Boolean']>;
-  customEventEndDate?: Maybe<Scalars['DateType']>;
-  iconType?: Maybe<Scalars['Int']>;
-  twitterDiscountQuantity?: Maybe<Scalars['Int']>;
-  emailText?: Maybe<Scalars['String']>;
-  isForCustomEvent?: Maybe<Scalars['Boolean']>;
-  twitterDiscountPercentage?: Maybe<Scalars['Int']>;
-  sendToSubscribersEmails?: Maybe<Scalars['Boolean']>;
+  geoRestriction?: Maybe<Scalars['String']>;
+  studentDiscountPercentage?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']>;
   quantityLeft?: Maybe<Scalars['Int']>;
+  sendToTwitter?: Maybe<Scalars['Boolean']>;
+  githubDiscountsEnabled?: Maybe<Scalars['Boolean']>;
+  customEventStartDate?: Maybe<Scalars['DateType']>;
   showDaysLeft?: Maybe<Scalars['Boolean']>;
-  sendToFacebook?: Maybe<Scalars['Boolean']>;
-  customEventVenueAddress?: Maybe<Scalars['String']>;
+  allowTwitterDiscount?: Maybe<Scalars['Boolean']>;
+  customEventVenueLongitude?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  isForCustomEvent?: Maybe<Scalars['Boolean']>;
+  childrenIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  repoUrls?: Maybe<Array<Maybe<Scalars['String']>>>;
   name?: Maybe<Scalars['String']>;
   priceWithoutVat?: Maybe<Scalars['Int']>;
-  soldOut?: Maybe<Scalars['Boolean']>;
-  customEventVenueLatitude?: Maybe<Scalars['String']>;
-  quantity?: Maybe<Scalars['Int']>;
-  studentDiscountQuantity?: Maybe<Scalars['Int']>;
-  childrenIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  id: Scalars['Int'];
-  deletedAt?: Maybe<Scalars['DateType']>;
-  startDate?: Maybe<Scalars['DateType']>;
-  includeVat?: Maybe<Scalars['Boolean']>;
-  tweetText?: Maybe<Scalars['String']>;
-  isSponsor?: Maybe<Scalars['Boolean']>;
-  isExclusive?: Maybe<Scalars['Boolean']>;
-  uuid?: Maybe<Scalars['String']>;
-  customEventVenueCity?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Int']>;
-  showVat?: Maybe<Scalars['Boolean']>;
-  customEventStartDate?: Maybe<Scalars['DateType']>;
-  customEventVenueLongitude?: Maybe<Scalars['String']>;
-  availableTicketsWebhookTriggeredAt?: Maybe<Scalars['DateType']>;
-  token: Scalars['String'];
   sponsorType?: Maybe<Scalars['Int']>;
-  displayOrder?: Maybe<Scalars['Int']>;
-  updatedAt?: Maybe<Scalars['DateType']>;
-  customEventVenuePostalCode?: Maybe<Scalars['String']>;
-  sendToTwitter?: Maybe<Scalars['Boolean']>;
-  showTicketsLeft?: Maybe<Scalars['Boolean']>;
-  thankYouText?: Maybe<Scalars['String']>;
-  allowStudentDiscount?: Maybe<Scalars['Boolean']>;
-  createdAt?: Maybe<Scalars['DateType']>;
+  availableTicketsWebhookTriggeredAt?: Maybe<Scalars['DateType']>;
   endDate?: Maybe<Scalars['DateType']>;
-  customEventVenueCountry?: Maybe<Scalars['String']>;
-  busy?: Maybe<Scalars['Boolean']>;
   private?: Maybe<Scalars['Boolean']>;
-  showTicketsPriceBeforeStart?: Maybe<Scalars['Boolean']>;
-  studentDiscountPercentage?: Maybe<Scalars['Int']>;
-  parents?: Maybe<Array<Maybe<Scalars['Int']>>>;
-  allowPaypal?: Maybe<Scalars['Boolean']>;
-  priceWithVat?: Maybe<Scalars['Int']>;
-  maxPerOrder?: Maybe<Scalars['Int']>;
-  showTicketsBeforeStart?: Maybe<Scalars['Boolean']>;
-  repoUrls?: Maybe<Array<Maybe<Scalars['String']>>>;
   quantitySold?: Maybe<Scalars['Int']>;
-  githubDiscountsEnabled?: Maybe<Scalars['Boolean']>;
-  facebookText?: Maybe<Scalars['String']>;
-  geoRestriction?: Maybe<Scalars['String']>;
-  customEventVenueName?: Maybe<Scalars['String']>;
+  showTicketsPriceBeforeStart?: Maybe<Scalars['Boolean']>;
+  customEventEndDate?: Maybe<Scalars['DateType']>;
+  token: Scalars['String'];
+  maxPerOrder?: Maybe<Scalars['Int']>;
+  showVat?: Maybe<Scalars['Boolean']>;
+  displayOrder?: Maybe<Scalars['Int']>;
+  customEventVenueLatitude?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['DateType']>;
   description?: Maybe<Scalars['String']>;
+  iconType?: Maybe<Scalars['Int']>;
+  allowPaypal?: Maybe<Scalars['Boolean']>;
+  includeVat?: Maybe<Scalars['Boolean']>;
+  emailText?: Maybe<Scalars['String']>;
+  twitterDiscountQuantity?: Maybe<Scalars['Int']>;
+  customEventVenueName?: Maybe<Scalars['String']>;
+  parents?: Maybe<Array<Maybe<Scalars['Int']>>>;
+  soldOut?: Maybe<Scalars['Boolean']>;
+  facebookText?: Maybe<Scalars['String']>;
+  isExclusive?: Maybe<Scalars['Boolean']>;
+  customEventVenuePostalCode?: Maybe<Scalars['String']>;
+  thankYouText?: Maybe<Scalars['String']>;
+  twitterDiscountPercentage?: Maybe<Scalars['Int']>;
+  updatedAt?: Maybe<Scalars['DateType']>;
+  showTicketsLeft?: Maybe<Scalars['Boolean']>;
+  showTicketsBeforeStart?: Maybe<Scalars['Boolean']>;
+  sendToFacebook?: Maybe<Scalars['Boolean']>;
+  allowStudentDiscount?: Maybe<Scalars['Boolean']>;
+  deletedAt?: Maybe<Scalars['DateType']>;
+  busy?: Maybe<Scalars['Boolean']>;
+  isSponsor?: Maybe<Scalars['Boolean']>;
+  studentDiscountQuantity?: Maybe<Scalars['Int']>;
+  createdAt?: Maybe<Scalars['DateType']>;
+  customEventVenueCountry?: Maybe<Scalars['String']>;
+  id: Scalars['Int'];
+  uuid?: Maybe<Scalars['String']>;
+  customEventVenueAddress?: Maybe<Scalars['String']>;
+  customEventVenueCity?: Maybe<Scalars['String']>;
+  priceWithVat?: Maybe<Scalars['Int']>;
+  sendToSubscribersEmails?: Maybe<Scalars['Boolean']>;
+  tweetText?: Maybe<Scalars['String']>;
 };
 
 export type RootMutationVoteProposalArgs = {
-  uuid: Scalars['String'];
   vote: Scalars['Int'];
   proposalId: Scalars['Int'];
+  uuid: Scalars['String'];
 };
 
 export type RootQuery = {
@@ -1308,6 +1383,8 @@ export type Ticket = {
   /** @deprecated Field no longer supported */
   childrenIds?: Maybe<Array<Maybe<Scalars['Int']>>>;
   /** @deprecated Field no longer supported */
+  combos?: Maybe<Array<Maybe<ComboType>>>;
+  /** @deprecated Field no longer supported */
   customEventEndDate?: Maybe<Scalars['DateType']>;
   /** @deprecated Field no longer supported */
   customEventStartDate?: Maybe<Scalars['DateType']>;
@@ -1343,6 +1420,8 @@ export type Ticket = {
   id?: Maybe<Scalars['Int']>;
   /** @deprecated Field no longer supported */
   includeVat?: Maybe<Scalars['Boolean']>;
+  /** @deprecated Field no longer supported */
+  isCombo?: Maybe<Scalars['Boolean']>;
   /** @deprecated Field no longer supported */
   isExclusive?: Maybe<Scalars['Boolean']>;
   /** @deprecated Field no longer supported */
