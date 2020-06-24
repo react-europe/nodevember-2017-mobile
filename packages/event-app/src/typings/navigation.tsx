@@ -106,7 +106,7 @@ export type ScheduleDayTabParamList = {
 
 // Type DynamicScheduleNavigation in the component
 export type ScheduleDayParamList = {
-  ScheduleDay: {day: string};
+  ScheduleDay: {day: string; date: string};
 };
 
 export type ScheduleDayRouteProp = RouteProp<

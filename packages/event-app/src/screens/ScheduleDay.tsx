@@ -49,11 +49,12 @@ function ScheduleRow(props: ScheduleRowProps) {
 
 export default function ScheduleDay(props: ScheduleDayProps) {
   const {event} = useContext(DataContext);
+  const params = props.route.params;
   let schedule: ScheduleDayType | null | undefined = undefined;
   if (event?.groupedSchedule) {
     schedule = event.groupedSchedule.find((schedule) => {
       if (schedule?.title) {
-        return schedule.title === props.route.params.day;
+        return schedule.title === params.day && schedule.date === params.date;
       }
       return false;
     });
