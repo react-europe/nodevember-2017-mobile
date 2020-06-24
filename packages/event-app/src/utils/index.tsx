@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import tz from 'moment-timezone/moment-timezone';
+import moment from 'moment-timezone';
 import React from 'react';
 import {Platform, Linking, AsyncStorage} from 'react-native';
 
@@ -9,6 +9,7 @@ import {
   Event as EventType,
   User,
   Attendee,
+  MiniEvent,
 } from '../typings/data';
 
 export function getSpeakerTalk(speaker: Speaker): Talk | undefined {
@@ -46,7 +47,7 @@ export function convertUtcDateToEventTimezone(
     d = new Date();
   }
   if (Event.timezoneId) {
-    return tz(d, Event.timezoneId);
+    return moment.tz(d, Event.timezoneId);
   }
   return null;
 }
@@ -54,7 +55,7 @@ export function convertUtcDateToEventTimezone(
 export function convertUtcDateToEventTimezoneHour(date: string): string | null {
   const d = new Date(date);
   if (Event.timezoneId) {
-    return tz(d, Event.timezoneId).format('hh:mma');
+    return moment.tz(d, Event.timezoneId).format('hh:mma');
   }
   return null;
 }
@@ -64,7 +65,7 @@ export function convertUtcDateToEventTimezoneDaytime(
 ): string | null {
   const d = new Date(date);
   if (Event.timezoneId) {
-    return tz(d, Event.timezoneId).format('dddd DD MMM, h:mma');
+    return moment.tz(d, Event.timezoneId).format('dddd DD MMM, h:mma');
   }
   return null;
 }
@@ -233,4 +234,15 @@ export function getUuid(tickets: User[] | null) {
     return mainTicket.uuid ? mainTicket.uuid : '';
   }
   return '';
+}
+
+export function displayNextEdition(currentEdition: MiniEvent) {
+  if (!Event.timezoneId || !Event.otherEditions) return;
+  const lastEdition = Event.otherEditions[Event.otherEditions.length - 1];
+  if (currentEdition.endDate !== lastEdition?.endDate) {
+    if (moment(currentEdition.endDate).isBefore(lastEdition?.endDate)) {
+      return true;
+    }
+  }
+  return false;
 }
