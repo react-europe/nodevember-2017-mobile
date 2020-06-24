@@ -128,6 +128,13 @@ const GET_SCHEDULE = gql`
           jobUrl
         }
       }
+      otherEditions {
+        id
+        name
+        slug
+        startDate
+        endDate
+      }
     }
   }
 `;
