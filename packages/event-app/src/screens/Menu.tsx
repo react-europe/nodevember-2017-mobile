@@ -68,12 +68,15 @@ function MenuScreen(props: Props) {
     if (key === 'Crew') return 'ios-information-circle';
     if (key === 'Sponsors') return 'ios-beer';
     if (key === 'Attendees') return 'ios-people';
+    if (key === 'Editions')
+      return Platform.OS === 'ios' ? 'ios-git-branch' : 'md-git-branch';
   }
   const screens: {key: keyof MenuStackParamList}[] = [
     {key: 'Speakers'},
     {key: 'Crew'},
     {key: 'Sponsors'},
     {key: 'Attendees'},
+    {key: 'Editions'},
   ];
   return (
     <View style={[{flex: 1}, Platform.OS === 'web' && styles.webMenuContainer]}>

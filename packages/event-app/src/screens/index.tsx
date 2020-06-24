@@ -4,6 +4,7 @@ import CheckedInAttendeeInfo from './CheckedInAttendeeInfo';
 import Contacts from './Contacts';
 import Crew from './Crew';
 import Details from './Details';
+import Editions from './Edtions';
 import Home from './Home';
 import Menu from './Menu';
 import Profile from './Profile';
@@ -28,4 +29,5 @@ export default {
   Attendees,
   AttendeeDetail,
   Menu,
+  Editions,
 };
