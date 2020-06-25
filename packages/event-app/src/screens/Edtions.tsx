@@ -1,12 +1,10 @@
 import React, {useContext} from 'react';
 import {FlatList, StyleSheet, View, AsyncStorage} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {useSetRecoilState} from 'recoil';
 
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
-import {editionState} from '../context/editionState';
 import {MiniEvent} from '../typings/data';
 
 type EditionRowProps = {
@@ -15,12 +13,10 @@ type EditionRowProps = {
 
 function EditionRow(props: EditionRowProps) {
   const {edition} = props;
-  const setEdition = useSetRecoilState(editionState);
 
   async function handlePress() {
     if (!edition.slug) return;
     try {
-      setEdition(edition.slug);
       await AsyncStorage.setItem('@MySuperStore2019:edition', edition.slug);
     } catch (err) {
       console.log(err);
