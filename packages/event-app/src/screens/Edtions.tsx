@@ -3,6 +3,7 @@ import {FlatList, StyleSheet, View, AsyncStorage} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {Portal, Dialog, Paragraph, Button} from 'react-native-paper';
 
+import ChangeEdition from '../components/ChangeEdition';
 import {BoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {MiniEvent} from '../typings/data';
@@ -36,20 +37,11 @@ function EditionRow(props: EditionRowProps) {
       <View style={styles.row}>
         <BoldText fontSize="sm">{edition.name}</BoldText>
       </View>
-      <Portal>
-        <Dialog visible={visible} onDismiss={() => setVisible(false)}>
-          <Dialog.Title>Change edition</Dialog.Title>
-          <Dialog.Content>
-            <Paragraph>
-              {edition.name} data will be used at your next app restart
-            </Paragraph>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={() => setVisible(false)}>Close</Button>
-            <Button onPress={handleChangeEdition}>Change edition</Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
+      <ChangeEdition
+        editionSlug={edition.slug as string}
+        visible={visible}
+        setVisible={setVisible}
+      />
     </TouchableOpacity>
   );
 }
