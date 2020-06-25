@@ -238,7 +238,7 @@ export function getUuid(tickets: User[] | null) {
 }
 
 export function displayNextEdition() {
-  if (!Event.timezoneId || !Event.otherEditions) return false;
+  if (!Event.slug) return false;
   if (Event.slug !== GQL.slug) {
     return true;
   }

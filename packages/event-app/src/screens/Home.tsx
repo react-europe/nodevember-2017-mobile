@@ -14,17 +14,19 @@ import {
   InteractionManager,
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTheme, Theme, Button} from 'react-native-paper';
 import {useRecoilState} from 'recoil';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
+import ChangeEdition from '../components/ChangeEdition';
 import LinkButton from '../components/LinkButton';
 import NavigationBar from '../components/NavigationBar';
 import OverscrollView from '../components/OverscrollView';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import TalksUpNext from '../components/TalksUpNext';
-import {Colors, Layout} from '../constants';
+import {Colors, Layout, GQL} from '../constants';
 import DataContext from '../context/DataContext';
 import {contactState} from '../context/contactState';
 import {ticketState} from '../context/ticketState';
@@ -204,6 +206,7 @@ function DeferredHomeContent() {
   const [tickets, setTickets] = useRecoilState(ticketState);
   const [contacts, setContacts] = useRecoilState(contactState);
   const [displayNext, setDisplayNext] = useState(false);
+  const [displayDialog, setDisplayDialog] = useState(false);
   let _notificationSubscription: EventSubscription | null = null;
 
   useFocusEffect(
@@ -314,12 +317,20 @@ function DeferredHomeContent() {
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
       {displayNext && (
         <View style={{marginHorizontal: 15, marginVertical: 10}}>
-          <SemiBoldText
-            style={{color: theme.colors.primary}}
-            fontSize="md"
-            TextColorAccent>
-            Next edition is coming on May 21st, 2021, check the new schedule!
-          </SemiBoldText>
+          <TouchableOpacity onPress={() => setDisplayDialog(true)}>
+            <SemiBoldText
+              style={{color: theme.colors.primary}}
+              fontSize="md"
+              TextColorAccent>
+              Next edition is coming on May 21st, 2021, check the new schedule!
+            </SemiBoldText>
+          </TouchableOpacity>
+
+          <ChangeEdition
+            editionSlug={GQL.slug}
+            visible={displayDialog}
+            setVisible={setDisplayDialog}
+          />
         </View>
       )}
       {isStaff ? (
