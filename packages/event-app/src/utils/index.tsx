@@ -237,13 +237,10 @@ export function getUuid(tickets: User[] | null) {
   return '';
 }
 
-export function displayNextEdition(currentEdition: MiniEvent) {
-  if (!Event.timezoneId || !Event.otherEditions) return;
-  const lastEdition = Event.otherEditions[Event.otherEditions.length - 1];
-  if (currentEdition.endDate !== lastEdition?.endDate) {
-    if (moment(currentEdition.endDate).isBefore(lastEdition?.endDate)) {
-      return true;
-    }
+export function displayNextEdition() {
+  if (!Event.timezoneId || !Event.otherEditions) return false;
+  if (Event.slug !== GQL.slug) {
+    return true;
   }
   return false;
 }

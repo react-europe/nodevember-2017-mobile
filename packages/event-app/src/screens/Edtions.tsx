@@ -16,7 +16,6 @@ function EditionRow(props: EditionRowProps) {
   const [visible, setVisible] = useState(false);
 
   async function handleChangeEdition() {
-    if (!edition.slug) return;
     try {
       await AsyncStorage.setItem(
         '@MySuperStore2019:edition',
