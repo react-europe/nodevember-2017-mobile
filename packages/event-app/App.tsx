@@ -20,6 +20,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {RecoilRoot} from 'recoil';
 
 import Providers from './src/components/Providers';
+import {GQL} from './src/constants';
 import DataContext from './src/context/DataContext';
 import GET_SCHEDULE from './src/data/schedulequery';
 import AppNavigator from './src/navigation/AppNavigator';

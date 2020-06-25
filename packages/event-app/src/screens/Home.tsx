@@ -35,6 +35,7 @@ import {
   ShowWhenConferenceHasEnded,
   getTickets,
   getContacts,
+  displayNextEdition,
 } from '../utils';
 import {saveNewContact} from '../utils/storage';
 import useHeaderHeight from '../utils/useHeaderHeight';
@@ -202,6 +203,7 @@ function DeferredHomeContent() {
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [tickets, setTickets] = useRecoilState(ticketState);
   const [contacts, setContacts] = useRecoilState(contactState);
+  const [displayNext, setDisplayNext] = useState(false);
   let _notificationSubscription: EventSubscription | null = null;
 
   useFocusEffect(
@@ -218,12 +220,20 @@ function DeferredHomeContent() {
 
   useEffect(() => {
     _notificationSubscription = Notifications.addListener(_handleNotification);
+    checkDisplayNextEdition();
     return function unmount() {
       if (_notificationSubscription) {
         _notificationSubscription.remove();
       }
     };
   }, []);
+
+  async function checkDisplayNextEdition() {
+    const display = displayNextEdition();
+    if (display !== displayNext) {
+      setDisplayNext(display);
+    }
+  }
 
   const _handleNotification = async (notification: Notification) => {
     let userContacts: Attendee[] = [];
@@ -302,6 +312,16 @@ function DeferredHomeContent() {
   }
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
+      {displayNext && (
+        <View style={{marginHorizontal: 15, marginVertical: 10}}>
+          <SemiBoldText
+            style={{color: theme.colors.primary}}
+            fontSize="md"
+            TextColorAccent>
+            Next edition is coming on May 21st, 2021, check the new schedule!
+          </SemiBoldText>
+        </View>
+      )}
       {isStaff ? (
         <LinkButton to="/StaffCheckinLists">
           <PrimaryButton>
