@@ -21,7 +21,7 @@ function EditionRow(props: EditionRowProps) {
     if (!edition.slug) return;
     try {
       setEdition(edition.slug);
-      await AsyncStorage.setItem('@MySuperStore2019:tickets', edition.slug);
+      await AsyncStorage.setItem('@MySuperStore2019:edition', edition.slug);
     } catch (err) {
       console.log(err);
     }
