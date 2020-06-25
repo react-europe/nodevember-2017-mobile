@@ -1,10 +1,12 @@
 import React, {useContext} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {FlatList, StyleSheet, View, AsyncStorage} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {useSetRecoilState} from 'recoil';
 
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
+import {editionState} from '../context/editionState';
 import {MiniEvent} from '../typings/data';
 
 type EditionRowProps = {
@@ -13,15 +15,24 @@ type EditionRowProps = {
 
 function EditionRow(props: EditionRowProps) {
   const {edition} = props;
+  const setEdition = useSetRecoilState(editionState);
 
-  const handlePress = async () => {
-    console.log('Pressed');
-  };
+  async function handlePress() {
+    if (!edition.slug) return;
+    try {
+      setEdition(edition.slug);
+      await AsyncStorage.setItem('@MySuperStore2019:tickets', edition.slug);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
-    <View style={styles.row}>
-      <BoldText fontSize="sm">{edition.name}</BoldText>
-    </View>
+    <TouchableOpacity onPress={handlePress}>
+      <View style={styles.row}>
+        <BoldText fontSize="sm">{edition.name}</BoldText>
+      </View>
+    </TouchableOpacity>
   );
 }
 
@@ -34,7 +45,6 @@ export default function Editions() {
   const _renderItem = ({item}: {item: MiniEvent}) => {
     return <EditionRow edition={item} />;
   };
-  console.log(editions);
 
   return (
     <LoadingPlaceholder>
