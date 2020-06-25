@@ -3,6 +3,7 @@ import moment from 'moment-timezone';
 import React from 'react';
 import {Platform, Linking, AsyncStorage} from 'react-native';
 
+import {GQL} from '../constants';
 import {
   Speaker,
   Talk,
@@ -245,4 +246,25 @@ export function displayNextEdition(currentEdition: MiniEvent) {
     }
   }
   return false;
+}
+
+export async function getValueFromStore(key: string) {
+  try {
+    const value = await AsyncStorage.getItem('@MySuperStore2019:' + key);
+    if (value) {
+      const parsedValue: any = JSON.parse(value);
+      return parsedValue;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  return null;
+}
+
+export async function getEdition() {
+  const edition = await getValueFromStore('edition');
+  if (!edition) {
+    return GQL.slug;
+  }
+  return edition;
 }
