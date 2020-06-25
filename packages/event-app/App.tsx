@@ -20,13 +20,12 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {RecoilRoot} from 'recoil';
 
 import Providers from './src/components/Providers';
-import {GQL} from './src/constants';
 import DataContext from './src/context/DataContext';
 import GET_SCHEDULE from './src/data/schedulequery';
 import AppNavigator from './src/navigation/AppNavigator';
 import linkingConfig from './src/navigation/linking';
 import {Event} from './src/typings/data';
-import {setEvent, saveSchedule} from './src/utils';
+import {setEvent, saveSchedule, getEdition} from './src/utils';
 import client from './src/utils/gqlClient';
 import {loadSavedTalksAsync} from './src/utils/storage';
 import {checkLargeScreen} from './src/utils/useScreenWidth';
@@ -142,10 +141,11 @@ export default function App() {
   };
 
   const _fetchEventFromNetworkAsync = async () => {
+    const edition = await getEdition();
     try {
       const result = await client.query({
         query: GET_SCHEDULE,
-        variables: {slug: GQL.slug},
+        variables: {slug: edition},
       });
       if (result?.data?.events[0]) {
         const event: Event = result.data.events[0];
