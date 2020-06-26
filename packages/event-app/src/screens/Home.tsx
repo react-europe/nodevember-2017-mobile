@@ -48,7 +48,7 @@ type HomeProps = {
 };
 
 export default function Home(props: HomeProps) {
-  const {initialLinkingUri} = useContext(DataContext);
+  const {initialLinkingUri, event} = useContext(DataContext);
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
@@ -190,7 +190,7 @@ export default function Home(props: HomeProps) {
               opacity: headerLogoOpacity,
               color: '#fff',
             }}>
-            React Europe 2019
+            {event?.name}
           </Animated.Text>
         )}
       />
