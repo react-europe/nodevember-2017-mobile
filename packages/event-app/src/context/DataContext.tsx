@@ -5,11 +5,13 @@ import {Event} from '../typings/data';
 type DataContext = {
   initialLinkingUri?: string;
   event?: Event;
+  setSchedule: (event: Event) => void;
 };
 
 const DataContext = createContext<DataContext>({
   initialLinkingUri: '',
   event: {},
+  setSchedule: () => {},
 });
 
 export const withData = <P extends DataContext>(
