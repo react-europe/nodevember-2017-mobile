@@ -234,6 +234,7 @@ export default function App() {
             value={{
               event: schedule,
               initialLinkingUri,
+              setSchedule,
             }}>
             <RecoilRoot>
               <Providers>

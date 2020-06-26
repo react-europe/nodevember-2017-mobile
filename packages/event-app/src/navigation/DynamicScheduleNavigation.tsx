@@ -22,10 +22,7 @@ export default function DynamicScheduleNavigation() {
         style: {backgroundColor: '#333'},
         activeTintColor: '#fff',
         scrollEnabled: true,
-      }}
-      screenOptions={({route}) => ({
-        tabBarLabel: route.name,
-      })}>
+      }}>
       {fullSchedule.map((day: ScheduleDay, index: number) => {
         const dayOccurence = occurence(fullSchedule, 'title', day.title);
         let dayTitle: string = day?.title
@@ -38,7 +35,8 @@ export default function DynamicScheduleNavigation() {
         return (
           <Tab.Screen
             key={index}
-            name={dayTitle}
+            name={`${event?.name}-${dayTitle}`}
+            options={{title: dayTitle}}
             component={Screens.ScheduleDay}
             initialParams={{
               day: day.title ? day.title : '',
