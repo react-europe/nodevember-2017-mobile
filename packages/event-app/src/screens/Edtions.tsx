@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
-import {FlatList, StyleSheet, View, AsyncStorage} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {Portal, Dialog, Paragraph, Button} from 'react-native-paper';
 
 import ChangeEdition from '../components/ChangeEdition';
 import {BoldText} from '../components/StyledText';
@@ -15,18 +14,6 @@ type EditionRowProps = {
 function EditionRow(props: EditionRowProps) {
   const {edition} = props;
   const [visible, setVisible] = useState(false);
-
-  async function handleChangeEdition() {
-    try {
-      await AsyncStorage.setItem(
-        '@MySuperStore2019:edition',
-        JSON.stringify(edition.slug)
-      );
-    } catch (err) {
-      console.log(err);
-    }
-    setVisible(false);
-  }
 
   async function handlePress() {
     setVisible(true);
