@@ -4,6 +4,7 @@ import {Notifications, Linking} from 'expo';
 import * as WebBrowser from 'expo-web-browser';
 import {Notification} from 'expo/build/Notifications/Notifications.types';
 import {EventSubscription} from 'fbemitter';
+import moment from 'moment';
 import React, {useEffect, useState, useContext} from 'react';
 import {
   Animated,
@@ -208,6 +209,10 @@ function DeferredHomeContent() {
   const [displayNext, setDisplayNext] = useState(false);
   const [displayDialog, setDisplayDialog] = useState(false);
   let _notificationSubscription: EventSubscription | null = null;
+  let lastEdition = null;
+  if (event?.otherEditions) {
+    lastEdition = event?.otherEditions[event.otherEditions?.length - 1];
+  }
 
   useFocusEffect(
     React.useCallback(() => {
@@ -319,19 +324,23 @@ function DeferredHomeContent() {
   }
   return (
     <AnimatableView animation="fadeIn" useNativeDriver duration={800}>
-      {displayNext && (
+      {displayNext && lastEdition && event?.timezoneId && (
         <View style={{marginHorizontal: 15, marginVertical: 10}}>
           <TouchableOpacity onPress={() => setDisplayDialog(true)}>
             <SemiBoldText
               style={{color: theme.colors.primary}}
               fontSize="md"
               TextColorAccent>
-              Next edition is coming on May 21st, 2021, check the new schedule!
+              Next edition is coming on{' '}
+              {moment
+                .tz(new Date(lastEdition.startDate), event.timezoneId)
+                .format('MMM Do, YYYY')}
+              , check the new schedule!
             </SemiBoldText>
           </TouchableOpacity>
 
           <ChangeEdition
-            editionSlug={GQL.slug}
+            editionSlug={lastEdition ? lastEdition.slug : GQL.slug}
             visible={displayDialog}
             setVisible={setDisplayDialog}
           />
@@ -381,9 +390,15 @@ function DeferredHomeContent() {
             <HideWhenConferenceHasEnded>
               See all talks →
             </HideWhenConferenceHasEnded>
-            <ShowWhenConferenceHasEnded>
-              See all 2019 talks →
-            </ShowWhenConferenceHasEnded>
+            {event?.timezoneId && (
+              <ShowWhenConferenceHasEnded>
+                See all{' '}
+                {moment
+                  .tz(new Date(event.startDate), event.timezoneId)
+                  .format('YYYY')}{' '}
+                talks →
+              </ShowWhenConferenceHasEnded>
+            )}
           </SemiBoldText>
         </Link>
       </View>
