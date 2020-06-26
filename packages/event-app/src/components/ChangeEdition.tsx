@@ -54,12 +54,10 @@ export default function ChangeEdition(props: ChangeEditionProps) {
       <Dialog visible={visible} onDismiss={() => setVisible(false)}>
         <Dialog.Title>Change edition</Dialog.Title>
         <Dialog.Content>
-          <Paragraph>
-            {editionSlug} data will be used at your next app restart
-          </Paragraph>
+          <Paragraph>Use {editionSlug} data.</Paragraph>
         </Dialog.Content>
         <Dialog.Actions>
-          <Button onPress={() => setVisible(false)}>Close</Button>
+          <Button onPress={() => setVisible(false)}>Cancel</Button>
           <Button onPress={handleChangeEdition}>Change edition</Button>
         </Dialog.Actions>
       </Dialog>
