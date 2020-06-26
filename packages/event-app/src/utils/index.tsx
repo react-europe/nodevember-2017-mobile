@@ -10,7 +10,6 @@ import {
   Event as EventType,
   User,
   Attendee,
-  MiniEvent,
 } from '../typings/data';
 
 export function getSpeakerTalk(speaker: Speaker): Talk | undefined {
@@ -237,9 +236,9 @@ export function getUuid(tickets: User[] | null) {
   return '';
 }
 
-export function displayNextEdition() {
-  if (!Event.slug) return false;
-  if (Event.slug !== GQL.slug) {
+export function displayNextEdition(event: EventType) {
+  if (!event.slug) return false;
+  if (event.slug !== GQL.slug) {
     return true;
   }
   return false;

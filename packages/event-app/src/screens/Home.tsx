@@ -223,7 +223,6 @@ function DeferredHomeContent() {
 
   useEffect(() => {
     _notificationSubscription = Notifications.addListener(_handleNotification);
-    checkDisplayNextEdition();
     return function unmount() {
       if (_notificationSubscription) {
         _notificationSubscription.remove();
@@ -231,8 +230,13 @@ function DeferredHomeContent() {
     };
   }, []);
 
+  useEffect(() => {
+    checkDisplayNextEdition();
+  }, [event]);
+
   async function checkDisplayNextEdition() {
-    const display = displayNextEdition();
+    if (!event) return;
+    const display = displayNextEdition(event);
     if (display !== displayNext) {
       setDisplayNext(display);
     }
