@@ -237,11 +237,13 @@ export function getUuid(tickets: User[] | null) {
 }
 
 export function displayNextEdition(event: EventType) {
-  if (!event.slug) return false;
-  if (event.slug !== GQL.slug) {
-    return true;
+  if (!event.otherEditions) return false;
+  const lastEvent = event.otherEditions[event.otherEditions?.length - 1];
+  const isCurrentAfter = moment(event.startDate).isAfter(lastEvent?.startDate);
+  if (isCurrentAfter) {
+    return false;
   }
-  return false;
+  return true;
 }
 
 export async function getValueFromStore(key: string) {
