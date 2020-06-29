@@ -1,7 +1,8 @@
-import React, {useContext} from 'react';
-import {AsyncStorage} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {AsyncStorage, Platform, ActivityIndicator, View} from 'react-native';
 import {Portal, Dialog, Paragraph, Button} from 'react-native-paper';
 
+import theme from '../constants/theme';
 import DataContext from '../context/DataContext';
 import GET_SCHEDULE from '../data/schedulequery';
 import {Event} from '../typings/data';
@@ -17,6 +18,7 @@ type ChangeEditionProps = {
 export default function ChangeEdition(props: ChangeEditionProps) {
   const {setSchedule} = useContext(DataContext);
   const {editionSlug, visible, setVisible} = props;
+  const [loading, setLoading] = useState(false);
 
   const fetchDataEdition = async (editionSlug: string) => {
     try {
@@ -38,6 +40,7 @@ export default function ChangeEdition(props: ChangeEditionProps) {
 
   async function handleChangeEdition() {
     try {
+      setLoading(true);
       await AsyncStorage.setItem(
         '@MySuperStore2019:edition',
         JSON.stringify(editionSlug)
@@ -47,19 +50,35 @@ export default function ChangeEdition(props: ChangeEditionProps) {
       console.log(err);
     }
     setVisible(false);
+    setLoading(false);
   }
 
+  if (!visible) {
+    return null;
+  }
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={() => setVisible(false)}>
-        <Dialog.Title>Change edition</Dialog.Title>
-        <Dialog.Content>
-          <Paragraph>Use {editionSlug} data.</Paragraph>
-        </Dialog.Content>
-        <Dialog.Actions>
-          <Button onPress={() => setVisible(false)}>Cancel</Button>
-          <Button onPress={handleChangeEdition}>Change edition</Button>
-        </Dialog.Actions>
+        {loading ? (
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <ActivityIndicator
+              color={Platform.OS === 'android' ? theme.colors.primary : '#888'}
+              size="large"
+            />
+          </View>
+        ) : (
+          <>
+            <Dialog.Title>Change edition</Dialog.Title>
+            <Dialog.Content>
+              <Paragraph>Use {editionSlug} data.</Paragraph>
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={() => setVisible(false)}>Cancel</Button>
+              <Button onPress={handleChangeEdition}>Change edition</Button>
+            </Dialog.Actions>
+          </>
+        )}
       </Dialog>
     </Portal>
   );
