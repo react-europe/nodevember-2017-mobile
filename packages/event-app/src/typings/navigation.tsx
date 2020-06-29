@@ -9,7 +9,7 @@ import {User, CheckedinAttendee, CheckinList, Attendee} from './data';
 /** App */
 
 export type AppStackParamList = {
-  Home: {screen: keyof PrimaryTabParamList; params?: any};
+  Home: {screen: keyof PrimaryTabParamList; params?: any} | undefined;
   AttendeeDetail: {attendee: Attendee};
   TicketInstructions: {ticket: User};
   CheckedInAttendeeInfo: {checkedInAttendee: CheckedinAttendee};
@@ -37,7 +37,7 @@ export type AppProps<T extends keyof AppStackParamList> = {
 /** Primary Tab */
 
 export type PrimaryTabParamList = {
-  Home: {screen: keyof PrimaryTabParamList};
+  Home: {screen?: keyof PrimaryTabParamList} | undefined;
   Profile: {displayShareInfo?: boolean};
   Schedule: undefined;
   Contacts: undefined;
