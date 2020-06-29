@@ -3,7 +3,7 @@ import {EventEmitter} from 'fbemitter';
 import React from 'react';
 import {AsyncStorage, Alert} from 'react-native';
 
-import {getContacts} from '.';
+import {getContacts, setValueInStore} from '.';
 import {Talk, Attendee} from '../typings/data';
 
 type Talks = {[key: string]: Talk};
@@ -136,8 +136,7 @@ export async function saveNewContact(
   if (!found && contact?.id) {
     newContacts.push(contact);
   }
-  const stringifiedContacts = JSON.stringify(newContacts);
-  AsyncStorage.setItem('@MySuperStore2019:contacts', stringifiedContacts);
+  await setValueInStore('contacts', newContacts);
   return newContacts;
 }
 

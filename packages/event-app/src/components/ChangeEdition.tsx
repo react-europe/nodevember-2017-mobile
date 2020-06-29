@@ -45,7 +45,7 @@ export default function ChangeEdition(props: ChangeEditionProps) {
     try {
       setLoading(true);
       await AsyncStorage.setItem(
-        '@MySuperStore2019:edition',
+        '@MySuperStore:edition',
         JSON.stringify(editionSlug)
       );
       await fetchDataEdition(editionSlug);

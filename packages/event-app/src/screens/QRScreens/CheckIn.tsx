@@ -3,6 +3,7 @@ import {Alert, AsyncStorage} from 'react-native';
 
 import QR_CHECKIN_QUERY from '../../data/qrCheckinQuery';
 import {AppProps} from '../../typings/navigation';
+import {getValueFromStore, setValueInStore} from '../../utils';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 
@@ -23,10 +24,8 @@ export default function QRCheckinScannerModalNavigation(
 
     setLoading(true);
     try {
-      const lastCheckedInRef = await AsyncStorage.getItem(
-        '@MySuperStore2019:lastCheckedInRef'
-      );
-      await AsyncStorage.setItem('@MySuperStore2019:lastCheckedInRef', data);
+      const lastCheckedInRef = await getValueFromStore('lastCheckedInRef');
+      await setValueInStore('lastCheckedInRef', data);
 
       if (data === lastCheckedInRef) {
         // bail out

@@ -13,7 +13,6 @@ import {
   StyleSheet,
   View,
   Text,
-  AsyncStorage,
   Dimensions,
 } from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -25,7 +24,12 @@ import GET_SCHEDULE from './src/data/schedulequery';
 import AppNavigator from './src/navigation/AppNavigator';
 import linkingConfig from './src/navigation/linking';
 import {Event} from './src/typings/data';
-import {setEvent, saveSchedule, getEdition} from './src/utils';
+import {
+  setEvent,
+  saveSchedule,
+  getEdition,
+  getValueFromStore,
+} from './src/utils';
 import client from './src/utils/gqlClient';
 import {loadSavedTalksAsync} from './src/utils/storage';
 import {checkLargeScreen} from './src/utils/useScreenWidth';
@@ -127,14 +131,13 @@ export default function App() {
   };
 
   const _fetchEventFromDiskAsync = async () => {
-    const schedule = await AsyncStorage.getItem('@MySuperStore2019:schedule');
+    const schedule = await getValueFromStore('schedule');
     if (!schedule) {
       return null;
     }
-    const event: Event = JSON.parse(schedule);
-    if (event && event.slug) {
-      _setEvent(event);
-      return event;
+    if (schedule && schedule.slug) {
+      _setEvent(schedule);
+      return schedule;
     } else {
       return null;
     }

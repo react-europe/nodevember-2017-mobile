@@ -10,7 +10,7 @@ import QR_QUERY from '../../data/qrQuery';
 import UPDATE_PUSH_TOKEN_QUERY from '../../data/updatePushTokenQuery';
 import {User} from '../../typings/data';
 import {AppProps} from '../../typings/navigation';
-import {updateTickets, getTickets} from '../../utils';
+import {getTickets, setValueInStore} from '../../utils';
 import client from '../../utils/gqlClient';
 import QRScreen from './QRScreen';
 
@@ -109,9 +109,8 @@ export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
       }
 
       if (newTickets && newTickets !== null && newTickets !== []) {
-        const stringifiedTickets = JSON.stringify(newTickets);
         setTickets(newTickets);
-        await updateTickets(stringifiedTickets);
+        await setValueInStore('tickets', newTickets);
         registerForPushNotificationsAsync(variables.uuid);
         props.navigation.navigate('Home', {
           screen: 'Profile',
