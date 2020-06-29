@@ -131,7 +131,8 @@ export default function App() {
   };
 
   const _fetchEventFromDiskAsync = async () => {
-    const schedule = await getValueFromStore('schedule');
+    const eventSlug = await getEdition();
+    const schedule = await getValueFromStore('schedule', eventSlug);
     if (!schedule) {
       return null;
     }

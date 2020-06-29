@@ -1,5 +1,5 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {ScrollView, View, InteractionManager} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {useRecoilState} from 'recoil';
@@ -8,6 +8,7 @@ import BottomFAB from '../components/BottomFAB';
 import MyContacts from '../components/MyContacts';
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
+import DataContext from '../context/DataContext';
 import {contactState} from '../context/contactState';
 import {ticketState} from '../context/ticketState';
 import {PrimaryTabNavigationProp} from '../typings/navigation';
@@ -18,14 +19,15 @@ export default function Contacts() {
   const [ready, setReady] = useState(false);
   const [tickets, setTickets] = useRecoilState(ticketState);
   const [contacts, setContacts] = useRecoilState(contactState);
+  const {event} = useContext(DataContext);
 
   async function getContent() {
     if (!contacts) {
       const userContact = await getContacts();
       setContacts(userContact);
     }
-    if (!tickets) {
-      const userTickets = await getTickets();
+    if (!tickets && event?.slug) {
+      const userTickets = await getTickets(event.slug);
       setTickets(userTickets);
     }
     if (!ready) {

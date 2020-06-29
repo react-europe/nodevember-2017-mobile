@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {TouchableOpacity, FlatList, StyleSheet, View} from 'react-native';
 import {ScrollView, RectButton} from 'react-native-gesture-handler';
 import {useRecoilState} from 'recoil';
 
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {RegularText} from '../components/StyledText';
+import DataContext from '../context/DataContext';
 import {ticketState} from '../context/ticketState';
 import {Event, User, CheckinList} from '../typings/data';
 import {AppNavigationProp} from '../typings/navigation';
@@ -50,12 +51,13 @@ export default function StaffCheckinLists(props: Props) {
   const [staffCheckinLists, setStaffCheckinLists] = useState<CheckinList[]>([]);
   const [tickets, setTickets] = useRecoilState(ticketState);
   const [uuid, setUuid] = useState('');
+  const {event} = useContext(DataContext);
 
   async function getCheckinLists() {
     let userTickets: User[] = [];
     try {
-      if (!tickets) {
-        userTickets = await getTickets();
+      if (!tickets && event?.slug) {
+        userTickets = await getTickets(event.slug);
         setTickets(userTickets);
       }
       const checkTicket = tickets ? tickets : userTickets;

@@ -1,10 +1,11 @@
 import {Notifications} from 'expo';
 import * as Permissions from 'expo-permissions';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {Alert} from 'react-native';
 import {useRecoilState} from 'recoil';
 
 import {GQL} from '../../constants';
+import DataContext from '../../context/DataContext';
 import {ticketState} from '../../context/ticketState';
 import QR_QUERY from '../../data/qrQuery';
 import UPDATE_PUSH_TOKEN_QUERY from '../../data/updatePushTokenQuery';
@@ -17,6 +18,7 @@ import QRScreen from './QRScreen';
 export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
   const [loading, setLoading] = useState(false);
   const [tickets, setTickets] = useRecoilState(ticketState);
+  const {event} = useContext(DataContext);
 
   useEffect(() => {
     if (props.route.params?.uuid) {
@@ -84,8 +86,8 @@ export default function QRScannerModalNavigation(props: AppProps<'QRScanner'>) {
       }
 
       let userTickets: User[] = [];
-      if (!tickets) {
-        userTickets = await getTickets();
+      if (!tickets && event?.slug) {
+        userTickets = await getTickets(event.slug);
       }
       let newTickets: User[] = [];
       let found = false;
