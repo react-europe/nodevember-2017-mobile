@@ -180,9 +180,9 @@ export async function getTickets(eventSlug: string) {
   return [];
 }
 
-export async function getContacts() {
+export async function getContacts(eventSlug: string) {
   try {
-    const contacts = await getValueFromStore('contacts');
+    const contacts = await getValueFromStore('contacts', eventSlug);
     if (contacts) {
       return contacts as Attendee[];
     }

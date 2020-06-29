@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Animated,
   Platform,
@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {useTheme, Theme} from 'react-native-paper';
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 
 import AnimatedScrollView from '../components/AnimatedScrollView';
 import GravatarImage from '../components/GravatarImage';
@@ -18,6 +18,7 @@ import NavigationBar from '../components/NavigationBar';
 import PrimaryButton from '../components/PrimaryButton';
 import {RegularText, SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
+import DataContext from '../context/DataContext';
 import {contactState} from '../context/contactState';
 import {Attendee} from '../typings/data';
 import {MenuTabProps} from '../typings/navigation';
@@ -29,7 +30,8 @@ export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
-  const [contacts, setContacts] = useRecoilState(contactState);
+  const setContacts = useSetRecoilState(contactState);
+  const {event} = useContext(DataContext);
 
   const _handlePressTwitter = () => {
     const {attendee}: {attendee: Attendee} = props.route.params;
@@ -52,15 +54,17 @@ export default function AttendeeDetail(props: MenuTabProps<'AttendeeDetail'>) {
   const _handleAddToContacts = async () => {
     const {attendee}: {attendee: Attendee} = props.route.params;
     let userContacts: Attendee[] = [];
-    if (!contacts) {
-      userContacts = await getContacts();
-    } else {
-      userContacts = contacts;
+    if (event?.slug) {
+      userContacts = await getContacts(event.slug);
+      const newContatcts = await saveNewContact(
+        attendee,
+        userContacts,
+        event.slug
+      );
+      setContacts(newContatcts);
+      await saveContactOnDevice(attendee);
+      props.navigation.navigate('Contacts');
     }
-    const newContatcts = await saveNewContact(attendee, userContacts);
-    setContacts(newContatcts);
-    await saveContactOnDevice(attendee);
-    props.navigation.navigate('Contacts');
   };
 
   const params = props.route.params || {};

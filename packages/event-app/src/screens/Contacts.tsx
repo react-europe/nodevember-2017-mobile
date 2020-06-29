@@ -1,6 +1,6 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useState, useContext} from 'react';
-import {ScrollView, View, InteractionManager} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState, useContext, useEffect} from 'react';
+import {ScrollView, View} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {useRecoilState} from 'recoil';
 
@@ -22,11 +22,9 @@ export default function Contacts() {
   const {event} = useContext(DataContext);
 
   async function getContent() {
-    if (!contacts) {
-      const userContact = await getContacts();
+    if (event?.slug) {
+      const userContact = await getContacts(event.slug);
       setContacts(userContact);
-    }
-    if (!tickets && event?.slug) {
       const userTickets = await getTickets(event.slug);
       setTickets(userTickets);
     }
@@ -35,13 +33,9 @@ export default function Contacts() {
     }
   }
 
-  useFocusEffect(
-    React.useCallback(() => {
-      InteractionManager.runAfterInteractions(() => {
-        getContent();
-      });
-    }, [tickets, contacts])
-  );
+  useEffect(() => {
+    getContent();
+  }, [event]);
 
   const _handlePressProfileQRButton = () => {
     navigation.navigate('QRScanner');

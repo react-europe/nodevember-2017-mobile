@@ -110,12 +110,13 @@ export const withSaveState = <P extends object>(
 
 export async function saveNewContact(
   contact: Attendee,
-  contacts: Attendee[] | null
+  contacts: Attendee[] | null,
+  eventSlug: string
 ) {
   let userContacts: Attendee[] = [];
 
   if (!contacts) {
-    userContacts = await getContacts();
+    userContacts = await getContacts(eventSlug);
   } else {
     userContacts = contacts;
   }
