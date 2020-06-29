@@ -52,7 +52,6 @@ function DeferredProfileContent() {
   async function fetchTicket() {
     if (!event?.slug) return;
     const userTickets = await getTickets(event.slug);
-    console.log(userTickets);
     setTickets(userTickets);
   }
 

@@ -256,16 +256,15 @@ function DeferredHomeContent() {
           WebBrowser.openBrowserAsync(notification.data.url);
           break;
         case 'newContact':
-          if (!contacts) {
-            userContacts = await getContacts();
-          } else {
-            userContacts = contacts;
+          if (event?.slug) {
+            userContacts = await getContacts(event?.slug);
+            newContatcts = await saveNewContact(
+              notification.data.data,
+              userContacts,
+              event.slug
+            );
+            setContacts(newContatcts);
           }
-          newContatcts = await saveNewContact(
-            notification.data.data,
-            userContacts
-          );
-          setContacts(newContatcts);
           navigation.navigate('Contacts');
           break;
         default:

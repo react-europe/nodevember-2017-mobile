@@ -50,9 +50,9 @@ export default function QRContactScannerModalNavigation(props: Props) {
         query: QR_CONTACT_QUERY,
         variables,
       });
-      if (scannedContact?.data?.events[0]?.attendees[0]) {
+      if (scannedContact?.data?.events[0]?.attendees[0] && event?.slug) {
         const contact = scannedContact.data.events[0].attendees[0];
-        const newContacts = await saveNewContact(contact, contacts);
+        const newContacts = await saveNewContact(contact, contacts, event.slug);
         setContacts(newContacts);
         props.navigation.navigate('Home', {screen: 'Contacts'});
       }
