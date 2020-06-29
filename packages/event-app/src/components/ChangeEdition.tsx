@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useState} from 'react';
 import {AsyncStorage, Platform, ActivityIndicator, View} from 'react-native';
 import {Portal, Dialog, Paragraph, Button} from 'react-native-paper';
@@ -6,6 +7,7 @@ import theme from '../constants/theme';
 import DataContext from '../context/DataContext';
 import GET_SCHEDULE from '../data/schedulequery';
 import {Event} from '../typings/data';
+import {PrimaryTabNavigationProp} from '../typings/navigation';
 import {setEvent, saveSchedule} from '../utils';
 import client from '../utils/gqlClient';
 
@@ -16,6 +18,7 @@ type ChangeEditionProps = {
 };
 
 export default function ChangeEdition(props: ChangeEditionProps) {
+  const navigation = useNavigation<PrimaryTabNavigationProp<'Home'>>();
   const {setSchedule} = useContext(DataContext);
   const {editionSlug, visible, setVisible} = props;
   const [loading, setLoading] = useState(false);
@@ -51,6 +54,7 @@ export default function ChangeEdition(props: ChangeEditionProps) {
     }
     setVisible(false);
     setLoading(false);
+    navigation.navigate('Home');
   }
 
   if (!visible) {
