@@ -146,10 +146,7 @@ export const openTwitter = async (twitter: string): Promise<any> => {
 };
 
 export const saveSchedule = async (schedule: EventType): Promise<void> => {
-  return AsyncStorage.setItem(
-    '@MySuperStore2019:schedule',
-    JSON.stringify(schedule)
-  );
+  await setValueInStore('schedule', schedule);
 };
 
 export const getContactTwitter = (contact: User | Attendee): string => {
@@ -173,10 +170,9 @@ export const getContactTwitter = (contact: User | Attendee): string => {
 
 export async function getTickets() {
   try {
-    const value = await AsyncStorage.getItem('@MySuperStore2019:tickets');
-    if (value) {
-      const tickets: User[] = JSON.parse(value);
-      return tickets;
+    const tickets = await getValueFromStore('tickets');
+    if (tickets) {
+      return tickets as User[];
     }
   } catch (err) {
     console.log(err);
@@ -184,21 +180,11 @@ export async function getTickets() {
   return [];
 }
 
-export async function updateTickets(tickets: string) {
-  try {
-    await AsyncStorage.setItem('@MySuperStore2019:tickets', tickets);
-  } catch (err) {
-    console.log(err);
-    return [];
-  }
-}
-
 export async function getContacts() {
   try {
-    const value = await AsyncStorage.getItem('@MySuperStore2019:contacts');
-    if (value) {
-      const contacts: Attendee[] = JSON.parse(value);
-      return contacts;
+    const contacts = await getValueFromStore('contacts');
+    if (contacts) {
+      return contacts as Attendee[];
     }
   } catch (err) {
     console.log(err);
@@ -247,8 +233,9 @@ export function displayNextEdition(event: EventType) {
 }
 
 export async function getValueFromStore(key: string) {
+  if (!Event.slug) return null;
   try {
-    const value = await AsyncStorage.getItem('@MySuperStore2019:' + key);
+    const value = await AsyncStorage.getItem(`@${Event.slug}Store:${key}`);
     if (value) {
       const parsedValue: any = JSON.parse(value);
       return parsedValue;
@@ -259,10 +246,23 @@ export async function getValueFromStore(key: string) {
   return null;
 }
 
+export async function setValueInStore(key: string, value: any) {
+  try {
+    await AsyncStorage.setItem(
+      `@${Event.slug}Store:${key}`,
+      JSON.stringify(value)
+    );
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function getEdition() {
-  const edition = await getValueFromStore('edition');
+  let edition = await AsyncStorage.getItem('@MySuperStore:edition');
   if (!edition) {
     return GQL.slug;
+  } else {
+    edition = JSON.parse(edition);
   }
   return edition;
 }

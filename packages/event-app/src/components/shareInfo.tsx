@@ -5,7 +5,7 @@ import {useRecoilState} from 'recoil';
 
 import {ticketState} from '../context/ticketState';
 import {User} from '../typings/data';
-import {getUuid, updateTickets} from '../utils';
+import {getUuid, setValueInStore} from '../utils';
 import client from '../utils/gqlClient';
 
 const UPDATE_SHARING_INFO = gql`
@@ -42,7 +42,7 @@ export default function ShareInfo(props: ShareInfoProps) {
       if (index === -1) return;
       userTickets[index].shareInfo = !isSharingInfo;
       setTickets(userTickets);
-      await updateTickets(JSON.stringify(userTickets));
+      await setValueInStore('tickets', userTickets);
     } catch (e) {
       console.log(e);
     }
