@@ -168,9 +168,9 @@ export const getContactTwitter = (contact: User | Attendee): string => {
     .replace('twitter.com/', '');
 };
 
-export async function getTickets() {
+export async function getTickets(eventSlug: string) {
   try {
-    const tickets = await getValueFromStore('tickets');
+    const tickets = await getValueFromStore('tickets', eventSlug);
     if (tickets) {
       return tickets as User[];
     }
@@ -232,10 +232,9 @@ export function displayNextEdition(event: EventType) {
   return true;
 }
 
-export async function getValueFromStore(key: string) {
-  if (!Event.slug) return null;
+export async function getValueFromStore(key: string, eventSlug: string) {
   try {
-    const value = await AsyncStorage.getItem(`@${Event.slug}Store:${key}`);
+    const value = await AsyncStorage.getItem(`@${eventSlug}Store:${key}`);
     if (value) {
       const parsedValue: any = JSON.parse(value);
       return parsedValue;

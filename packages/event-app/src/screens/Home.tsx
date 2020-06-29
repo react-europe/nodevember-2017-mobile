@@ -217,8 +217,8 @@ function DeferredHomeContent() {
   useFocusEffect(
     React.useCallback(() => {
       InteractionManager.runAfterInteractions(async () => {
-        if (!tickets) {
-          const userTickets = await getTickets();
+        if (!tickets && event?.slug) {
+          const userTickets = await getTickets(event.slug);
           setTickets(userTickets);
         }
         setReady(true);

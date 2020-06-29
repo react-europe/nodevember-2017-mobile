@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {Alert, AsyncStorage} from 'react-native';
 
+import DataContext from '../../context/DataContext';
 import QR_CHECKIN_QUERY from '../../data/qrCheckinQuery';
 import {AppProps} from '../../typings/navigation';
 import {getValueFromStore, setValueInStore} from '../../utils';
@@ -12,6 +13,7 @@ export default function QRCheckinScannerModalNavigation(
 ) {
   const [loading, setLoading] = useState(false);
   const params = props.route.params;
+  const {event} = useContext(DataContext);
 
   useEffect(() => {
     AsyncStorage.removeItem('@MySuperStore2019:lastCheckedInRef');
@@ -24,7 +26,11 @@ export default function QRCheckinScannerModalNavigation(
 
     setLoading(true);
     try {
-      const lastCheckedInRef = await getValueFromStore('lastCheckedInRef');
+      if (!event?.slug) return;
+      const lastCheckedInRef = await getValueFromStore(
+        'lastCheckedInRef',
+        event?.slug
+      );
       await setValueInStore('lastCheckedInRef', data);
 
       if (data === lastCheckedInRef) {

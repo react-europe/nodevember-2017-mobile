@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {useRecoilState} from 'recoil';
 
 import {GQL} from '../../constants';
+import DataContext from '../../context/DataContext';
 import {contactState} from '../../context/contactState';
 import {ticketState} from '../../context/ticketState';
 import QR_CONTACT_QUERY from '../../data/qrContactQuery';
@@ -19,11 +20,12 @@ type Props = {
 export default function QRContactScannerModalNavigation(props: Props) {
   const [tickets, setTickets] = useRecoilState(ticketState);
   const [contacts, setContacts] = useRecoilState(contactState);
+  const {event} = useContext(DataContext);
 
   const _handleContactBarCodeRead = async (data: string) => {
-    let userTickets: User[] = [];
-    if (!tickets) {
-      userTickets = await getTickets();
+    let userTickets: User[] | null = [];
+    if (!tickets && event?.slug) {
+      userTickets = await getTickets(event.slug);
       setTickets(userTickets);
     } else {
       userTickets = tickets;
@@ -33,6 +35,7 @@ export default function QRContactScannerModalNavigation(props: Props) {
     }
     let uuid = '';
     const contactRef = data;
+    if (!userTickets) return;
     for (const ticket of userTickets) {
       if (ticket.checkinLists) {
         ticket.checkinLists.map((ch) => {

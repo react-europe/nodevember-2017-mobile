@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import orderBy from 'lodash/orderBy';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {Query} from 'react-apollo';
 import {Platform, Text, StyleSheet, View, LayoutAnimation} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
@@ -13,6 +13,7 @@ import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import ShareInfo from '../components/shareInfo';
 import {GQL, Layout, FontSizes} from '../constants';
+import DataContext from '../context/DataContext';
 import {ticketState} from '../context/ticketState';
 import GET_ATTENDEES from '../data/attendeesquery';
 import {Event, User, Attendee} from '../typings/data';
@@ -98,6 +99,7 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
   const [ready, setReady] = useState(Platform.OS !== 'android');
   const [tickets, setTickets] = useRecoilState(ticketState);
   const [uuid, setUuid] = useState('');
+  const {event} = useContext(DataContext);
   let timer: number;
 
   useEffect(() => {
@@ -114,9 +116,9 @@ function DeferredAttendeesContent(props: DeferredAttendeesContentProps) {
   }, [tickets]);
 
   async function _getUuid() {
-    let userTickets: User[] = [];
-    if (!tickets) {
-      userTickets = await getTickets();
+    let userTickets: User[] | null = [];
+    if (!tickets && event?.slug) {
+      userTickets = await getTickets(event.slug);
       setTickets(userTickets);
     } else {
       userTickets = tickets;
