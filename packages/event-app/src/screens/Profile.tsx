@@ -1,10 +1,6 @@
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from '@react-navigation/native';
-import React, {useState, useEffect} from 'react';
-import {Platform, ScrollView, View, InteractionManager} from 'react-native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import React, {useState, useEffect, useContext} from 'react';
+import {Platform, ScrollView, View} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 import {useRecoilState} from 'recoil';
 
@@ -14,6 +10,7 @@ import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import Tickets from '../components/Tickets';
 import ShareInfo from '../components/shareInfo';
+import DataContext from '../context/DataContext';
 import {ticketState} from '../context/ticketState';
 import {
   PrimaryTabNavigationProp,
@@ -40,8 +37,8 @@ function Profile() {
 
 function DeferredProfileContent() {
   const route = useRoute<ProfileRouteProp>();
-  const [ready, setReady] = useState(Platform.OS !== 'android');
   const [visible, setVisible] = useState(false);
+  const {event} = useContext(DataContext);
 
   const [tickets, setTickets] = useRecoilState(ticketState);
   const isSharingInfo = checkSharingInfo(tickets);
@@ -52,21 +49,17 @@ function DeferredProfileContent() {
     }
   }, [route]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      InteractionManager.runAfterInteractions(async () => {
-        if (!tickets) {
-          const userTickets = await getTickets();
-          setTickets(userTickets);
-        }
-        setReady(true);
-      });
-    }, [tickets])
-  );
-
-  if (!ready) {
-    return null;
+  async function fetchTicket() {
+    if (!event?.slug) return;
+    const userTickets = await getTickets(event.slug);
+    console.log(userTickets);
+    setTickets(userTickets);
   }
+
+  useEffect(() => {
+    fetchTicket();
+  }, [event]);
+
   return (
     <AnimatableView
       animation="fadeIn"
