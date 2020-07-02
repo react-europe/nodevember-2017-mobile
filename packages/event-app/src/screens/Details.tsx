@@ -1,17 +1,17 @@
-import {useNavigationState} from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Haptic from 'expo-haptics';
 import * as WebBrowser from 'expo-web-browser';
 import React, {useEffect, useState, useContext} from 'react';
 import {
-  Animated,
   Platform,
   StyleSheet,
   TouchableOpacity,
   View,
   Linking,
+  Dimensions,
+  Image,
+  Animated,
 } from 'react-native';
-import {View as AnimatableView} from 'react-native-animatable';
 import Markdown from 'react-native-markdown-renderer';
 import {Theme, useTheme} from 'react-native-paper';
 import WebView from 'react-native-webview';
@@ -29,6 +29,7 @@ import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
 import useHeaderHeight from '../utils/useHeaderHeight';
+import {Ionicons} from '@expo/vector-icons';
 
 function SavedButtonNavigationItem(props: {talk: Talk}) {
   return (
@@ -43,13 +44,14 @@ function SavedButtonNavigationItem(props: {talk: Talk}) {
   );
 }
 
+const {width, height} = Dimensions.get('window');
+
 export default function Details(props: AppProps<'Details'>) {
-  const state = useNavigationState((state) => state);
   const data = useContext(DataContext);
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
-  let _listener: string | null = null;
+  /*   let _listener: string | null = null;
 
   useEffect(() => {
     if (Platform.OS === 'ios') {
@@ -70,7 +72,7 @@ export default function Details(props: AppProps<'Details'>) {
         _listener = null;
       }
     };
-  }, []);
+  }, []); */
 
   /* const _renderTruncatedFooter = handlePress => {
     return (
@@ -155,149 +157,128 @@ export default function Details(props: AppProps<'Details'>) {
     if (speaker?.talks && speaker.talks.length > 0) {
       talk = getSpeakerTalk(speaker);
     }
+    if (speaker) {
+      speakers = [speaker];
+    }
   }
 
-  const scale = scrollY.interpolate({
-    inputRange: [-300, 0, 1],
-    outputRange: [2, 1, 1],
-    extrapolate: 'clamp',
-  });
-  const translateX = 0;
-  const translateY = scrollY.interpolate({
-    inputRange: [-300, 0, 1],
-    outputRange: [-50, 1, 1],
+  const getImageWidth = scrollY.interpolate({
+    inputRange: [0, 140],
+    outputRange: [80, 40],
     extrapolate: 'clamp',
   });
 
-  const headerOpacity = scrollY.interpolate({
-    inputRange: [0, 30, 200],
-    outputRange: [0, 0, 1],
+  const ImageLeft = scrollY.interpolate({
+    inputRange: [0, 140],
+    outputRange: [width / 2 - speakers.length * 40, 30],
+    extrapolate: 'clamp',
+  });
+
+  const ImageY = scrollY.interpolate({
+    inputRange: [0, 140],
+    outputRange: [0, -40],
+    extrapolate: 'clamp',
+  });
+
+  const TitleY = scrollY.interpolate({
+    inputRange: [0, 140],
+    outputRange: [0, -75],
+    extrapolate: 'clamp',
+  });
+
+  const TitleX = scrollY.interpolate({
+    inputRange: [0, 140],
+    outputRange: [0, speakers.length * 42 + 40],
+    extrapolate: 'clamp',
+  });
+
+  const HeaderHeigth = scrollY.interpolate({
+    inputRange: [0, 140],
+    outputRange: [200, 40],
+    extrapolate: 'clamp',
   });
 
   return (
     <View style={{flex: 1, backgroundColor: '#fff', overflow: 'hidden'}}>
-      {Platform.OS === 'ios' ? (
-        <Animated.View
-          style={{
-            position: 'absolute',
-            top: -350,
-            left: 0,
-            right: 0,
-            height: 400,
-            transform: [
-              {
-                translateY: scrollY.interpolate({
-                  inputRange: [-1, 0, 1],
-                  outputRange: [1, 0, 0],
-                }),
-              },
-            ],
+      <Animated.View
+        style={[
+          styles.headerContainer,
+          {
             backgroundColor: theme.colors.primary,
-          }}
+            height: HeaderHeigth,
+            width,
+          },
+        ]}>
+        <Ionicons
+          name={Platform.OS === 'ios' ? 'ios-close' : 'md-close'}
+          size={40}
+          onPress={() => props.navigation.goBack()}
+          style={{marginLeft: 4}}
+          color="#fff"
         />
-      ) : null}
-      <AnimatedScrollView
-        style={{flex: 1, backgroundColor: 'transparent'}}
-        scrollEventThrottle={1}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {contentOffset: {y: scrollY}},
-            },
-          ],
-          {useNativeDriver: true}
-        )}>
         <View
-          style={[
-            styles.headerContainer,
-            {backgroundColor: theme.colors.primary},
-          ]}>
-          <Animated.View
-            style={{
-              transform: [{scale}, {translateX}, {translateY}],
-            }}>
-            <ImageFadeIn placeholderStyle={{backgroundColor: 'transparent'}}>
-              {talkScreen ? (
-                <View style={styles.headerRowSpeaker}>
-                  {speakers
-                    ? speakers.map((speaker, index) => (
-                        <View key={index} style={styles.headerColumnSpeaker}>
-                          {speaker.avatarUrl && (
-                            <TouchableOpacity>
-                              <CachedImage
-                                source={{uri: speaker.avatarUrl}}
-                                style={styles.avatarMultiple}
-                              />
-                            </TouchableOpacity>
-                          )}
-                          {speaker.name?.split(' ').map((name, index) => (
-                            <View key={index}>
-                              <TouchableOpacity key={index}>
-                                <SemiBoldText fontSize="sm" TextColorAccent>
-                                  {name}
-                                </SemiBoldText>
-                              </TouchableOpacity>
-                            </View>
-                          ))}
-                        </View>
-                      ))
-                    : null}
-                </View>
-              ) : (
-                <>
-                  {speaker?.avatarUrl && (
+          style={{
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          {speakers
+            ? speakers.map((speaker, index) => (
+                <View key={index}>
+                  {speaker.avatarUrl && (
                     <CachedImage
                       source={{uri: speaker.avatarUrl}}
-                      style={styles.avatar}
+                      style={{
+                        borderRadius: 50,
+                        marginHorizontal: 1,
+                        width: getImageWidth,
+                        height: getImageWidth,
+                        transform: [
+                          {translateX: ImageLeft},
+                          {translateY: ImageY},
+                        ],
+                      }}
+                      animated
                     />
                   )}
-                </>
-              )}
-            </ImageFadeIn>
-          </Animated.View>
-          {!talkScreen && speaker?.name ? (
-            <SemiBoldText fontSize="sm" TextColorAccent>
-              {speaker.name}
-            </SemiBoldText>
-          ) : null}
-          {speaker?.twitter ? (
-            <TouchableOpacity
-              onPress={() =>
-                _handlePressSpeakerTwitter(speaker?.twitter as string)
-              }>
-              <RegularText fontSize="sm" TextColorAccent>
-                @{speaker.twitter}
-              </RegularText>
-            </TouchableOpacity>
-          ) : null}
+                  {/* {speaker.name?.split(' ').map((name, index) => (
+                    <View key={index}>
+                      <TouchableOpacity key={index}>
+                        <SemiBoldText fontSize="sm" TextColorAccent>
+                          {name}
+                        </SemiBoldText>
+                      </TouchableOpacity>
+                    </View>
+                  ))} */}
+                </View>
+              ))
+            : null}
+        </View>
+        <View style={{paddingHorizontal: 10, alignItems: 'center'}}>
           {talk ? (
             <BoldText
-              style={styles.talkTitleText}
+              style={[
+                styles.talkTitleText,
+                {transform: [{translateX: TitleX}, {translateY: TitleY}]},
+              ]}
               fontSize="lg"
-              TextColorAccent>
+              TextColorAccent
+              animated>
               {talk.title}
             </BoldText>
           ) : null}
         </View>
-        {videoURL ? (
-          <View>
-            <WebView
-              source={{
-                uri: `https://www.youtube.com/embed/${videoURL}`,
-              }}
-              startInLoadingState
-              scalesPageToFit
-              javaScriptEnabled
-              style={{flex: 1, height: 240}}
-            />
-          </View>
-        ) : null}
-        <AnimatableView
-          animation="fadeIn"
-          useNativeDriver
-          delay={Platform.OS === 'ios' ? 50 : 150}
-          duration={500}
-          style={styles.content}>
+      </Animated.View>
+
+      <Animated.ScrollView
+        overScrollMode="never"
+        style={{zIndex: 10}}
+        scrollEventThrottle={16}
+        onScroll={Animated.event([
+          {
+            nativeEvent: {contentOffset: {y: scrollY}},
+          },
+        ])}>
+        <View style={styles.content}>
           {!talkScreen && speaker ? (
             <View>
               <SemiBoldText style={styles.sectionHeader} fontSize="md">
@@ -349,30 +330,15 @@ export default function Details(props: AppProps<'Details'>) {
               <RegularText fontSize="sm">{room}</RegularText>
             </View>
           ) : null}
-        </AnimatableView>
-      </AnimatedScrollView>
-      <NavigationBar
-        animatedBackgroundOpacity={headerOpacity}
-        style={[
-          Platform.OS === 'android'
-            ? {height: headerHeight + Constants.statusBarHeight}
-            : null,
-        ]}
-        renderLeftButton={() => (
-          <View
-            style={{
-              // gross dumb things
-              paddingTop: Platform.OS === 'android' ? 30 : 0,
-              marginTop: Layout.notchHeight > 0 ? -5 : 0,
-            }}>
-            <CloseButton onPress={() => props.navigation.goBack()} />
-          </View>
-        )}
-        /* TODO (Handle save talk)
-         renderRightButton={() => {
-          talk ? <SavedButtonNavigationItem talk={talk} /> : null; 
-        }} */
-      />
+        </View>
+        {/*         <View
+          style={{
+            height: 1200,
+            backgroundColor: 'salmon',
+            alignItems: 'center',
+          }}
+        /> */}
+      </Animated.ScrollView>
     </View>
   );
 }
@@ -393,6 +359,7 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: '#fff',
     paddingBottom: 20,
+    paddingTop: 200,
     paddingHorizontal: 20,
   },
   headerRowSpeaker: {
@@ -405,14 +372,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   headerContainer: {
-    paddingTop: Constants.statusBarHeight + Layout.notchHeight + 20,
-    paddingBottom: 20,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    top: 0,
+    zIndex: 200,
+    position: 'absolute',
+    overflow: 'hidden',
   },
   talkTitleText: {
-    marginTop: 10,
+    marginTop: 4,
   },
   sectionHeader: {
     marginTop: 15,
