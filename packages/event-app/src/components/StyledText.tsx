@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleProp, TextStyle} from 'react-native';
+import {StyleProp, Animated} from 'react-native';
 import {Text, withTheme, Theme} from 'react-native-paper';
 
 import {FontSizes} from '../constants';
 
 type Props = {
-  style?: StyleProp<TextStyle>;
+  style?: StyleProp<any>;
   children: React.ReactNode;
   fontSize?: keyof typeof FontSizes;
   TextColorAccent?: boolean;
@@ -14,24 +14,24 @@ type Props = {
 interface CustomTextProps extends Props {
   fontFamily: string;
   theme: Theme;
+  animated?: boolean;
 }
 
 function CustomText<P extends CustomTextProps>(props: P) {
   const colors = props.theme.colors;
   const fontSize = props.fontSize ? FontSizes[props.fontSize] : FontSizes.md;
   const textColor = props.TextColorAccent ? colors.accent : colors.text;
-  return (
-    <Text
-      style={[
-        {backgroundColor: 'transparent'},
-        {color: textColor},
-        {fontSize},
-        {fontFamily: props.fontFamily},
-        props.style,
-      ]}>
-      {props.children}
-    </Text>
-  );
+  const style = [
+    {backgroundColor: 'transparent'},
+    {color: textColor},
+    {fontSize},
+    {fontFamily: props.fontFamily},
+    props.style,
+  ];
+  if (props.animated) {
+    return <Animated.Text style={style}>{props.children}</Animated.Text>;
+  }
+  return <Text style={style}>{props.children}</Text>;
 }
 
 const CustomTextWithTheme = withTheme(CustomText);

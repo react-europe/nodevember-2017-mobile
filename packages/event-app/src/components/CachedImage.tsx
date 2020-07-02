@@ -7,14 +7,15 @@ import {
   View,
   StyleSheet,
   StyleProp,
-  ImageStyle,
   ImageSourcePropType,
   Platform,
+  Animated,
 } from 'react-native';
 
 type Props = {
   source: {uri: string} | number;
-  style: StyleProp<ImageStyle>;
+  style: StyleProp<any>;
+  animated?: boolean;
 };
 
 export default function CachedImage(props: Props) {
@@ -55,8 +56,17 @@ export default function CachedImage(props: Props) {
     };
   }, []);
 
-  if (source) {
+  if (source && !props.animated) {
     return <Image {...props} source={source} />;
+  } else if (source && props.animated) {
+    return <Animated.Image {...props} source={source} />;
+  } else if (!source && props.animated) {
+    const safeImageStyle = {...StyleSheet.flatten(props.style)};
+    delete safeImageStyle.tintColor;
+    delete safeImageStyle.resizeMode;
+    return (
+      <Animated.View style={[{backgroundColor: '#eee'}, safeImageStyle]} />
+    );
   } else {
     const safeImageStyle = {...StyleSheet.flatten(props.style)};
     delete safeImageStyle.tintColor;
