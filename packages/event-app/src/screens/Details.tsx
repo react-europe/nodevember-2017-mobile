@@ -30,7 +30,6 @@ import DataContext from '../context/DataContext';
 import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
-import useHeaderHeight from '../utils/useHeaderHeight';
 
 function SavedButtonNavigationItem(props: {talk: Talk}) {
   return (
@@ -45,14 +44,14 @@ function SavedButtonNavigationItem(props: {talk: Talk}) {
   );
 }
 
-const {width, height} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 export default function Details(props: AppProps<'Details'>) {
   const data = useContext(DataContext);
-  const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   const [titleXPos, setTitleXPos] = useState(0);
+  const [headerHeight, setHeaderHeight] = useState(0);
   /*   let _listener: string | null = null;
 
   useEffect(() => {
@@ -195,9 +194,9 @@ export default function Details(props: AppProps<'Details'>) {
     extrapolate: 'clamp',
   });
 
-  const HeaderHeigth = scrollY.interpolate({
+  const AnimateHeaderHeight = scrollY.interpolate({
     inputRange: [0, 140],
-    outputRange: [200, 40],
+    outputRange: [headerHeight, 40],
     extrapolate: 'clamp',
   });
 
@@ -205,14 +204,21 @@ export default function Details(props: AppProps<'Details'>) {
     setTitleXPos(event.nativeEvent.layout.x);
   }
 
+  function onLayoutHeader(event) {
+    if (headerHeight === 0) {
+      setHeaderHeight(event.nativeEvent.layout.height);
+    }
+  }
+
   return (
     <View style={{flex: 1, backgroundColor: '#fff', overflow: 'hidden'}}>
       <Animated.View
+        onLayout={onLayoutHeader}
         style={[
           styles.headerContainer,
           {
             backgroundColor: theme.colors.primary,
-            height: HeaderHeigth,
+            height: headerHeight ? AnimateHeaderHeight : 'auto',
             width,
           },
         ]}>
@@ -286,7 +292,7 @@ export default function Details(props: AppProps<'Details'>) {
             nativeEvent: {contentOffset: {y: scrollY}},
           },
         ])}>
-        <View style={styles.content}>
+        <View style={[styles.content, {paddingTop: headerHeight}]}>
           {!talkScreen && speaker ? (
             <View>
               <SemiBoldText style={styles.sectionHeader} fontSize="md">
@@ -367,7 +373,6 @@ const styles = StyleSheet.create({
   content: {
     backgroundColor: '#fff',
     paddingBottom: 20,
-    paddingTop: 200,
     paddingHorizontal: 20,
   },
   headerRowSpeaker: {
