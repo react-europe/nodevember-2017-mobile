@@ -15,6 +15,7 @@ interface CustomTextProps extends Props {
   fontFamily: string;
   theme: Theme;
   animated?: boolean;
+  onLayout?: () => void;
 }
 
 function CustomText<P extends CustomTextProps>(props: P) {
@@ -29,7 +30,11 @@ function CustomText<P extends CustomTextProps>(props: P) {
     props.style,
   ];
   if (props.animated) {
-    return <Animated.Text style={style}>{props.children}</Animated.Text>;
+    return (
+      <Animated.Text style={style} onLayout={props.onLayout}>
+        {props.children}
+      </Animated.Text>
+    );
   }
   return <Text style={style}>{props.children}</Text>;
 }
