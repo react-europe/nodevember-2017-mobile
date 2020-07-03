@@ -200,6 +200,18 @@ export default function Details(props: AppProps<'Details'>) {
     extrapolate: 'clamp',
   });
 
+  const NameWidth = scrollY.interpolate({
+    inputRange: [0, 1],
+    outputRange: [80, 0],
+    extrapolate: 'clamp',
+  });
+
+  const NameHeight = scrollY.interpolate({
+    inputRange: [0, 1],
+    outputRange: [20, 0],
+    extrapolate: 'clamp',
+  });
+
   function onLayoutTitle(event) {
     setTitleXPos(event.nativeEvent.layout.x);
   }
@@ -242,7 +254,7 @@ export default function Details(props: AppProps<'Details'>) {
                       source={{uri: speaker.avatarUrl}}
                       style={{
                         borderRadius: 50,
-                        marginHorizontal: 1,
+                        marginHorizontal: 2,
                         width: getImageWidth,
                         height: getImageWidth,
                         transform: [
@@ -253,15 +265,22 @@ export default function Details(props: AppProps<'Details'>) {
                       animated
                     />
                   )}
-                  {/* {speaker.name?.split(' ').map((name, index) => (
-                    <View key={index}>
-                      <TouchableOpacity key={index}>
-                        <SemiBoldText fontSize="sm" TextColorAccent>
-                          {name}
-                        </SemiBoldText>
-                      </TouchableOpacity>
-                    </View>
-                  ))} */}
+                  {speaker.name?.split(' ').map((name, index) => (
+                    <Animated.View
+                      key={index}
+                      style={{width: NameWidth, height: NameHeight}}>
+                      <SemiBoldText
+                        TextColorAccent
+                        style={{
+                          fontSize: 14,
+                          alignSelf: 'center',
+                          transform: [{translateX: ImageLeft}],
+                        }}
+                        animated>
+                        {name}
+                      </SemiBoldText>
+                    </Animated.View>
+                  ))}
                 </View>
               ))
             : null}
@@ -391,7 +410,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   talkTitleText: {
-    marginTop: 4,
+    paddingTop: 4,
+    paddingBottom: 4,
   },
   sectionHeader: {
     marginTop: 15,
