@@ -1,3 +1,4 @@
+import {Ionicons} from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import * as Haptic from 'expo-haptics';
 import * as WebBrowser from 'expo-web-browser';
@@ -11,6 +12,7 @@ import {
   Dimensions,
   Image,
   Animated,
+  Text,
 } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
 import {Theme, useTheme} from 'react-native-paper';
@@ -29,7 +31,6 @@ import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
 import useHeaderHeight from '../utils/useHeaderHeight';
-import {Ionicons} from '@expo/vector-icons';
 
 function SavedButtonNavigationItem(props: {talk: Talk}) {
   return (
@@ -51,6 +52,7 @@ export default function Details(props: AppProps<'Details'>) {
   const headerHeight = useHeaderHeight();
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
+  const [titleXPos, setTitleXPos] = useState(0);
   /*   let _listener: string | null = null;
 
   useEffect(() => {
@@ -188,7 +190,8 @@ export default function Details(props: AppProps<'Details'>) {
 
   const TitleX = scrollY.interpolate({
     inputRange: [0, 140],
-    outputRange: [0, speakers.length * 42 + 40],
+    // speakers pictures + close Ionicons - title left position
+    outputRange: [0, speakers.length * 42 + 40 - titleXPos],
     extrapolate: 'clamp',
   });
 
@@ -197,6 +200,10 @@ export default function Details(props: AppProps<'Details'>) {
     outputRange: [200, 40],
     extrapolate: 'clamp',
   });
+
+  function onLayoutTitle(event) {
+    setTitleXPos(event.nativeEvent.layout.x);
+  }
 
   return (
     <View style={{flex: 1, backgroundColor: '#fff', overflow: 'hidden'}}>
@@ -260,6 +267,7 @@ export default function Details(props: AppProps<'Details'>) {
                 styles.talkTitleText,
                 {transform: [{translateX: TitleX}, {translateY: TitleY}]},
               ]}
+              onLayout={onLayoutTitle}
               fontSize="lg"
               TextColorAccent
               animated>
