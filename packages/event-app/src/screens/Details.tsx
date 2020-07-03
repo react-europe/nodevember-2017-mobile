@@ -285,21 +285,19 @@ export default function Details(props: AppProps<'Details'>) {
               ))
             : null}
         </View>
-        <View style={{paddingHorizontal: 10, alignItems: 'center'}}>
-          {talk ? (
-            <BoldText
-              style={[
-                styles.talkTitleText,
-                {transform: [{translateX: TitleX}, {translateY: TitleY}]},
-              ]}
-              onLayout={onLayoutTitle}
-              fontSize="lg"
-              TextColorAccent
-              animated>
-              {talk.title}
-            </BoldText>
-          ) : null}
-        </View>
+        {talk ? (
+          <BoldText
+            style={[
+              styles.talkTitleText,
+              {transform: [{translateX: TitleX}, {translateY: TitleY}]},
+            ]}
+            onLayout={onLayoutTitle}
+            fontSize="lg"
+            TextColorAccent
+            animated>
+            {talk.title}
+          </BoldText>
+        ) : null}
       </Animated.View>
 
       <Animated.ScrollView
@@ -311,58 +309,73 @@ export default function Details(props: AppProps<'Details'>) {
             nativeEvent: {contentOffset: {y: scrollY}},
           },
         ])}>
-        <View style={[styles.content, {paddingTop: headerHeight}]}>
-          {!talkScreen && speaker ? (
+        <View style={{paddingTop: headerHeight + 20}}>
+          {videoURL ? (
             <View>
-              <SemiBoldText style={styles.sectionHeader} fontSize="md">
-                Bio
-              </SemiBoldText>
-              <Markdown>{speaker.bio}</Markdown>
+              <WebView
+                source={{
+                  uri: `https://www.youtube.com/embed/${videoURL}`,
+                }}
+                startInLoadingState
+                scalesPageToFit
+                javaScriptEnabled
+                style={{flex: 1, height: 240}}
+              />
             </View>
           ) : null}
-          {talk ? (
-            <SemiBoldText style={styles.sectionHeader} fontSize="md">
-              {talk && talk.type === 0 ? 'Talk description' : null}
-              {talk && talk.type === 1 ? 'Workshop description' : null}
-              {talk && talk.type === 6 ? 'Panel description' : null}
-              {talk && talk.type !== 6 && talk.type !== 0 && talk.type !== 1
-                ? 'Description'
-                : null}
-            </SemiBoldText>
-          ) : null}
-          {talk?.description ? (
-            <Markdown>
-              {talk.description.replace(
-                '**Click here to see covered subjects**',
-                ''
-              )}
-            </Markdown>
-          ) : null}
-          {talkScreen && speakers?.length > 0 && talk ? (
-            <View>
+          <View style={styles.content}>
+            {!talkScreen && speaker ? (
+              <View>
+                <SemiBoldText style={styles.sectionHeader} fontSize="md">
+                  Bio
+                </SemiBoldText>
+                <Markdown>{speaker.bio}</Markdown>
+              </View>
+            ) : null}
+            {talk ? (
               <SemiBoldText style={styles.sectionHeader} fontSize="md">
-                {talk.type === 1 ? 'Trainers' : 'Speakers'}
+                {talk && talk.type === 0 ? 'Talk description' : null}
+                {talk && talk.type === 1 ? 'Workshop description' : null}
+                {talk && talk.type === 6 ? 'Panel description' : null}
+                {talk && talk.type !== 6 && talk.type !== 0 && talk.type !== 1
+                  ? 'Description'
+                  : null}
               </SemiBoldText>
+            ) : null}
+            {talk?.description ? (
+              <Markdown>
+                {talk.description.replace(
+                  '**Click here to see covered subjects**',
+                  ''
+                )}
+              </Markdown>
+            ) : null}
+            {talkScreen && speakers?.length > 0 && talk ? (
+              <View>
+                <SemiBoldText style={styles.sectionHeader} fontSize="md">
+                  {talk.type === 1 ? 'Trainers' : 'Speakers'}
+                </SemiBoldText>
 
-              {speakers.map((speaker, index) => (
-                <View key={index}>
-                  <SemiBoldText>{speaker.name}</SemiBoldText>
-                  <Markdown>{speaker.bio}</Markdown>
-                </View>
-              ))}
-            </View>
-          ) : null}
-          {room && talk ? (
-            <View>
-              <SemiBoldText style={styles.sectionHeader} fontSize="md">
-                Time
-              </SemiBoldText>
-              <RegularText>
-                {convertUtcDateToEventTimezoneHour(talk.startDate)}
-              </RegularText>
-              <RegularText fontSize="sm">{room}</RegularText>
-            </View>
-          ) : null}
+                {speakers.map((speaker, index) => (
+                  <View key={index}>
+                    <SemiBoldText>{speaker.name}</SemiBoldText>
+                    <Markdown>{speaker.bio}</Markdown>
+                  </View>
+                ))}
+              </View>
+            ) : null}
+            {room && talk ? (
+              <View>
+                <SemiBoldText style={styles.sectionHeader} fontSize="md">
+                  Time
+                </SemiBoldText>
+                <RegularText>
+                  {convertUtcDateToEventTimezoneHour(talk.startDate)}
+                </RegularText>
+                <RegularText fontSize="sm">{room}</RegularText>
+              </View>
+            ) : null}
+          </View>
         </View>
         {/*         <View
           style={{
@@ -412,6 +425,8 @@ const styles = StyleSheet.create({
   talkTitleText: {
     paddingTop: 4,
     paddingBottom: 4,
+    paddingHorizontal: 10,
+    alignSelf: 'center',
   },
   sectionHeader: {
     marginTop: 15,
