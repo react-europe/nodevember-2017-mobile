@@ -8,6 +8,7 @@ import {
   Linking,
   Dimensions,
   Animated,
+  LayoutChangeEvent,
 } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
 import {Theme, useTheme} from 'react-native-paper';
@@ -184,17 +185,17 @@ export default function Details(props: AppProps<'Details'>) {
     extrapolate: 'clamp',
   });
 
-  function onLayoutTitle(event) {
+  function onLayoutTitle(event: LayoutChangeEvent) {
     setTitleXPos(event.nativeEvent.layout.x);
   }
 
-  function onLayoutHeader(event) {
+  function onLayoutHeader(event: LayoutChangeEvent) {
     if (headerHeight === 0) {
       setHeaderHeight(event.nativeEvent.layout.height);
     }
   }
 
-  function onLayoutContent(event) {
+  function onLayoutContent(event: LayoutChangeEvent) {
     if (event.nativeEvent.layout.height >= height + 140) {
       setAnimate(true);
     }
