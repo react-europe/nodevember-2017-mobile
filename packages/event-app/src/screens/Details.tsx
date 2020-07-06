@@ -168,7 +168,7 @@ export default function Details(props: AppProps<'Details'>) {
 
   const AnimateHeaderHeight = scrollY.interpolate({
     inputRange: [0, 140],
-    outputRange: [headerHeight, animate ? 40 : headerHeight],
+    outputRange: [headerHeight, animate ? 44 : headerHeight],
     extrapolate: 'clamp',
   });
 
@@ -232,7 +232,7 @@ export default function Details(props: AppProps<'Details'>) {
                       source={{uri: speaker.avatarUrl}}
                       style={{
                         borderRadius: 50,
-                        marginHorizontal: 2,
+                        margin: 2,
                         width: getImageWidth,
                         height: getImageWidth,
                         transform: [
