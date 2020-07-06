@@ -1,31 +1,20 @@
 import {Ionicons} from '@expo/vector-icons';
-import Constants from 'expo-constants';
-import * as Haptic from 'expo-haptics';
 import * as WebBrowser from 'expo-web-browser';
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   Platform,
   StyleSheet,
-  TouchableOpacity,
   View,
   Linking,
   Dimensions,
-  Image,
   Animated,
-  Text,
 } from 'react-native';
 import Markdown from 'react-native-markdown-renderer';
 import {Theme, useTheme} from 'react-native-paper';
 import WebView from 'react-native-webview';
 
-import AnimatedScrollView from '../components/AnimatedScrollView';
 import CachedImage from '../components/CachedImage';
-import CloseButton from '../components/CloseButton';
-import ImageFadeIn from '../components/ImageFadeIn';
-import NavigationBar from '../components/NavigationBar';
-import SaveButton from '../components/SaveButton';
 import {RegularText, BoldText, SemiBoldText} from '../components/StyledText';
-import {Layout} from '../constants';
 import DataContext from '../context/DataContext';
 import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
@@ -53,27 +42,7 @@ export default function Details(props: AppProps<'Details'>) {
   const [headerHeight, setHeaderHeight] = useState(0);
   const [animate, setAnimate] = useState(false);
   /*   let _listener: string | null = null;
-
-  useEffect(() => {
-    if (Platform.OS === 'ios') {
-      _listener = scrollY.addListener(({value}) => {
-        if (value < -150) {
-          Haptic.impact(Haptic.ImpactFeedbackStyle.Medium);
-          props.navigation.goBack();
-          if (_listener) {
-            scrollY.removeListener(_listener);
-            _listener = null;
-          }
-        }
-      });
-    }
-    return function unmount() {
-      if (_listener) {
-        scrollY.removeListener(_listener);
-        _listener = null;
-      }
-    };
-  }, []); */
+  
 
   /* const _renderTruncatedFooter = handlePress => {
     return (
