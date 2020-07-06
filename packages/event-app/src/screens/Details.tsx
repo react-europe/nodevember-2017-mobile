@@ -31,7 +31,7 @@ import {Talk, Speaker, Schedule} from '../typings/data';
 import {AppProps} from '../typings/navigation';
 import {getSpeakerTalk, convertUtcDateToEventTimezoneHour} from '../utils';
 
-function SavedButtonNavigationItem(props: {talk: Talk}) {
+/* function SavedButtonNavigationItem(props: {talk: Talk}) {
   return (
     <View
       style={{
@@ -42,16 +42,16 @@ function SavedButtonNavigationItem(props: {talk: Talk}) {
       <SaveButton talk={props.talk} />
     </View>
   );
-}
-
-const {width} = Dimensions.get('window');
+} */
 
 export default function Details(props: AppProps<'Details'>) {
+  const {width, height} = Dimensions.get('window');
   const data = useContext(DataContext);
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
   const [titleXPos, setTitleXPos] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [animate, setAnimate] = useState(false);
   /*   let _listener: string | null = null;
 
   useEffect(() => {
@@ -165,50 +165,53 @@ export default function Details(props: AppProps<'Details'>) {
 
   const getImageWidth = scrollY.interpolate({
     inputRange: [0, 140],
-    outputRange: [80, 40],
+    outputRange: [80, animate ? 40 : 80],
     extrapolate: 'clamp',
   });
 
   const ImageLeft = scrollY.interpolate({
     inputRange: [0, 140],
-    outputRange: [width / 2 - speakers.length * 40, 30],
+    outputRange: [
+      width / 2 - speakers.length * 40,
+      animate ? 30 : width / 2 - speakers.length * 40,
+    ],
     extrapolate: 'clamp',
   });
 
   const ImageY = scrollY.interpolate({
     inputRange: [0, 140],
-    outputRange: [0, -40],
+    outputRange: [0, animate ? -40 : 0],
     extrapolate: 'clamp',
   });
 
   const TitleY = scrollY.interpolate({
     inputRange: [0, 140],
-    outputRange: [0, -75],
+    outputRange: [0, animate ? -75 : 0],
     extrapolate: 'clamp',
   });
 
   const TitleX = scrollY.interpolate({
     inputRange: [0, 140],
     // speakers pictures + close Ionicons - title left position
-    outputRange: [0, speakers.length * 42 + 40 - titleXPos],
+    outputRange: [0, animate ? speakers.length * 42 + 40 - titleXPos : 0],
     extrapolate: 'clamp',
   });
 
   const AnimateHeaderHeight = scrollY.interpolate({
     inputRange: [0, 140],
-    outputRange: [headerHeight, 40],
+    outputRange: [headerHeight, animate ? 40 : headerHeight],
     extrapolate: 'clamp',
   });
 
   const NameWidth = scrollY.interpolate({
     inputRange: [0, 1],
-    outputRange: [80, 0],
+    outputRange: [80, animate ? 0 : 80],
     extrapolate: 'clamp',
   });
 
   const NameHeight = scrollY.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, 0],
+    outputRange: [20, animate ? 0 : 20],
     extrapolate: 'clamp',
   });
 
@@ -219,6 +222,12 @@ export default function Details(props: AppProps<'Details'>) {
   function onLayoutHeader(event) {
     if (headerHeight === 0) {
       setHeaderHeight(event.nativeEvent.layout.height);
+    }
+  }
+
+  function onLayoutContent(event) {
+    if (event.nativeEvent.layout.height >= height + 140) {
+      setAnimate(true);
     }
   }
 
@@ -309,7 +318,9 @@ export default function Details(props: AppProps<'Details'>) {
             nativeEvent: {contentOffset: {y: scrollY}},
           },
         ])}>
-        <View style={{paddingTop: headerHeight + 20}}>
+        <View
+          onLayout={onLayoutContent}
+          style={{paddingTop: headerHeight + 20}}>
           {videoURL ? (
             <View>
               <WebView
