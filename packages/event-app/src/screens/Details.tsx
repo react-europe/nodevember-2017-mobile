@@ -39,7 +39,7 @@ export default function Details(props: AppProps<'Details'>) {
   const data = useContext(DataContext);
   const theme: Theme = useTheme();
   const [scrollY] = useState(new Animated.Value(0));
-  const [titleXPos, setTitleXPos] = useState(0);
+  const [titleWidth, setTitleWidth] = useState(0);
   const [headerHeight, setHeaderHeight] = useState(0);
   const [animate, setAnimate] = useState(false);
   /*   let _listener: string | null = null;
@@ -155,15 +155,14 @@ export default function Details(props: AppProps<'Details'>) {
   });
 
   const TitleY = scrollY.interpolate({
-    inputRange: [0, 140],
-    outputRange: [0, animate ? -75 : 0],
+    inputRange: [0, 1],
+    outputRange: [0, animate ? -1000 : 0],
     extrapolate: 'clamp',
   });
 
   const TitleX = scrollY.interpolate({
     inputRange: [0, 140],
-    // speakers pictures + close Ionicons - title left position
-    outputRange: [0, animate ? speakers.length * 42 + 40 - titleXPos : 0],
+    outputRange: [width, animate ? speakers.length * 42 + 40 : width],
     extrapolate: 'clamp',
   });
 
@@ -186,7 +185,7 @@ export default function Details(props: AppProps<'Details'>) {
   });
 
   function onLayoutTitle(event: LayoutChangeEvent) {
-    setTitleXPos(event.nativeEvent.layout.x);
+    setTitleWidth(event.nativeEvent.layout.width);
   }
 
   function onLayoutHeader(event: LayoutChangeEvent) {
@@ -198,6 +197,16 @@ export default function Details(props: AppProps<'Details'>) {
   function onLayoutContent(event: LayoutChangeEvent) {
     if (event.nativeEvent.layout.height >= height + 140) {
       setAnimate(true);
+    }
+  }
+
+  let littleTitle = '';
+  if (talk?.title) {
+    const topBarWidth = speakers.length * 42 + 44;
+    if (titleWidth + topBarWidth > width) {
+      littleTitle = talk.title.substr(0, 28 - speakers.length * 4) + '...';
+    } else {
+      littleTitle = talk.title;
     }
   }
 
@@ -265,17 +274,31 @@ export default function Details(props: AppProps<'Details'>) {
             : null}
         </View>
         {talk ? (
-          <BoldText
-            style={[
-              styles.talkTitleText,
-              {transform: [{translateX: TitleX}, {translateY: TitleY}]},
-            ]}
-            onLayout={onLayoutTitle}
-            fontSize="lg"
-            TextColorAccent
-            animated>
-            {talk.title}
-          </BoldText>
+          <>
+            <BoldText
+              style={[
+                styles.talkTitleText,
+                {transform: [{translateY: TitleY}]},
+              ]}
+              fontSize="lg"
+              TextColorAccent
+              onLayout={onLayoutTitle}
+              animated>
+              {talk.title}
+            </BoldText>
+            <BoldText
+              style={[
+                {
+                  transform: [{translateX: TitleX}, {translateY: 11}],
+                  position: 'absolute',
+                },
+              ]}
+              fontSize="lg"
+              TextColorAccent
+              animated>
+              {littleTitle}
+            </BoldText>
+          </>
         ) : null}
       </Animated.View>
 
