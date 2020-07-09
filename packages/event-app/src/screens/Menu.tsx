@@ -1,4 +1,5 @@
 import {Ionicons} from '@expo/vector-icons';
+import {Link} from '@react-navigation/native';
 import React from 'react';
 import {
   View,
@@ -13,6 +14,7 @@ import {useTheme, Theme} from 'react-native-paper';
 
 import CachedImage from '../components/CachedImage';
 import LinkButton from '../components/LinkButton';
+import {SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
 import {MenuNavigationProp, MenuStackParamList} from '../typings/navigation';
 
@@ -79,11 +81,11 @@ function MenuScreen(props: Props) {
     {key: 'Editions'},
   ];
   return (
-    <View style={[{flex: 1}, Platform.OS === 'web' && styles.webMenuContainer]}>
+    <View>
       <StatusBar barStyle="light-content" />
       <FlatList
         data={screens}
-        ListHeaderComponent={Platform.OS === 'web' ? <></> : <MenuHeader />}
+        ListHeaderComponent={MenuHeader}
         ItemSeparatorComponent={() => (
           <View
             style={{
@@ -95,15 +97,12 @@ function MenuScreen(props: Props) {
         renderItem={({item}) => (
           <LinkButton to={'/' + item.key}>
             <View
-              style={[
-                Platform.OS === 'web' ? {width: 400} : {flex: 1},
-                {
-                  paddingVertical: 12,
-                  paddingHorizontal: 16,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                },
-              ]}>
+              style={{
+                paddingVertical: 12,
+                paddingHorizontal: 16,
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
               <Ionicons
                 name={getIconName(item.key)}
                 size={24}
@@ -117,15 +116,16 @@ function MenuScreen(props: Props) {
           </LinkButton>
         )}
       />
+      <Link to="/menu/sign-in" style={{alignSelf: 'center'}}>
+        <SemiBoldText
+          style={{color: theme.colors.primary}}
+          fontSize="md"
+          TextColorAccent>
+          Sign in
+        </SemiBoldText>
+      </Link>
     </View>
   );
 }
 
 export default MenuScreen;
-
-const styles = StyleSheet.create({
-  webMenuContainer: {
-    paddingTop: 20,
-    alignItems: 'center',
-  },
-});
