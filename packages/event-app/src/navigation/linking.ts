@@ -59,6 +59,7 @@ export default function getLinkingConfig(isLargeScreen: boolean) {
                 Sponsors: 'sponsors',
                 Attendees: 'attendees',
                 AttendeeDetail: 'attendees-details',
+                SignIn: 'sign-in',
               },
             },
           }),

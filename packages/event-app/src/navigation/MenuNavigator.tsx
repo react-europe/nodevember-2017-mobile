@@ -18,6 +18,7 @@ function MenuNavigator() {
       <Stack.Screen name="Attendees" component={Screens.Attendees} />
       <Stack.Screen name="AttendeeDetail" component={Screens.AttendeeDetail} />
       <Stack.Screen name="Editions" component={Screens.Editions} />
+      <Stack.Screen name="SignIn" component={Screens.SignIn} />
     </Stack.Navigator>
   );
 }
