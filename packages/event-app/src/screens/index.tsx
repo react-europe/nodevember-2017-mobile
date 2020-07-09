@@ -9,6 +9,7 @@ import Home from './Home';
 import Menu from './Menu';
 import Profile from './Profile';
 import ScheduleDay from './ScheduleDay';
+import SignIn from './SignIn';
 import Speakers from './Speakers';
 import Sponsors from './Sponsors';
 import StaffCheckinLists from './StaffCheckinLists';
@@ -30,4 +31,5 @@ export default {
   AttendeeDetail,
   Menu,
   Editions,
+  SignIn,
 };
