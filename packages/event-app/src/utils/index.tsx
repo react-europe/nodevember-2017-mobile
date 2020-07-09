@@ -256,6 +256,14 @@ export async function setValueInStore(key: string, value: any) {
   }
 }
 
+export async function removeValueInStore(key: string, eventSlug: string) {
+  try {
+    await AsyncStorage.removeItem(`@${eventSlug}Store:${key}`);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function getEdition() {
   let edition = await AsyncStorage.getItem('@MySuperStore:edition');
   if (!edition) {
