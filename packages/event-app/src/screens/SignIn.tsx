@@ -1,20 +1,14 @@
-import {useFocusEffect} from '@react-navigation/native';
 import gql from 'graphql-tag';
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {useForm, Controller} from 'react-hook-form';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  Text,
-  AsyncStorage,
-  Alert,
-} from 'react-native';
+import {View, TextInput, StyleSheet, Text, Alert} from 'react-native';
 import {useTheme, Theme, ActivityIndicator} from 'react-native-paper';
 
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText, BoldText} from '../components/StyledText';
+import DataContext from '../context/DataContext';
 import {MenuNavigationProp} from '../typings/navigation';
+import {getValueFromStore, setValueInStore} from '../utils';
 import client from '../utils/gqlClient';
 
 const SIGNIN = gql`
@@ -29,20 +23,21 @@ export default function SignInScreen({
   navigation: MenuNavigationProp<'SignIn'>;
 }) {
   const {colors}: Theme = useTheme();
+  const {event} = useContext(DataContext);
   const {control, handleSubmit, errors} = useForm();
   const [loading, setLoading] = useState(false);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      async function getAdminToken() {
-        const token = await AsyncStorage.getItem('@MySuperStore:adminToken');
-        if (token) {
-          navigation.navigate('Menu');
-        }
-      }
-      getAdminToken();
-    }, [])
-  );
+  async function getAdminToken() {
+    if (!event?.slug) return;
+    const token = await getValueFromStore('adminToken', event.slug);
+    if (token) {
+      navigation.navigate('Menu');
+    }
+  }
+
+  useEffect(() => {
+    getAdminToken();
+  }, []);
 
   async function onSubmit(data: {email: string; password: string}) {
     setLoading(true);
@@ -51,10 +46,7 @@ export default function SignInScreen({
         mutation: SIGNIN,
         variables: {email: data.email, password: data.password},
       });
-      await AsyncStorage.setItem(
-        '@MySuperStore:adminToken',
-        JSON.stringify(result.data.signin)
-      );
+      await setValueInStore('adminToken', result.data.signin);
       navigation.navigate('Home');
     } catch (e) {
       Alert.alert('Sign in failed', 'The email or password provided is wrong.');

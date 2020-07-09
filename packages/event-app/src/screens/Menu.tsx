@@ -1,6 +1,6 @@
 import {Ionicons} from '@expo/vector-icons';
-import {Link, useFocusEffect} from '@react-navigation/native';
-import React, {useState} from 'react';
+import {Link} from '@react-navigation/native';
+import React, {useState, useContext, useEffect} from 'react';
 import {
   View,
   Image,
@@ -9,8 +9,6 @@ import {
   StyleSheet,
   StatusBar,
   Platform,
-  AsyncStorage,
-  InteractionManager,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTheme, Theme} from 'react-native-paper';
@@ -19,11 +17,9 @@ import CachedImage from '../components/CachedImage';
 import LinkButton from '../components/LinkButton';
 import {SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
-import {MenuNavigationProp, MenuStackParamList} from '../typings/navigation';
-
-type Props = {
-  navigation: MenuNavigationProp<'Menu'>;
-};
+import DataContext from '../context/DataContext';
+import {MenuStackParamList} from '../typings/navigation';
+import {getValueFromStore, removeValueInStore} from '../utils';
 
 function MenuHeader() {
   return (
@@ -65,8 +61,9 @@ function MenuHeader() {
   );
 }
 
-function MenuScreen(props: Props) {
+function MenuScreen() {
   const theme: Theme = useTheme();
+  const {event} = useContext(DataContext);
   const [isAdmin, setIsAdmin] = useState(false);
 
   function getIconName(key: keyof MenuStackParamList) {
@@ -85,20 +82,20 @@ function MenuScreen(props: Props) {
     {key: 'Editions'},
   ];
 
-  useFocusEffect(
-    React.useCallback(() => {
-      InteractionManager.runAfterInteractions(async () => {
-        async function getAdminToken() {
-          const token = await AsyncStorage.getItem('@MySuperStore:adminToken');
-          setIsAdmin(!!token);
-        }
-        getAdminToken();
-      });
-    }, [])
-  );
+  async function getAdminToken() {
+    if (!event?.slug) return;
+    const token = await getValueFromStore('adminToken', event.slug);
+    setIsAdmin(!!token);
+  }
+
+  useEffect(() => {
+    getAdminToken();
+  }, [event]);
 
   async function logout() {
-    await AsyncStorage.removeItem('@MySuperStore:adminToken');
+    if (!event?.slug) return;
+    console.log('Remove for: ', event.slug);
+    await removeValueInStore('adminToken', event?.slug);
     setIsAdmin(false);
   }
 
