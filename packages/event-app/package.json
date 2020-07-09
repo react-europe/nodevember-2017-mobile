@@ -46,6 +46,7 @@
     "react": "16.9.0",
     "react-apollo": "^2.1.4",
     "react-dom": "16.9.0",
+    "react-hook-form": "^6.0.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-animatable": "^1.2.4",
     "react-native-fade-in-image": "1.5.0",
