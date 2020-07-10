@@ -21,7 +21,7 @@ import {Layout} from '../constants';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {MenuStackParamList} from '../typings/navigation';
-import {getValueFromStore, removeValueInStore} from '../utils';
+import {removeValueInStore, getAdminToken} from '../utils';
 
 function MenuHeader() {
   return (
@@ -84,20 +84,15 @@ function MenuScreen() {
     {key: 'Editions'},
   ];
 
-  async function getAdminToken() {
-    if (
-      !event?.slug ||
-      (adminToken?.edition && adminToken.edition === event.slug)
-    ) {
-      return;
-    }
-    const token: string = await getValueFromStore('adminToken', event.slug);
+  async function updateAdminToken() {
+    const token = await getAdminToken(event, adminToken);
+    if (!token) return;
     setAdminToken({token, edition: event.slug});
   }
 
   useFocusEffect(
     useCallback(() => {
-      getAdminToken();
+      updateAdminToken();
     }, [adminToken, event])
   );
 
