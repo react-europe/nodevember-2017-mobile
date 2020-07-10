@@ -1,6 +1,6 @@
 import {Ionicons} from '@expo/vector-icons';
-import {Link} from '@react-navigation/native';
-import React, {useState, useContext, useEffect} from 'react';
+import {Link, useFocusEffect} from '@react-navigation/native';
+import React, {useContext, useCallback} from 'react';
 import {
   View,
   Image,
@@ -12,12 +12,14 @@ import {
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTheme, Theme} from 'react-native-paper';
+import {useRecoilState} from 'recoil';
 
 import CachedImage from '../components/CachedImage';
 import LinkButton from '../components/LinkButton';
 import {SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
 import DataContext from '../context/DataContext';
+import {adminTokenState} from '../context/adminTokenState';
 import {MenuStackParamList} from '../typings/navigation';
 import {getValueFromStore, removeValueInStore} from '../utils';
 
@@ -64,7 +66,7 @@ function MenuHeader() {
 function MenuScreen() {
   const theme: Theme = useTheme();
   const {event} = useContext(DataContext);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
 
   function getIconName(key: keyof MenuStackParamList) {
     if (key === 'Speakers') return 'ios-microphone';
@@ -83,20 +85,26 @@ function MenuScreen() {
   ];
 
   async function getAdminToken() {
-    if (!event?.slug) return;
-    const token = await getValueFromStore('adminToken', event.slug);
-    setIsAdmin(!!token);
+    if (
+      !event?.slug ||
+      (adminToken?.edition && adminToken.edition === event.slug)
+    ) {
+      return;
+    }
+    const token: string = await getValueFromStore('adminToken', event.slug);
+    setAdminToken({token, edition: event.slug});
   }
 
-  useEffect(() => {
-    getAdminToken();
-  }, [event]);
+  useFocusEffect(
+    useCallback(() => {
+      getAdminToken();
+    }, [adminToken, event])
+  );
 
   async function logout() {
     if (!event?.slug) return;
-    console.log('Remove for: ', event.slug);
     await removeValueInStore('adminToken', event?.slug);
-    setIsAdmin(false);
+    setAdminToken({token: null, edition: event.slug});
   }
 
   return (
@@ -136,7 +144,7 @@ function MenuScreen() {
         )}
       />
       <View style={{alignItems: 'center'}}>
-        {isAdmin ? (
+        {adminToken?.token ? (
           <TouchableOpacity onPress={logout}>
             <SemiBoldText
               style={{color: theme.colors.primary}}

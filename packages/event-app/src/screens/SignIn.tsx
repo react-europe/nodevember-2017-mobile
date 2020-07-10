@@ -1,14 +1,17 @@
+import {useFocusEffect} from '@react-navigation/native';
 import gql from 'graphql-tag';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useCallback} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {View, TextInput, StyleSheet, Text, Alert} from 'react-native';
 import {useTheme, Theme, ActivityIndicator} from 'react-native-paper';
+import {useRecoilState} from 'recoil';
 
 import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText, BoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
+import {adminTokenState} from '../context/adminTokenState';
 import {MenuNavigationProp} from '../typings/navigation';
-import {getValueFromStore, setValueInStore} from '../utils';
+import {setValueInStore} from '../utils';
 import client from '../utils/gqlClient';
 
 const SIGNIN = gql`
@@ -26,27 +29,31 @@ export default function SignInScreen({
   const {event} = useContext(DataContext);
   const {control, handleSubmit, errors} = useForm();
   const [loading, setLoading] = useState(false);
+  const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
 
   async function getAdminToken() {
-    if (!event?.slug) return;
-    const token = await getValueFromStore('adminToken', event.slug);
-    if (token) {
+    if (adminToken?.token && adminToken.edition === event?.slug) {
       navigation.navigate('Menu');
     }
   }
 
-  useEffect(() => {
-    getAdminToken();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getAdminToken();
+    }, [adminToken])
+  );
 
   async function onSubmit(data: {email: string; password: string}) {
+    if (!event?.slug) return;
     setLoading(true);
     try {
       const result = await client.mutate({
         mutation: SIGNIN,
         variables: {email: data.email, password: data.password},
       });
-      await setValueInStore('adminToken', result.data.signin);
+      const token: string = result.data.signin;
+      await setValueInStore('adminToken', token);
+      setAdminToken({token, edition: event.slug});
       navigation.navigate('Home');
     } catch (e) {
       Alert.alert('Sign in failed', 'The email or password provided is wrong.');
