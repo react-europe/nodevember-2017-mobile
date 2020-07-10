@@ -55,6 +55,7 @@ export default function getLinkingConfig(isLargeScreen: boolean) {
               screens: {
                 Menu: '',
                 Speakers: 'speakers',
+                EditSpeaker: 'edit-speaker',
                 Crew: 'crew',
                 Sponsors: 'sponsors',
                 Attendees: 'attendees',
