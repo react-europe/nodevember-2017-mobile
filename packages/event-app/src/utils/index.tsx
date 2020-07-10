@@ -273,3 +273,17 @@ export async function getEdition() {
   }
   return edition;
 }
+
+export async function getAdminToken(
+  event: EventType,
+  adminToken: {token: string | null; edition: string} | null
+) {
+  if (
+    !event?.slug ||
+    (adminToken?.edition && adminToken.edition === event.slug)
+  ) {
+    return null;
+  }
+  const token: string = await getValueFromStore('adminToken', event.slug);
+  return token;
+}
