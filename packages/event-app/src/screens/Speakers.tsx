@@ -1,6 +1,9 @@
-import React, {useContext} from 'react';
+import {FontAwesome} from '@expo/vector-icons';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {useContext, useCallback} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useRecoilState} from 'recoil';
 
 import CachedImage from '../components/CachedImage';
 import ImageFadeIn from '../components/ImageFadeIn';
@@ -8,47 +11,72 @@ import LinkButton from '../components/LinkButton';
 import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
+import {adminTokenState} from '../context/adminTokenState';
 import {Speaker, Talk} from '../typings/data';
 import {SectionHeaderProps} from '../typings/utils';
-import {getSpeakerTalk} from '../utils';
+import {getSpeakerTalk, getAdminToken} from '../utils';
 
 type SpeakerRowProps = {
   item: Speaker;
+  admin: boolean;
 };
 
 export function SpeakerRow(props: SpeakerRowProps) {
-  const {item} = props;
+  const {item, admin} = props;
   const talk: Talk | undefined = getSpeakerTalk(item);
 
   return (
     <View style={styles.row}>
       <View style={styles.rowAvatarContainer}>
-        <ImageFadeIn>
-          {item.avatarUrl && (
-            <CachedImage
-              source={{uri: item.avatarUrl}}
-              style={{width: 50, height: 50, borderRadius: 25}}
-            />
-          )}
-        </ImageFadeIn>
+        <LinkButton to={'/details?speakerId=' + item.id}>
+          <ImageFadeIn>
+            {item.avatarUrl && (
+              <CachedImage
+                source={{uri: item.avatarUrl}}
+                style={{width: 50, height: 50, borderRadius: 25}}
+              />
+            )}
+          </ImageFadeIn>
+        </LinkButton>
       </View>
       <View style={styles.rowData}>
-        <BoldText fontSize="sm">{item.name}</BoldText>
-        {item.twitter ? (
-          <SemiBoldText fontSize="sm">@{item.twitter}</SemiBoldText>
-        ) : null}
-        {talk && <RegularText fontSize="sm">{talk.title}</RegularText>}
+        <LinkButton to={'/details?speakerId=' + item.id}>
+          <BoldText fontSize="sm">{item.name}</BoldText>
+          {item.twitter ? (
+            <SemiBoldText fontSize="sm">@{item.twitter}</SemiBoldText>
+          ) : null}
+          {talk && <RegularText fontSize="sm">{talk.title}</RegularText>}
+        </LinkButton>
       </View>
+      {admin && (
+        <LinkButton to="/menu/edit-speaker" style={{alignSelf: 'center'}}>
+          <FontAwesome name="edit" size={24} color="black" />
+        </LinkButton>
+      )}
     </View>
   );
 }
 
 export default function Speakers() {
   const {event} = useContext(DataContext);
+  const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
   let speakers: Speaker[] = [];
   if (event?.speakers && event.speakers.length > 0) {
     speakers = event.speakers as Speaker[];
   }
+
+  async function updateAdminToken() {
+    const token = await getAdminToken(event, adminToken);
+    if (!token) return;
+    setAdminToken({token, edition: event.slug});
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      updateAdminToken();
+    }, [adminToken, event])
+  );
+
   const _renderSectionHeader = ({section}: SectionHeaderProps<Speaker>) => {
     return (
       <View style={styles.sectionHeader}>
@@ -58,13 +86,7 @@ export default function Speakers() {
   };
 
   const _renderItem = ({item}: {item: Speaker}) => {
-    return (
-      <LinkButton
-        to={'/details?speakerId=' + item.id}
-        style={styles.linkButton}>
-        <SpeakerRow item={item} />
-      </LinkButton>
-    );
+    return <SpeakerRow item={item} admin={!!adminToken.token} />;
   };
 
   return (

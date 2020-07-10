@@ -27,5 +27,9 @@ export default function LinkButton({to, action, children, ...rest}: Props) {
     );
   }
 
-  return <TouchableOpacity onPress={onPress}>{children}</TouchableOpacity>;
+  return (
+    <TouchableOpacity onPress={onPress} {...rest}>
+      {children}
+    </TouchableOpacity>
+  );
 }
