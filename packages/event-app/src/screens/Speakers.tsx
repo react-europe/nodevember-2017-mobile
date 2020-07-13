@@ -66,6 +66,7 @@ export default function Speakers() {
   }
 
   async function updateAdminToken() {
+    if (!event?.slug) return;
     const token = await getAdminToken(event, adminToken);
     if (!token) return;
     setAdminToken({token, edition: event.slug});
@@ -86,7 +87,8 @@ export default function Speakers() {
   };
 
   const _renderItem = ({item}: {item: Speaker}) => {
-    return <SpeakerRow item={item} admin={!!adminToken.token} />;
+    const token = adminToken?.token ? !!adminToken.token : false;
+    return <SpeakerRow item={item} admin={token} />;
   };
 
   return (
