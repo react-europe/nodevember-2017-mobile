@@ -81,7 +81,6 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
           speakerId: route.params.speakerId,
         },
       });
-      console.log('FETCH: ', result);
       setSpeaker(result.data.adminEvents.adminSpeakers[0]);
       setStatus(result.data.adminEvents.adminSpeakers[0].status);
     } catch (e) {
@@ -98,7 +97,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
   async function onSubmit(data: any) {
     setLoading(true);
     try {
-      const result = await client.mutate({
+      await client.mutate({
         mutation: UPDATE_SPEAKER,
         variables: {
           id: route.params.speakerId,
@@ -113,7 +112,6 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
         },
       });
       navigation.navigate('Speakers');
-      console.log('RESULT: ', result);
     } catch (e) {
       console.log('ERROR: ', e);
     }
@@ -122,7 +120,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
 
   if (loading) {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={styles.loader}>
         <ActivityIndicator animating />
       </View>
     );
@@ -253,5 +251,10 @@ const styles = StyleSheet.create({
   },
   input: {
     marginVertical: 5,
+  },
+  loader: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
