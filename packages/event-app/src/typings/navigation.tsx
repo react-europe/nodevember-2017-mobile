@@ -147,6 +147,7 @@ export type ContactProps = {
 export type MenuStackParamList = {
   Menu: undefined;
   Speakers: undefined;
+  EditSpeaker: {speakerId?: number};
   Crew: undefined;
   Sponsors: undefined;
   Attendees: {attendee: Attendee};

@@ -55,7 +55,12 @@ export default function getLinkingConfig(isLargeScreen: boolean) {
               screens: {
                 Menu: '',
                 Speakers: 'speakers',
-                EditSpeaker: 'edit-speaker',
+                EditSpeaker: {
+                  path: 'edit-speaker',
+                  parse: {
+                    speakerId: (speakerId: string) => JSON.parse(speakerId),
+                  },
+                },
                 Crew: 'crew',
                 Sponsors: 'sponsors',
                 Attendees: 'attendees',

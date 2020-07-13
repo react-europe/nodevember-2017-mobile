@@ -10,6 +10,7 @@ import {SemiBoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {AdminSpeaker} from '../typings/data';
+import {MenuTabProps} from '../typings/navigation';
 import client from '../utils/gqlClient';
 
 const GET_SPEAKERS_INFO = gql`
@@ -31,20 +32,23 @@ const GET_SPEAKERS_INFO = gql`
 
 const UPDATE_SPEAKER = gql`
   mutation updateSpeaker(
+    $id: Int!
     $token: String!
     $email: String!
     $github: String!
     $name: String!
     $twitter: String!
+    $bio: String!
     $status: Int!
   ) {
     updateSpeaker(
-      id: 1062
+      id: $id
       token: $token
       email: $email
       github: $github
       name: $name
       twitter: $twitter
+      bio: $bio
       status: $status
     ) {
       name
@@ -58,24 +62,26 @@ const UPDATE_SPEAKER = gql`
   }
 `;
 
-export default function EditSpeaker() {
+export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
   const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
   const {event} = useContext(DataContext);
   const {control, handleSubmit, errors} = useForm();
   const [speaker, setSpeaker] = useState<AdminSpeaker | null>(null);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState(0);
+  const {route, navigation} = props;
 
   async function fetchSpeakerInfo() {
     try {
       const result = await client.mutate({
         mutation: GET_SPEAKERS_INFO,
         variables: {
-          id: /* event?.id */ 171,
+          id: event?.id,
           token: adminToken?.token,
-          speakerId: 1063,
+          speakerId: route.params.speakerId,
         },
       });
+      console.log('FETCH: ', result);
       setSpeaker(result.data.adminEvents.adminSpeakers[0]);
       setStatus(result.data.adminEvents.adminSpeakers[0].status);
     } catch (e) {
@@ -89,12 +95,13 @@ export default function EditSpeaker() {
     fetchSpeakerInfo();
   }, [adminToken, event]);
 
-  async function onSubmit(data) {
+  async function onSubmit(data: any) {
+    setLoading(true);
     try {
       const result = await client.mutate({
         mutation: UPDATE_SPEAKER,
         variables: {
-          id: 1062,
+          id: route.params.speakerId,
           token: adminToken?.token,
           name: data.name,
           twitter: data.twitter,
@@ -105,11 +112,12 @@ export default function EditSpeaker() {
           status,
         },
       });
+      navigation.navigate('Speakers');
       console.log('RESULT: ', result);
     } catch (e) {
       console.log('ERROR: ', e);
     }
-    console.log(data);
+    setLoading(false);
   }
 
   if (loading) {
@@ -216,21 +224,17 @@ export default function EditSpeaker() {
       <Picker
         style={{paddingVertical: 20}}
         selectedValue={status}
-        onValueChange={(itemValue, itemIndex) => setStatus(itemValue)}>
+        onValueChange={(itemValue) => setStatus(itemValue)}>
         <Picker.Item label="Unconfirmed" value={0} />
         <Picker.Item label="Confirmed" value={1} />
         <Picker.Item label="Rejected" value={2} />
       </Picker>
       <View style={styles.buttonContainer}>
-        {loading ? (
-          <ActivityIndicator animating /* style={styles.loader} */ />
-        ) : (
-          <PrimaryButton onPress={handleSubmit(onSubmit)}>
-            <SemiBoldText fontSize="md" TextColorAccent>
-              Update
-            </SemiBoldText>
-          </PrimaryButton>
-        )}
+        <PrimaryButton onPress={handleSubmit(onSubmit)}>
+          <SemiBoldText fontSize="md" TextColorAccent>
+            Update
+          </SemiBoldText>
+        </PrimaryButton>
       </View>
     </ScrollView>
   );
