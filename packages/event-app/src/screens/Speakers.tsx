@@ -49,7 +49,9 @@ export function SpeakerRow(props: SpeakerRowProps) {
         </LinkButton>
       </View>
       {admin && (
-        <LinkButton to="/menu/edit-speaker" style={{alignSelf: 'center'}}>
+        <LinkButton
+          to={'/menu/edit-speaker?speakerId=' + item.id}
+          style={{alignSelf: 'center'}}>
           <FontAwesome name="edit" size={24} color="black" />
         </LinkButton>
       )}
