@@ -1,10 +1,15 @@
 import {gql} from 'apollo-boost';
-import React, {useEffect, useContext} from 'react';
-import {View, Text} from 'react-native';
+import React, {useEffect, useContext, useState} from 'react';
+import {Controller, useForm} from 'react-hook-form';
+import {View, StyleSheet, ScrollView, Picker} from 'react-native';
+import {TextInput, Title, ActivityIndicator} from 'react-native-paper';
 import {useRecoilState} from 'recoil';
 
+import PrimaryButton from '../components/PrimaryButton';
+import {SemiBoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
+import {AdminSpeaker} from '../typings/data';
 import client from '../utils/gqlClient';
 
 const GET_SPEAKERS_INFO = gql`
@@ -24,9 +29,42 @@ const GET_SPEAKERS_INFO = gql`
   }
 `;
 
+const UPDATE_SPEAKER = gql`
+  mutation updateSpeaker(
+    $token: String!
+    $email: String!
+    $github: String!
+    $name: String!
+    $twitter: String!
+    $status: Int!
+  ) {
+    updateSpeaker(
+      id: 1062
+      token: $token
+      email: $email
+      github: $github
+      name: $name
+      twitter: $twitter
+      status: $status
+    ) {
+      name
+      twitter
+      github
+      email
+      shortBio
+      bio
+      status
+    }
+  }
+`;
+
 export default function EditSpeaker() {
   const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
   const {event} = useContext(DataContext);
+  const {control, handleSubmit, errors} = useForm();
+  const [speaker, setSpeaker] = useState<AdminSpeaker | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState(0);
 
   async function fetchSpeakerInfo() {
     try {
@@ -35,13 +73,15 @@ export default function EditSpeaker() {
         variables: {
           id: /* event?.id */ 171,
           token: adminToken?.token,
-          speakerId: 1062,
+          speakerId: 1063,
         },
       });
-      console.log('RESULT: ', result);
+      setSpeaker(result.data.adminEvents.adminSpeakers[0]);
+      setStatus(result.data.adminEvents.adminSpeakers[0].status);
     } catch (e) {
       console.log('Error: ', e);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -49,9 +89,165 @@ export default function EditSpeaker() {
     fetchSpeakerInfo();
   }, [adminToken, event]);
 
+  async function onSubmit(data) {
+    try {
+      const result = await client.mutate({
+        mutation: UPDATE_SPEAKER,
+        variables: {
+          id: 1062,
+          token: adminToken?.token,
+          name: data.name,
+          twitter: data.twitter,
+          github: data.github,
+          email: data.email,
+          shortBio: data.shortBio,
+          bio: data.bio,
+          status,
+        },
+      });
+      console.log('RESULT: ', result);
+    } catch (e) {
+      console.log('ERROR: ', e);
+    }
+    console.log(data);
+  }
+
+  if (loading) {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <ActivityIndicator animating />
+      </View>
+    );
+  }
   return (
-    <View>
-      <Text>Edit Speaker</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <Title style={styles.title}>{speaker?.name}</Title>
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            label="name"
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            autoCompleteType="name"
+            textContentType="name"
+          />
+        )}
+        name="name"
+        defaultValue={speaker?.name}
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            label="twitter"
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+          />
+        )}
+        name="twitter"
+        defaultValue={speaker?.twitter}
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            label="github"
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+          />
+        )}
+        name="github"
+        defaultValue={speaker?.github}
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            label="email"
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            autoCompleteType="email"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
+        )}
+        name="email"
+        defaultValue={speaker?.email}
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            style={styles.input}
+            label="Short bio"
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            multiline
+          />
+        )}
+        name="shortBio"
+        defaultValue={speaker?.shortBio}
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            style={styles.input}
+            label="Bio"
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            multiline
+          />
+        )}
+        name="bio"
+        defaultValue={speaker?.bio}
+      />
+      <Picker
+        style={{paddingVertical: 20}}
+        selectedValue={status}
+        onValueChange={(itemValue, itemIndex) => setStatus(itemValue)}>
+        <Picker.Item label="Unconfirmed" value={0} />
+        <Picker.Item label="Confirmed" value={1} />
+        <Picker.Item label="Rejected" value={2} />
+      </Picker>
+      <View style={styles.buttonContainer}>
+        {loading ? (
+          <ActivityIndicator animating /* style={styles.loader} */ />
+        ) : (
+          <PrimaryButton onPress={handleSubmit(onSubmit)}>
+            <SemiBoldText fontSize="md" TextColorAccent>
+              Update
+            </SemiBoldText>
+          </PrimaryButton>
+        )}
+      </View>
+    </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+  },
+  title: {
+    paddingVertical: 20,
+    alignSelf: 'center',
+  },
+  buttonContainer: {
+    paddingBottom: 20,
+  },
+  input: {
+    marginVertical: 5,
+  },
+});
