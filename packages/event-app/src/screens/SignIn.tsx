@@ -2,8 +2,13 @@ import {useFocusEffect} from '@react-navigation/native';
 import gql from 'graphql-tag';
 import React, {useState, useContext, useCallback} from 'react';
 import {useForm, Controller} from 'react-hook-form';
-import {View, TextInput, StyleSheet, Text, Alert} from 'react-native';
-import {useTheme, Theme, ActivityIndicator} from 'react-native-paper';
+import {View, StyleSheet, Text, Alert} from 'react-native';
+import {
+  useTheme,
+  Theme,
+  ActivityIndicator,
+  TextInput,
+} from 'react-native-paper';
 import {useRecoilState} from 'recoil';
 
 import PrimaryButton from '../components/PrimaryButton';
@@ -64,7 +69,6 @@ export default function SignInScreen({
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
       <View style={styles.form}>
-        <BoldText fontSize="sm">Email</BoldText>
         <Controller
           control={control}
           render={({onChange, onBlur, value}) => (
@@ -76,6 +80,7 @@ export default function SignInScreen({
               autoCompleteType="email"
               keyboardType="email-address"
               textContentType="emailAddress"
+              label="Email"
             />
           )}
           name="email"
@@ -83,7 +88,6 @@ export default function SignInScreen({
           defaultValue=""
         />
         {errors.email && <Text>This is required.</Text>}
-        <BoldText fontSize="sm">Password</BoldText>
         <Controller
           control={control}
           render={({onChange, onBlur, value}) => (
@@ -95,6 +99,7 @@ export default function SignInScreen({
               autoCompleteType="password"
               textContentType="password"
               secureTextEntry
+              label="Password"
             />
           )}
           name="password"
@@ -118,10 +123,7 @@ export default function SignInScreen({
 
 const styles = StyleSheet.create({
   input: {
-    borderWidth: 2,
-    padding: 4,
     margin: 4,
-    fontFamily: 'open-sans-semibold',
   },
   form: {
     marginHorizontal: 20,
