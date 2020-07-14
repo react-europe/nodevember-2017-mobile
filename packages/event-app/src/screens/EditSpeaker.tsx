@@ -1,7 +1,7 @@
 import {gql} from 'apollo-boost';
 import React, {useEffect, useContext, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {View, StyleSheet, ScrollView, Picker} from 'react-native';
+import {View, StyleSheet, ScrollView, Picker, Alert} from 'react-native';
 import {TextInput, Title, ActivityIndicator} from 'react-native-paper';
 import {useRecoilState} from 'recoil';
 
@@ -39,6 +39,7 @@ const UPDATE_SPEAKER = gql`
     $name: String!
     $twitter: String!
     $bio: String!
+    $shortBio: String!
     $status: Int!
   ) {
     updateSpeaker(
@@ -49,6 +50,7 @@ const UPDATE_SPEAKER = gql`
       name: $name
       twitter: $twitter
       bio: $bio
+      shortBio: $shortBio
       status: $status
     ) {
       name
@@ -63,9 +65,9 @@ const UPDATE_SPEAKER = gql`
 `;
 
 export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
-  const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
+  const [adminToken] = useRecoilState(adminTokenState);
   const {event} = useContext(DataContext);
-  const {control, handleSubmit, errors} = useForm();
+  const {control, handleSubmit} = useForm();
   const [speaker, setSpeaker] = useState<AdminSpeaker | null>(null);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState(0);
@@ -73,8 +75,8 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
 
   async function fetchSpeakerInfo() {
     try {
-      const result = await client.mutate({
-        mutation: GET_SPEAKERS_INFO,
+      const result = await client.query({
+        query: GET_SPEAKERS_INFO,
         variables: {
           id: event?.id,
           token: adminToken?.token,
@@ -84,7 +86,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
       setSpeaker(result.data.adminEvents.adminSpeakers[0]);
       setStatus(result.data.adminEvents.adminSpeakers[0].status);
     } catch (e) {
-      console.log('Error: ', e);
+      console.log(e);
     }
     setLoading(false);
   }
@@ -113,7 +115,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
       });
       navigation.navigate('Speakers');
     } catch (e) {
-      console.log('ERROR: ', e);
+      console.log(e);
     }
     setLoading(false);
   }

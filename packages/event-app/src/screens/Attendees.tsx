@@ -74,7 +74,7 @@ export default function Attendees() {
         clearButtonMode="while-editing"
         value={search}
       />
-      {!isSharingInfo && tickets && (
+      {!isSharingInfo && tickets && tickets.length > 0 && (
         <>
           <PrimaryButton onPress={() => setVisible(true)}>
             <SemiBoldText fontSize="md" TextColorAccent>
