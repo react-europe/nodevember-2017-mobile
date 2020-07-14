@@ -156,6 +156,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
+            textContentType="nickname"
           />
         )}
         name="twitter"
@@ -170,6 +171,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
+            textContentType="nickname"
           />
         )}
         name="github"
@@ -201,6 +203,8 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
+            textContentType="none"
+            autoCompleteType="off"
             multiline
           />
         )}
@@ -216,6 +220,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
+            textContentType="none"
             multiline
           />
         )}
