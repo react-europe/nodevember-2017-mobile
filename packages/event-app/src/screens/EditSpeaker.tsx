@@ -86,7 +86,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
       setSpeaker(result.data.adminEvents.adminSpeakers[0]);
       setStatus(result.data.adminEvents.adminSpeakers[0].status);
     } catch (e) {
-      console.log(e);
+      Alert.alert('Unable to fetch', JSON.stringify(e));
     }
     setLoading(false);
   }
@@ -115,7 +115,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
       });
       navigation.navigate('Speakers');
     } catch (e) {
-      console.log(e);
+      Alert.alert('Update failed', JSON.stringify(e));
     }
     setLoading(false);
   }
