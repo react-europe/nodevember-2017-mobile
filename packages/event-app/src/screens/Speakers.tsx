@@ -1,8 +1,9 @@
 import {FontAwesome} from '@expo/vector-icons';
 import {useFocusEffect} from '@react-navigation/native';
-import React, {useContext, useCallback} from 'react';
+import React, {useContext, useCallback, useState} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {Searchbar} from 'react-native-paper';
 import {useRecoilState} from 'recoil';
 
 import CachedImage from '../components/CachedImage';
@@ -13,7 +14,6 @@ import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {Speaker, Talk} from '../typings/data';
-import {SectionHeaderProps} from '../typings/utils';
 import {getSpeakerTalk, getAdminToken} from '../utils';
 
 type SpeakerRowProps = {
@@ -63,6 +63,7 @@ export default function Speakers() {
   const {event} = useContext(DataContext);
   const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
   let speakers: Speaker[] = [];
+  const [searchQuery, setSearchQuery] = useState('');
   if (event?.speakers && event.speakers.length > 0) {
     speakers = event.speakers as Speaker[];
   }
@@ -80,26 +81,24 @@ export default function Speakers() {
     }, [adminToken, event])
   );
 
-  const _renderSectionHeader = ({section}: SectionHeaderProps<Speaker>) => {
-    return (
-      <View style={styles.sectionHeader}>
-        <RegularText fontSize="sm">{section.title}</RegularText>
-      </View>
-    );
-  };
-
   const _renderItem = ({item}: {item: Speaker}) => {
     const token = adminToken?.token ? !!adminToken.token : false;
     return <SpeakerRow item={item} admin={token} />;
   };
 
+  const onChangeSearch = (query: string) => setSearchQuery(query);
+
   return (
     <LoadingPlaceholder>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={searchQuery}
+      />
       <SectionList
         renderScrollComponent={(props) => <ScrollView {...props} />}
         stickySectionHeadersEnabled
         renderItem={_renderItem}
-        renderSectionHeader={_renderSectionHeader}
         sections={[{data: speakers ? speakers : [], title: 'Speakers'}]}
         keyExtractor={(item, index) => index.toString()}
       />
