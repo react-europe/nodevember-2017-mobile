@@ -1,6 +1,7 @@
 import {FontAwesome} from '@expo/vector-icons';
 import {useFocusEffect} from '@react-navigation/native';
-import React, {useContext, useCallback, useState} from 'react';
+import Fuse from 'fuse.js';
+import React, {useContext, useCallback, useState, useEffect} from 'react';
 import {SectionList, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Searchbar} from 'react-native-paper';
@@ -60,13 +61,17 @@ export function SpeakerRow(props: SpeakerRowProps) {
 }
 
 export default function Speakers() {
+  /* Fuse.js config */
+  const options = {
+    keys: ['name'],
+    threshold: 0.4,
+  };
+
   const {event} = useContext(DataContext);
   const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
-  let speakers: Speaker[] = [];
+  const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  if (event?.speakers && event.speakers.length > 0) {
-    speakers = event.speakers as Speaker[];
-  }
+  const fuse = new Fuse(event?.speakers ? event?.speakers : [], options);
 
   async function updateAdminToken() {
     if (!event?.slug) return;
@@ -75,9 +80,22 @@ export default function Speakers() {
     setAdminToken({token, edition: event.slug});
   }
 
+  useEffect(() => {
+    if (searchQuery.length === 0) {
+      setSpeakers(event?.speakers as Speaker[]);
+    } else {
+      let result: any = fuse.search(searchQuery);
+      result = result.map((match: any) => match.item);
+      setSpeakers(result);
+    }
+  }, [searchQuery]);
+
   useFocusEffect(
     useCallback(() => {
       updateAdminToken();
+      if (event?.speakers) {
+        setSpeakers(event.speakers as Speaker[]);
+      }
     }, [adminToken, event])
   );
 
@@ -99,7 +117,7 @@ export default function Speakers() {
         renderScrollComponent={(props) => <ScrollView {...props} />}
         stickySectionHeadersEnabled
         renderItem={_renderItem}
-        sections={[{data: speakers ? speakers : [], title: 'Speakers'}]}
+        sections={[{data: speakers, title: 'Speakers'}]}
         keyExtractor={(item, index) => index.toString()}
       />
     </LoadingPlaceholder>
