@@ -77,6 +77,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
     try {
       const result = await client.query({
         query: GET_SPEAKERS_INFO,
+        fetchPolicy: 'network-only',
         variables: {
           id: event?.id,
           token: adminToken?.token,
