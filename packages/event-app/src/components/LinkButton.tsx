@@ -3,7 +3,6 @@ import React from 'react';
 import {
   Platform,
   TouchableOpacity,
-  Text,
   View,
   StyleProp,
   ViewStyle,
@@ -22,7 +21,7 @@ export default function LinkButton({to, action, children, ...rest}: Props) {
   if (Platform.OS === 'web') {
     return (
       <View onClick={onPress} {...props} {...rest}>
-        <Text>{children}</Text>
+        {children}
       </View>
     );
   }
