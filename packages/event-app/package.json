@@ -36,6 +36,7 @@
     "expo-permissions": "~8.1.0",
     "expo-web-browser": "~8.2.1",
     "fbemitter": "^2.1.1",
+    "fuse.js": "^6.4.0",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "highlight-words-core": "^1.2.0",
