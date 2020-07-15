@@ -2,7 +2,7 @@ import {FontAwesome} from '@expo/vector-icons';
 import {useFocusEffect} from '@react-navigation/native';
 import Fuse from 'fuse.js';
 import React, {useContext, useCallback, useState, useEffect} from 'react';
-import {SectionList, StyleSheet, View} from 'react-native';
+import {SectionList, StyleSheet, View, Picker} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Searchbar} from 'react-native-paper';
 import {useRecoilState} from 'recoil';
@@ -15,7 +15,7 @@ import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {Speaker, Talk} from '../typings/data';
-import {getSpeakerTalk, getAdminToken} from '../utils';
+import {getSpeakerTalk} from '../utils';
 
 type SpeakerRowProps = {
   item: Speaker;
@@ -72,6 +72,7 @@ export default function Speakers() {
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const fuse = new Fuse(event?.speakers ? event?.speakers : [], options);
+  const [status, setStatus] = useState(1);
 
   function updateSpeakers() {
     if (searchQuery.length === 0) {
@@ -104,11 +105,24 @@ export default function Speakers() {
 
   return (
     <LoadingPlaceholder>
-      <Searchbar
-        placeholder="Search"
-        onChangeText={onChangeSearch}
-        value={searchQuery}
-      />
+      <View style={{flexDirection: 'row'}}>
+        <Searchbar
+          placeholder="Search"
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+          style={{flex: 1}}
+        />
+        {adminToken?.token && (
+          <Picker
+            style={{width: '30%'}}
+            selectedValue={status}
+            onValueChange={(itemValue) => setStatus(itemValue)}>
+            <Picker.Item label="Unconfirmed" value={0} />
+            <Picker.Item label="Confirmed" value={1} />
+            <Picker.Item label="Rejected" value={2} />
+          </Picker>
+        )}
+      </View>
       <SectionList
         renderScrollComponent={(props) => <ScrollView {...props} />}
         stickySectionHeadersEnabled
