@@ -16,6 +16,7 @@ import client from '../utils/gqlClient';
 const GET_SPEAKERS_INFO = gql`
   query AdminSpeakerInfo($id: Int!, $token: String!, $speakerId: Int!) {
     adminEvents(id: $id, token: $token) {
+      id
       adminSpeakers(speakerId: $speakerId) {
         id
         name
@@ -84,8 +85,10 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
           speakerId: route.params.speakerId,
         },
       });
-      setSpeaker(result.data.adminEvents.adminSpeakers[0]);
-      setStatus(result.data.adminEvents.adminSpeakers[0].status);
+      if (result.data.adminEvents.adminSpeakers[0]) {
+        setSpeaker(result.data.adminEvents.adminSpeakers[0]);
+        setStatus(result.data.adminEvents.adminSpeakers[0].status);
+      }
     } catch (e) {
       Alert.alert('Unable to fetch', JSON.stringify(e));
     }

@@ -1,7 +1,7 @@
 import {FontAwesome} from '@expo/vector-icons';
-import {useFocusEffect} from '@react-navigation/native';
+import {gql} from 'apollo-boost';
 import Fuse from 'fuse.js';
-import React, {useContext, useCallback, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useRef} from 'react';
 import {SectionList, StyleSheet, View, Picker} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Searchbar} from 'react-native-paper';
@@ -16,11 +16,30 @@ import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {Speaker, Talk} from '../typings/data';
 import {getSpeakerTalk} from '../utils';
+import client from '../utils/gqlClient';
 
 type SpeakerRowProps = {
   item: Speaker;
   admin: boolean;
 };
+
+const GET_SPEAKERS = gql`
+  query fetchAllSpeakers($token: String!, $id: Int!, $status: Int!) {
+    adminEvents(id: $id, token: $token) {
+      id
+      adminSpeakers(status: $status) {
+        id
+        name
+        twitter
+        avatarUrl
+        talks {
+          title
+          id
+        }
+      }
+    }
+  }
+`;
 
 export function SpeakerRow(props: SpeakerRowProps) {
   const {item, admin} = props;
@@ -46,7 +65,11 @@ export function SpeakerRow(props: SpeakerRowProps) {
           {item.twitter ? (
             <SemiBoldText fontSize="sm">@{item.twitter}</SemiBoldText>
           ) : null}
-          {talk && <RegularText fontSize="sm">{talk.title}</RegularText>}
+          {talk && (
+            <RegularText style={{paddingRight: 2}} fontSize="sm">
+              {talk.title}
+            </RegularText>
+          )}
         </LinkButton>
       </View>
       {admin && (
@@ -71,14 +94,15 @@ export default function Speakers() {
   const [adminToken] = useRecoilState(adminTokenState);
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const fuse = new Fuse(event?.speakers ? event?.speakers : [], options);
+  const allSpeakers = useRef<Speaker[]>([]);
+  const fuse = useRef<any>();
   const [status, setStatus] = useState(1);
 
   function updateSpeakers() {
     if (searchQuery.length === 0) {
-      setSpeakers(event?.speakers as Speaker[]);
+      setSpeakers(allSpeakers.current);
     } else {
-      let result: any = fuse.search(searchQuery);
+      let result: any = fuse.current.search(searchQuery);
       result = result.map((match: any) => match.item);
       setSpeakers(result);
     }
@@ -88,13 +112,34 @@ export default function Speakers() {
     updateSpeakers();
   }, [searchQuery]);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (event?.speakers) {
-        /* updateSpeakers(); */
+  async function fetchSpeakers() {
+    if (adminToken?.token) {
+      try {
+        const result = await client.query({
+          query: GET_SPEAKERS,
+          variables: {
+            id: event?.id,
+            token: adminToken?.token,
+            status,
+          },
+        });
+        allSpeakers.current = result.data.adminEvents.adminSpeakers;
+        fuse.current = new Fuse(result.data.adminEvents.adminSpeakers, options);
+        updateSpeakers();
+      } catch (e) {
+        console.log('ERROR: ', e);
       }
-    }, [adminToken, event])
-  );
+    } else {
+      if (!event?.speakers) return;
+      allSpeakers.current = event.speakers as Speaker[];
+      fuse.current = new Fuse(event.speakers, options);
+      updateSpeakers();
+    }
+  }
+
+  useEffect(() => {
+    fetchSpeakers();
+  }, [status, adminToken, event]);
 
   const _renderItem = ({item}: {item: Speaker}) => {
     const token = adminToken?.token ? !!adminToken.token : false;
