@@ -68,19 +68,12 @@ export default function Speakers() {
   };
 
   const {event} = useContext(DataContext);
-  const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
+  const [adminToken] = useRecoilState(adminTokenState);
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const fuse = new Fuse(event?.speakers ? event?.speakers : [], options);
 
-  async function updateAdminToken() {
-    if (!event?.slug) return;
-    const token = await getAdminToken(event, adminToken);
-    if (!token) return;
-    setAdminToken({token, edition: event.slug});
-  }
-
-  useEffect(() => {
+  function updateSpeakers() {
     if (searchQuery.length === 0) {
       setSpeakers(event?.speakers as Speaker[]);
     } else {
@@ -88,13 +81,16 @@ export default function Speakers() {
       result = result.map((match: any) => match.item);
       setSpeakers(result);
     }
+  }
+
+  useEffect(() => {
+    updateSpeakers();
   }, [searchQuery]);
 
   useFocusEffect(
     useCallback(() => {
-      updateAdminToken();
       if (event?.speakers) {
-        setSpeakers(event.speakers as Speaker[]);
+        /* updateSpeakers(); */
       }
     }, [adminToken, event])
   );
@@ -119,7 +115,7 @@ export default function Speakers() {
         renderItem={_renderItem}
         sections={[{data: speakers, title: 'Speakers'}]}
         keyExtractor={(item, index) =>
-          item.name ? item.name : index.toString()
+          item.name ? item.name + index : index.toString()
         }
       />
     </LoadingPlaceholder>
