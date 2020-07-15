@@ -118,7 +118,9 @@ export default function Speakers() {
         stickySectionHeadersEnabled
         renderItem={_renderItem}
         sections={[{data: speakers, title: 'Speakers'}]}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) =>
+          item.name ? item.name : index.toString()
+        }
       />
     </LoadingPlaceholder>
   );
