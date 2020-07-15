@@ -12,7 +12,7 @@ import {
 import {useRecoilState} from 'recoil';
 
 import PrimaryButton from '../components/PrimaryButton';
-import {SemiBoldText, BoldText} from '../components/StyledText';
+import {SemiBoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {MenuNavigationProp} from '../typings/navigation';

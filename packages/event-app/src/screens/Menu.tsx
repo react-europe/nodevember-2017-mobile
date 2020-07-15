@@ -21,7 +21,7 @@ import {Layout} from '../constants';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {MenuStackParamList} from '../typings/navigation';
-import {removeValueInStore, getAdminToken} from '../utils';
+import {removeValueInStore, getAdminToken, getValueFromStore} from '../utils';
 
 function MenuHeader() {
   return (
@@ -85,8 +85,13 @@ function MenuScreen() {
   ];
 
   async function updateAdminToken() {
-    const token = await getAdminToken(event, adminToken);
-    if (!token) return;
+    if (
+      !event?.slug ||
+      (adminToken?.edition && adminToken.edition === event.slug)
+    ) {
+      return;
+    }
+    const token: string = await getValueFromStore('adminToken', event.slug);
     setAdminToken({token, edition: event.slug});
   }
 
