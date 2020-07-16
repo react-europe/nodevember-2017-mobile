@@ -11247,6 +11247,11 @@ react-native-dotenv@^0.2.0:
   dependencies:
     babel-plugin-dotenv "0.1.1"
 
+react-native-draggable-flatlist@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-draggable-flatlist/-/react-native-draggable-flatlist-2.3.3.tgz#2fde54253095aefa0db18c2ac05e99cf35cb1c96"
+  integrity sha512-dtac81r3e826a3G7gHGPGfdBb06UE9M2Vu7dcAyoVlOYsUuB4AhNnHR/AHtPBuQfRee/Lrb967fou89uETNAoQ==
+
 react-native-fade-in-image@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/react-native-fade-in-image/-/react-native-fade-in-image-1.5.0.tgz#efface43f9846b1d1ffd6c6894576cede710617d"

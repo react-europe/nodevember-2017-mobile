@@ -50,6 +50,7 @@
     "react-hook-form": "^6.0.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
     "react-native-animatable": "^1.2.4",
+    "react-native-draggable-flatlist": "^2.3.3",
     "react-native-fade-in-image": "1.5.0",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-gravatar": "^1.0.2",
