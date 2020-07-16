@@ -2,10 +2,10 @@ import {FontAwesome} from '@expo/vector-icons';
 import {gql} from 'apollo-boost';
 import Fuse from 'fuse.js';
 import React, {useContext, useState, useEffect, useRef} from 'react';
-import {SectionList, StyleSheet, View, Picker} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {StyleSheet, View, Picker, TouchableOpacity} from 'react-native';
 import {Searchbar, ActivityIndicator} from 'react-native-paper';
 import {useRecoilState} from 'recoil';
+import DraggableFlatList from 'react-native-draggable-flatlist';
 
 import CachedImage from '../components/CachedImage';
 import ImageFadeIn from '../components/ImageFadeIn';
@@ -146,9 +146,20 @@ export default function Speakers() {
     fetchSpeakers();
   }, [status, adminToken, event]);
 
-  const _renderItem = ({item}: {item: Speaker}) => {
+  const _renderItem = ({item, index, drag, isActive}) => {
     const token = adminToken?.token ? !!adminToken.token : false;
-    return <SpeakerRow item={item} admin={token} />;
+    return (
+      <TouchableOpacity
+        style={{
+          height: 100,
+          backgroundColor: isActive && 'blue',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        onLongPress={drag}>
+        <SpeakerRow item={item} admin={token} />
+      </TouchableOpacity>
+    );
   };
 
   const onChangeSearch = (query: string) => setSearchQuery(query);
@@ -180,7 +191,13 @@ export default function Speakers() {
           </Picker>
         )}
       </View>
-      <SectionList
+      <DraggableFlatList
+        data={speakers}
+        renderItem={_renderItem}
+        keyExtractor={(item, index) => item.id?.toString() as string}
+        onDragEnd={({data}) => setSpeakers(data)}
+      />
+      {/* <SectionList
         renderScrollComponent={(props) => <ScrollView {...props} />}
         stickySectionHeadersEnabled
         renderItem={_renderItem}
@@ -188,7 +205,7 @@ export default function Speakers() {
         keyExtractor={(item, index) =>
           item.name ? item.name + index : index.toString()
         }
-      />
+      /> */}
     </>
   );
 }
