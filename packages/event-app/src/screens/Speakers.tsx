@@ -10,7 +10,6 @@ import {useRecoilState} from 'recoil';
 import CachedImage from '../components/CachedImage';
 import ImageFadeIn from '../components/ImageFadeIn';
 import LinkButton from '../components/LinkButton';
-import LoadingPlaceholder from '../components/LoadingPlaceholder';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
@@ -119,6 +118,7 @@ export default function Speakers() {
       try {
         const result = await client.query({
           query: GET_SPEAKERS,
+          fetchPolicy: 'no-cache',
           variables: {
             id: event?.id,
             token: adminToken?.token,
@@ -159,7 +159,7 @@ export default function Speakers() {
     );
   }
   return (
-    <View>
+    <>
       <View style={{flexDirection: 'row'}}>
         <Searchbar
           placeholder="Search"
@@ -187,7 +187,7 @@ export default function Speakers() {
           item.name ? item.name + index : index.toString()
         }
       />
-    </View>
+    </>
   );
 }
 
