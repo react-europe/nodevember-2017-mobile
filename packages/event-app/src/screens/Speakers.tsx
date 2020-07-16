@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 import React, {useContext, useState, useEffect, useRef} from 'react';
 import {SectionList, StyleSheet, View, Picker} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {Searchbar} from 'react-native-paper';
+import {Searchbar, ActivityIndicator} from 'react-native-paper';
 import {useRecoilState} from 'recoil';
 
 import CachedImage from '../components/CachedImage';
@@ -95,6 +95,7 @@ export default function Speakers() {
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const allSpeakers = useRef<Speaker[]>([]);
+  const [loading, setLoading] = useState(true);
   const fuse = useRef<any>();
   const [status, setStatus] = useState(1);
 
@@ -115,6 +116,7 @@ export default function Speakers() {
   async function fetchSpeakers() {
     if (adminToken?.token) {
       try {
+        setLoading(true);
         const result = await client.query({
           query: GET_SPEAKERS,
           variables: {
@@ -126,6 +128,7 @@ export default function Speakers() {
         allSpeakers.current = result.data.adminEvents.adminSpeakers;
         fuse.current = new Fuse(result.data.adminEvents.adminSpeakers, options);
         updateSpeakers();
+        setLoading(false);
       } catch (e) {
         console.log('ERROR: ', e);
       }
@@ -148,8 +151,15 @@ export default function Speakers() {
 
   const onChangeSearch = (query: string) => setSearchQuery(query);
 
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator animating />
+      </View>
+    );
+  }
   return (
-    <LoadingPlaceholder>
+    <View>
       <View style={{flexDirection: 'row'}}>
         <Searchbar
           placeholder="Search"
@@ -177,7 +187,7 @@ export default function Speakers() {
           item.name ? item.name + index : index.toString()
         }
       />
-    </LoadingPlaceholder>
+    </View>
   );
 }
 
@@ -201,6 +211,11 @@ const styles = StyleSheet.create({
   },
   rowData: {
     flex: 1,
+  },
+  loader: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sectionHeader: {
     paddingHorizontal: 10,
