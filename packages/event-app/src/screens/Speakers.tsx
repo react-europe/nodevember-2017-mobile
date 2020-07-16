@@ -49,7 +49,7 @@ export function SpeakerRow(props: SpeakerRowProps) {
   return (
     <View style={styles.row}>
       <View style={styles.rowAvatarContainer}>
-        <LinkButton to={'/details?speakerId=' + item.id}>
+        {admin ? (
           <ImageFadeIn>
             {item.avatarUrl && (
               <CachedImage
@@ -58,7 +58,18 @@ export function SpeakerRow(props: SpeakerRowProps) {
               />
             )}
           </ImageFadeIn>
-        </LinkButton>
+        ) : (
+          <LinkButton to={'/details?speakerId=' + item.id}>
+            <ImageFadeIn>
+              {item.avatarUrl && (
+                <CachedImage
+                  source={{uri: item.avatarUrl}}
+                  style={{width: 50, height: 50, borderRadius: 25}}
+                />
+              )}
+            </ImageFadeIn>
+          </LinkButton>
+        )}
       </View>
       <View style={styles.rowData}>
         <LinkButton to={'/details?speakerId=' + item.id}>
@@ -146,7 +157,7 @@ export default function Speakers() {
     fetchSpeakers();
   }, [status, adminToken, event]);
 
-  const _renderItem = ({item, index, drag, isActive}) => {
+  const _renderItem = ({item, drag, isActive}) => {
     const token = adminToken?.token ? !!adminToken.token : false;
     return (
       <TouchableOpacity
@@ -163,6 +174,11 @@ export default function Speakers() {
   };
 
   const onChangeSearch = (query: string) => setSearchQuery(query);
+
+  function updatePosition(data: Speaker[]) {
+    setSpeakers(data);
+    // Update speaker position in database
+  }
 
   if (loading) {
     return (
@@ -195,7 +211,7 @@ export default function Speakers() {
         data={speakers}
         renderItem={_renderItem}
         keyExtractor={(item, index) => item.id?.toString() as string}
-        onDragEnd={({data}) => setSpeakers(data)}
+        onDragEnd={({data}) => updatePosition(data)}
       />
       {/* <SectionList
         renderScrollComponent={(props) => <ScrollView {...props} />}
