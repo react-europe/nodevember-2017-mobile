@@ -30,6 +30,8 @@ const GET_SPEAKERS = gql`
         id
         name
         twitter
+        github
+        bio
         avatarUrl
         talks {
           title
@@ -85,7 +87,7 @@ export function SpeakerRow(props: SpeakerRowProps) {
 export default function Speakers() {
   /* Fuse.js config */
   const options = {
-    keys: ['name'],
+    keys: ['name', 'twitter', 'github', 'bio'],
     threshold: 0.4,
   };
 
