@@ -95,7 +95,7 @@ export default function Speakers() {
   const [speakers, setSpeakers] = useState<Speaker[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const allSpeakers = useRef<Speaker[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const fuse = useRef<any>();
   const [status, setStatus] = useState(1);
 
@@ -114,9 +114,9 @@ export default function Speakers() {
   }, [searchQuery]);
 
   async function fetchSpeakers() {
+    setLoading(true);
     if (adminToken?.token) {
       try {
-        setLoading(true);
         const result = await client.query({
           query: GET_SPEAKERS,
           variables: {
@@ -128,7 +128,6 @@ export default function Speakers() {
         allSpeakers.current = result.data.adminEvents.adminSpeakers;
         fuse.current = new Fuse(result.data.adminEvents.adminSpeakers, options);
         updateSpeakers();
-        setLoading(false);
       } catch (e) {
         console.log('ERROR: ', e);
       }
@@ -138,6 +137,7 @@ export default function Speakers() {
       fuse.current = new Fuse(event.speakers, options);
       updateSpeakers();
     }
+    setLoading(false);
   }
 
   useEffect(() => {
