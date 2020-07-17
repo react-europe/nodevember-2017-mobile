@@ -225,11 +225,6 @@ export default function Speakers() {
     );
   }
 
-  console.log('START');
-  for (const i of speakers) {
-    console.log(i.displayOrder);
-  }
-
   return (
     <>
       <View style={{flexDirection: 'row'}}>
@@ -254,17 +249,8 @@ export default function Speakers() {
         data={speakers}
         renderItem={_renderItem}
         keyExtractor={(item, index) => item.id?.toString() as string}
-        onDragEnd={({data}) => updatePosition(data)}
+        onDragEnd={({data}) => updatePosition(data as AdminSpeaker[])}
       />
-      {/* <SectionList
-        renderScrollComponent={(props) => <ScrollView {...props} />}
-        stickySectionHeadersEnabled
-        renderItem={_renderItem}
-        sections={[{data: speakers, title: 'Speakers'}]}
-        keyExtractor={(item, index) =>
-          item.name ? item.name + index : index.toString()
-        }
-      /> */}
     </>
   );
 }
