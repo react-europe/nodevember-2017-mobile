@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 import React, {useContext, useState, useEffect, useRef} from 'react';
 import {StyleSheet, View, Picker, TouchableOpacity} from 'react-native';
 import {Searchbar, ActivityIndicator} from 'react-native-paper';
-import {useRecoilState} from 'recoil';
+import {useRecoilState, isRecoilValue} from 'recoil';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 
 import CachedImage from '../components/CachedImage';
@@ -13,13 +13,18 @@ import LinkButton from '../components/LinkButton';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
-import {Speaker, Talk} from '../typings/data';
+import {Speaker, Talk, AdminSpeaker} from '../typings/data';
 import {getSpeakerTalk} from '../utils';
 import client from '../utils/gqlClient';
 
 type SpeakerRowProps = {
-  item: Speaker;
+  item: Speaker | AdminSpeaker;
   admin: boolean;
+};
+
+type RenderItemProps = {
+  item: Speaker | AdminSpeaker;
+  drag: () => void;
 };
 
 const GET_SPEAKERS = gql`
@@ -33,6 +38,7 @@ const GET_SPEAKERS = gql`
         github
         bio
         avatarUrl
+        displayOrder
         talks {
           title
           id
@@ -42,9 +48,28 @@ const GET_SPEAKERS = gql`
   }
 `;
 
+const UPDATE_SPEAKER_POSITION = gql`
+  mutation updateSpeaker(
+    $id: Int!
+    $token: String!
+    $name: String!
+    $displayOrder: Int!
+  ) {
+    updateSpeaker(
+      id: $id
+      token: $token
+      name: $name
+      displayOrder: $displayOrder
+    ) {
+      name
+      displayOrder
+    }
+  }
+`;
+
 export function SpeakerRow(props: SpeakerRowProps) {
   const {item, admin} = props;
-  const talk: Talk | undefined = getSpeakerTalk(item);
+  const talk: Talk | undefined = getSpeakerTalk(item as Speaker);
 
   return (
     <View style={styles.row}>
@@ -104,7 +129,7 @@ export default function Speakers() {
 
   const {event} = useContext(DataContext);
   const [adminToken] = useRecoilState(adminTokenState);
-  const [speakers, setSpeakers] = useState<Speaker[]>([]);
+  const [speakers, setSpeakers] = useState<Speaker[] | AdminSpeaker[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const allSpeakers = useRef<Speaker[]>([]);
   const [loading, setLoading] = useState(false);
@@ -157,27 +182,39 @@ export default function Speakers() {
     fetchSpeakers();
   }, [status, adminToken, event]);
 
-  const _renderItem = ({item, drag, isActive}) => {
+  const _renderItem = ({item, drag}: RenderItemProps) => {
     const token = adminToken?.token ? !!adminToken.token : false;
-    return (
-      <TouchableOpacity
-        style={{
-          height: 100,
-          backgroundColor: isActive && 'blue',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-        onLongPress={drag}>
-        <SpeakerRow item={item} admin={token} />
-      </TouchableOpacity>
-    );
+    if (token) {
+      return (
+        <TouchableOpacity onLongPress={drag}>
+          <SpeakerRow item={item} admin={token} />
+        </TouchableOpacity>
+      );
+    } else {
+      return <SpeakerRow item={item} admin={token} />;
+    }
   };
 
   const onChangeSearch = (query: string) => setSearchQuery(query);
 
-  function updatePosition(data: Speaker[]) {
+  function updatePosition(data: AdminSpeaker[]) {
+    for (let i = 0; i < data.length; i++) {
+      data[i].displayOrder = i;
+      try {
+        client.mutate({
+          mutation: UPDATE_SPEAKER_POSITION,
+          variables: {
+            id: data[i].id,
+            token: adminToken?.token,
+            name: data[i].name,
+            displayOrder: data[i].displayOrder,
+          },
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
     setSpeakers(data);
-    // Update speaker position in database
   }
 
   if (loading) {
@@ -187,6 +224,12 @@ export default function Speakers() {
       </View>
     );
   }
+
+  console.log('START');
+  for (const i of speakers) {
+    console.log(i.displayOrder);
+  }
+
   return (
     <>
       <View style={{flexDirection: 'row'}}>
