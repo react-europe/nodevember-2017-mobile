@@ -1,11 +1,10 @@
 import {FontAwesome} from '@expo/vector-icons';
-import {gql} from 'apollo-boost';
 import Fuse from 'fuse.js';
 import React, {useContext, useState, useEffect, useRef} from 'react';
 import {StyleSheet, View, Picker, TouchableOpacity} from 'react-native';
-import {Searchbar, ActivityIndicator} from 'react-native-paper';
-import {useRecoilState, isRecoilValue} from 'recoil';
 import DraggableFlatList from 'react-native-draggable-flatlist';
+import {Searchbar, ActivityIndicator} from 'react-native-paper';
+import {useRecoilState} from 'recoil';
 
 import CachedImage from '../components/CachedImage';
 import ImageFadeIn from '../components/ImageFadeIn';
@@ -13,6 +12,7 @@ import LinkButton from '../components/LinkButton';
 import {BoldText, SemiBoldText, RegularText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
+import {ADMIN_GET_SPEAKERS, UPDATE_SPEAKER_POSITION} from '../data/speakers';
 import {Speaker, Talk, AdminSpeaker} from '../typings/data';
 import {getSpeakerTalk} from '../utils';
 import client from '../utils/gqlClient';
@@ -27,45 +27,41 @@ type RenderItemProps = {
   drag: () => void;
 };
 
-const GET_SPEAKERS = gql`
-  query fetchAllSpeakers($token: String!, $id: Int!, $status: Int!) {
-    adminEvents(id: $id, token: $token) {
-      id
-      adminSpeakers(status: $status) {
-        id
-        name
-        twitter
-        github
-        bio
-        avatarUrl
-        displayOrder
-        talks {
-          title
-          id
-        }
-      }
-    }
-  }
-`;
+type SpeakerDescriptionProps = {
+  speaker: Speaker | AdminSpeaker;
+  talk: Talk | undefined;
+};
 
-const UPDATE_SPEAKER_POSITION = gql`
-  mutation updateSpeaker(
-    $id: Int!
-    $token: String!
-    $name: String!
-    $displayOrder: Int!
-  ) {
-    updateSpeaker(
-      id: $id
-      token: $token
-      name: $name
-      displayOrder: $displayOrder
-    ) {
-      name
-      displayOrder
-    }
-  }
-`;
+function SpeakerAvatar({avatarUrl}: {avatarUrl: string | null | undefined}) {
+  return (
+    <ImageFadeIn>
+      {avatarUrl && (
+        <CachedImage
+          source={{uri: avatarUrl}}
+          style={{width: 50, height: 50, borderRadius: 25}}
+        />
+      )}
+    </ImageFadeIn>
+  );
+}
+
+function SpeakerDescription({speaker, talk}: SpeakerDescriptionProps) {
+  return (
+    <>
+      <LinkButton to={'/details?speakerId=' + speaker.id}>
+        <BoldText fontSize="sm">{speaker.name}</BoldText>
+      </LinkButton>
+      {speaker.twitter ? (
+        <SemiBoldText fontSize="sm">@{speaker.twitter}</SemiBoldText>
+      ) : null}
+      {talk && (
+        <RegularText style={{paddingRight: 2}} fontSize="sm">
+          {talk.title}
+        </RegularText>
+      )}
+    </>
+  );
+}
 
 export function SpeakerRow(props: SpeakerRowProps) {
   const {item, admin} = props;
@@ -75,39 +71,21 @@ export function SpeakerRow(props: SpeakerRowProps) {
     <View style={styles.row}>
       <View style={styles.rowAvatarContainer}>
         {admin ? (
-          <ImageFadeIn>
-            {item.avatarUrl && (
-              <CachedImage
-                source={{uri: item.avatarUrl}}
-                style={{width: 50, height: 50, borderRadius: 25}}
-              />
-            )}
-          </ImageFadeIn>
+          <SpeakerAvatar avatarUrl={item.avatarUrl} />
         ) : (
           <LinkButton to={'/details?speakerId=' + item.id}>
-            <ImageFadeIn>
-              {item.avatarUrl && (
-                <CachedImage
-                  source={{uri: item.avatarUrl}}
-                  style={{width: 50, height: 50, borderRadius: 25}}
-                />
-              )}
-            </ImageFadeIn>
+            <SpeakerAvatar avatarUrl={item.avatarUrl} />
           </LinkButton>
         )}
       </View>
       <View style={styles.rowData}>
-        <LinkButton to={'/details?speakerId=' + item.id}>
-          <BoldText fontSize="sm">{item.name}</BoldText>
-          {item.twitter ? (
-            <SemiBoldText fontSize="sm">@{item.twitter}</SemiBoldText>
-          ) : null}
-          {talk && (
-            <RegularText style={{paddingRight: 2}} fontSize="sm">
-              {talk.title}
-            </RegularText>
-          )}
-        </LinkButton>
+        {admin ? (
+          <SpeakerDescription speaker={item} talk={talk} />
+        ) : (
+          <LinkButton to={'/details?speakerId=' + item.id}>
+            <SpeakerDescription speaker={item} talk={talk} />
+          </LinkButton>
+        )}
       </View>
       {admin && (
         <LinkButton
@@ -155,7 +133,7 @@ export default function Speakers() {
     if (adminToken?.token) {
       try {
         const result = await client.query({
-          query: GET_SPEAKERS,
+          query: ADMIN_GET_SPEAKERS,
           fetchPolicy: 'no-cache',
           variables: {
             id: event?.id,
