@@ -9,61 +9,10 @@ import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
+import {GET_SPEAKERS_INFO, UPDATE_SPEAKER} from '../data/speakers';
 import {AdminSpeaker} from '../typings/data';
 import {MenuTabProps} from '../typings/navigation';
 import client from '../utils/gqlClient';
-
-const GET_SPEAKERS_INFO = gql`
-  query AdminSpeakerInfo($id: Int!, $token: String!, $speakerId: Int!) {
-    adminEvents(id: $id, token: $token) {
-      id
-      adminSpeakers(speakerId: $speakerId) {
-        id
-        name
-        twitter
-        github
-        email
-        shortBio
-        bio
-        status
-      }
-    }
-  }
-`;
-
-const UPDATE_SPEAKER = gql`
-  mutation updateSpeaker(
-    $id: Int!
-    $token: String!
-    $email: String!
-    $github: String!
-    $name: String!
-    $twitter: String!
-    $bio: String!
-    $shortBio: String!
-    $status: Int!
-  ) {
-    updateSpeaker(
-      id: $id
-      token: $token
-      email: $email
-      github: $github
-      name: $name
-      twitter: $twitter
-      bio: $bio
-      shortBio: $shortBio
-      status: $status
-    ) {
-      name
-      twitter
-      github
-      email
-      shortBio
-      bio
-      status
-    }
-  }
-`;
 
 export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
   const [adminToken] = useRecoilState(adminTokenState);
