@@ -47,9 +47,9 @@ const ADMIN_GET_SPEAKERS = gql`
 `;
 
 const UPDATE_SPEAKER_POSITION = gql`
-  mutation updateSpeaker($id: Int!, $token: String!, $displayOrder: Int!) {
-    updateSpeaker(id: $id, token: $token, displayOrder: $displayOrder) {
-      name
+  mutation bulkUpdate($token: String!, $speakers: [BulkSpeakerInputType]) {
+    updateSpeakersBulk(token: $token, speakers: $speakers) {
+      id
       displayOrder
     }
   }

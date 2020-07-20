@@ -178,19 +178,20 @@ export default function Speakers() {
   function updatePosition(data: AdminSpeaker[]) {
     for (let i = 0; i < data.length; i++) {
       data[i].displayOrder = i;
-      try {
-        client.mutate({
-          mutation: UPDATE_SPEAKER_POSITION,
-          variables: {
-            id: data[i].id,
-            token: adminToken?.token,
-            name: data[i].name,
-            displayOrder: data[i].displayOrder,
-          },
-        });
-      } catch (e) {
-        console.log(e);
-      }
+    }
+    const newSpeakersPosition = data.map((speaker) => {
+      return {id: speaker.id, displayOrder: speaker.displayOrder};
+    });
+    try {
+      client.mutate({
+        mutation: UPDATE_SPEAKER_POSITION,
+        variables: {
+          token: adminToken?.token,
+          speakers: newSpeakersPosition,
+        },
+      });
+    } catch (e) {
+      console.log(e);
     }
     setSpeakers(data);
   }
