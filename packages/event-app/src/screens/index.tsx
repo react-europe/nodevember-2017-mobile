@@ -6,6 +6,7 @@ import Crew from './Crew';
 import Details from './Details';
 import AdminDetails from './EditEvent/Details';
 import Main from './EditEvent/Main';
+import Social from './EditEvent/Social';
 import EditSpeaker from './EditSpeaker';
 import Editions from './Edtions';
 import Home from './Home';
@@ -38,4 +39,5 @@ export default {
   Main,
   EditSpeaker,
   AdminDetails,
+  Social,
 };
