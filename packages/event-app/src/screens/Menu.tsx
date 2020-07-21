@@ -21,7 +21,7 @@ import {Layout} from '../constants';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {MenuStackParamList} from '../typings/navigation';
-import {removeValueInStore, getAdminToken, getValueFromStore} from '../utils';
+import {removeValueInStore, getValueFromStore} from '../utils';
 
 function MenuHeader() {
   return (
@@ -73,16 +73,21 @@ function MenuScreen() {
     if (key === 'Crew') return 'ios-information-circle';
     if (key === 'Sponsors') return 'ios-beer';
     if (key === 'Attendees') return 'ios-people';
+    if (key === 'EditEvent') return 'ios-cog';
     if (key === 'Editions')
       return Platform.OS === 'ios' ? 'ios-git-branch' : 'md-git-branch';
   }
-  const screens: {key: keyof MenuStackParamList}[] = [
+  let screens: {key: keyof MenuStackParamList}[] = [
     {key: 'Speakers'},
     {key: 'Crew'},
     {key: 'Sponsors'},
     {key: 'Attendees'},
     {key: 'Editions'},
   ];
+
+  if (adminToken?.token) {
+    screens = [...screens, {key: 'EditEvent'}];
+  }
 
   async function updateAdminToken() {
     if (

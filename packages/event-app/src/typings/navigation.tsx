@@ -6,7 +6,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import {User, CheckedinAttendee, CheckinList, Attendee} from './data';
 
-/** App */
+/* App */
 
 export type AppStackParamList = {
   Home: {screen: keyof PrimaryTabParamList; params?: any} | undefined;
@@ -34,7 +34,7 @@ export type AppProps<T extends keyof AppStackParamList> = {
   navigation: AppNavigationProp<T>;
 };
 
-/** Primary Tab */
+/* Primary Tab */
 
 export type PrimaryTabParamList = {
   Home: {screen?: keyof PrimaryTabParamList} | undefined;
@@ -61,7 +61,7 @@ export type PrimaryTabProps<T extends keyof PrimaryTabParamList> = {
   navigation: PrimaryTabNavigationProp<T>;
 };
 
-/** Profile */
+/* Profile */
 
 export type ProfileStackParamList = {
   Profile: {displayShareInfo?: boolean};
@@ -97,7 +97,7 @@ export type ScheduleProps = {
   navigation: ScheduleNavigationProp;
 };
 
-/** ScheduleDay */
+/* ScheduleDay */
 
 // Type DynamicScheduleNavigation at his creation
 export type ScheduleDayTabParamList = {
@@ -124,7 +124,7 @@ export type ScheduleDayProps = {
   navigation: ScheduleDayNavigationProp;
 };
 
-/** Contacts */
+/* Contacts */
 
 export type ContactStackParamList = {
   Contacts: undefined;
@@ -142,7 +142,7 @@ export type ContactProps = {
   navigation: ContactNavigationProp;
 };
 
-/** Menu */
+/* Menu */
 
 export type MenuStackParamList = {
   Menu: undefined;
@@ -153,6 +153,7 @@ export type MenuStackParamList = {
   Attendees: {attendee: Attendee};
   AttendeeDetail: {attendee: Attendee};
   Editions: undefined;
+  EditEvent: undefined;
   SignIn: undefined;
 };
 
@@ -173,7 +174,7 @@ export type MenuTabProps<T extends keyof MenuStackParamList> = {
   navigation: MenuNavigationProp<T>;
 };
 
-/** StaffCheckinLists */
+/* StaffCheckinLists */
 
 export type StaffCheckinListsParamList = {
   StaffCheckinLists: undefined;
@@ -192,4 +193,31 @@ export type StaffCheckinListsNavigationProp = CompositeNavigationProp<
 export type StaffCheckinListsProps = {
   route: StaffCheckinListsRouteProp;
   navigation: StaffCheckinListsNavigationProp;
+};
+
+/* Admin Edit Event */
+
+export type EditEventParamList = {
+  Main: undefined;
+  Details: undefined;
+  CallForPaper: undefined;
+  Social: undefined;
+  Invoice: undefined;
+};
+
+export type EditEventRouteProp<T extends keyof EditEventParamList> = RouteProp<
+  EditEventParamList,
+  T
+>;
+
+export type EditEventNavigationProp<
+  T extends keyof EditEventParamList
+> = CompositeNavigationProp<
+  MaterialTopTabNavigationProp<EditEventParamList, T>,
+  MenuNavigationProp<'EditEvent'>
+>;
+
+export type EditEventProps<T extends keyof EditEventParamList> = {
+  route: EditEventRouteProp<T>;
+  navigation: EditEventNavigationProp<T>;
 };
