@@ -12,7 +12,7 @@ import {adminTokenState} from '../../context/adminTokenState';
 import {Event} from '../../typings/data';
 import client from '../../utils/gqlClient';
 
-const ADMIN_DETAILS_EVENT = gql`
+const ADMIN_EVENT_DETAILS = gql`
   query AdminMainEvent($id: Int!, $token: String!) {
     adminEvents(id: $id, token: $token) {
       customDomain
@@ -26,7 +26,7 @@ const ADMIN_DETAILS_EVENT = gql`
     }
   }
 `;
-const UPDATE_DETAILS_EVENT = gql`
+const UPDATE_EVENT_DETAILS = gql`
   mutation(
     $id: Int!
     $token: String!
@@ -73,7 +73,7 @@ export default function Main() {
   async function fetchSpeakerInfo() {
     try {
       const result = await client.query({
-        query: ADMIN_DETAILS_EVENT,
+        query: ADMIN_EVENT_DETAILS,
         fetchPolicy: 'network-only',
         variables: {
           id: event?.id,
@@ -93,7 +93,7 @@ export default function Main() {
     setLoading(true);
     try {
       const result = await client.mutate({
-        mutation: UPDATE_DETAILS_EVENT,
+        mutation: UPDATE_EVENT_DETAILS,
         variables: {
           id: event?.id,
           token: adminToken?.token,

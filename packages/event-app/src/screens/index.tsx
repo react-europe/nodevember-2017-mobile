@@ -5,6 +5,7 @@ import Contacts from './Contacts';
 import Crew from './Crew';
 import Details from './Details';
 import AdminDetails from './EditEvent/Details';
+import Invoice from './EditEvent/Invoice';
 import Main from './EditEvent/Main';
 import Social from './EditEvent/Social';
 import EditSpeaker from './EditSpeaker';
@@ -40,4 +41,5 @@ export default {
   EditSpeaker,
   AdminDetails,
   Social,
+  Invoice,
 };
