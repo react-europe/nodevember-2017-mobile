@@ -12,56 +12,60 @@ import {adminTokenState} from '../../context/adminTokenState';
 import {Event} from '../../typings/data';
 import client from '../../utils/gqlClient';
 
-const ADMIN_MAIN_EVENT = gql`
+const ADMIN_DETAILS_EVENT = gql`
   query AdminMainEvent($id: Int!, $token: String!) {
     adminEvents(id: $id, token: $token) {
-      name
-      tagLine
-      organizers
-      description
-      startDate
-      endDate
-      cocUrl
-      organizerEmail
+      customDomain
+      sponsorPdfUrl
+      speakersLegend
+      scheduleLegend
+      ticketsLegend
+      gettingThereLegend
+      copyrightsLegend
+      hotelsList
     }
   }
 `;
-const UPDATE_MAIN_EVENT = gql`
+const UPDATE_DETAILS_EVENT = gql`
   mutation(
     $id: Int!
     $token: String!
-    $name: String!
-    $tagLine: String!
-    $organizers: String!
-    $description: String!
-    $cocUrl: String!
-    $organizerEmail: String!
+    $customDomain: String!
+    $sponsorPdfUrl: String!
+    $speakersLegend: String!
+    $scheduleLegend: String!
+    $ticketsLegend: String!
+    $gettingThereLegend: String!
+    $copyrightsLegend: String!
+    $hotelsList: String!
   ) {
     updateEvent(
       id: $id
       token: $token
-      name: $name
-      tagLine: $tagLine
-      organizers: $organizers
-      description: $description
-      cocUrl: $cocUrl
-      organizerEmail: $organizerEmail
+      customDomain: $customDomain
+      sponsorPdfUrl: $sponsorPdfUrl
+      speakersLegend: $speakersLegend
+      scheduleLegend: $scheduleLegend
+      ticketsLegend: $ticketsLegend
+      gettingThereLegend: $gettingThereLegend
+      copyrightsLegend: $copyrightsLegend
+      hotelsList: $hotelsList
     ) {
-      name
-      tagLine
-      organizers
-      description
-      startDate
-      endDate
-      cocUrl
-      organizerEmail
+      customDomain
+      sponsorPdfUrl
+      speakersLegend
+      scheduleLegend
+      ticketsLegend
+      gettingThereLegend
+      copyrightsLegend
+      hotelsList
     }
   }
 `;
 
 export default function Main() {
   const adminToken = useRecoilValue(adminTokenState);
-  const [mainEvent, setMainEvent] = useState<Event | null>();
+  const [eventDetails, setMainEvent] = useState<Event | null>();
   const {event} = useContext(DataContext);
   const {control, handleSubmit} = useForm();
   const [loading, setLoading] = useState(true);
@@ -69,13 +73,14 @@ export default function Main() {
   async function fetchSpeakerInfo() {
     try {
       const result = await client.query({
-        query: ADMIN_MAIN_EVENT,
+        query: ADMIN_DETAILS_EVENT,
         fetchPolicy: 'network-only',
         variables: {
           id: event?.id,
           token: adminToken?.token,
         },
       });
+      console.log('RESULT: ', result.data.adminEvents);
       setMainEvent(result.data.adminEvents);
     } catch (e) {
       Alert.alert('Unable to fetch', JSON.stringify(e));
@@ -84,10 +89,11 @@ export default function Main() {
   }
 
   async function onSubmit(data: any) {
+    console.log(data);
     setLoading(true);
     try {
       const result = await client.mutate({
-        mutation: UPDATE_MAIN_EVENT,
+        mutation: UPDATE_DETAILS_EVENT,
         variables: {
           id: event?.id,
           token: adminToken?.token,
@@ -119,58 +125,40 @@ export default function Main() {
         control={control}
         render={({onChange, onBlur, value}) => (
           <TextInput
-            label="Name"
+            label="Custom domain"
             style={styles.input}
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
-            textContentType="none"
-            autoCompleteType="off"
+            textContentType="URL"
+            keyboardType="url"
           />
         )}
-        name="name"
-        defaultValue={mainEvent?.name}
+        name="customDomain"
+        defaultValue={eventDetails?.customDomain}
       />
       <Controller
         control={control}
         render={({onChange, onBlur, value}) => (
           <TextInput
             style={styles.input}
-            label="Tag line"
+            label="Sponsor Pdf Url"
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
-            textContentType="none"
-            autoCompleteType="off"
-            multiline
+            textContentType="URL"
+            keyboardType="url"
           />
         )}
-        name="tagLine"
-        defaultValue={mainEvent?.tagLine}
+        name="sponsorPdfUrl"
+        defaultValue={eventDetails?.sponsorPdfUrl}
       />
       <Controller
         control={control}
         render={({onChange, onBlur, value}) => (
           <TextInput
             style={styles.input}
-            label="Organizers"
-            onBlur={onBlur}
-            onChangeText={(value) => onChange(value)}
-            value={value}
-            textContentType="none"
-            autoCompleteType="off"
-            multiline
-          />
-        )}
-        name="organizers"
-        defaultValue={mainEvent?.organizers}
-      />
-      <Controller
-        control={control}
-        render={({onChange, onBlur, value}) => (
-          <TextInput
-            style={styles.input}
-            label="Description"
+            label="Speakers Legend"
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
@@ -179,41 +167,93 @@ export default function Main() {
             multiline
           />
         )}
-        name="description"
-        defaultValue={mainEvent?.description}
+        name="speakersLegend"
+        defaultValue={eventDetails?.speakersLegend}
       />
       <Controller
         control={control}
         render={({onChange, onBlur, value}) => (
           <TextInput
-            label="cocUrl"
+            style={styles.input}
+            label="Schedule Legend"
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            textContentType="none"
+            autoCompleteType="off"
+            multiline
+          />
+        )}
+        name="scheduleLegend"
+        defaultValue={eventDetails?.scheduleLegend}
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            label="Tickets legend"
             style={styles.input}
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
             textContentType="none"
             autoCompleteType="off"
+            multiline
           />
         )}
-        name="cocUrl"
-        defaultValue={mainEvent?.cocUrl}
+        name="ticketsLegend"
+        defaultValue={eventDetails?.ticketsLegend}
       />
       <Controller
         control={control}
         render={({onChange, onBlur, value}) => (
           <TextInput
-            label="Organizer email"
+            label="Getting there legend"
             style={styles.input}
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
-            autoCompleteType="email"
-            keyboardType="email-address"
-            textContentType="emailAddress"
+            textContentType="none"
+            autoCompleteType="off"
+            multiline
           />
         )}
-        name="organizerEmail"
-        defaultValue={mainEvent?.organizerEmail}
+        name="gettingThereLegend"
+        defaultValue={eventDetails?.gettingThereLegend}
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            label="Copyrights legend"
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            textContentType="none"
+            autoCompleteType="off"
+            multiline
+          />
+        )}
+        name="copyrightsLegend"
+        defaultValue={eventDetails?.copyrightsLegend}
+      />
+      <Controller
+        control={control}
+        render={({onChange, onBlur, value}) => (
+          <TextInput
+            label="Hotels list"
+            style={styles.input}
+            onBlur={onBlur}
+            onChangeText={(value) => onChange(value)}
+            value={value}
+            textContentType="none"
+            autoCompleteType="off"
+            multiline
+          />
+        )}
+        name="hotelsList"
+        defaultValue={eventDetails?.hotelsList}
       />
       <View style={styles.buttonContainer}>
         <PrimaryButton onPress={handleSubmit(onSubmit)}>

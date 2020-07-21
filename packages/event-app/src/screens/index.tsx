@@ -4,6 +4,7 @@ import CheckedInAttendeeInfo from './CheckedInAttendeeInfo';
 import Contacts from './Contacts';
 import Crew from './Crew';
 import Details from './Details';
+import AdminDetails from './EditEvent/Details';
 import Main from './EditEvent/Main';
 import EditSpeaker from './EditSpeaker';
 import Editions from './Edtions';
@@ -36,4 +37,5 @@ export default {
   SignIn,
   Main,
   EditSpeaker,
+  AdminDetails,
 };
