@@ -15,10 +15,10 @@ export default function EditEventNavigator() {
         scrollEnabled: true,
       }}>
       <Tab.Screen name="Main" component={Screens.Main} />
-      <Tab.Screen name="Details" component={Screens.Main} />
-      <Tab.Screen name="CallForPaper" component={Screens.Main} />
-      <Tab.Screen name="Social" component={Screens.Main} />
-      <Tab.Screen name="Invoice" component={Screens.Main} />
+      <Tab.Screen name="Details" component={Screens.AdminDetails} />
+      {/* <Tab.Screen name="CallForPaper" component={Screens.CallForPaper} /> */}
+      <Tab.Screen name="Social" component={Screens.Social} />
+      <Tab.Screen name="Invoice" component={Screens.Invoice} />
     </Tab.Navigator>
   );
 }
