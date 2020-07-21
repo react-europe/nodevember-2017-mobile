@@ -4,6 +4,7 @@ import CheckedInAttendeeInfo from './CheckedInAttendeeInfo';
 import Contacts from './Contacts';
 import Crew from './Crew';
 import Details from './Details';
+import CallForPaper from './EditEvent/CallForPaper';
 import AdminDetails from './EditEvent/Details';
 import Invoice from './EditEvent/Invoice';
 import Main from './EditEvent/Main';
@@ -42,4 +43,5 @@ export default {
   AdminDetails,
   Social,
   Invoice,
+  CallForPaper,
 };
