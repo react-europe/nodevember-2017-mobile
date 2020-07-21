@@ -65,7 +65,7 @@ const UPDATE_DETAILS_EVENT = gql`
 
 export default function Main() {
   const adminToken = useRecoilValue(adminTokenState);
-  const [eventDetails, setMainEvent] = useState<Event | null>();
+  const [eventDetails, setEventDetails] = useState<Event | null>();
   const {event} = useContext(DataContext);
   const {control, handleSubmit} = useForm();
   const [loading, setLoading] = useState(true);
@@ -81,7 +81,7 @@ export default function Main() {
         },
       });
       console.log('RESULT: ', result.data.adminEvents);
-      setMainEvent(result.data.adminEvents);
+      setEventDetails(result.data.adminEvents);
     } catch (e) {
       Alert.alert('Unable to fetch', JSON.stringify(e));
     }
@@ -100,7 +100,7 @@ export default function Main() {
           ...data,
         },
       });
-      setMainEvent(result.data.updateEvent);
+      setEventDetails(result.data.updateEvent);
     } catch (e) {
       Alert.alert('Update failed', JSON.stringify(e));
     }
