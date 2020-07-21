@@ -12,56 +12,40 @@ import {adminTokenState} from '../../context/adminTokenState';
 import {Event} from '../../typings/data';
 import client from '../../utils/gqlClient';
 
-const ADMIN_EVENT_MAIN = gql`
+const ADMIN_EVENT_INVOICE = gql`
   query AdminMainEvent($id: Int!, $token: String!) {
     adminEvents(id: $id, token: $token) {
-      name
-      tagLine
-      organizers
-      description
-      startDate
-      endDate
-      cocUrl
-      organizerEmail
+      invoiceAddress
+      invoiceVatNumber
+      invoiceCompanyName
     }
   }
 `;
-const UPDATE_EVENT_MAIN = gql`
+const UPDATE_EVENT_INVOICE = gql`
   mutation(
     $id: Int!
     $token: String!
-    $name: String!
-    $tagLine: String!
-    $organizers: String!
-    $description: String!
-    $cocUrl: String!
-    $organizerEmail: String!
+    $invoiceAddress: String!
+    $invoiceVatNumber: String!
+    $invoiceCompanyName: String!
   ) {
     updateEvent(
       id: $id
       token: $token
-      name: $name
-      tagLine: $tagLine
-      organizers: $organizers
-      description: $description
-      cocUrl: $cocUrl
-      organizerEmail: $organizerEmail
+      invoiceAddress: $invoiceAddress
+      invoiceVatNumber: $invoiceVatNumber
+      invoiceCompanyName: $invoiceCompanyName
     ) {
-      name
-      tagLine
-      organizers
-      description
-      startDate
-      endDate
-      cocUrl
-      organizerEmail
+      invoiceAddress
+      invoiceVatNumber
+      invoiceCompanyName
     }
   }
 `;
 
-export default function Main() {
+export default function Invoice() {
   const adminToken = useRecoilValue(adminTokenState);
-  const [mainEvent, setMainEvent] = useState<Event | null>();
+  const [invoiceEvent, setInvoiceEvent] = useState<Event | null>();
   const {event} = useContext(DataContext);
   const {control, handleSubmit} = useForm();
   const [loading, setLoading] = useState(true);
@@ -69,14 +53,15 @@ export default function Main() {
   async function fetchSpeakerInfo() {
     try {
       const result = await client.query({
-        query: ADMIN_EVENT_MAIN,
+        query: ADMIN_EVENT_INVOICE,
         fetchPolicy: 'network-only',
         variables: {
           id: event?.id,
           token: adminToken?.token,
         },
       });
-      setMainEvent(result.data.adminEvents);
+      console.log(result.data.adminEvents);
+      setInvoiceEvent(result.data.adminEvents);
     } catch (e) {
       Alert.alert('Unable to fetch', JSON.stringify(e));
     }
@@ -87,14 +72,14 @@ export default function Main() {
     setLoading(true);
     try {
       const result = await client.mutate({
-        mutation: UPDATE_EVENT_MAIN,
+        mutation: UPDATE_EVENT_INVOICE,
         variables: {
           id: event?.id,
           token: adminToken?.token,
           ...data,
         },
       });
-      setMainEvent(result.data.updateEvent);
+      setInvoiceEvent(result.data.updateEvent);
     } catch (e) {
       Alert.alert('Update failed', JSON.stringify(e));
     }
@@ -119,24 +104,8 @@ export default function Main() {
         control={control}
         render={({onChange, onBlur, value}) => (
           <TextInput
-            label="Name"
+            label="Invoice address"
             style={styles.input}
-            onBlur={onBlur}
-            onChangeText={(value) => onChange(value)}
-            value={value}
-            textContentType="none"
-            autoCompleteType="off"
-          />
-        )}
-        name="name"
-        defaultValue={mainEvent?.name}
-      />
-      <Controller
-        control={control}
-        render={({onChange, onBlur, value}) => (
-          <TextInput
-            style={styles.input}
-            label="Tag line"
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
@@ -145,15 +114,15 @@ export default function Main() {
             multiline
           />
         )}
-        name="tagLine"
-        defaultValue={mainEvent?.tagLine}
+        name="invoiceAddress"
+        defaultValue={invoiceEvent?.invoiceAddress}
       />
       <Controller
         control={control}
         render={({onChange, onBlur, value}) => (
           <TextInput
+            label="Invoice Vat number"
             style={styles.input}
-            label="Organizers"
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
@@ -162,15 +131,15 @@ export default function Main() {
             multiline
           />
         )}
-        name="organizers"
-        defaultValue={mainEvent?.organizers}
+        name="invoiceVatNumber"
+        defaultValue={invoiceEvent?.invoiceVatNumber}
       />
       <Controller
         control={control}
         render={({onChange, onBlur, value}) => (
           <TextInput
+            label="Invoice company name"
             style={styles.input}
-            label="Description"
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
@@ -179,41 +148,8 @@ export default function Main() {
             multiline
           />
         )}
-        name="description"
-        defaultValue={mainEvent?.description}
-      />
-      <Controller
-        control={control}
-        render={({onChange, onBlur, value}) => (
-          <TextInput
-            label="cocUrl"
-            style={styles.input}
-            onBlur={onBlur}
-            onChangeText={(value) => onChange(value)}
-            value={value}
-            textContentType="none"
-            autoCompleteType="off"
-          />
-        )}
-        name="cocUrl"
-        defaultValue={mainEvent?.cocUrl}
-      />
-      <Controller
-        control={control}
-        render={({onChange, onBlur, value}) => (
-          <TextInput
-            label="Organizer email"
-            style={styles.input}
-            onBlur={onBlur}
-            onChangeText={(value) => onChange(value)}
-            value={value}
-            autoCompleteType="email"
-            keyboardType="email-address"
-            textContentType="emailAddress"
-          />
-        )}
-        name="organizerEmail"
-        defaultValue={mainEvent?.organizerEmail}
+        name="invoiceCompanyName"
+        defaultValue={invoiceEvent?.invoiceCompanyName}
       />
       <View style={styles.buttonContainer}>
         <PrimaryButton onPress={handleSubmit(onSubmit)}>
