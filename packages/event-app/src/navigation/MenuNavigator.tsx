@@ -4,6 +4,7 @@ import React from 'react';
 import Screens from '../screens';
 import {MenuStackParamList} from '../typings/navigation';
 import DefaultStackConfig from '../utils/defaultNavConfig';
+import EditEventNavigator from './EditEventNavigator';
 
 const Stack = createStackNavigator<MenuStackParamList>();
 
@@ -19,6 +20,7 @@ function MenuNavigator() {
       <Stack.Screen name="Attendees" component={Screens.Attendees} />
       <Stack.Screen name="AttendeeDetail" component={Screens.AttendeeDetail} />
       <Stack.Screen name="Editions" component={Screens.Editions} />
+      <Stack.Screen name="EditEvent" component={EditEventNavigator} />
       <Stack.Screen name="SignIn" component={Screens.SignIn} />
     </Stack.Navigator>
   );
