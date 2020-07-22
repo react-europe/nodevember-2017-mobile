@@ -7,6 +7,7 @@ import {useRecoilValue} from 'recoil';
 
 import PrimaryButton from '../../components/PrimaryButton';
 import {SemiBoldText} from '../../components/StyledText';
+import DateTimePicker from '../../components/dateTimePicker';
 import DataContext from '../../context/DataContext';
 import {adminTokenState} from '../../context/adminTokenState';
 import {Event} from '../../typings/data';
@@ -30,6 +31,8 @@ const UPDATE_EVENT_CFP = gql`
     $cfpRules: String!
     $cfpForceGithub: Boolean!
     $cfpLengthLegend: String!
+    $cfpStartDate: DateType!
+    $cfpEndDate: DateType!
   ) {
     updateEvent(
       id: $id
@@ -37,6 +40,8 @@ const UPDATE_EVENT_CFP = gql`
       cfpRules: $cfpRules
       cfpForceGithub: $cfpForceGithub
       cfpLengthLegend: $cfpLengthLegend
+      cfpStartDate: $cfpStartDate
+      cfpEndDate: $cfpEndDate
     ) {
       cfpRules
       cfpForceGithub
@@ -51,6 +56,8 @@ export default function CallForPaper() {
   const adminToken = useRecoilValue(adminTokenState);
   const [cfpEvent, setCfpEvent] = useState<Event | null>();
   const [cfpGithub, setCfpGithub] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const {event} = useContext(DataContext);
   const {control, handleSubmit} = useForm();
   const [loading, setLoading] = useState(true);
@@ -68,6 +75,8 @@ export default function CallForPaper() {
       });
       setCfpEvent(result.data.adminEvents);
       setCfpGithub(result.data.adminEvents.cfpForceGithub);
+      setStartDate(new Date(result.data.adminEvents.cfpStartDate));
+      setEndDate(new Date(result.data.adminEvents.cfpEndDate));
     } catch (e) {
       Alert.alert('Unable to fetch', JSON.stringify(e));
     }
@@ -83,6 +92,8 @@ export default function CallForPaper() {
           id: event?.id,
           token: adminToken?.token,
           cfpForceGithub: cfpGithub,
+          cfpStartDate: startDate.toString(),
+          cfpEndDate: endDate.toString(),
           ...data,
         },
       });
@@ -105,6 +116,7 @@ export default function CallForPaper() {
       </View>
     );
   }
+
   return (
     <ScrollView style={styles.container}>
       <Controller
@@ -142,7 +154,7 @@ export default function CallForPaper() {
         name="cfpLengthLegend"
         defaultValue={cfpEvent?.cfpLengthLegend}
       />
-      <View style={styles.swtichContainer}>
+      <View style={styles.switchContainer}>
         <Text>Force github</Text>
         <Switch
           trackColor={{false: '#767577', true: colors.primary}}
@@ -151,6 +163,14 @@ export default function CallForPaper() {
           onValueChange={() => setCfpGithub(!cfpGithub)}
           value={cfpGithub}
         />
+      </View>
+      <View style={styles.timeContainer}>
+        <Text>Start date: {startDate && startDate.toLocaleString()}</Text>
+        <DateTimePicker date={startDate} setDate={setStartDate} />
+      </View>
+      <View style={styles.timeContainer}>
+        <Text>End date: {endDate && endDate.toLocaleString()}</Text>
+        <DateTimePicker date={endDate} setDate={setEndDate} />
       </View>
       <View style={styles.buttonContainer}>
         <PrimaryButton onPress={handleSubmit(onSubmit)}>
@@ -178,8 +198,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  swtichContainer: {
+  switchContainer: {
     flexDirection: 'row',
+    marginVertical: 10,
+  },
+  timeContainer: {
     marginVertical: 10,
   },
 });
