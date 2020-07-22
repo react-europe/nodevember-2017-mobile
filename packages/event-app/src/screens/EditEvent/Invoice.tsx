@@ -60,7 +60,6 @@ export default function Invoice() {
           token: adminToken?.token,
         },
       });
-      console.log(result.data.adminEvents);
       setInvoiceEvent(result.data.adminEvents);
     } catch (e) {
       Alert.alert('Unable to fetch', JSON.stringify(e));
