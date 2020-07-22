@@ -1,4 +1,3 @@
-import {gql} from 'apollo-boost';
 import React, {useEffect, useContext, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {View, StyleSheet, ScrollView, Picker, Alert} from 'react-native';
@@ -9,7 +8,11 @@ import PrimaryButton from '../components/PrimaryButton';
 import {SemiBoldText} from '../components/StyledText';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
-import {GET_SPEAKERS_INFO, UPDATE_SPEAKER} from '../data/speakers';
+import {
+  GET_SPEAKERS_INFO,
+  UPDATE_SPEAKER,
+  CREATE_SPEAKER,
+} from '../data/speakers';
 import {AdminSpeaker} from '../typings/data';
 import {MenuTabProps} from '../typings/navigation';
 import client from '../utils/gqlClient';
@@ -31,7 +34,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
         variables: {
           id: event?.id,
           token: adminToken?.token,
-          speakerId: route.params.speakerId,
+          speakerId: route.params?.speakerId,
         },
       });
       if (result.data.adminEvents.adminSpeakers[0]) {
@@ -45,17 +48,21 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
   }
 
   useEffect(() => {
-    if (!adminToken?.token || !event?.id) return;
+    if (!adminToken?.token || !event?.id || !route.params?.speakerId) {
+      setLoading(false);
+      return;
+    }
     fetchSpeakerInfo();
   }, [adminToken, event]);
 
   async function onSubmit(data: any) {
     setLoading(true);
+    const id = route.params?.speakerId ? route.params.speakerId : event?.id;
     try {
       await client.mutate({
-        mutation: UPDATE_SPEAKER,
+        mutation: route.params?.speakerId ? UPDATE_SPEAKER : CREATE_SPEAKER,
         variables: {
-          id: route.params.speakerId,
+          id,
           token: adminToken?.token,
           name: data.name,
           twitter: data.twitter,
@@ -82,7 +89,9 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
   }
   return (
     <ScrollView style={styles.container}>
-      <Title style={styles.title}>{speaker?.name}</Title>
+      <Title style={styles.title}>
+        {speaker?.name ? speaker.name : 'New Speaker'}
+      </Title>
       <Controller
         control={control}
         render={({onChange, onBlur, value}) => (
@@ -190,7 +199,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditSpeaker'>) {
       <View style={styles.buttonContainer}>
         <PrimaryButton onPress={handleSubmit(onSubmit)}>
           <SemiBoldText fontSize="md" TextColorAccent>
-            Update
+            {route.params?.speakerId ? 'Update' : 'Create'}
           </SemiBoldText>
         </PrimaryButton>
       </View>

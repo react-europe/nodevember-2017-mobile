@@ -20,7 +20,7 @@ import {SemiBoldText} from '../components/StyledText';
 import {Layout} from '../constants';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
-import {MenuStackParamList} from '../typings/navigation';
+import {MenuStackParamList, MenuNavigationProp} from '../typings/navigation';
 import {removeValueInStore, getValueFromStore} from '../utils';
 
 function MenuHeader() {
@@ -63,7 +63,7 @@ function MenuHeader() {
   );
 }
 
-function MenuScreen() {
+function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
   const theme: Theme = useTheme();
   const {event} = useContext(DataContext);
   const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
@@ -143,6 +143,15 @@ function MenuScreen() {
               <Text style={{fontSize: 20, marginHorizontal: 16, flex: 1}}>
                 {item.key}
               </Text>
+              {adminToken?.token && item.key === 'Speakers' && (
+                <Ionicons
+                  name="md-add"
+                  size={24}
+                  color="#999"
+                  style={{marginHorizontal: 10}}
+                  onPress={() => navigation.navigate('EditSpeaker')}
+                />
+              )}
               <Ionicons name="ios-arrow-forward" size={24} color="#999" />
             </View>
           </LinkButton>

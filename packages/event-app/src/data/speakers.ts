@@ -107,11 +107,46 @@ const UPDATE_SPEAKER = gql`
   }
 `;
 
+const CREATE_SPEAKER = gql`
+  mutation createSpeaker(
+    $id: Int!
+    $token: String!
+    $email: String
+    $github: String
+    $name: String!
+    $twitter: String
+    $bio: String
+    $shortBio: String
+    $status: Int
+  ) {
+    createSpeaker(
+      eventId: $id
+      token: $token
+      email: $email
+      github: $github
+      name: $name
+      twitter: $twitter
+      bio: $bio
+      shortBio: $shortBio
+      status: $status
+    ) {
+      name
+      twitter
+      github
+      email
+      shortBio
+      bio
+      status
+    }
+  }
+`;
+
 export {
   ADMIN_GET_SPEAKERS,
   UPDATE_SPEAKER_POSITION,
   GET_SPEAKERS_INFO,
   UPDATE_SPEAKER,
+  CREATE_SPEAKER,
 };
 
 export default GET_SPEAKERS;
