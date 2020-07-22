@@ -2,11 +2,12 @@ import {gql} from 'apollo-boost';
 import React, {useContext, useEffect, useState} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {StyleSheet, Alert, ScrollView, View} from 'react-native';
-import {TextInput, ActivityIndicator} from 'react-native-paper';
+import {TextInput, ActivityIndicator, Text} from 'react-native-paper';
 import {useRecoilValue} from 'recoil';
 
 import PrimaryButton from '../../components/PrimaryButton';
 import {SemiBoldText} from '../../components/StyledText';
+import DateTimePicker from '../../components/dateTimePicker';
 import DataContext from '../../context/DataContext';
 import {adminTokenState} from '../../context/adminTokenState';
 import {Event} from '../../typings/data';
@@ -36,6 +37,8 @@ const UPDATE_EVENT_MAIN = gql`
     $description: String!
     $cocUrl: String!
     $organizerEmail: String!
+    $startDate: DateType!
+    $endDate: DateType!
   ) {
     updateEvent(
       id: $id
@@ -46,6 +49,8 @@ const UPDATE_EVENT_MAIN = gql`
       description: $description
       cocUrl: $cocUrl
       organizerEmail: $organizerEmail
+      startDate: $startDate
+      endDate: $endDate
     ) {
       name
       tagLine
@@ -65,6 +70,8 @@ export default function Main() {
   const {event} = useContext(DataContext);
   const {control, handleSubmit} = useForm();
   const [loading, setLoading] = useState(true);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   async function fetchSpeakerInfo() {
     try {
@@ -77,6 +84,8 @@ export default function Main() {
         },
       });
       setMainEvent(result.data.adminEvents);
+      setStartDate(new Date(result.data.adminEvents.startDate));
+      setEndDate(new Date(result.data.adminEvents.endDate));
     } catch (e) {
       Alert.alert('Unable to fetch', JSON.stringify(e));
     }
@@ -91,6 +100,8 @@ export default function Main() {
         variables: {
           id: event?.id,
           token: adminToken?.token,
+          startDate: startDate.toString(),
+          endDate: endDate.toString(),
           ...data,
         },
       });
@@ -215,6 +226,14 @@ export default function Main() {
         name="organizerEmail"
         defaultValue={mainEvent?.organizerEmail}
       />
+      <View style={styles.timeContainer}>
+        <Text>Start date: {startDate && startDate.toLocaleString()}</Text>
+        <DateTimePicker date={startDate} setDate={setStartDate} />
+      </View>
+      <View style={styles.timeContainer}>
+        <Text>End date: {endDate && endDate.toLocaleString()}</Text>
+        <DateTimePicker date={endDate} setDate={setEndDate} />
+      </View>
       <View style={styles.buttonContainer}>
         <PrimaryButton onPress={handleSubmit(onSubmit)}>
           <SemiBoldText fontSize="md" TextColorAccent>
@@ -240,5 +259,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  timeContainer: {
+    marginVertical: 10,
   },
 });
