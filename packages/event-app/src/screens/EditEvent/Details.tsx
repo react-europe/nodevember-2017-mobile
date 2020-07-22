@@ -80,7 +80,6 @@ export default function Main() {
           token: adminToken?.token,
         },
       });
-      console.log('RESULT: ', result.data.adminEvents);
       setEventDetails(result.data.adminEvents);
     } catch (e) {
       Alert.alert('Unable to fetch', JSON.stringify(e));
