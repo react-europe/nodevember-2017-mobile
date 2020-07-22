@@ -15,7 +15,6 @@ export default function DateTimePicker(props: DateTimePickerProps) {
 
   const onChange = (event: any, selectedDate: any) => {
     const currentDate = selectedDate || date;
-    console.log('New date: ', currentDate);
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
