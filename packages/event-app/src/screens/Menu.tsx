@@ -5,10 +5,10 @@ import {
   View,
   Image,
   Text,
-  FlatList,
   StyleSheet,
   StatusBar,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTheme, Theme} from 'react-native-paper';
@@ -68,25 +68,23 @@ function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
   const {event} = useContext(DataContext);
   const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
 
-  function getIconName(key: keyof MenuStackParamList) {
-    if (key === 'Speakers') return 'ios-microphone';
-    if (key === 'Crew') return 'ios-information-circle';
-    if (key === 'Sponsors') return 'ios-beer';
-    if (key === 'Attendees') return 'ios-people';
-    if (key === 'EditEvent') return 'ios-cog';
-    if (key === 'Editions')
-      return Platform.OS === 'ios' ? 'ios-git-branch' : 'md-git-branch';
-  }
-  let screens: {key: keyof MenuStackParamList}[] = [
-    {key: 'Speakers'},
-    {key: 'Crew'},
-    {key: 'Sponsors'},
-    {key: 'Attendees'},
-    {key: 'Editions'},
+  let screens: {key: keyof MenuStackParamList; icon: string}[] = [
+    {key: 'Speakers', icon: 'ios-microphone'},
+    {key: 'Crew', icon: 'ios-information-circle'},
+    {key: 'Sponsors', icon: 'ios-beer'},
+    {key: 'Attendees', icon: 'ios-people'},
+    {
+      key: 'Editions',
+      icon: Platform.OS === 'ios' ? 'ios-git-branch' : 'md-git-branch',
+    },
   ];
 
   if (adminToken?.token) {
-    screens = [...screens, {key: 'EditEvent'}];
+    screens = [
+      ...screens,
+      {key: 'EditEvent', icon: 'ios-cog'},
+      {key: 'Tickets', icon: 'ios-albums'},
+    ];
   }
 
   async function updateAdminToken() {
@@ -113,50 +111,39 @@ function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
   }
 
   return (
-    <View>
+    <ScrollView>
       <StatusBar barStyle="light-content" />
-      <FlatList
-        data={screens}
-        ListHeaderComponent={MenuHeader}
-        ItemSeparatorComponent={() => (
+      <MenuHeader />
+      {screens.map((screen) => (
+        <LinkButton to={'/' + screen.key}>
           <View
             style={{
-              height: StyleSheet.hairlineWidth,
-              backgroundColor: '#cdcdcd',
-            }}
-          />
-        )}
-        renderItem={({item}) => (
-          <LinkButton to={'/' + item.key}>
-            <View
-              style={{
-                paddingVertical: 12,
-                paddingHorizontal: 16,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
+              paddingVertical: 12,
+              paddingHorizontal: 16,
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Ionicons
+              name={screen.icon}
+              size={24}
+              color={theme.colors.primary}
+            />
+            <Text style={{fontSize: 20, marginHorizontal: 16, flex: 1}}>
+              {screen.key}
+            </Text>
+            {adminToken?.token && screen.key === 'Speakers' && (
               <Ionicons
-                name={getIconName(item.key)}
+                name="md-add"
                 size={24}
-                color={theme.colors.primary}
+                color="#999"
+                style={{marginHorizontal: 10}}
+                onPress={() => navigation.navigate('EditSpeaker')}
               />
-              <Text style={{fontSize: 20, marginHorizontal: 16, flex: 1}}>
-                {item.key}
-              </Text>
-              {adminToken?.token && item.key === 'Speakers' && (
-                <Ionicons
-                  name="md-add"
-                  size={24}
-                  color="#999"
-                  style={{marginHorizontal: 10}}
-                  onPress={() => navigation.navigate('EditSpeaker')}
-                />
-              )}
-              <Ionicons name="ios-arrow-forward" size={24} color="#999" />
-            </View>
-          </LinkButton>
-        )}
-      />
+            )}
+            <Ionicons name="ios-arrow-forward" size={24} color="#999" />
+          </View>
+        </LinkButton>
+      ))}
       <View style={{alignItems: 'center'}}>
         {adminToken?.token ? (
           <TouchableOpacity onPress={logout}>
@@ -178,7 +165,7 @@ function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
           </Link>
         )}
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

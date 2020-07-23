@@ -20,6 +20,7 @@ import Speakers from './Speakers';
 import Sponsors from './Sponsors';
 import StaffCheckinLists from './StaffCheckinLists';
 import TicketInstructions from './TicketInstructions';
+import Tickets from './Tickets';
 
 export default {
   Home,
@@ -44,4 +45,5 @@ export default {
   Social,
   Invoice,
   CallForPaper,
+  Tickets,
 };
