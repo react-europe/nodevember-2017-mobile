@@ -21,6 +21,7 @@ function MenuNavigator() {
       <Stack.Screen name="AttendeeDetail" component={Screens.AttendeeDetail} />
       <Stack.Screen name="Editions" component={Screens.Editions} />
       <Stack.Screen name="EditEvent" component={EditEventNavigator} />
+      <Stack.Screen name="Tickets" component={Screens.Tickets} />
       <Stack.Screen name="SignIn" component={Screens.SignIn} />
     </Stack.Navigator>
   );
