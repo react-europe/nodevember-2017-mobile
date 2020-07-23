@@ -1,9 +1,10 @@
 import {gql} from 'apollo-boost';
 import React, {useState, useEffect, useContext} from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import {View, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
 import {Text} from 'react-native-paper';
 import {useRecoilValue} from 'recoil';
 
+import LinkButton from '../components/LinkButton';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
 import {AdminTicket} from '../typings/data';
@@ -24,18 +25,24 @@ const ADMIN_GET_TICKETS = gql`
 function Ticket({ticket}: {ticket: AdminTicket}) {
   return (
     <View style={styles.row}>
-      <Text>{ticket.name}</Text>
+      <LinkButton
+        style={styles.linkButton}
+        to={'/menu/edit-ticket?ticketId=' + ticket.id}>
+        <Text>{ticket.name}</Text>
+      </LinkButton>
     </View>
   );
 }
 
 export default function Tickets() {
   const [tickets, setTickets] = useState<AdminTicket[]>([]);
+  const [loading, setLoading] = useState(true);
   const {event} = useContext(DataContext);
   const adminToken = useRecoilValue(adminTokenState);
 
   async function fetchTickets() {
     if (!adminToken?.token || !event?.id) {
+      setLoading(false);
       return;
     }
     try {
@@ -51,6 +58,7 @@ export default function Tickets() {
     } catch (e) {
       console.log('ERROR: ', e);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -61,6 +69,13 @@ export default function Tickets() {
     return <Ticket ticket={item} />;
   };
 
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator animating />
+      </View>
+    );
+  }
   return (
     <FlatList
       data={tickets}
@@ -83,22 +98,10 @@ const styles = StyleSheet.create({
   },
   linkButton: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  rowData: {
-    flex: 1,
   },
   loader: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  sectionHeader: {
-    paddingHorizontal: 10,
-    paddingTop: 7,
-    paddingBottom: 5,
-    backgroundColor: '#eee',
-    borderWidth: 1,
-    borderColor: '#eee',
   },
 });
