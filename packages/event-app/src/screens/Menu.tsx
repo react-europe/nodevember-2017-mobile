@@ -115,7 +115,7 @@ function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
       <StatusBar barStyle="light-content" />
       <MenuHeader />
       {screens.map((screen) => (
-        <LinkButton to={'/' + screen.key}>
+        <LinkButton to={'/' + screen.key} key={screen.key}>
           <View
             style={{
               paddingVertical: 12,

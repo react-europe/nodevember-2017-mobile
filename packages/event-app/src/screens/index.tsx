@@ -10,6 +10,7 @@ import Invoice from './EditEvent/Invoice';
 import Main from './EditEvent/Main';
 import Social from './EditEvent/Social';
 import EditSpeaker from './EditSpeaker';
+import EditTicket from './EditTicket';
 import Editions from './Edtions';
 import Home from './Home';
 import Menu from './Menu';
@@ -46,4 +47,5 @@ export default {
   Invoice,
   CallForPaper,
   Tickets,
+  EditTicket,
 };
