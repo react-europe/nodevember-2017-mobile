@@ -1,4 +1,3 @@
-import {gql} from 'apollo-boost';
 import React, {useEffect, useContext, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {View, StyleSheet, ScrollView, Alert} from 'react-native';
@@ -16,6 +15,7 @@ import {SemiBoldText} from '../components/StyledText';
 import DateTimePicker from '../components/dateTimePicker';
 import DataContext from '../context/DataContext';
 import {adminTokenState} from '../context/adminTokenState';
+import {GET_TICKET_INFO, UPDATE_TICKET, CREATE_TICKET} from '../data/tickets';
 import {AdminTicket} from '../typings/data';
 import {MenuTabProps} from '../typings/navigation';
 import client from '../utils/gqlClient';
@@ -29,73 +29,8 @@ export default function EditSpeaker(props: MenuTabProps<'EditTicket'>) {
   const [endDate, setEndDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const {route, navigation} = props;
+  const ticketId = route.params?.ticketId;
   const {colors} = useTheme();
-
-  const GET_TICKET_INFO = gql`
-    query Tickets($id: Int!, $token: String!, $ticketId: Int!) {
-      adminEvents(id: $id, token: $token) {
-        tickets(ticketId: $ticketId) {
-          name
-          description
-          quantity
-          price
-          maxPerOrder
-          startDate
-          endDate
-          thankYouText
-          mobileMessage
-          includeVat
-          showVat
-          showDaysLeft
-          showTicketsLeft
-          showTicketsBeforeStart
-          showTicketsPriceBeforeStart
-        }
-      }
-    }
-  `;
-
-  const UPDATE_TICKET = gql`
-    mutation UpdateTickets(
-      $id: Int!
-      $token: String!
-      $name: String!
-      $description: String!
-      $quantity: Int!
-      $price: Int!
-      $maxPerOrder: Int!
-      $startDate: DateType!
-      $endDate: DateType!
-      $thankYouText: String!
-      $includeVat: Boolean!
-      $showVat: Boolean!
-      $showDaysLeft: Boolean!
-      $showTicketsLeft: Boolean!
-      $showTicketsBeforeStart: Boolean!
-      $showTicketsPriceBeforeStart: Boolean!
-    ) {
-      updateTicket(
-        id: $id
-        token: $token
-        name: $name
-        description: $description
-        quantity: $quantity
-        price: $price
-        maxPerOrder: $maxPerOrder
-        startDate: $startDate
-        endDate: $endDate
-        thankYouText: $thankYouText
-        includeVat: $includeVat
-        showVat: $showVat
-        showDaysLeft: $showDaysLeft
-        showTicketsLeft: $showTicketsLeft
-        showTicketsBeforeStart: $showTicketsBeforeStart
-        showTicketsPriceBeforeStart: $showTicketsPriceBeforeStart
-      ) {
-        name
-      }
-    }
-  `;
 
   async function fetchSpeakerInfo() {
     try {
@@ -105,7 +40,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditTicket'>) {
         variables: {
           id: event?.id,
           token: adminToken?.token,
-          ticketId: route.params?.ticketId,
+          ticketId,
         },
       });
       const ticketInfo: AdminTicket = result.data.adminEvents.tickets[0];
@@ -130,15 +65,16 @@ export default function EditSpeaker(props: MenuTabProps<'EditTicket'>) {
   }, [adminToken, event]);
 
   async function onSubmit(data: any) {
-    data.price = parseInt(data.price, 10) * 10000;
-    data.quantity = parseInt(data.quantity, 10);
-    data.maxPerOrder = parseInt(data.maxPerOrder, 10);
     setLoading(true);
+    data.price = parseInt(data.price, 10) * 10000 || 0;
+    data.quantity = parseInt(data.quantity, 10) || 0;
+    data.maxPerOrder = parseInt(data.maxPerOrder, 10) || 0;
+    const id = ticketId ? ticketId : event?.id;
     try {
       await client.mutate({
-        mutation: UPDATE_TICKET,
+        mutation: ticketId ? UPDATE_TICKET : CREATE_TICKET,
         variables: {
-          id: route.params?.ticketId,
+          id,
           token: adminToken?.token,
           startDate: startDate.toString(),
           endDate: endDate.toString(),
@@ -368,7 +304,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditTicket'>) {
       <View style={styles.buttonContainer}>
         <PrimaryButton onPress={handleSubmit(onSubmit)}>
           <SemiBoldText fontSize="md" TextColorAccent>
-            Update
+            {ticketId ? 'Update' : 'Create'}
           </SemiBoldText>
         </PrimaryButton>
       </View>
