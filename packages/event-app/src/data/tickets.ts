@@ -36,6 +36,7 @@ const UPDATE_TICKET = gql`
     $startDate: DateType!
     $endDate: DateType!
     $thankYouText: String!
+    $mobileMessage: String!
     $includeVat: Boolean!
     $showVat: Boolean!
     $showDaysLeft: Boolean!
@@ -54,6 +55,7 @@ const UPDATE_TICKET = gql`
       startDate: $startDate
       endDate: $endDate
       thankYouText: $thankYouText
+      mobileMessage: $mobileMessage
       includeVat: $includeVat
       showVat: $showVat
       showDaysLeft: $showDaysLeft
@@ -72,12 +74,13 @@ const CREATE_TICKET = gql`
     $token: String!
     $name: String!
     $description: String
-    $quantity: Int
-    $price: Int
-    $maxPerOrder: Int
-    $startDate: DateType
-    $endDate: DateType
+    $quantity: Int!
+    $price: Int!
+    $maxPerOrder: Int!
+    $startDate: DateType!
+    $endDate: DateType!
     $thankYouText: String
+    $mobileMessage: String
     $includeVat: Boolean
     $showVat: Boolean
     $showDaysLeft: Boolean
@@ -96,6 +99,7 @@ const CREATE_TICKET = gql`
       startDate: $startDate
       endDate: $endDate
       thankYouText: $thankYouText
+      mobileMessage: $mobileMessage
       includeVat: $includeVat
       showVat: $showVat
       showDaysLeft: $showDaysLeft
