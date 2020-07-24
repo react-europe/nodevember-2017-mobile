@@ -1,7 +1,8 @@
 import {gql} from 'apollo-boost';
-import React, {useState, useEffect, useContext} from 'react';
+import Fuse from 'fuse.js';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
-import {Text, ActivityIndicator} from 'react-native-paper';
+import {Text, ActivityIndicator, Searchbar} from 'react-native-paper';
 import {useRecoilValue} from 'recoil';
 
 import LinkButton from '../components/LinkButton';
@@ -35,10 +36,33 @@ function Ticket({ticket}: {ticket: AdminTicket}) {
 }
 
 export default function Tickets() {
+  /* Fuse.js config */
+  const options = {
+    keys: ['name', 'description'],
+    threshold: 0.4,
+  };
+
   const [tickets, setTickets] = useState<AdminTicket[]>([]);
   const [loading, setLoading] = useState(true);
   const {event} = useContext(DataContext);
   const adminToken = useRecoilValue(adminTokenState);
+  const [searchQuery, setSearchQuery] = useState('');
+  const allTickets = useRef<AdminTicket[]>([]);
+  const fuse = useRef<any>();
+
+  function updateTickets() {
+    if (searchQuery.length === 0) {
+      setTickets(allTickets.current);
+    } else {
+      let result: any = fuse.current.search(searchQuery);
+      result = result.map((match: any) => match.item);
+      setTickets(result);
+    }
+  }
+
+  useEffect(() => {
+    updateTickets();
+  }, [searchQuery]);
 
   async function fetchTickets() {
     if (!adminToken?.token || !event?.id) {
@@ -55,6 +79,9 @@ export default function Tickets() {
         },
       });
       setTickets(result.data.adminEvents.tickets);
+      allTickets.current = result.data.adminEvents.tickets;
+      fuse.current = new Fuse(result.data.adminEvents.tickets, options);
+      updateTickets();
     } catch (e) {
       console.log('ERROR: ', e);
     }
@@ -69,6 +96,8 @@ export default function Tickets() {
     return <Ticket ticket={item} />;
   };
 
+  const onChangeSearch = (query: string) => setSearchQuery(query);
+
   if (loading) {
     return (
       <View style={styles.loader}>
@@ -77,13 +106,20 @@ export default function Tickets() {
     );
   }
   return (
-    <FlatList
-      data={tickets}
-      renderItem={renderItem}
-      keyExtractor={(item, index) =>
-        item.id ? item.id.toString() : index.toString()
-      }
-    />
+    <>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={searchQuery}
+      />
+      <FlatList
+        data={tickets}
+        renderItem={renderItem}
+        keyExtractor={(item, index) =>
+          item.id ? item.id.toString() : index.toString()
+        }
+      />
+    </>
   );
 }
 
