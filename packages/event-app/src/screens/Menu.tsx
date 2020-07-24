@@ -68,22 +68,27 @@ function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
   const {event} = useContext(DataContext);
   const [adminToken, setAdminToken] = useRecoilState(adminTokenState);
 
-  let screens: {key: keyof MenuStackParamList; icon: string}[] = [
-    {key: 'Speakers', icon: 'ios-microphone'},
-    {key: 'Crew', icon: 'ios-information-circle'},
-    {key: 'Sponsors', icon: 'ios-beer'},
-    {key: 'Attendees', icon: 'ios-people'},
+  let screens: {
+    key: keyof MenuStackParamList;
+    icon: string;
+    adminAdd: string | null;
+  }[] = [
+    {key: 'Speakers', icon: 'ios-microphone', adminAdd: '/menu/EditSpeaker'},
+    {key: 'Crew', icon: 'ios-information-circle', adminAdd: null},
+    {key: 'Sponsors', icon: 'ios-beer', adminAdd: null},
+    {key: 'Attendees', icon: 'ios-people', adminAdd: null},
     {
       key: 'Editions',
       icon: Platform.OS === 'ios' ? 'ios-git-branch' : 'md-git-branch',
+      adminAdd: null,
     },
   ];
 
   if (adminToken?.token) {
     screens = [
       ...screens,
-      {key: 'EditEvent', icon: 'ios-cog'},
-      {key: 'Tickets', icon: 'ios-albums'},
+      {key: 'EditEvent', icon: 'ios-cog', adminAdd: null},
+      {key: 'Tickets', icon: 'ios-albums', adminAdd: '/menu/EditTicket'},
     ];
   }
 
@@ -131,14 +136,10 @@ function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
             <Text style={{fontSize: 20, marginHorizontal: 16, flex: 1}}>
               {screen.key}
             </Text>
-            {adminToken?.token && screen.key === 'Speakers' && (
-              <Ionicons
-                name="md-add"
-                size={24}
-                color="#999"
-                style={{marginHorizontal: 10}}
-                onPress={() => navigation.navigate('EditSpeaker')}
-              />
+            {adminToken?.token && screen.adminAdd && (
+              <Link to={screen.adminAdd} style={{marginHorizontal: 10}}>
+                <Ionicons name="md-add" size={24} color="#999" />
+              </Link>
             )}
             <Ionicons name="ios-arrow-forward" size={24} color="#999" />
           </View>

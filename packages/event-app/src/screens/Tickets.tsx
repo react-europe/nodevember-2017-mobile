@@ -1,7 +1,7 @@
 import {gql} from 'apollo-boost';
 import React, {useState, useEffect, useContext} from 'react';
-import {View, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
-import {Text} from 'react-native-paper';
+import {View, FlatList, StyleSheet} from 'react-native';
+import {Text, ActivityIndicator} from 'react-native-paper';
 import {useRecoilValue} from 'recoil';
 
 import LinkButton from '../components/LinkButton';

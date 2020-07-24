@@ -155,7 +155,7 @@ export type MenuStackParamList = {
   Editions: undefined;
   EditEvent: undefined;
   Tickets: undefined;
-  EditTicket: {ticketId?: number};
+  EditTicket?: {ticketId?: number};
   SignIn: undefined;
 };
 
