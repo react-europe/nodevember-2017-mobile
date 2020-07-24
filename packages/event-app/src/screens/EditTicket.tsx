@@ -101,7 +101,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditTicket'>) {
     try {
       const result = await client.query({
         query: GET_TICKET_INFO,
-        fetchPolicy: 'network-only',
+        fetchPolicy: 'no-cache',
         variables: {
           id: event?.id,
           token: adminToken?.token,
@@ -147,7 +147,9 @@ export default function EditSpeaker(props: MenuTabProps<'EditTicket'>) {
           showDaysLeft: ticket?.showDaysLeft,
           showTicketsLeft: ticket?.showTicketsLeft,
           showTicketsBeforeStart: ticket?.showTicketsBeforeStart,
-          showTicketsPriceBeforeStart: ticket?.showTicketsPriceBeforeStart,
+          showTicketsPriceBeforeStart: ticket?.showTicketsBeforeStart
+            ? ticket?.showTicketsPriceBeforeStart
+            : false,
           ...data,
         },
       });
@@ -281,7 +283,7 @@ export default function EditSpeaker(props: MenuTabProps<'EditTicket'>) {
         render={({onChange, onBlur, value}) => (
           <TextInput
             style={styles.input}
-            label="mobile message"
+            label="Mobile message"
             onBlur={onBlur}
             onChangeText={(value) => onChange(value)}
             value={value}
@@ -351,16 +353,18 @@ export default function EditSpeaker(props: MenuTabProps<'EditTicket'>) {
           value={ticket?.showTicketsBeforeStart || false}
         />
       </View>
-      <View style={styles.switchContainer}>
-        <Text>Show tickets price before start</Text>
-        <Switch
-          trackColor={{false: '#767577', true: colors.primary}}
-          thumbColor="#f4f3f4"
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={() => updateCheckBox('showTicketsPriceBeforeStart')}
-          value={ticket?.showTicketsPriceBeforeStart || false}
-        />
-      </View>
+      {ticket?.showTicketsBeforeStart && (
+        <View style={styles.switchContainer}>
+          <Text>Show tickets price before start</Text>
+          <Switch
+            trackColor={{false: '#767577', true: colors.primary}}
+            thumbColor="#f4f3f4"
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={() => updateCheckBox('showTicketsPriceBeforeStart')}
+            value={ticket?.showTicketsPriceBeforeStart || false}
+          />
+        </View>
+      )}
       <View style={styles.buttonContainer}>
         <PrimaryButton onPress={handleSubmit(onSubmit)}>
           <SemiBoldText fontSize="md" TextColorAccent>
