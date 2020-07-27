@@ -27,7 +27,7 @@ function CheckinListItem({checkinList}: {checkinList: CheckinList}) {
     <View style={styles.row}>
       <LinkButton
         style={styles.linkButton}
-        to={'/menu/edit-ticket?ticketId=' + checkinList.id}>
+        to={'/menu/edit-checkin-list?checkinListId=' + checkinList.id}>
         <Text>{checkinList.name}</Text>
       </LinkButton>
     </View>

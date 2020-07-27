@@ -5,6 +5,7 @@ import CheckinLists from './CheckinLists';
 import Contacts from './Contacts';
 import Crew from './Crew';
 import Details from './Details';
+import EditCheckinList from './EditCheckinList';
 import CallForPaper from './EditEvent/CallForPaper';
 import AdminDetails from './EditEvent/Details';
 import Invoice from './EditEvent/Invoice';
@@ -50,4 +51,5 @@ export default {
   Tickets,
   EditTicket,
   CheckinLists,
+  EditCheckinList,
 };
