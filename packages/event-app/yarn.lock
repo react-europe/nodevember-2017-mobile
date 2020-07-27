@@ -11351,6 +11351,11 @@ react-native-screens@~2.2.0:
   dependencies:
     debounce "^1.2.0"
 
+react-native-sectioned-multi-select@^0.7.7:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/react-native-sectioned-multi-select/-/react-native-sectioned-multi-select-0.7.7.tgz#81b3dbfb50c72eb27e095b0e4f1c6ae34f9bf669"
+  integrity sha512-+34+PgQ7K4nfdn6dAFIfInj1dXpaLOcSSaNqQeNpByQUPoFcF29YeeNpw/h+vI7aYUFnmjuD6O7DBO9eihjC8A==
+
 react-native-svg@11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-11.0.1.tgz#e92e7e9f9cb2604333fd5014fd4edcf62fea6496"

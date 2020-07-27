@@ -92,7 +92,7 @@ function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
       {
         key: 'CheckinLists',
         icon: 'md-checkbox-outline',
-        adminAdd: '/menu/EditTicket',
+        adminAdd: '/menu/EditCheckinList',
       },
     ];
   }

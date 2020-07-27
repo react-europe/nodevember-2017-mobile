@@ -67,6 +67,13 @@ export default function getLinkingConfig(isLargeScreen: boolean) {
                     ticketId: (ticketId: string) => JSON.parse(ticketId),
                   },
                 },
+                EditCheckinList: {
+                  path: 'edit-checkin-list',
+                  parse: {
+                    checkinListId: (checkinListId: string) =>
+                      JSON.parse(checkinListId),
+                  },
+                },
                 Crew: 'crew',
                 Sponsors: 'sponsors',
                 Attendees: 'attendees',
