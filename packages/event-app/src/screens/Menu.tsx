@@ -89,6 +89,11 @@ function MenuScreen({navigation}: {navigation: MenuNavigationProp<'Menu'>}) {
       ...screens,
       {key: 'EditEvent', icon: 'ios-cog', adminAdd: null},
       {key: 'Tickets', icon: 'ios-albums', adminAdd: '/menu/EditTicket'},
+      {
+        key: 'CheckinLists',
+        icon: 'md-checkbox-outline',
+        adminAdd: '/menu/EditTicket',
+      },
     ];
   }
 

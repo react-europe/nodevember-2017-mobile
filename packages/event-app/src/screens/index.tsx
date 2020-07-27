@@ -1,6 +1,7 @@
 import AttendeeDetail from './AttendeeDetail';
 import Attendees from './Attendees';
 import CheckedInAttendeeInfo from './CheckedInAttendeeInfo';
+import CheckinLists from './CheckinLists';
 import Contacts from './Contacts';
 import Crew from './Crew';
 import Details from './Details';
@@ -48,4 +49,5 @@ export default {
   CallForPaper,
   Tickets,
   EditTicket,
+  CheckinLists,
 };
