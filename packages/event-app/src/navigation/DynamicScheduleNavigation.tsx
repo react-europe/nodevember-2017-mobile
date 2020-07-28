@@ -1,15 +1,34 @@
+import {Ionicons} from '@expo/vector-icons';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import React, {useContext} from 'react';
+import {Platform} from 'react-native';
 
 import DataContext from '../context/DataContext';
 import Screens from '../screens';
 import {ScheduleDay} from '../typings/data';
-import {ScheduleDayTabParamList} from '../typings/navigation';
+import {
+  ScheduleDayTabParamList,
+  ScheduleNavigationProp,
+} from '../typings/navigation';
 import {occurence} from '../utils/array';
 
 const Tab = createMaterialTopTabNavigator<ScheduleDayTabParamList>();
 
-export default function DynamicScheduleNavigation() {
+export default function DynamicScheduleNavigation({
+  navigation,
+}: {
+  navigation: ScheduleNavigationProp;
+}) {
+  navigation.setOptions({
+    headerRight: () => (
+      <Ionicons
+        name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+        size={24}
+        color="#FFF"
+        style={{marginRight: 10}}
+      />
+    ),
+  });
   const {event} = useContext(DataContext);
   let fullSchedule: ScheduleDay[] = [];
   if (event?.groupedSchedule) {
