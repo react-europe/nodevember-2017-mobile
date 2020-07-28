@@ -15,8 +15,9 @@ type ScheduleModalProps = {
 export default function ScheduleModal(props: ScheduleModalProps) {
   /* Fuse.js config */
   const options = {
-    keys: ['title'],
+    keys: ['slots.title'],
     threshold: 0.4,
+    includeMatches: true,
   };
   const [searchQuery, setSearchQuery] = useState('');
   const {event} = useContext(DataContext);
@@ -64,15 +65,15 @@ export default function ScheduleModal(props: ScheduleModalProps) {
         />
         <ScrollView>
           <List.AccordionGroup>
-            {schedule?.map((day) => {
+            {schedule?.map((day, index) => {
               const date = new Date(day?.date);
-              console.log(date.getDate());
               return (
                 <List.Accordion
+                  key={index}
                   title={`${day?.title} - ${date.getDate()}`}
                   id={day?.date}>
-                  {day?.slots?.map((slot) => {
-                    return <List.Item title={slot?.title} />;
+                  {day?.slots?.map((slot, index) => {
+                    return <List.Item key={index} title={slot?.title} />;
                   })}
                 </List.Accordion>
               );
