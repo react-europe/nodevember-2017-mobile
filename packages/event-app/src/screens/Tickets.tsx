@@ -2,7 +2,13 @@ import {gql} from 'apollo-boost';
 import Fuse from 'fuse.js';
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
-import {Text, ActivityIndicator, Searchbar} from 'react-native-paper';
+import {
+  Text,
+  ActivityIndicator,
+  Searchbar,
+  ProgressBar,
+  useTheme,
+} from 'react-native-paper';
 import {useRecoilValue} from 'recoil';
 
 import LinkButton from '../components/LinkButton';
@@ -18,18 +24,30 @@ const ADMIN_GET_TICKETS = gql`
         id
         name
         description
+        quantitySold
+        quantity
       }
     }
   }
 `;
 
 function Ticket({ticket}: {ticket: AdminTicket}) {
+  const {colors} = useTheme();
+  let progress = 0;
+  if (ticket.quantitySold && ticket.quantity) {
+    progress = ticket.quantitySold / ticket.quantity;
+  }
   return (
     <View style={styles.row}>
       <LinkButton
         style={styles.linkButton}
         to={'/menu/edit-ticket?ticketId=' + ticket.id}>
         <Text>{ticket.name}</Text>
+        <ProgressBar
+          style={{marginTop: 4}}
+          progress={progress}
+          color={colors.primary}
+        />
       </LinkButton>
     </View>
   );
