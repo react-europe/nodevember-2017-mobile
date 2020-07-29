@@ -5,7 +5,7 @@ import {Modal, StyleSheet, View, Platform, ScrollView} from 'react-native';
 import {Searchbar, List} from 'react-native-paper';
 
 import DataContext from '../context/DataContext';
-import {ScheduleDay} from '../typings/data';
+import {ScheduleDay, Schedule} from '../typings/data';
 
 type ScheduleModalProps = {
   modalVisible: boolean;
@@ -29,9 +29,22 @@ export default function ScheduleModal(props: ScheduleModalProps) {
     if (searchQuery.length === 0) {
       setSchedule(event.groupedSchedule as ScheduleDay[]);
     } else {
-      let result: any = fuse.current.search(searchQuery);
-      result = result.map((match: any) => match.item);
-      setSchedule(result);
+      const result: any = fuse.current.search(searchQuery);
+      let ScheduleCpy = JSON.parse(JSON.stringify(result));
+      ScheduleCpy = ScheduleCpy.map((match: any) => {
+        const selectedIndex = match.matches.map((match: any) => match.refIndex);
+        const selected = match.item.slots.filter(
+          (slot: Schedule, index: number) => {
+            if (selectedIndex.includes(index)) {
+              return true;
+            }
+            return false;
+          }
+        );
+        match.item.slots = selected;
+        return match.item;
+      });
+      setSchedule(ScheduleCpy);
     }
   }
 
