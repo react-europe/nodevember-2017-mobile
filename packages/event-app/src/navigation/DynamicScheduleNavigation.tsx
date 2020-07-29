@@ -1,7 +1,7 @@
 import {Ionicons} from '@expo/vector-icons';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import React, {useContext, useState} from 'react';
-import {Platform} from 'react-native';
+import {Platform, TouchableOpacity} from 'react-native';
 import {View} from 'react-native-animatable';
 
 import ScheduleModal from '../components/ScheduleModal';
@@ -24,13 +24,14 @@ export default function DynamicScheduleNavigation({
   const [modalVisible, setModalVisible] = useState(false);
   navigation.setOptions({
     headerRight: () => (
-      <Ionicons
-        name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
-        size={24}
-        color="#FFF"
-        style={{marginRight: 10}}
-        onPress={() => setModalVisible(!modalVisible)}
-      />
+      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+        <Ionicons
+          name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+          size={24}
+          color="#FFF"
+          style={{marginRight: 10}}
+        />
+      </TouchableOpacity>
     ),
   });
   const {event} = useContext(DataContext);

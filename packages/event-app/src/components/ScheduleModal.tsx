@@ -1,12 +1,18 @@
 import {Ionicons} from '@expo/vector-icons';
 import Fuse from 'fuse.js';
 import React, {useState, useContext, useEffect, useRef} from 'react';
-import {Modal, StyleSheet, View, Platform, ScrollView} from 'react-native';
+import {
+  Modal,
+  StyleSheet,
+  View,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {Searchbar, List} from 'react-native-paper';
 
 import DataContext from '../context/DataContext';
 import {ScheduleDay, Schedule} from '../typings/data';
-
 type ScheduleModalProps = {
   modalVisible: boolean;
   setModalVisible: (visible: boolean) => void;
@@ -62,15 +68,19 @@ export default function ScheduleModal(props: ScheduleModalProps) {
   return (
     <Modal animationType="slide" transparent visible={props.modalVisible}>
       <View style={styles.modalView}>
-        <Ionicons
-          name={Platform.OS === 'ios' ? 'ios-close' : 'md-close'}
-          size={24}
-          color="black"
-          style={{margin: 10}}
+        <TouchableOpacity
           onPress={() => {
+            console.log('CLOSE');
             props.setModalVisible(!props.modalVisible);
-          }}
-        />
+          }}>
+          <Ionicons
+            name={Platform.OS === 'ios' ? 'ios-close' : 'md-close'}
+            size={24}
+            color="black"
+            style={{margin: 10}}
+          />
+        </TouchableOpacity>
+
         <Searchbar
           placeholder="Search"
           onChangeText={(text) => setSearchQuery(text)}
