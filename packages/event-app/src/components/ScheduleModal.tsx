@@ -70,7 +70,6 @@ export default function ScheduleModal(props: ScheduleModalProps) {
       <View style={styles.modalView}>
         <TouchableOpacity
           onPress={() => {
-            console.log('CLOSE');
             props.setModalVisible(!props.modalVisible);
           }}>
           <Ionicons

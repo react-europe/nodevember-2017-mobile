@@ -22,18 +22,20 @@ export default function DynamicScheduleNavigation({
   navigation: ScheduleNavigationProp;
 }) {
   const [modalVisible, setModalVisible] = useState(false);
-  navigation.setOptions({
-    headerRight: () => (
-      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-        <Ionicons
-          name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
-          size={24}
-          color="#FFF"
-          style={{marginRight: 10}}
-        />
-      </TouchableOpacity>
-    ),
-  });
+  if (Platform.OS !== 'web') {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+          <Ionicons
+            name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+            size={24}
+            color="#FFF"
+            style={{marginRight: 10}}
+          />
+        </TouchableOpacity>
+      ),
+    });
+  }
   const {event} = useContext(DataContext);
   let fullSchedule: ScheduleDay[] = [];
   if (event?.groupedSchedule) {
@@ -42,10 +44,12 @@ export default function DynamicScheduleNavigation({
 
   return (
     <View style={{flex: 1}}>
-      <ScheduleModal
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-      />
+      {Platform.OS !== 'web' && (
+        <ScheduleModal
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+      )}
       <Tab.Navigator
         tabBarOptions={{
           style: {backgroundColor: '#333'},
