@@ -21,32 +21,32 @@ type ScheduleModalProps = {
 export default function ScheduleModal(props: ScheduleModalProps) {
   /* Fuse.js config */
   const options = {
-    keys: ['slots.title'],
+    keys: ['slots.searchableInfos'],
     threshold: 0.4,
     includeMatches: true,
   };
   const [searchQuery, setSearchQuery] = useState('');
   const {event} = useContext(DataContext);
+  const originalSchedule = useRef<any>();
   const [schedule, setSchedule] = useState<ScheduleDay[]>([]);
   const fuse = useRef<any>();
 
   function updateSlots() {
-    if (!event?.groupedSchedule) return;
+    if (!originalSchedule.current) return;
     if (searchQuery.length === 0) {
-      setSchedule(event.groupedSchedule as ScheduleDay[]);
+      setSchedule(originalSchedule.current as ScheduleDay[]);
     } else {
       const result: any = fuse.current.search(searchQuery);
       let ScheduleCpy = JSON.parse(JSON.stringify(result));
       ScheduleCpy = ScheduleCpy.map((match: any) => {
-        const selectedIndex = match.matches.map((match: any) => match.refIndex);
-        const selected = match.item.slots.filter(
-          (slot: Schedule, index: number) => {
-            if (selectedIndex.includes(index)) {
-              return true;
-            }
-            return false;
+        const selectedValues = match.matches.map((match: any) => match.value);
+        console.log(match.matches);
+        const selected = match.item.slots.filter((slot: Schedule) => {
+          for (const i in selectedValues) {
+            if (slot.searchableInfos.includes(selectedValues[i])) return true;
           }
-        );
+          return false;
+        });
         match.item.slots = selected;
         return match.item;
       });
@@ -60,7 +60,21 @@ export default function ScheduleModal(props: ScheduleModalProps) {
 
   useEffect(() => {
     if (event?.groupedSchedule) {
-      fuse.current = new Fuse(event?.groupedSchedule, options);
+      const schedule = event.groupedSchedule.map((day) => {
+        const slots = day?.slots.map((slot) => {
+          const speakersInfos = slot?.speakers.map((speaker) => {
+            return [speaker?.github, speaker?.twitter, speaker?.name];
+          });
+          let searchableInfos = [slot?.description, slot?.title];
+          if (speakersInfos) {
+            searchableInfos = [...searchableInfos, ...speakersInfos?.flat()];
+          }
+          return {...slot, searchableInfos};
+        });
+        return {...day, slots};
+      });
+      originalSchedule.current = schedule;
+      fuse.current = new Fuse(schedule, options);
       updateSlots();
     }
   }, [event]);
